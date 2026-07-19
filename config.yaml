@@ -25,3 +25,54 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: dgs-recon
+      description: 帮我查找基于3dgs的3D重建的论文，以及对这些算法的加速器的论文
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: 3D Gaussian splatting
+          keyword_cn: 3D高斯泼溅
+          query: 3D Gaussian splatting reconstruction
+        - keyword: hardware accelerator
+          keyword_cn: 硬件加速器
+          query: hardware accelerator for 3D reconstruction
+        - keyword: FPGA implementation
+          keyword_cn: FPGA实现
+          query: FPGA implementation of Gaussian splatting
+        - keyword: ASIC design
+          keyword_cn: ASIC设计
+          query: ASIC design for neural rendering
+      intent_queries:
+        - query: 3D reconstruction using 3D Gaussian splatting
+          query_cn: 基于3D高斯泼溅的3D重建
+          enabled: true
+          source: manual
+          note: ''
+        - query: hardware accelerator designs for 3D Gaussian splatting
+          query_cn: 3D高斯泼溅的硬件加速器设计
+          enabled: true
+          source: manual
+          note: ''
+        - query: survey on Gaussian splatting acceleration techniques
+          query_cn: 高斯泼溅加速技术综述
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-07-19T09:25:34.893Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
