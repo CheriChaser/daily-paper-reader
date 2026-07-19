@@ -1,0 +1,653 @@
+Title: Calibrated Closed-Form Uncertainty for Radiative Gaussian Splatting in Sparse-View CT
+
+URL Source: https://arxiv.org/pdf/2607.13682v1
+
+Published Time: Thu, 16 Jul 2026 01:16:02 GMT
+
+Number of Pages: 19
+
+Markdown Content:
+# Calibrated Closed-Form Uncertainty for Radiative Gaussian Splatting in Sparse-View CT 
+
+Chulin Zhao 1∗ Yiran Xu 1∗† Shu Liu 21Dundee International Institute, Central South University 
+
+> 2
+
+Central South University 
+
+{2617944,2617300}@dundee.ac.uk sliu35@csu.edu.cn 
+
+Abstract 
+
+Radiative Gaussian splatting has made sparse-view CT reconstruction fast, but existing methods output point estimates with no notion of where the reconstruction can be trusted. We exploit a property of transmissive X-ray imaging that RGB splatting cannot claim — projection and voxelization are strictly linear in the per-Gaussian densities — to equip radiative Gaussians with a variational density posterior whose predictive variance propagates in closed form , exactly, in a single forward pass, in both volume space ( σ2(x) = ∑ 
+
+> i
+
+gi(x)2s2 
+
+> i
+
+) and projection space (Var [Ip] = ∑ 
+
+> i
+
+w2
+
+> i,p
+
+s2 
+
+> i
+
+). We present the first systematic calibration study for Gaussian-splatting CT (Spearman / AUSE / ECE with temperature scaling), showing that the resulting per-voxel uncertainty ranks true reconstruction error on 14 of 15 scenes of the official benchmark across three view budgets — 9 of 15 additionally meeting our magnitude-calibration target after a single temperature — while the perturbation-ensemble heuristic of concurrent work, transplanted to voxel space under the same protocol on our development scenes, does not (rank correlation as low as −0.08 ). We then dissect why uncalibrated acquisition scores can nevertheless select acceptable views, identifying three regimes — flat (isotropic, balanced), pathological (degenerate coverage), and anisotropic — and showing, in controlled single-scene testbeds, that principled uncertainty earns a measurable premium only in the last, motivating a coverage-gated, maturity-scheduled acquisition policy; the same calibrated posterior further points toward a dose-adaptive stopping rule, whose experimental validation we leave to future work. 
+
+# 1 Introduction 
+
+Sparse-view computed tomography (CT) reduces patient dose by acquiring few X-ray projections, at the cost of an ill-posed inverse problem: with the angular sampling well below the Nyquist rate, large regions of the reconstruction are interpolated rather than measured. Radiative 3D Gaussian splatting — most prominently R 2-Gaussian [ 12 ] — has made this regime fast and accurate, representing the attenuation field as a sum of anisotropic Gaussians and rendering it through a differentiable rasterizer. Yet every such method returns a single point estimate. It cannot say 
+
+where the reconstruction is trustworthy and where it is a confident guess — precisely the question a clinician, or any downstream decision, must answer before acting on a sparse-view volume. Uncertainty quantification is the natural remedy, but for Gaussian-splatting CT it is essentially unaddressed. The one concurrent effort in this space, the Perturbed Gaussian Ensemble of Wu et al. [10] , uses ensemble disagreement purely as an acquisition score for next-best-view selection: it perturbs low-density Gaussians, measures projection-space SSIM variance across replicas, and never validates that this signal corresponds to reconstruction error, nor produces a per-voxel uncertainty   
+
+> ∗Equal contribution. †Corresponding author: 2617300@dundee.ac.uk .
+
+1arXiv:2607.13682v1 [cs.CV] 15 Jul 2026 map. The broader Gaussian-splatting uncertainty literature is confined to RGB rendering, where alpha compositing is highly nonlinear in opacity: closed-form variance propagation [ 6 ] is therefore approximate, calibration is rarely evaluated, and none of it targets the transmissive physics of X-ray. Calibrated CT uncertainty has been demonstrated only for implicit neural representations [ 8 ], not for Gaussian splatting. Our starting point is a physical observation with an outsized consequence. Because X-rays are transmissive rather than reflective, both the rendered projection and the voxelized volume are 
+
+strictly linear in the per-Gaussian densities — there is no alpha compositing, no view-dependent occlusion. This linearity is the enabling property of everything that follows. If we lift each density to a Gaussian posterior, the predictive variance of the reconstruction is a variance of a weighted sum of independent variables, which has an exact closed form. We show this closed form is computable by the unchanged rasterizer and voxelizer through a simple algebraic identity (squaring a Gaussian kernel halves its covariance), so that both volume-space and projection-space uncertainty come out of a single extra forward pass, with no CUDA changes and no sampling. The same identity makes the Monte-Carlo estimator of concurrent work a special case: instantiated with their perturbation distribution’s per-Gaussian variances, our one-pass expression evaluates exactly the quantity their ensemble variance approximates with finite samples. Crucially, having a cheap, exact uncertainty is not the same as having a useful one. The central empirical contribution of this paper is to treat calibration — the correspondence between predicted uncertainty and true error — as a first-class deliverable, and to separate it cleanly from the acquisition task that has so far been used as its only proxy. We find the two come apart in an instructive way. Our variational posterior yields per-voxel uncertainty that tracks error well and, on most scenes, is repairable to good magnitude calibration by a single temperature — though five of fifteen official scenes resist a single global scalar (section 4.3); the perturbation heuristic, transplanted to voxel space under an identical protocol, does not — its rank correlation with error dips below zero on one scene, even though its temperature-scaled ECE looks acceptable, a textbook case for why calibration must be judged by rank and coverage metrics, not a single scalar. Yet the same heuristic does help view selection in its own experiments. Resolving this apparent paradox — an uncalibrated score that still selects acceptable views — leads to our second empirical contribution: a controlled dissection showing that view selection is a low-stakes decision except in identifiable regimes (degenerate coverage, and genuinely anisotropic content), that in the degenerate-coverage regime the heuristic largely functions as a coverage detector, which a free geometric rule can replace at no cost, and that its own schedule queries the score when the model is least mature. These findings prescribe an acquisition policy rather than a new score, which we instantiate and evaluate. 
+
+Contributions. 
+
+1. Exact closed-form uncertainty for radiative Gaussians. We lift per-Gaussian densities to a variational posterior and derive the exact predictive variance in both volume and projection space, computable by the unchanged rasterizer/voxelizer in a single forward pass. The strict linearity of X-ray rendering makes this propagation exact rather than approximate — a property RGB-domain splatting cannot claim — and subsumes the concurrent Monte-Carlo estimator: instantiated with its perturbation variances, the same identity evaluates that estimator’s infinite-sample limit exactly (sections 3.1 and 3.3). 2. The first systematic calibration study for Gaussian-splatting CT. Using Spearman, AUSE, and post-hoc-temperature ECE with a held-out fit/evaluation split, we quantify per-voxel uncertainty quality against ground-truth error across 15 official scenes at three view budgets, benchmarking our variational posterior against a deep-ensemble upper bound and against the 2concurrent perturbation heuristic transplanted to voxel space (sections 3.4, 4.2 and 4.3). 3. A mechanism account of when uncertainty helps acquisition. On controlled testbeds we characterize three view-selection regimes and show, with a view-level oracle, closed-loop four-arm study, and per-round schedule autopsy, that principled uncertainty earns a premium over free geometry only under anisotropic content — establishing that calibrated quantification and view selection are separable products (sections 4.7 and 4.8). 4. Coverage-gated, calibrated acquisition (CGCA). We turn the mechanism findings into a policy — guarantee coverage geometrically, score only on converged models, and spend a hyperparameter-free closed-form score where it earns a premium — and show it matches the concurrent heuristic’s acquisition gains at roughly one-tenth the scoring cost while, unlike any ranking heuristic, sharing a posterior that also supplies calibrated maps and points toward a dose-adaptive stopping rule (sections 3.5 and 5). 
+
+# 2 Related Work 
+
+Active view selection for radiance fields and tomography. Active view selection has been explored for natural-light radiance fields via Fisher information (FisherRF [ 4 ]) and ensemble disagreement (ActiveNeRF [ 5 ]), but these assume occlusion-bounded, view-dependent appearance and transfer poorly to the transmissive, isotropic physics of X-ray imaging; indeed, the diagonal-FIM approximation underlying FisherRF has been shown to degrade under the strong along-ray coupling of X-ray projection [ 10 ]. Most closely related, the concurrent Perturbed Gaussian Ensemble [ 10 ]selects X-ray views by stochastically scaling the densities of the lowest-density Gaussians and ranking candidates by the sample variance of projection-space SSIM across N =10 perturbed replicas. Their uncertainty is validated only indirectly, through downstream reconstruction quality: neither arXiv version of their paper reports uncertainty–error correspondence metrics (Spearman, AUSE, ECE), quantitatively compares the predicted uncertainty against reconstruction error, or produces per-voxel volumetric uncertainty maps. In contrast, we treat calibrated, closed-form, per-voxel density uncertainty as a first-class deliverable. Their Eq. 8 is, moreover, the Monte-Carlo estimator of our closed-form expression instantiated with their perturbation distribution’s per-Gaussian variances; the same one-pass identity evaluates its infinite-sample limit exactly. 
+
+Uncertainty and closed-form variance in Gaussian splatting. Closed-form variance com-positing has appeared in RGB-domain splatting — VarSplat [ 6 ] propagates per-splat appearance variance through alpha compositing via the law of total variance, and VBGS [ 7] derives conjugate closed-form updates for continual learning — but nonlinear alpha blending renders such predic-tive propagation approximate, the closed form in VBGS refers to parameter updates rather than predictive-variance propagation, and neither work evaluates calibration. Bayesian and variational treatments of 3DGS for RGB rendering are now emerging: Horseshoe Splatting [ 9] places a global– local Horseshoe prior on per-splat covariance scales and reports calibrated pixel-wise uncertainty via factorized variational inference, and rendering-aware Bayesian 3DGS with a Normal-Inverse-Wishart posterior over Gaussian geometry [ 3 ] produces native predictive intervals and drives acquisition. Both are RGB methods whose uncertainty lives on geometry/appearance under nonlinear rendering ;our posterior is over radiative density under strictly linear rendering , which is what makes our two-domain propagation exact rather than approximate, and our deliverable is per-voxel volumet-ric calibration for CT rather than per-pixel image uncertainty. Calibrated uncertainty for CT reconstruction has been demonstrated for implicit neural representations (UncertaINR [ 8 ]), not for 3Figure 1: Training and uncertainty pipeline. We extend R 2-Gaussian [ 12 ] with a variational density posterior ρi ∼ N (mi, s 2 
+
+> i
+
+) per Gaussian. Training renders reparameterized density samples through the unchanged rasterizer and applies a KL prior that anchors si where no ray constrains the density (Sec. 3.2). At evaluation, mean densities mi define the reconstruction ¯V , and the √2-scaling identity turns the same rasterizer/voxelizer into an exact one-pass evaluator of the predictive variance in both projection and volume space (Sec. 3.3). Gaussian splatting. 
+
+A note on “closed-form” in X-ray Gaussian splatting. The phrase closed-form has recently been used in this space for a different object: Exact-GS [ 11 ] and radioactive Gaussian ray tracing [ 2]derive closed-form/analytic projection integrals that remove the affine approximation of R 2-Gaussian and improve rendering accuracy. Their closed form concerns the forward rendering of the mean field; ours concerns the propagation of a posterior variance . The two are orthogonal and composable: a more exact forward model would only sharpen the mean our variance is computed around. To the best of our knowledge, no prior work on X-ray/CT radiative Gaussian splatting equips per-Gaussian densities with explicit posterior distributions, propagates them to volume and projection space in closed form — which the strict linearity of X-ray rendering makes exact rather than approximate — or evaluates the calibration of the result. 
+
+# 3 Method 
+
+3.1 Preliminaries: radiative Gaussians are linear in density 
+
+We build upon R 2-Gaussian [ 12 ] (fig. 1), which represents the attenuation field as a sum of radiative Gaussians . Each kernel defines a local Gaussian-shaped density with learnable central density ρi,4position pi ∈ R3, and covariance Σi = RiSiS⊤ 
+
+> i
+
+R⊤ 
+
+> i
+
+:
+
+D(x) = 
+
+> M∑
+> i=1
+
+ρi exp 
+
+> (
+
+− 12 (x − pi)⊤Σ−1 
+
+> i
+
+(x − pi)
+
+> )
+
+. (1) R2-Gaussian rectifies the integration bias of standard 3D Gaussian splatting and provides differen-tiable X-ray rasterization R and density voxelization V. The pixel value of a projection and the value at a voxel are strictly linear in the per-Gaussian densities: 
+
+Ip = ∑
+
+> i
+
+wi,p ρi, V (x) = ∑
+
+> i
+
+gi(x) ρi, (2) where gi(x) is the (density-independent) three-dimensional Gaussian kernel and wi,p = μi ˆGi(p)
+
+combines the two-dimensional screen-space kernel with the view-dependent integration factor 
+
+μ2 
+
+> i
+
+= 2 π det ( ˜Σi)/ det ( ˆΣi) from the EWA ray-space covariance [ 13 ]. Unlike RGB Gaussian splatting, where alpha compositing is highly nonlinear in opacity, Eq. (2) is a weighted sum—this linearity is the enabling property for closed-form uncertainty propagation in Sec. 3.3. 
+
+Backbone training. We adopt the R 2-Gaussian initialization (FDK volume), adaptive clone/split/prune, and photometric objective 
+
+LR2 = ∥Ir − Im∥1 + λssim 
+
+> (
+
+1 − SSIM( Ir, I m)) + λtv TV( Vtv ), (3) where Ir and Im are rendered and measured projections and Vtv is a tiny voxel patch for total-variation regularization. Unless stated otherwise, all backbone hyperparameters follow the official release. 
+
+3.2 A variational posterior over densities 
+
+Partial Bayes over densities. We lift each central density to a Gaussian posterior ρi ∼ N (mi, s 2 
+
+> i
+
+)
+
+while keeping positions and covariances as point estimates—a deliberate partial-Bayes choice. Density is the linear carrier of all outputs in Eq. (2) ; geometric ambiguity is partially absorbed into si,and, in exchange, propagation in Sec. 3.3 remains closed-form. Means and standard deviations are parameterized as mi = softplus (θmi ) and si = softplus (θsi ). The uncertainty parameter si is co-optimized with mi and follows clone/split/prune during adaptive density control. 
+
+Training objective. At each iteration we draw one reparameterized sample ˜ρi = mi + ϵisi,
+
+ϵi ∼ N (0 , 1) , clamp ˜ρi ≥ 0 to enforce non-negative density, and render/voxelize with ˜ρi in place of 
+
+ρi. Training minimizes the single-sample reparameterized, ELBO-inspired objective 
+
+L = ∑
+
+> views
+> [
+
+∥ ˆI − Iobs ∥1 + λd
+
+> (
+
+1 − SSIM( ˆI, I obs ))]
+
++ λtv TV + λKL KL (N (mi, s 2 
+
+> i
+
+) ∥ N (0 , σ 20 )), (4) with λKL linearly warmed up over the first 3,000 iterations. We use λKL = 10 −3, σ0 = 0 .5, and the R2-Gaussian defaults for all remaining weights and schedules. 5Role of the KL prior. The KL term is not decorative. For Gaussians that no ray constrains—the null space of sparse-view tomography—the data term provides no gradient to si, and the prior alone anchors si ≈ σ0. This is precisely how “uncertain where unobserved” arises. Increasing λKL from 0
+
+to 10 −2 monotonically improves both rank-calibration metrics and pulls the raw uncertainty scale toward truth (Spearman 0.643 → 0.694 , AUSE 0.371 → 0.300 , raw ECE 0.41 → 0.15 ; temperature-scaled ECE stays nearly flat; Table 5), confirming the mechanism. Final reconstructions and error maps use the posterior mean density mi; the small PSNR cost of variational training relative to R2-Gaussian is quantified in Sec. 4.4. 
+
+3.3 Exact closed-form propagation, zero CUDA changes 
+
+Derivation. Assuming independent ρi, the variance of a linear combination yields, exactly, 
+
+σ2(x) = ∑
+
+> i
+
+gi(x)2s2 
+
+> i
+
+, Var[ Ip] = ∑
+
+> i
+
+w2
+
+> i,p
+
+s2 
+
+> i
+
+. (5) Eq. (5) is the predictive variance of the linear forward model; it is not an approximation to alpha-composited RGB splatting. 
+
+Implementation without CUDA changes. Squaring a Gaussian kernel halves its covariance: 
+
+g2 
+
+> i
+
+= exp (− 12 d⊤(Σi/2) −1d), i.e., scale Si → Si/√2.
+
+• Volume domain (B2-vol). One voxelizer pass with (Si/√2, s 2 
+
+> i
+
+) returns σ2(x) exactly. 
+
+• Projection domain (B2-proj). Under the √2 scaling, μi → μi/√2; one rasterizer pass with (Si/√2, √2 μis2 
+
+> i
+
+) returns ∑ 
+
+> i
+
+w2
+
+> i,p
+
+s2 
+
+> i
+
+exactly. Rasterizers cull negligible contributions; because rendering is linear in density, we pre-scale the variance channel into the nominal dynamic range and divide the output back—an exact rescaling. 
+
+Monte Carlo reference (B1). We also estimate σ2(x) with S reparameterized density samples using the same clamping as training. Without clamping, this converges to Eq. (5) as S → ∞ .With clamping, B1 tracks the truncated predictive distribution used at train time and calibrates systematically better than the closed form (Sec. 4.2). Headline calibration metrics in Sec. 4.3 use B1 with S=16 ; B2 is the single-pass deployment path for CGCA and efficiency ablations ( 2.5–10 .4×
+
+faster; volume Pearson 0.80 –0.88 and projection Pearson 0.94 –0.95 , scene means over views, vs. MC; Table 4). 
+
+3.4 Calibration protocol 
+
+We evaluate whether predictive uncertainty σ(x) tracks the voxel-wise reconstruction error e(x) = 
+
+| ¯V (x) − Vgt (x)|, where ¯V is the mean-density reconstruction from Sec. 3.2. Unless noted (CGCA scores, closed-form ablation), volume calibration uses B1 ( S=16 MC) maps; τ is refit offline from stored mean/variance volumes under the grid below. Three complementary metrics are reported: 
+
+Spearman ρ. Rank correlation between σ(x) and e(x)—does high uncertainty co-locate with high error? Spearman is invariant to monotone rescaling and cannot be repaired post hoc. 
+
+AUSE. Area under the sparsification curve when removing voxels in descending σ order; lower is better. AUSE measures whether discarding the most uncertain voxels reduces RMSE toward the oracle curve. 6ECE with temperature scaling. Regression calibration of τ σ (x) against e(x). A global scalar 
+
+τ can repair magnitude without fixing spatial ordering; we therefore never report ECE alone. 
+
+Split-holdout temperature fitting. For each scene we subsample 10% of evaluation voxels (fixed RNG seed), split them 50 /50 , and hold out the second half for reporting. Temperature τ is chosen by grid search on the fit half over 104 log-spaced values on [0 .05 , 1000] (≈10% multiplicative resolution). Scaled ECE is reported on the disjoint holdout half only, so the reported value is never an in-sample minimum. We refer to this protocol as split_holdout . At grid resolution, τ is often identical or near-identical across seeds within a scene, though a few scenes exhibit secondary τ
+
+basins across seeds (Sec. 4.3, table 7); cross-scene transfer remains untested. No fitted τ reached the grid upper bound in our runs (maximum observed: 109 .5 for B1, 749 .4 for B2). 
+
+Why three metrics. They capture non-redundant failure modes: a global temperature can reduce ECE without improving spatial ranking—on head, the perturbation heuristic reaches holdout scaled ECE = 0 .104 yet Spearman = −0.08 (Sec. 4.2, Table 1). Conversely, several official scenes pass Spearman but not ECE after scaling (Sec. 4.3). We therefore never report ECE alone. 
+
+3.5 CGCA: coverage-gated, calibrated acquisition 
+
+Mechanism experiments (Sec. 4.7) show that (i) degenerate angular clustering is the dominant failure mode ( −2.6 dB), (ii) querying scores on immature models yields noise, and (iii) uncertainty scores earn a measurable premium only in anisotropic regimes. Coverage-gated calibrated acquisition 
+
+(CGCA; fig. 2) turns these observations into a policy rather than a new heuristic score. 
+
+Coverage gate (model-free). Let A denote the set of acquired view angles and gap (A) the maximum uncovered arc under the tomographic angular metric (views 180 ◦ apart are folded, as they constrain the same rays). While gap (A) > γ , with γ = 2 × the uniform spacing at the target budget, the policy ignores all scores and acquires the midpoint of the largest gap. Degenerate clustering is the only large failure mode we observe, and its prevention must not depend on a learned signal. 
+
+Maturity schedule. Scores are computed only on a model retrained to convergence on the current acquired set, never on a partially trained loop state. The schedule autopsy in Sec. 4.7 shows that the same score that is informative offline on a converged model is noise when queried during progressive training. 
+
+Calibrated closed-form score. Once gap (A) ≤ γ, the next view θ maximizes the hyperparameter-free raw projection variance 
+
+a(θ) = ∑
+
+> p
+
+Var [Ip(θ)] (6) from Eq. (5) , requiring one forward pass per candidate. A coverage fallback re-engages the gate if the argmax would reopen a super-threshold gap. We deliberately avoid the D-optimal diagonal form ∑ 
+
+> p
+
+log (1 + Var [Ip]/σ 2
+
+> n
+> )
+
+: with a misspecified noise floor σn the logarithm saturates and ranking degenerates to variance footprint size—a failure mode we document in Sec. 5. 
+
+Scope. The same calibrated posterior in principle supplies a dose-adaptive stopping rule (stop when 
+
+τ σ (x) falls below a clinical threshold); we state this as a design implication and leave experimental validation to future work. In this paper CGCA is evaluated on a circular-orbit testbed (Sec. 5); extension to hemispherical pose pools requires a spherical coverage metric and is future work. 7Figure 2: Coverage-gated calibrated acquisition (CGCA). Phase 1 (model-free): while the maximum uncovered arc exceeds the gate threshold γ, acquire the midpoint of the largest gap — degenerate clustering, the only catastrophic failure mode, is prevented geometrically. Phase 2 (calibrated): once coverage is secured, retrain to convergence on the acquired set and pick the candidate maximizing the one-pass closed-form projection variance ∑ 
+
+> p
+
+Var [Ip] (Eq. (6) ); a coverage fallback re-engages the gate if the argmax would reopen a super-threshold gap. 
+
+# 4 Experiments 
+
+4.1 Setup 
+
+We evaluate on the X-Gaussian development scenes [ 1 ] (chest, abdomen, head; 50-view circular half-scans, trained on sparse subsets) and the R 2-Gaussian official 15-scene synthetic benchmark [ 12 ](512 2 projections, 256 3 volumes). Unless noted, variational models train for 10k iterations with 
+
+λKL =10 −3, σ0=0.5, and a 3k-iteration KL warmup—identical across the development scenes and the official benchmark (a generalization test; no per-scene tuning). 
+
+Calibration protocol. Volume calibration uses B1 Monte Carlo maps ( S=16 reparameterized samples with training-time clamping). Temperature τ is fit on a 10% voxel subsample with 
+
+split_holdout over 104 log-spaced values on [0 .05 , 1000] ; scaled ECE is reported on the held-out half (Sec. 3.4). The same grid and protocol are applied to every comparative method, including deep ensembles and the perturbation heuristic. 8Table 1: Three-way per-voxel calibration on the development set (25 views, chest/abdomen/head). All methods share the wide-104 τ grid and split_holdout proto-col (Sec. 3.4). Perturbation hyperparameters follow the concurrent work ( α=10% , β=0 .5, N =10 ).                                                                  
+
+> Scene Method Spearman AUSE ECE τ
+> Chest Deep ensemble ( K=5 )0.723 0.269 0.221 →0.033 1.93 Chest Variational MC (B1) 0.696 0.294 0.232 →0.082 3.78 Chest Perturbation heuristic 0.485 0.663 0.430 →0.100 21.36 Chest Variational closed-form (B2) 0.661 0.356 0.277 →0.088 5.05 Abdomen Deep ensemble ( K=5 )0.650 0.334 0.247 →0.031 2.34 Abdomen Variational MC (B1) 0.600 0.376 0.181 →0.077 2.13 Abdomen Perturbation heuristic 0.252 0.711 0.447 →0.131 50.76 Abdomen Variational closed-form (B2) 0.567 0.419 0.183 →0.082 2.13 Head Deep ensemble ( K=5 )0.621 0.239 0.237 →0.030 2.34 Head Variational MC (B1) 0.596 0.275 0.295 →0.066 3.44 Head Perturbation heuristic −0.080 0.873 0.425 →0.104 19.41 Head Variational closed-form (B2) 0.556 0.326 0.319 →0.121 4.17
+
+Gate criterion. A scene passes if, at the 25-view budget, the 3-seed mean Spearman ≥ 0.6 and temperature-scaled ECE < 0.1. All 75 official-benchmark runs complete on a single consumer GPU (RTX 4060 laptop, 8 GB; ≈6.4 minutes per run), and headline numbers use this machine under the wide-104 grid ( 9/15 pass ); an independent replication on a second GPU (RTX 5080 laptop) yields 8/15 under the wide-80 grid, with cross-machine sensitivity confined to the scaled-ECE boundary band (section A.3). 
+
+4.2 Per-voxel uncertainty quality: the three-way comparison 
+
+Table 1 places deep ensemble ( K=5), variational MC (B1), variational closed-form (B2), and the perturbation heuristic under identical calibration rulers on the development set. Three metrics fail independently: on head , the perturbation heuristic reaches holdout ECE = 0 .104 yet Spearman 
+
+= −0.08 —acceptable scaled magnitude with inverted spatial ranking. Variational MC tracks the ensemble on Spearman while closing most of the AUSE gap; B2 matches the ranking with a small calibration penalty (chest Spearman 0.661 vs. 0.696 ). Multi-seed repeats ( n= 3 per scene) give PSNR std ≤ 0.03 dB and Spearman std ≤ 0.0007 ; on these development scenes the fitted τ is identical across seeds at grid resolution ( ≈10% multiplicative steps), supporting fit-once-per-scene reuse — see table 7 for official-benchmark scenes where this seed-stability fails. 
+
+4.3 Official 15-scene calibration main table 
+
+Table 2 extends the calibration study to all 15 official scenes and three view budgets (75 runs total). 
+
+Gate: 9/15 pass under B1 MC and wide-104 τ (25-view, 3-seed mean). Fourteen of fifteen scenes exceed Spearman 0.6; the sole exception is 0_jaw_cone (Spearman ≈ 0.23 ), consistent with an error floor: its error field is nearly flat, with a p99 /p 50 dynamic range of 5.6 (versus a median of 86 across passing scenes) and only 16% of the squared error carried by the top-1% of voxels (versus 43%), so no spatial ordering of a near-constant field can score well. Five additional scenes fail only on ECE after global scaling—ranking is adequate but a single τ cannot reconcile spatially varying 
+
+e/σ ratios ( pancreas , kingsnake , mount , teapot , beetle ). No fitted τ reached the grid upper bound (maximum observed: 109.5 for B1 on teapot_t75 ). B2 closed-form σ is uniformly worse on both Spearman and scaled ECE (75/75 pairwise wins for B1; section A.2), motivating B1 for 90.0 0.2 0.4 0.6 0.8   
+
+> fraction of most-uncertain voxels removed
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> remaining RMSE (normalized)
+> Sparsification, chest 25 views
+> deep ensemble K=5 (AUSE 0.27)
+> oracle (remove by true error)
+> variational (ours) (AUSE 0.29)
+> perturbation ensemble (AUSE 0.66)
+> |error| (variational mean vs GT) predicted (closed form)
+> Three-way per-voxel calibration (left) and error/uncertainty co-location (right, mid-axial slice)
+
+Figure 3: Three-way calibration visualization (chest, 25 views). Left: sparsification curves (lower AUSE is better); the deep ensemble and our variational posterior track the oracle lower bound, while the perturbation curve’s residual error climbs back after ≈65% of voxels are removed — the voxels it ranks most “certain” are in fact high-error (note the clipped y-axis). Right: mid-axial 
+
+|error | and predicted σ co-locate for the variational map. headline calibration while B2 remains the deployment path for CGCA (Sec. 5). Across the five completed machine ×grid combinations the gate count is ≥ 8/15 in four — the sole exception being the second machine under the legacy truncated grid — while three boundary-band scenes (chest, foot, kingsnake) flip pass/fail between machines; we therefore treat marginal-band membership as machine-dependent and report per-seed temperatures (section A.3, table 7). 
+
+4.4 Reconstruction cost of variational training 
+
+Adding a variational posterior costs a small but real PSNR penalty relative to point-estimate R2-Gaussian on the official chest scene (Table 3): ∆PSNR = −0.24 / − 0.47 / − 0.41 dB at 25/50/75 views. Our baseline 50-view PSNR ( 34 .58 dB) matches the published R 2-Gaussian value ( 34 .56 dB) within 0.02 dB, confirming faithful reproduction of the backbone. 
+
+4.5 Closed-form vs. Monte Carlo variance 
+
+Table 4 verifies the implementation claim of Sec. 3.3: projection-domain variance Pearson 0.94 –
+
+0.95 vs. MC, volume-domain Pearson 0.80 –0.88 , and 2.5–10 .4× speedup without CUDA changes. Calibration quality is slightly better under B1 MC (Table 1), which we therefore use for Gate reporting; B2 remains within deployable tolerance. 
+
+4.6 KL prior ablation 
+
+Table 5 confirms that the KL prior—not the data term alone—anchors si in unobserved regions: Spearman improves monotonically from 0.643 to 0.694 and AUSE from 0.371 to 0.300 as λKL rises from 0 to 10 −2, while ¯s increases ≈ 815 ×. At λKL =0 the legacy narrow τ grid saturated at τ = 30 ;the wide-104 grid reports τ = 50 .8 and scaled ECE = 0 .084 , illustrating the grid-truncation artifact documented in section A.1. 10 Table 2: Official 15-scene calibration main table (R 2-Gaussian synthetic benchmark, 512 2 / 256 3, 3 view budgets). 25-view rows are mean ±std over 3 seeds; 50/75-view rows are seed 0. Gate (final column, evaluated on the 25-view tier): 3-seed mean Spearman ≥ 0.6 and temperature-scaled ECE 
+
+< 0.1; 9/15 scenes pass . Protocol: wide-104 τ grid on [0 .05 , 1000] with split_holdout ; B1 MC 
+
+S=16 . The τ column reports the seed-0 fitted temperature and is not always representative of the seed mean (on foot , seeds 1–2 both fit τ = 9.0); per-seed temperatures for the boundary scenes are in table 7. 
+
+scene tier PSNR3D SSIM3D Spearman AUSE scaled ECE τ (seed 0) Gate 0_chest_cone 25 31.677 ±0.009 0.877 ±0.001 0.740 ±0.001 0.270 ±0.000 0.0986 ±0.0024 6.74 ✓
+
+50 34.110 0.920 0.723 0.298 0.0934 4.17 75 34.511 0.928 0.704 0.295 0.1041 4.17 0_foot_cone 25 30.425 ±0.006 0.851 ±0.000 0.925 ±0.014 0.129 ±0.001 0.0863 ±0.0261 21.36 ✓
+
+50 31.593 0.868 0.872 0.138 0.0952 12.00 75 31.927 0.872 0.890 0.127 0.0974 12.00 0_head_cone 25 35.735 ±0.029 0.946 ±0.000 0.744 ±0.001 0.234 ±0.000 0.0988 ±0.0016 4.17 ✓
+
+50 38.535 0.970 0.721 0.276 0.1014 3.12 75 39.112 0.974 0.710 0.286 0.1065 2.58 0_jaw_cone 25 33.505 ±0.017 0.822 ±0.000 0.229 ±0.001 0.411 ±0.001 0.0509 ±0.0003 6.74 ×
+
+50 35.873 0.872 0.210 0.432 0.0538 5.05 75 36.362 0.881 0.208 0.433 0.0548 4.59 0_pancreas_cone 25 32.882 ±0.069 0.911 ±0.002 0.728 ±0.005 0.219 ±0.001 0.1081 ±0.0027 6.12 ×
+
+50 35.905 0.946 0.703 0.243 0.1084 4.59 75 36.597 0.953 0.688 0.244 0.1040 3.79 1_beetle_cone 25 39.266 ±0.031 0.989 ±0.000 0.908 ±0.002 0.022 ±0.007 0.1828 ±0.0281 28.51 ×
+
+50 40.321 0.991 0.904 0.020 0.2260 0.31 75 40.373 0.991 0.905 0.015 0.1022 46.11 1_bonsai_cone 25 32.612 ±0.018 0.906 ±0.001 0.917 ±0.004 0.150 ±0.005 0.0739 ±0.0244 12.00 ✓
+
+50 34.016 0.924 0.893 0.152 0.0539 12.00 75 34.570 0.929 0.853 0.155 0.0532 13.21 1_broccoli_cone 25 28.861 ±0.017 0.950 ±0.001 0.926 ±0.003 0.058 ±0.002 0.0828 ±0.0187 8.99 ✓
+
+50 33.267 0.974 0.872 0.059 0.0801 10.90 75 34.669 0.980 0.851 0.060 0.0582 16.01 1_kingsnake_cone 25 38.298 ±0.012 0.925 ±0.000 0.901 ±0.009 0.084 ±0.001 0.1027 ±0.0050 50.76 ×
+
+50 38.661 0.929 0.865 0.082 0.1174 50.76 75 38.755 0.930 0.880 0.081 0.1038 46.11 1_pepper_cone 25 34.210 ±0.055 0.945 ±0.001 0.845 ±0.003 0.123 ±0.003 0.0655 ±0.0073 16.01 ✓
+
+50 36.821 0.960 0.834 0.131 0.0823 9.90 75 37.475 0.962 0.812 0.128 0.0781 14.54 2_backpack_cone 25 33.861 ±0.049 0.912 ±0.001 0.851 ±0.006 0.097 ±0.001 0.0843 ±0.0155 14.54 ✓
+
+50 35.378 0.934 0.839 0.087 0.1092 23.52 75 35.635 0.938 0.842 0.080 0.1141 25.89 2_engine_cone 25 34.473 ±0.021 0.929 ±0.000 0.763 ±0.003 0.163 ±0.002 0.0923 ±0.0049 13.21 ✓
+
+50 37.753 0.952 0.741 0.184 0.1082 12.00 75 38.519 0.957 0.743 0.183 0.1156 8.17 2_mount_cone 25 35.959 ±0.007 0.967 ±0.001 0.880 ±0.007 0.169 ±0.006 0.1120 ±0.0025 9.90 ×
+
+50 36.912 0.976 0.853 0.178 0.1243 9.90 75 37.153 0.977 0.848 0.173 0.1271 9.90 2_present_cone 25 34.559 ±0.034 0.916 ±0.000 0.691 ±0.001 0.145 ±0.002 0.0603 ±0.0007 13.21 ✓
+
+50 36.389 0.940 0.696 0.131 0.0654 13.21 75 36.634 0.943 0.700 0.126 0.0669 13.21 2_teapot_cone 25 44.151 ±0.019 0.985 ±0.000 0.854 ±0.018 0.069 ±0.002 0.1107 ±0.0236 90.38 ×
+
+50 44.396 0.986 0.882 0.064 0.1004 61.52 75 44.107 0.986 0.862 0.055 0.1012 109.54 
+
+11 Table 3: Reconstruction cost of variational training (official 0_chest_cone , three view budgets). Baseline matches the published R 2-Gaussian value within 0.02 dB at 50 views; variational training costs 0.2–0.5 dB PSNR.                     
+
+> Views PSNR (base) PSNR (var) ∆PSNR SSIM (base) SSIM (var) 25 31.91 31.67 −0.24 0.884 0.878 50 34.58 34.11 −0.47 0.928 0.920 75 34.92 34.51 −0.41 0.934 0.928
+
+Table 4: Closed-form vs. Monte Carlo variance (Pearson on variance maps; speedup vs. MC reference). Projection-domain agreement is near unity (mean-channel Pearson exceeds 0.9998 
+
+on every view, a linearity check); volume-domain Pearson is lower — the clamped-MC reference estimates a truncated distribution and the voxelizer discretizes — but still sufficient for deployment (Sec. 3.3).                                  
+
+> Scene/tier Domain Pearson Speedup MC S
+> chest/25 vol 0.881 10.4 ×16 abdomen/25 vol 0.802 9.4 ×8abdomen/50 vol 0.799 6.9 ×8head/25 vol 0.811 2.5 ×8chest/25 proj 0.946 8.5 ×256 abdomen/25 proj 0.950 7.8 ×64 head/25 proj 0.944 3.6 ×64
+
+4.7 Why does an uncalibrated score still select acceptable views? 
+
+We dissect the concurrent perturbation-ensemble acquisition score with four complementary probes on our circular-orbit testbed (Fig. 4–5). 
+
+Four-arm closed loop. Using the official closed-loop trainer, argmax, argmin, and fair random selection differ by only 0.19 dB PSNR (19.68/19.86/19.87 dB); the sole large failure is degenerate angular clustering ( −2.6 dB, 115 ◦ max gap). We report this as indistinguishable within expected seed noise; a matched multi-seed noise floor for the same configuration was not measured (Limitations). 
+
+View-level oracle. One-step oracle gains vary by regime: nearly flat on uniform chest ( +0 .28 –
+
+0.51 dB spread — selection is low-stakes), wide on pathological clustering ( +0 .02 –1.39 dB, where every signal including free geometry lights up: score–gain Spearman +0 .92 competitor, +0 .70 ours, 
+
++0 .81 coverage distance), and structured on anisotropic abdomen ( +0 .17 –0.43 dB). The abdomen regime is the one where an uncertainty signal earns its keep: coverage distance cannot see the directional structure (score–gain Spearman +0 .25 , p= 0.36 ) while both uncertainty scores can ( +0 .84 ,
+
+p< 10 −4 competitor; +0 .62 , p=0 .01 ours; n=16 ). 
+
+Schedule autopsy. In the official loop the first scored pick occurs at iteration 1500 with only 
+
+∼ 10 2 Gaussians; score–coverage Spearman is −0.13 and remains ≤ 0 thereafter, while the same score computed offline on a converged model facing a comparable large uncovered arc aligns strongly (score–coverage Spearman +0 .86 ). 12 Table 5: KL prior ablation (chest, 25 views, 50k Gaussians). Increasing λKL monotonically improves rank calibration (Spearman, AUSE) and pulls the raw uncertainty scale toward truth (raw ECE 0.41 → 0.15 , fitted τ 51 → 1.9); temperature-scaled ECE stays nearly flat — even the λKL =0
+
+model can be repaired by inflating its uncertainty 51 ×, itself an instance of why a single scalar cannot substitute for rank metrics. ¯s rises ≈ 815 × as the prior anchors uncertainty in unobserved regions. 
+
+λKL PSNR ¯s Spearman AUSE ECE τ
+
+0 29.75 2.83 ×10 −4 0.643 0.371 0.412 →0.084 50.8 
+
+10 −4 29.71 4.01 ×10 −3 0.677 0.343 0.311 →0.091 12.0 
+
+10 −3 29.51 3.15 ×10 −2 0.685 0.331 0.221 →0.095 3.8 
+
+10 −2 28.25 2.31 ×10 −1 0.694 0.300 0.148 →0.104 1.9 0 25 50 75 100 125 150 175                   
+
+> candidate view angle ( )
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> oracle gain vs null (dB)
+> chest / uniform
+> (isotropic, balanced)
+> PGE score
+> closed form (ours)
+> coverage dist.
+> 025 50 75 100 125 150 175
+> candidate view angle ( )
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+> 1.4
+> chest / clustered
+> (pathological, 115 arc)
+> 025 50 75 100 125 150 175
+> candidate view angle ( )
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> abdomen / uniform
+> (anisotropic, balanced)
+> Per-candidate true gains (one-step oracle); markers = each score's argmax pick
+
+Figure 4: View-level oracle spectra (three regimes). Bars: true one-step gain; markers: argmax of each score. 
+
+Symmetric self-test. On uniform chest, neither our closed-form score nor the competitor’s shows a detectable positive rank correlation with true oracle gains (point estimates −0.32 and −0.41 ,
+
+n=16 , neither significant): both scores fail symmetrically where no directional signal exists. 
+
+4.8 What SSIM aggregation actually contributes 
+
+Fig. 6 compares pixel-space variance (their Eq. 8) against SSIM-based variance on 94 sparse-view candidates. Pixel variance correlates with projection intensity (ρ= + 0 .60 ) — an error-irrelevant nuisance, since intensity itself correlates with true error at only −0.13 — and anti -correlates with true view error ( ρ= − 0.51 ); SSIM normalization reduces the nuisance loading to +0 .17 and is the only statistic whose error correlation is not negative, though it is not distinguishable from zero either ( +0 .12 , n= 94 , p= 0.27 ). On a denser 25-view chest state the ranking reverses (pixel variance vs. error +0 .53 exceeds SSIM +0 .26 ), so SSIM aggregation is a state-dependent nuisance suppressor rather than a universal fix. We state this as a mechanistically consistent account of a signal-level measurement, one inferential step removed from the concurrent work’s end-to-end ablation, not a refutation of it. 
+
+# 5 Coverage-gated acquisition on the testbed 
+
+We evaluate CGCA (Sec. 3.5) on our circular-orbit testbed: 50 candidate angles on a 180 ◦ half-scan (3.6◦ spacing), shared 2-view initialization (candidate indices 0 and 18, i.e. 0◦ and 64 .8◦, leaving 13 0
+
+> 90
+> 180
+> PGE argmax
+> PSNR3D 19.68 dB | max arc 94
+> 0
+> 90
+> 180
+> PGE argmin (adversarial)
+> PSNR3D 19.86 dB | max arc 97
+> 0
+> 90
+> 180
+> random (fixed RNG)
+> PSNR3D 19.87 dB | max arc 101
+> 0
+> 90
+> 180
+> release random (defective)
+> PSNR3D 17.27 dB | max arc 115
+> Closed-loop four-arm study (official pipeline, shared seed/init/schedule); shaded = largest uncovered arc
+
+Figure 5: Four-arm closed-loop selections (6 views, 12k iter). Shaded arc: largest uncovered angular gap; PSNR labels from final eval. Table 6: CGCA six-arm view selection (select-then-train, budget 12, circular orbit). Final models are trained identically on each selected set ( n=3 seeds); PSNR differences are attributable to view-set quality only. full_raw matches the champion shell+PGE score on abdomen while using a single forward pass per candidate. 
+
+Scene Policy PSNR3D Final max gap Abdomen Uniform 26.67 ±0.03 18.0 ◦
+
+Chest Uniform 25.41 ±0.02 18.0 ◦
+
+Abdomen Random 25.61 ±0.01 57.6 ◦
+
+Chest Random 24.31 ±0.02 57.6 ◦
+
+Abdomen Geo gate only 26.43 ±0.00 18.0 ◦
+
+Chest Geo gate only 25.39 ±0.02 18.0 ◦
+
+Abdomen Shell + PGE score 27.35 ±0.05 28.8 ◦
+
+Chest Shell + PGE score 25.17 ±0.02 28.8 ◦
+
+Abdomen Shell + raw closed-form 27.29 ±0.02 28.8 ◦
+
+Chest Shell + raw closed-form 25.17 ±0.01 28.8 ◦
+
+Abdomen Shell + log closed-form 25.94 ±0.03 28.8 ◦
+
+Chest Shell + log closed-form 24.59 ±0.01 28.8 ◦
+
+a 115 .2◦ initial gap), and budget B= 12 . Mechanism experiments (Sec. 4.7) motivate the design: degenerate clustering is the dominant failure mode ( −2.6 dB), scores queried on immature models are noise, and closed-form variance earns a premium only in anisotropic regimes. 
+
+Protocol (select-then-train). Each policy sequentially selects a view set A with |A| =B. Selec-tion uses either geometric gap-filling (coverage gate, threshold γ=30 ◦) or, once gap (A) ≤ γ, scores from a variational model retrained to convergence on A (10k iterations). After selection, every 
+
+arm retrains a final model with identical commands and hyperparameters ( n= 3 seeds), so reported PSNR differences are attributable strictly to view-set quality. 
+
+Six-arm comparison. Table 6 compares six policies on abdomen (anisotropic) and chest (isotropic): uniform , random , geo (coverage gate only), pge (our CGCA shell — the coverage gate plus maturity schedule of Sec. 3.5 — carrying the competitor’s SSIM-variance score), full_raw 
+
+(shell + raw closed-form ∑
+
+p Var [Ip]), and full (shell + D-optimal log form, ablated after pre-registration). 14 3.6 3.7 3.8 3.9 4.0  
+
+> pixel-wise variance (their Eq. 8)
+
+1e 7
+
+> 0.252
+> 0.254
+> 0.256
+> 0.258
+> 0.260
+> 0.262
+> 0.264
+> projection intensity
+> (path-length nuisance)
+
+Spearman = +0.60      
+
+> 3.6 3.7 3.8 3.9 4.0
+> pixel-wise variance (their Eq. 8)
+
+1e 7
+
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+> 1.4
+> true view error
+
+1e 2 Spearman = -0.51       
+
+> 2345678
+> SSIM variance (their deployed score)
+
+1e 12 
+
+> 0.252
+> 0.254
+> 0.256
+> 0.258
+> 0.260
+> 0.262
+> 0.264
+> projection intensity
+> (path-length nuisance)
+
+Spearman = +0.17       
+
+> 2345678
+> SSIM variance (their deployed score)
+
+1e 12 
+
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> 1.2
+> 1.4
+> true view error
+
+1e 2 Spearman = +0.12 
+
+Sparse state (6 views, 94 candidates): pixel-space scores track an error-irrelevant 
+
+nuisance and anti-track error; SSIM normalization suppresses the nuisance Figure 6: Metric confound analysis (chest, 6 training views). Pixel variance chases path-length thickness; SSIM variance is less confounded. 
+
+Findings. On abdomen, the coverage shell is decisive: random collapses to 25.61 dB while geo 
+
+recovers 26.43 dB (+0.82 dB). With the shell engaged, pge reaches 27.35 dB (+0.68 dB over uniform) and full_raw lands within 0.07 dB at 27.29 dB ( ±0.02); the gap is ≈ 2× the pooled standard error, which at n= 3 seeds falls short of significance, so we do not claim an ordering in either direction. The ablated log score ( full ) loses 1.35 dB on abdomen because saturated log (1 + Var /σ 2
+
+n) ranks by variance footprint size. 
+
+Isotropic cost. On chest, geo matches uniform (25.39 vs. 25.41 dB); enabling phase-2 scoring (pge , full_raw ) costs ≈0.24 dB relative to uniform while leaving a larger final angular gap (28.8 ◦
+
+vs. 18.0 ◦). 
+
+Scope. CGCA is validated only on the circular-orbit testbed; hemispherical pose pools require a spherical coverage metric and a replication under the concurrent work’s native protocol, both left to future work. 15 6 Discussion 
+
+Calibration and acquisition decouple. Uncertainty for 3DGS-CT has so far been validated through the reconstruction quality of the views it selects. Our results argue that this substitution is unsound, because acquisition is a structurally forgiving consumer of an uncertainty signal, in three distinct ways. First, it consumes only the argmax of a ranking: a decision worth a few bits per round, invariant to any monotone distortion of the score, and blind by construction to whether the predicted magnitudes are right at all. Second, it operates inside a closed loop — a mediocre pick still returns information, and retraining absorbs the loss. Third, in the balanced isotropic states we tested there is simply nothing to win: true one-step gains span 0.23 dB at the resolution of our oracle, so every candidate is nearly as good as the best one. Consistently, using the concurrent score forwards, backwards, or not at all is indistinguishable in a closed loop (section 4.7). Per-voxel interpretation is forgiving in none of these ways: it consumes millions of magnitudes rather than one argmax, a clinician reading σ(x) has no feedback loop that could correct a wrong map, and a signal that fails to track error — the perturbation heuristic’s rank correlation dips below zero on head ( −0.08 ) — offers no reliable localization exactly where trust matters. Uncertainty should therefore be validated where it is consumed — against error, with rank and coverage metrics — and acquisition should be treated as a downstream application that principled uncertainty serves in specific, identifiable regimes (anisotropic content; plus the prospect of a calibrated stopping rule, which no ranking heuristic can even express and which we leave to future validation). 
+
+Limits of mean-field marginals. The flat-regime null result for our own score localizes a real limitation: the acquisition-relevant quantity is log det of a posterior block, and factorized marginals discard the along-ray negative correlations that make acquired directions certain. That gross imbalance and anisotropic structure remain visible to marginal variances — while fine ranking in balanced states does not — is, to our knowledge, the first empirical delineation of where mean-field uncertainty suffices for view planning. Correlation-aware extensions (low-rank plus diagonal posteriors) are a natural next step. 
+
+# 7 Limitations 
+
+All evaluations use synthetic benchmarks with exact ground-truth volumes. This is a deliberate methodological choice — voxel-wise calibration assessment requires a ground truth that real cone-beam scans cannot supply exactly, since their reference volumes are themselves reconstructions — but transfer of both reconstruction and calibration behavior to measured clinical data remains untested. The mechanism study (sections 4.7 and 4.8) uses one development scene per regime, single seeds, and a one-step 1k-iteration frozen-topology oracle; the oracle’s short horizon may compress gain spectra, and the closed-loop arms lack a measured same-configuration noise floor, so we report indistinguishability rather than ordering. All reproduction results use the official code release on our data (theirs is unreleased at the time of writing); we found and patched two defects in the release (an unmaintained data path and a per-round RNG re-seeding bug that degenerates the random baseline into consecutive views) and cannot determine whether published numbers were affected — published multi-scene averages are in any case measured under a hemispherical protocol we have not yet replicated at scale. Amplitude calibration after a single global temperature does not fully generalize to the official benchmark: four scenes sit marginally above our scaled-ECE target of 0.1
+
+(0.103 –0.112 ), and on near-noise-floor objects (beetle, and partially teapot) the error distribution collapses toward zero so that no single scalar can align a Gaussian predictive to it — rank metrics 16 remain strong on exactly these scenes (Spearman 0.85 –0.91 , AUSE 0.02 –0.07 ), so the residual is a shape mismatch of the predictive distribution, not a localization failure; per-scene shape-aware recalibration is future work. Within the 0.09 –0.12 scaled-ECE band the metric itself is fragile: ordinary CUDA training nondeterminism perturbs the learned σ field by a few percent, which the τ -argmin and binned-ECE pipeline amplifies, flipping the pass/fail identity of three marginal scenes between two GPUs while the gate count stays ≥ 8/15 in four of five completed machine ×grid combinations (section 4.3); on one scene the fitted temperature is bistable across seeds (table 7). We report per-seed temperatures and treat marginal-band membership as machine-dependent. One benchmark scene (jaw) has a near-flat error field (an error floor) on which no spatial ordering can score well; we report it and exclude no scene from any average. The variational posterior is partial (density only) and factorized; its projection variance is blind to fine-grained view ranking in balanced isotropic states (section 4.7). Temperature scaling is fitted per scene with a within-scene fit/evaluation voxel split (section 3.4) — an earlier version of our tooling fitted and reported τ on the same sample; we re-derived all quoted scaled-ECE numbers under the split protocol, which changed them by ≤ 0.001 — and τ transfer across scenes and scanner geometries remains to be tested. Our evaluated MC uncertainty clamps sampled densities at zero to match training; it therefore estimates the truncated predictive distribution rather than the exact linear-model variance the closed form computes (section 3.3), and the two differ systematically in high-uncertainty regions (on the official benchmark the MC estimator scores better on both rank and scaled ECE in all 75 runs, section A.2). The dose-adaptive stopping rule enabled by the calibrated posterior (section 3.5) is stated as a design implication only; no stopping experiment is reported in this paper. The clustered-state oracle shares its FDK-based initialization with the uniform-state arm — a mild information leak into the uncovered arc, common to both arms; the schedule autopsy is a single instrumented run, and we observed same-seed early-training divergence in the official pipeline (one run collapsed entirely, one survived), so per-round statistics should be read as illustrative. 
+
+# References 
+
+[1] Yuanhao Cai, Yixun Liang, Jiahao Wang, Angtian Wang, Yulun Zhang, Xiaokang Yang, Zongwei Zhou, and Alan Yuille. Radiative gaussian splatting for efficient x-ray novel view synthesis. In European Conference on Computer Vision (ECCV) , 2024. [2] Ling Chen and Bao Yang. Radioactive 3d gaussian ray tracing for tomographic reconstruction. 
+
+arXiv preprint arXiv:2602.01057 , 2026. [3] Gaoxiang Jia, Vikram Appia, Junzhou Huang, and Xinlei Wang. Rendering-aware bayesian 3d gaussian splatting with native uncertainty and adaptive complexity control. arXiv preprint arXiv:2607.05522 , 2026. [4] Wen Jiang, Boshu Lei, and Kostas Daniilidis. Fisherrf: Active view selection and uncertainty quantification for radiance fields using fisher information. In European Conference on Computer Vision (ECCV) , 2024. [5] Xuran Pan, Zihang Lai, Shiji Song, and Gao Huang. Activenerf: Learning where to see with uncertainty estimation. In European Conference on Computer Vision (ECCV) , 2022. [6] Anh Thuan Tran and Jana Kosecka. Varsplat: Uncertainty-aware 3d gaussian splatting for robust rgb-d slam. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) , 2026. 17 [7] Toon Van de Maele, Ozan Çatal, Alexander Tschantz, Christopher L. Buckley, and Tim Verbelen. Variational bayes gaussian splatting. arXiv preprint arXiv:2410.03592 , 2024. [8] Francisca Vasconcelos, Bobby He, Nalini Singh, and Yee Whye Teh. Uncertainr: Uncer-tainty quantification of end-to-end implicit neural representations for computed tomography. 
+
+Transactions on Machine Learning Research (TMLR) , 2023. arXiv:2202.10847. [9] Feng Wu, Tsai Hor Chan, Yihang Chen, Lingting Zhu, Guosheng Yin, and Lequan Yu. Horseshoe splatting: Handling structural sparsity for uncertainty-aware gaussian-splatting radiance field rendering. In The Fourteenth International Conference on Learning Representations (ICLR) ,2026. [10] Yulun Wu, Ruyi Zha, Wei Cao, Yingying Li, Yuanhao Cai, and Yaoyao Liu. Active view selection with perturbed gaussian ensemble for tomographic reconstruction. arXiv preprint arXiv:2603.06852 , 2026. Accepted to ECCV 2026. [11] Guangpu Yang, Steffen Kieß, Hanxiang Luo, Xingyu Liu, and Sven Simon. Exact-gs: Mathe-matically rigorous and accurate 3d gaussian splatting for 3d x-ray reconstruction. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) , pages 4902–4911, 2026. [12] Ruyi Zha, Tao Jun Lin, Yuanhao Cai, Jiwen Cao, Yanhao Zhang, and Hongdong Li. R 2-gaussian: Rectifying radiative gaussian splatting for tomographic reconstruction. In Advances in Neural Information Processing Systems (NeurIPS) , 2024. [13] Matthias Zwicker, Hanspeter Pfister, Jeroen van Baar, and Markus Gross. Surface splatting. In Proceedings of SIGGRAPH , 2001. 
+
+# A Additional results and protocol details 
+
+A.1 Temperature bistability and grid truncation 
+
+Table 7 documents two temperature-fitting phenomena behind the boundary-band fragility discussed in section 4.3 and section 7: (i) on foot, the fitted τ alternates between two basins ( ≈ 9 vs. ≈ 21 )across seeds under an identical protocol, moving scaled ECE between 0.06 and 0.11 ; (ii) on kingsnake and teapot, our original legacy grid ( [0 .1, 30] ×60 ) silently truncated the fit at τ = 30 , inflating the 3-seed mean scaled ECE on kingsnake from 0.103 (wide grid) to 0.177 . Because fitted temperatures reach τ ≈ 90 –110 for the MC maps and, on one run (beetle, 75-view), ≈ 750 for the closed form — whose next-largest fit is 50 .8 — we recommend that any temperature-scaled ECE protocol log the fitted τ and assert that it does not touch the grid boundary; our tooling flags boundary hits automatically, and no reported fit touches the wide-104 bound (the intermediate wide-80 grid still truncated two runs, which is why the final protocol widens to 1000 ). 
+
+A.2 MC vs. closed form on the official benchmark 
+
+On all 75 official-benchmark runs, the clamped-MC estimator (B1, S=16 ; section 3.3) scores better than the single-pass closed form (B2) on both Spearman (75/75) and temperature-scaled ECE (75/75), consistent with B1 tracking the truncated predictive distribution used at training time. B2’s volume-domain Pearson agreement with S=8 clamped-MC reference maps on these runs is 18 Table 7: Per-seed fitted temperature and scaled ECE for the boundary scenes (25-view tier), wide vs. legacy [0 .1, 30] ×60 grid. Two phenomena: (i) on foot, τ jumps between two basins ( ≈ 9 vs. 
+
+≈ 21 ) across seeds under an identical protocol, with scaled ECE spanning 0.060 –0.112 across the three seeds (the two τ ≈9 seeds themselves differ by 0.026 , so seed-to-seed variation of the σ field contributes alongside the basin switch); (ii) on kingsnake and teapot the legacy grid truncated the fit at τ =30 in five of the six runs, inflating scaled ECE by up to 0.09 .                                                      
+
+> Run τ(wide) scaled ECE (wide) τ(legacy) scaled ECE (legacy) chest, seed 0 6.7 0.0994 6.4 0.0998 chest, seed 1 6.7 0.1005 6.4 0.1008 chest, seed 2 6.1 0.0959 6.4 0.0954 foot, seed 0 21.4 0.0602 22.4 0.0570 foot, seed 1 9.0 0.1124 8.5 0.1128 foot, seed 2 9.0 0.0863 9.4 0.0840 kingsnake, seed 0 50.8 0.1062 27.2 0.1433 kingsnake, seed 1 74.6 0.1048 30.0 0.1975 kingsnake, seed 2 90.4 0.0970 30.0 0.1895 teapot, seed 0 90.4 0.1221 30.0 0.1511 teapot, seed 1 55.9 0.0835 30.0 0.1358 teapot, seed 2 90.4 0.1264 30.0 0.1407
+
+0.76 –0.84 (versus 0.80 –0.88 against the references of table 4 on the development scenes). Headline calibration tables therefore use B1; B2 remains the single-pass deployment path for acquisition scoring (section 3.5) and efficiency-critical use. 
+
+A.3 Cross-machine reproducibility 
+
+An independent replication of the benchmark on a second consumer GPU (RTX 5080 laptop) reproduces PSNR3D and Spearman closely (scene-mean differences within ±0.05 dB and ±0.02 ), and scaled ECE on most scenes to the third decimal (e.g. pancreas 0.108 and mount 0.111 –0.112 on both machines). The exception is the 0.09 –0.12 scaled-ECE boundary band, where seven scenes sit at the 25-view tier: there, few-percent differences in the learned σ field — ordinary CUDA training nondeterminism — are amplified by the τ -argmin and binned-ECE pipeline, and three boundary scenes (chest, foot, kingsnake) flip pass/fail between machines. The gate count is stable even when the identity of the marginal scenes is not: legacy grid, 9/15 (RTX 4060) vs. 7/15 (RTX 5080); wide-80 grid, 9/15 vs. 8/15 ; wide-104 grid, 9/15 (RTX 4060; the second machine’s wide-104 recompute was pending at the time of writing). We therefore read the marginal band as genuinely marginal and report per-seed temperatures (table 7) rather than presenting any single draw as definitive. 
+
+A.4 Reproduced defects in the concurrent release 
+
+For completeness we record two defects found and patched in the official release of the concurrent method during our reproduction (section 7): (i) a data-reader path that omitted the lon/lat fields on non-Blender inputs, and (ii) a per-round RNG re-seeding that collapses the “random” baseline into consecutive views. We report these as reproduction observations; we cannot determine whether published numbers were affected, and all our random baselines use a fixed-RNG reimplementation. 19
