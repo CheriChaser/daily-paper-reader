@@ -1,0 +1,167 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-20T21:33:34.015611+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2607.12656v1",
+      "source": "arxiv",
+      "title": "SpeedyGS: Content-Aware 3D Gaussian Splatting Compression via Two-Stage Optimization",
+      "abstract": "Recent progress in compressing large-scale 3D Gaussian Splatting (3DGS) data has substantially reduced storage footprint, network transmission bandwidth, and memory traffic to GPU caches before rendering. Yet decoding with advanced 3DGS codecs still takes seconds, making them unsuitable for interactive applications. To systematically address this challenge, we propose SpeedyGS, a Content-Aware 3DGS Compressor that separately optimizes the structural formation and statistical coding. First, in structural formation, we jointly optimize adaptive quantization and pruning under a unified rate-distortion objective, where the rate term is replaced by a lightweight rate proxy that estimates entropy coding cost of the next stage, thereby efficiently regulating Gaussian density and precision to yield a compact scene representation. Then, in the statistical coding phase, Gaussian geometry is converted into sparse octree tokens and subsequently undergoes multi-stage coding, while Gaussian attributes are serialized into a 1D token stream for entropy coding via a complexity-controllable local autoregressive model. SpeedyGS achieves a favorable balance among optimization efficiency, compression performance, decoding latency, and rendering speed. Compared to vanilla 3DGS, SpeedyGS achieves up to 160$\\times$ model size reduction with negligible quality degradation across common datasets. Compared to state-of-the-art compression methods, it also offers significantly faster decoding and accelerates optimization by 9$\\times$ on consumer-grade hardware. To further reduce decoding overhead, the statistical coding stage also supports channel-wise, fixed-length coding for Gaussian as a simpler alternative, enabling SpeedyGS to better adapt to the underlying application and reduce decoding latency to nearly zero.",
+      "authors": [
+        "Junteng Zhang",
+        "Tong Chen",
+        "Yuxin Zhao",
+        "Yibo Shi",
+        "Jing Wang",
+        "Zhan Ma"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-07-14T11:38:08+00:00",
+      "link": "https://arxiv.org/pdf/2607.12656v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D Gaussian splatting compression for faster reconstruction",
+      "llm_evidence_cn": "3D高斯泼溅压缩以实现更快重建",
+      "llm_evidence": "3D高斯泼溅压缩以实现更快重建",
+      "canonical_evidence": "3D高斯泼溅压缩以实现更快重建",
+      "llm_tldr_en": "SpeedyGS proposes a content-aware 3DGS compressor via two-stage optimization, achieving fast decoding for interactive applications.",
+      "llm_tldr_cn": "针对3DGS解码速度慢、不适合交互应用的问题，本文提出SpeedyGS压缩器，通过联合优化自适应量化与剪枝及轻量级率代理，实现快速解码，在保持高质量的同时大幅减少存储和传输开销，适用于实时3DGS重建场景。",
+      "llm_tldr": "针对3DGS解码速度慢、不适合交互应用的问题，本文提出SpeedyGS压缩器，通过联合优化自适应量化与剪枝及轻量级率代理，实现快速解码，在保持高质量的同时大幅减少存储和传输开销，适用于实时3DGS重建场景。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.15542v1",
+      "source": "arxiv",
+      "title": "ImprovedVBGS: Real-time Continual Variational Bayes Gaussian Splatting",
+      "abstract": "On-the-fly reconstruction is a key requirement for many applications in robotics and autonomous navigation. Variational Bayes Gaussian Splatting (VBGS) enables continual learning without replay buffers using Coordinate Ascent Variational Inference (CAVI), but its per-frame iterations over all observed points make it too slow for real-time use with strict memory and latency requirements. We present ImprovedVBGS, an accelerated framework for on-the-fly continual reconstruction. This is achieved primarily through (i) spatially truncated variational inference, and (ii) improved reassignment that uses forwarding, truncation and eliminates wasteful dynamic recompilation. On the NeRF synthetic dataset, we reduce mean per-frame latency from ~84.0 s to ~0.050 s on an RTX 3070 Ti, a 1680x speed-up while maintaining reconstruction quality.",
+      "authors": [
+        "Damani Mguni-Coker"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-07-17T01:24:25+00:00",
+      "link": "https://arxiv.org/pdf/2607.15542v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "real-time variational Bayes Gaussian splatting reconstruction",
+      "llm_evidence_cn": "实时变分贝叶斯高斯溅射重建",
+      "llm_evidence": "实时变分贝叶斯高斯溅射重建",
+      "canonical_evidence": "实时变分贝叶斯高斯溅射重建",
+      "llm_tldr_en": "ImprovedVBGS accelerates variational Bayes Gaussian splatting for real-time continual 3D reconstruction using spatially truncated inference and improved reassignment, reducing per-frame latency from 84s to 0.05s on NeRF synthetic dataset.",
+      "llm_tldr_cn": "针对变分贝叶斯高斯溅射（VBGS）在实时连续3D重建中速度过慢的问题，本文提出ImprovedVBGS，通过空间截断变分推断和改进的重分配策略，消除动态重编译，实现实时重建。在NeRF合成数据集上，平均每帧延迟从约84.0秒降至约0.050秒，极大提升了效率，适用于机器人等实时场景。",
+      "llm_tldr": "针对变分贝叶斯高斯溅射（VBGS）在实时连续3D重建中速度过慢的问题，本文提出ImprovedVBGS，通过空间截断变分推断和改进的重分配策略，消除动态重编译，实现实时重建。在NeRF合成数据集上，平均每帧延迟从约84.0秒降至约0.050秒，极大提升了效率，适用于机器人等实时场景。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.15951v1",
+      "source": "arxiv",
+      "title": "Rendering 3D Gaussians on a Graph Processor",
+      "abstract": "We present the first implementation of a 3D Gaussian renderer on an Intelligence Processing Unit (IPU), comprising 1,472 independent tiles with only on-chip SRAM; constraints that approximate properties of efficient sensor-processor architectures. Our input scenes are 3D Gaussian maps from real-world sequences. Each tile 'owns' a screen-space region of the framebuffer; Gaussian primitives are routed to destination tiles via Manhattan-distance hops on a north-east-west-south (NEWS) grid, then distributed to overlapping neighbours in an expanding tree pattern. Computation follows the IPU's Bulk Synchronous Parallel (BSP) model, with inter-tile communication defined at compile time. We show this hardware allows us to exploit spatial and temporal locality by enabling local data transfer between cores. We evaluate the bottlenecks in this SRAM-only implementation: inter-tile bandwidth, per-tile SRAM capacity, and workload imbalance from non-uniform Gaussian density. We analyse how these constraints affect performance and render quality. This exploration raises broader questions for conventional GPUs and 3D representations, suggesting that direct inter-SM (streaming multiprocessor) communication might offer ways to reduce DRAM access in GPU kernels. We discuss these implications for the future of on-sensor and DRAM-free architectures. Project page: https://nmjfry.github.io/ipu-3dgs/",
+      "authors": [
+        "Nicholas Fry",
+        "Ignacio Alzugaray",
+        "Mark Pupilli",
+        "Paul H. J. Kelly",
+        "Andrew J. Davison"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV",
+        "cs.DC"
+      ],
+      "published": "2026-07-17T13:36:30+00:00",
+      "link": "https://arxiv.org/pdf/2607.15951v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "First 3D Gaussian renderer on a graph processor (IPU) - hardware accelerator for 3DGS",
+      "llm_evidence_cn": "首个在图处理器（IPU）上实现3D高斯渲染，属于3DGS硬件加速器",
+      "llm_evidence": "首个在图处理器（IPU）上实现3D高斯渲染，属于3DGS硬件加速器",
+      "canonical_evidence": "首个在图处理器（IPU）上实现3D高斯渲染，属于3DGS硬件加速器",
+      "llm_tldr_en": "This paper presents the first implementation of 3D Gaussian rendering on an IPU, demonstrating how to exploit spatial/temporal locality for efficient 3DGS acceleration.",
+      "llm_tldr_cn": "本文首次在图处理单元（IPU）上实现了3D高斯渲染，IPU包含1472个独立瓦片和片上SRAM，模拟高效传感器-处理器架构。通过将高斯原语按屏幕空间区域路由并利用BSP模型，实现了空间和时间局部性的利用，为3DGS的硬件加速提供了新思路。实验在真实序列上验证了可行性。",
+      "llm_tldr": "本文首次在图处理单元（IPU）上实现了3D高斯渲染，IPU包含1472个独立瓦片和片上SRAM，模拟高效传感器-处理器架构。通过将高斯原语按屏幕空间区域路由并利用BSP模型，实现了空间和时间局部性的利用，为3DGS的硬件加速提供了新思路。实验在真实序列上验证了可行性。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "hardware accelerator designs for 3D Gaussian splatting",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.15536v1",
+      "source": "arxiv",
+      "title": "E3DGS: Unified Geometric-Photometric Equivariance for 3D Gaussian Splatting via Color-as-Geometry Embedding",
+      "abstract": "3D Gaussian Splatting (3DGS) captures scenes by coupling explicit geometry (position, covariance) with view-dependent photometry (Spherical Harmonics). However, building $\\mathrm{SE}(3)$-equivariant architectures on these primitives presents a fundamental representation bottleneck. Color has been treated as a signal rather than a geometric entity, making it nontrivial to unify symmetry across geometry and appearance as the camera frame changes. While translations are handled by relative coordinates, rotations act heterogeneously across attributes: $μ\\mapsto Rμ$, $Σ\\mapsto RΣR^\\top$, and $f_\\ell\\mapsto D^\\ell(R)f_\\ell$. This mismatch complicates strict equivariance, leading existing methods to either discard or flatten SH coefficients, thereby breaking symmetry. We propose a unified solution rooted in representation theory: for SH degrees $\\ell\\le2$, photometry is algebraically isomorphic to a rank-2 geometric tensor. We prove that the Wigner-$D$ action on these SH coefficients can be exactly reformulated as the conjugation action on $3\\times3$ matrices. Leveraging this, we introduce the Unified Matrix Embedding, a lifting that maps all Gaussian attributes into a unified carrier space, $\\mathfrak{gl}(3)$. Building on the \"Color-as-Geometry\" formulation, we present E3DGS, a rigid-body ($\\mathrm{SE}(3)$) equivariant architecture that processes 3D Gaussians without Clebsch-Gordan tensor products. Evaluations on object vision and action-conditioned Gaussian world modeling demonstrate that our unified approach yields strong robustness under camera-frame changes and improved data efficiency.",
+      "authors": [
+        "Chankyo Kim",
+        "Maani Ghaffari"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-07-17T01:12:26+00:00",
+      "link": "https://arxiv.org/pdf/2607.15536v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "directly proposes a new equivariant framework for 3D Gaussian splatting",
+      "llm_evidence_cn": "直接提出针对3D高斯泼溅的几何-光度等变框架",
+      "llm_evidence": "直接提出针对3D高斯泼溅的几何-光度等变框架",
+      "canonical_evidence": "直接提出针对3D高斯泼溅的几何-光度等变框架",
+      "llm_tldr_en": "E3DGS unifies geometric and photometric equivariance in 3D Gaussian splatting by embedding color as a geometric entity, enabling robust SE(3)-equivariant representations.",
+      "llm_tldr_cn": "3D高斯泼溅的几何与光度属性在相机变换下具有不同的变换规则，导致现有方法难以实现严格的SE(3)等变性。E3DGS通过将颜色嵌入为几何实体，统一了几何与光度的对称性处理，使得3DGS表示在旋转和平移下具有等变性。实验证明，该方法在视角变换任务中显著提升了渲染一致性和鲁棒性，为神经渲染的几何建模提供了新思路。",
+      "llm_tldr": "3D高斯泼溅的几何与光度属性在相机变换下具有不同的变换规则，导致现有方法难以实现严格的SE(3)等变性。E3DGS通过将颜色嵌入为几何实体，统一了几何与光度的对称性处理，使得3DGS表示在旋转和平移下具有等变性。实验证明，该方法在视角变换任务中显著提升了渲染一致性和鲁棒性，为神经渲染的几何建模提供了新思路。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

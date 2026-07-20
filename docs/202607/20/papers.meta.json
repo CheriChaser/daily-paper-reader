@@ -1,0 +1,69 @@
+{
+  "label": "2026-07-20",
+  "date": "2026-07-20",
+  "generated_at": "2026-07-20T21:36:05",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202607/20/2607.12656v1-speedygs-content-aware-3d-gaussian-splatting-compression-via-two-stage-optimization",
+      "section": "deep",
+      "title_en": "SpeedyGS: Content-Aware 3D Gaussian Splatting Compression via Two-Stage Optimization",
+      "authors": "Junteng Zhang, Tong Chen, Yuxin Zhao, Yibo Shi, Jing Wang, Zhan Ma",
+      "date": "2026-07-14",
+      "pdf": "https://arxiv.org/pdf/2607.12656v1",
+      "score": "9.0",
+      "evidence": "3D高斯泼溅压缩以实现更快重建",
+      "tldr": "针对3DGS压缩解码延迟高的问题，提出SpeedyGS内容感知压缩。通过两阶段优化：结构形成阶段联合优化自适应量化与剪枝，以轻量级率代理估计编码代价；统计编码阶段将几何转为稀疏八叉树多级编码，属性序列化后由局部自回归模型熵编码。相比原始3DGS，模型大小减少160倍且质量损失极小，解码速度显著提升，优化加速9倍。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Recent progress in compressing large-scale 3D Gaussian Splatting (3DGS) data has substantially reduced storage footprint, network transmission bandwidth, and memory traffic to GPU caches before rendering. Yet decoding with advanced 3DGS codecs still takes seconds, making them unsuitable for interactive applications. To systematically address this challenge, we propose SpeedyGS, a Content-Aware 3DGS Compressor that separately optimizes the structural formation and statistical coding. First, in structural formation, we jointly optimize adaptive quantization and pruning under a unified rate-distortion objective, where the rate term is replaced by a lightweight rate proxy that estimates entropy coding cost of the next stage, thereby efficiently regulating Gaussian density and precision to yield a compact scene representation. Then, in the statistical coding phase, Gaussian geometry is converted into sparse octree tokens and subsequently undergoes multi-stage coding, while Gaussian attributes are serialized into a 1D token stream for entropy coding via a complexity-controllable local autoregressive model. SpeedyGS achieves a favorable balance among optimization efficiency, compression performance, decoding latency, and rendering speed. Compared to vanilla 3DGS, SpeedyGS achieves up to 160$\\times$ model size reduction with negligible quality degradation across common datasets. Compared to state-of-the-art compression methods, it also offers significantly faster decoding and accelerates optimization by 9$\\times$ on consumer-grade hardware. To further reduce decoding overhead, the statistical coding stage also supports channel-wise, fixed-length coding for Gaussian as a simpler alternative, enabling SpeedyGS to better adapt to the underlying application and reduce decoding latency to nearly zero.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/20/2607.15542v1-improvedvbgs-real-time-continual-variational-bayes-gaussian-splatting",
+      "section": "deep",
+      "title_en": "ImprovedVBGS: Real-time Continual Variational Bayes Gaussian Splatting",
+      "authors": "Damani Mguni-Coker",
+      "date": "2026-07-17",
+      "pdf": "https://arxiv.org/pdf/2607.15542v1",
+      "score": "9.0",
+      "evidence": "实时变分贝叶斯高斯溅射重建",
+      "tldr": "实时重建是机器人和自主导航的关键需求。VBGS通过CAVI实现连续学习，但逐帧迭代所有观测点导致延迟过高。ImprovedVBGS采用空间截断变分推断和改进的重分配策略（前向传播、截断、消除动态重编译），在NeRF合成数据集上将每帧延迟从84.0秒降至0.050秒（RTX 3070 Ti），加速1680倍，同时保持重建质量。该工作为资源受限环境下的实时连续重建提供了高效方案。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "On-the-fly reconstruction is a key requirement for many applications in robotics and autonomous navigation. Variational Bayes Gaussian Splatting (VBGS) enables continual learning without replay buffers using Coordinate Ascent Variational Inference (CAVI), but its per-frame iterations over all observed points make it too slow for real-time use with strict memory and latency requirements. We present ImprovedVBGS, an accelerated framework for on-the-fly continual reconstruction. This is achieved primarily through (i) spatially truncated variational inference, and (ii) improved reassignment that uses forwarding, truncation and eliminates wasteful dynamic recompilation. On the NeRF synthetic dataset, we reduce mean per-frame latency from ~84.0 s to ~0.050 s on an RTX 3070 Ti, a 1680x speed-up while maintaining reconstruction quality.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/20/2607.15951v1-rendering-3d-gaussians-on-a-graph-processor",
+      "section": "deep",
+      "title_en": "Rendering 3D Gaussians on a Graph Processor",
+      "authors": "Nicholas Fry, Ignacio Alzugaray, Mark Pupilli, Paul H. J. Kelly, Andrew J. Davison",
+      "date": "2026-07-17",
+      "pdf": "https://arxiv.org/pdf/2607.15951v1",
+      "score": "9.0",
+      "evidence": "首个在图处理器（IPU）上实现3D高斯渲染，属于3DGS硬件加速器",
+      "tldr": "传统3D高斯渲染依赖GPU高带宽DRAM，但传感器处理器需低功耗无DRAM架构。本文首次在仅含片上SRAM的IPU上实现渲染：通过NEWS网格曼哈顿路由将高斯基元分发至1472个独立tile，遵循BSP模型，实现片间局部数据传输。评估发现瓶颈在片间带宽、SRAM容量和高斯不均负载，但展示了直接SM通信可减少DRAM访问。本工作为未来片上传感器和节能渲染架构提供启示。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "We present the first implementation of a 3D Gaussian renderer on an Intelligence Processing Unit (IPU), comprising 1,472 independent tiles with only on-chip SRAM; constraints that approximate properties of efficient sensor-processor architectures. Our input scenes are 3D Gaussian maps from real-world sequences. Each tile 'owns' a screen-space region of the framebuffer; Gaussian primitives are routed to destination tiles via Manhattan-distance hops on a north-east-west-south (NEWS) grid, then distributed to overlapping neighbours in an expanding tree pattern. Computation follows the IPU's Bulk Synchronous Parallel (BSP) model, with inter-tile communication defined at compile time. We show this hardware allows us to exploit spatial and temporal locality by enabling local data transfer between cores. We evaluate the bottlenecks in this SRAM-only implementation: inter-tile bandwidth, per-tile SRAM capacity, and workload imbalance from non-uniform Gaussian density. We analyse how these constraints affect performance and render quality. This exploration raises broader questions for conventional GPUs and 3D representations, suggesting that direct inter-SM (streaming multiprocessor) communication might offer ways to reduce DRAM access in GPU kernels. We discuss these implications for the future of on-sensor and DRAM-free architectures. Project page: https://nmjfry.github.io/ipu-3dgs/",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/20/2607.15536v1-e3dgs-unified-geometric-photometric-equivariance-for-3d-gaussian-splatting-via-color-as-geometry-embedding",
+      "section": "deep",
+      "title_en": "E3DGS: Unified Geometric-Photometric Equivariance for 3D Gaussian Splatting via Color-as-Geometry Embedding",
+      "authors": "Chankyo Kim, Maani Ghaffari",
+      "date": "2026-07-17",
+      "pdf": "https://arxiv.org/pdf/2607.15536v1",
+      "score": "8.0",
+      "evidence": "直接提出针对3D高斯泼溅的几何-光度等变框架",
+      "tldr": "3DGS将显式几何与依赖视角的光度分离，导致等变架构的表示瓶颈。本文基于表示论证明低阶球谐系数与二阶几何张量同构，提出颜色即几何嵌入，通过统一矩阵嵌入将高斯属性统一映射到gl(3)空间，构建E3DGS架构。该架构无需Clebsch-Gordan张量积即可实现严格SE(3)等变。在物体视觉和动作条件世界建模任务上，该方法在相机帧变化下表现出强鲁棒性，并显著提升数据效率，为等变3D高斯表示提供了统一解。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting (3DGS) captures scenes by coupling explicit geometry (position, covariance) with view-dependent photometry (Spherical Harmonics). However, building $\\mathrm{SE}(3)$-equivariant architectures on these primitives presents a fundamental representation bottleneck. Color has been treated as a signal rather than a geometric entity, making it nontrivial to unify symmetry across geometry and appearance as the camera frame changes. While translations are handled by relative coordinates, rotations act heterogeneously across attributes: $μ\\mapsto Rμ$, $Σ\\mapsto RΣR^\\top$, and $f_\\ell\\mapsto D^\\ell(R)f_\\ell$. This mismatch complicates strict equivariance, leading existing methods to either discard or flatten SH coefficients, thereby breaking symmetry. We propose a unified solution rooted in representation theory: for SH degrees $\\ell\\le2$, photometry is algebraically isomorphic to a rank-2 geometric tensor. We prove that the Wigner-$D$ action on these SH coefficients can be exactly reformulated as the conjugation action on $3\\times3$ matrices. Leveraging this, we introduce the Unified Matrix Embedding, a lifting that maps all Gaussian attributes into a unified carrier space, $\\mathfrak{gl}(3)$. Building on the \"Color-as-Geometry\" formulation, we present E3DGS, a rigid-body ($\\mathrm{SE}(3)$) equivariant architecture that processes 3D Gaussians without Clebsch-Gordan tensor products. Evaluations on object vision and action-conditioned Gaussian world modeling demonstrate that our unified approach yields strong robustness under camera-frame changes and improved data efficiency.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
