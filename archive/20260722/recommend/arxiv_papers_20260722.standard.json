@@ -1,0 +1,98 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-22T21:19:46.156140+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.19100v1",
+      "source": "arxiv",
+      "title": "FlexiAvatar: Unified 3D Gaussian Human Avatars Under Arbitrary Body Visibility",
+      "abstract": "Reconstructing animatable 3D human avatars from monocular video is a fundamental problem in computer vision with broad applications in AR/VR and digital content creation. Existing approaches typically couple parametric body models with neural rendering or 3D Gaussian splatting and optimize all body regions jointly from short videos, which often degrades fidelity in the visible areas. To overcome this limitation, we introduce FlexiAvatar, a unified framework that explicitly optimizes only the visible body regions, effectively eliminating artifacts arising from unobserved limbs. Our method integrates occlusion-robust SMPL-X tracking with part-specific residual refinement to capture high-frequency geometric and appearance details. To complete entirely unseen regions (e.g., back views), we leverage a diffusion-based approach to generate texture consistent with the observed appearance. Experiments on full-body (NeuMan, ZJU-MoCap, WildAvatar), upper/half-body (talk-show clips), and head-only (INSTA) inputs show that FlexiAvatar delivers consistently higher reconstruction quality, outperforming state-of-the-art methods by an average PSNR improvement of approximately 3% across datasets. Finally, by restricting optimization to observed regions, our method reduces the effective number of Gaussians that must be optimized and rendered, leading to reduced runtime and memory overhead in partial-visibility scenarios.",
+      "authors": [
+        "Yihalem Yimolal Tiruneh",
+        "Muhammad Salman Ali",
+        "Uyoung Jeong",
+        "Muneeb A. Khan",
+        "MD Khalequzzaman Chowdhury Sayem",
+        "Allanur Bayramgeldiyev",
+        "Binod Bhattarai",
+        "Seungryul Baek"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-21T13:43:31+00:00",
+      "link": "https://arxiv.org/pdf/2607.19100v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D Gaussian splatting for human avatar reconstruction",
+      "llm_evidence_cn": "使用3D高斯溅射进行人体虚拟形象重建",
+      "llm_evidence": "使用3D高斯溅射进行人体虚拟形象重建",
+      "canonical_evidence": "使用3D高斯溅射进行人体虚拟形象重建",
+      "llm_tldr_en": "Uses 3D Gaussian splatting to reconstruct animatable human avatars from monocular video, focusing on visible regions only.",
+      "llm_tldr_cn": "本文提出FlexiAvatar，一种基于3D高斯溅射的统一框架，从单目视频重建可动画人体虚拟形象。现有方法联合优化所有身体区域，导致可见区域保真度下降。FlexiAvatar仅优化可见区域，结合遮挡鲁棒的SMPL-X跟踪和逐部位残差细化，捕捉高频几何和外观细节，并补全不可见区域。实验表明，该方法在可见区域质量上超越现有技术，同时保持完整虚拟形象。",
+      "llm_tldr": "本文提出FlexiAvatar，一种基于3D高斯溅射的统一框架，从单目视频重建可动画人体虚拟形象。现有方法联合优化所有身体区域，导致可见区域保真度下降。FlexiAvatar仅优化可见区域，结合遮挡鲁棒的SMPL-X跟踪和逐部位残差细化，捕捉高频几何和外观细节，并补全不可见区域。实验表明，该方法在可见区域质量上超越现有技术，同时保持完整虚拟形象。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.18067v1",
+      "source": "arxiv",
+      "title": "QIRF Quantum-Inspired Non-Orthogonal Function-Space Compression for 3D Gaussian Splatting",
+      "abstract": "3D Gaussian Splatting (3DGS) achieves high-quality real-time rendering by representing a scene with a large collection of anisotropic Gaussian primitives. However, complex scenes often require millions of Gaussians, resulting in substantial storage and rendering costs. Existing compression methods mainly reduce redundancy through primitive-wise pruning, attribute quantization, clustering, or neural coding, while redundancy caused by strongly overlapping and non-orthogonal Gaussian basis functions remains largely unexplored. We present QIRF, a quantum-inspired non-orthogonal function-space compression method for 3D Gaussian Splatting. QIRF models neighboring Gaussian primitives as a local non-orthogonal basis and formulates primitive reduction as a subspace-aware selection problem. Specifically, an analytic Gaussian overlap matrix and a radiance-response density matrix are constructed to characterize functional redundancy and rendering relevance. Generalized eigendecomposition is then used to identify the dominant local subspace and select representative Gaussian primitives. An RRDM-based response model and detail-aware safeguarding further preserve visually important high-frequency structures under aggressive pruning. Experiments on 13 scenes from Mip-NeRF 360, Tanks and Temples, and Deep Blending show that QIRF reduces the Gaussian count and raw PLY storage by 71.7 percent on average, corresponding to approximately 3.54 times compression, while maintaining reconstruction quality comparable to 3DGS and achieving a marginal average PSNR improvement of 0.10 dB. QIRF also improves the average rendering speed over 3DGS by 34.3 percent. These results suggest that non-orthogonal function-space redundancy is an important yet underexplored source of representational redundancy in explicit Gaussian radiance fields.",
+      "authors": [
+        "Shizeng Jiang",
+        "Hao Zhang",
+        "Xuerui Ma",
+        "Ying Hu",
+        "Tao Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-20T15:34:45+00:00",
+      "link": "https://arxiv.org/pdf/2607.18067v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Compression method for 3D Gaussian Splatting using quantum-inspired non-orthogonal basis",
+      "llm_evidence_cn": "基于量子启发的非正交基的3D高斯溅射压缩方法",
+      "llm_evidence": "基于量子启发的非正交基的3D高斯溅射压缩方法",
+      "canonical_evidence": "基于量子启发的非正交基的3D高斯溅射压缩方法",
+      "llm_tldr_en": "Presents QIRF, a quantum-inspired non-orthogonal function-space compression for 3DGS that models neighboring Gaussians as a local non-orthogonal basis to reduce redundancy, achieving compact representation without sacrificing quality.",
+      "llm_tldr_cn": "针对3D高斯溅射中大量高斯基函数重叠导致冗余的问题，本文提出QIRF，受量子启发的非正交函数空间压缩方法，将相邻高斯基建模为局部非正交基，从而减少冗余。实验证明在保持渲染质量的同时显著降低了存储和计算开销，为3DGS的高效存储和传输提供了新思路。",
+      "llm_tldr": "针对3D高斯溅射中大量高斯基函数重叠导致冗余的问题，本文提出QIRF，受量子启发的非正交函数空间压缩方法，将相邻高斯基建模为局部非正交基，从而减少冗余。实验证明在保持渲染质量的同时显著降低了存储和计算开销，为3DGS的高效存储和传输提供了新思路。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-22",
+  "date": "2026-07-22",
+  "generated_at": "2026-07-22T21:21:48",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/22/2607.19100v1-flexiavatar-unified-3d-gaussian-human-avatars-under-arbitrary-body-visibility",
+      "section": "deep",
+      "title_en": "FlexiAvatar: Unified 3D Gaussian Human Avatars Under Arbitrary Body Visibility",
+      "authors": "Yihalem Yimolal Tiruneh, Muhammad Salman Ali, Uyoung Jeong, Muneeb A. Khan, MD Khalequzzaman Chowdhury Sayem, Allanur Bayramgeldiyev, Binod Bhattarai, Seungryul Baek",
+      "date": "2026-07-21",
+      "pdf": "https://arxiv.org/pdf/2607.19100v1",
+      "score": "9.0",
+      "evidence": "使用3D高斯溅射进行人体虚拟形象重建",
+      "tldr": "从单目视频重建可驱动3D人体化身是计算机视觉基本问题，现有方法耦合参数化身体模型与神经渲染或3D高斯泼溅，从短视频联合优化所有身体区域，导致可见区域保真度下降。FlexiAvatar提出统一框架只优化可见区域，集成遮挡鲁棒的SMPL-X跟踪与部件特定残差细化以捕捉高频细节，对完全不可见区域用扩散模型生成一致纹理。实验在全身、上半身、头部输入上均优于现有方法，PSNR平均提升约3%，同时因减少优化和渲染的高斯数量，在部分可见场景下降低运行时和内存开销。该方法通过限制优化到可见区域有效消除未观察肢体伪影，提升重建质量与效率。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Reconstructing animatable 3D human avatars from monocular video is a fundamental problem in computer vision with broad applications in AR/VR and digital content creation. Existing approaches typically couple parametric body models with neural rendering or 3D Gaussian splatting and optimize all body regions jointly from short videos, which often degrades fidelity in the visible areas. To overcome this limitation, we introduce FlexiAvatar, a unified framework that explicitly optimizes only the visible body regions, effectively eliminating artifacts arising from unobserved limbs. Our method integrates occlusion-robust SMPL-X tracking with part-specific residual refinement to capture high-frequency geometric and appearance details. To complete entirely unseen regions (e.g., back views), we leverage a diffusion-based approach to generate texture consistent with the observed appearance. Experiments on full-body (NeuMan, ZJU-MoCap, WildAvatar), upper/half-body (talk-show clips), and head-only (INSTA) inputs show that FlexiAvatar delivers consistently higher reconstruction quality, outperforming state-of-the-art methods by an average PSNR improvement of approximately 3% across datasets. Finally, by restricting optimization to observed regions, our method reduces the effective number of Gaussians that must be optimized and rendered, leading to reduced runtime and memory overhead in partial-visibility scenarios.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/22/2607.18067v1-qirf-quantum-inspired-non-orthogonal-function-space-compression-for-3d-gaussian-splatting",
+      "section": "quick",
+      "title_en": "QIRF Quantum-Inspired Non-Orthogonal Function-Space Compression for 3D Gaussian Splatting",
+      "authors": "Shizeng Jiang, Hao Zhang, Xuerui Ma, Ying Hu, Tao Zhang",
+      "date": "2026-07-20",
+      "pdf": "https://arxiv.org/pdf/2607.18067v1",
+      "score": "7.0",
+      "evidence": "基于量子启发的非正交基的3D高斯溅射压缩方法",
+      "tldr": "3D高斯泼溅（3DGS）通过大量各向异性高斯基元实现高质量实时渲染，但复杂场景需数百万基元，存储和渲染成本高。现有压缩方法主要减少基元冗余，忽略了非正交高斯基函数的重叠冗余。本文提出QIRF，一种量子启发非正交函数空间压缩方法，将相邻高斯基元建模为局部非正交基，构建高斯重叠矩阵和辐射响应密度矩阵，通过广义特征分解选择代表基元，并结合细节感知保护高频结构。在13个场景上，QIRF平均减少71.7%高斯数量和PLY存储（约3.54倍压缩），PSNR略提升0.10dB，渲染速度提升34.3%。该方法揭示了非正交函数空间冗余是显式高斯辐射场中的重要冗余源。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting (3DGS) achieves high-quality real-time rendering by representing a scene with a large collection of anisotropic Gaussian primitives. However, complex scenes often require millions of Gaussians, resulting in substantial storage and rendering costs. Existing compression methods mainly reduce redundancy through primitive-wise pruning, attribute quantization, clustering, or neural coding, while redundancy caused by strongly overlapping and non-orthogonal Gaussian basis functions remains largely unexplored. We present QIRF, a quantum-inspired non-orthogonal function-space compression method for 3D Gaussian Splatting. QIRF models neighboring Gaussian primitives as a local non-orthogonal basis and formulates primitive reduction as a subspace-aware selection problem. Specifically, an analytic Gaussian overlap matrix and a radiance-response density matrix are constructed to characterize functional redundancy and rendering relevance. Generalized eigendecomposition is then used to identify the dominant local subspace and select representative Gaussian primitives. An RRDM-based response model and detail-aware safeguarding further preserve visually important high-frequency structures under aggressive pruning. Experiments on 13 scenes from Mip-NeRF 360, Tanks and Temples, and Deep Blending show that QIRF reduces the Gaussian count and raw PLY storage by 71.7 percent on average, corresponding to approximately 3.54 times compression, while maintaining reconstruction quality comparable to 3DGS and achieving a marginal average PSNR improvement of 0.10 dB. QIRF also improves the average rendering speed over 3DGS by 34.3 percent. These results suggest that non-orthogonal function-space redundancy is an important yet underexplored source of representational redundancy in explicit Gaussian radiance fields.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
