@@ -1,0 +1,54 @@
+{
+  "label": "2026-07-23",
+  "date": "2026-07-23",
+  "generated_at": "2026-07-23T21:31:54",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/23/2607.18466v1-econgs-efficient-compressive-neural-gaussian-splats-for-volume-visualization",
+      "section": "deep",
+      "title_en": "ECoNGS: Efficient Compressive Neural Gaussian Splats for Volume Visualization",
+      "authors": "Kaiyuan Tang, Chaoli Wang",
+      "date": "2026-07-20",
+      "pdf": "https://arxiv.org/pdf/2607.18466v1",
+      "score": "8.0",
+      "evidence": "用于体积可视化的压缩神经高斯溅射",
+      "tldr": "现有基于原语的体可视化方法存在冗余、非紧凑表示的问题。ECoNGS采用轻量神经网络从显式锚点动态预测隐式可编辑高斯溅射，结合隐式表示的紧凑性和显式原语的高效渲染。通过联合学习策略聚类几何相似场景并共享参数，并使用神经熵模型压缩锚点属性。在多个单变量和多变量体数据场景上，相比iVR-GS，PSNR提升高达2.2dB，模型大小缩小6.1倍，训练时间缩短5.9倍。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Recent advances in differentiable Gaussian splatting have highlighted the potential of primitive-based approaches as alternative scene representations for interactive, high-quality, volume visualization (VolVis) of large datasets. However, the explicit nature of current primitive-based methods, combined with isolated optimization for each VolVis scene, results in redundant, non-compact representations. We present ECoNGS, an efficient compressive neural Gaussian splatting framework for VolVis scene representation. ECoNGS employs lightweight neural networks to dynamically predict implicit, editable Gaussian splats from explicit anchor points, effectively combining model compactness and parameter efficiency of implicit representations with high-performance rendering of explicit primitives. We explore a joint learning strategy that clusters geometrically similar scenes and shares parameters across them, significantly reducing overall training time and model size while maintaining reconstruction fidelity. To achieve a more compact scene representation, we further compress the explicit anchor attributes using a neural entropy model that estimates their probability distributions, enabling compact storage via entropy coding. We systematically investigate Gaussian initialization strategies and propose a simple yet effective scheme tailored for VolVis scenes, improving reconstruction accuracy and accelerating convergence. We evaluate ECoNGS qualitatively and quantitatively across various univariate and multivariate VolVis scenes, highlighting its superior performance over prior methods in training time, reconstruction quality, and model size. In particular, compared with the prior method iVR-GS, ECoNGS improves reconstruction quality by up to 2.2 dB in PSNR while reducing the model size by up to 6.1x and the training time by up to 5.9x. The code is available at https://github.com/TouKaienn/ECoNGS.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/23/2607.20417v1-atsplat-compact-feed-forward-3d-gaussian-splatting-with-adaptive-token-expansion",
+      "section": "deep",
+      "title_en": "ATSplat: Compact Feed-forward 3D Gaussian Splatting with Adaptive Token Expansion",
+      "authors": "Cho In, Jeonghwan Cho, Mijin Yoo, Gim Hee Lee, Seon Joo Kim",
+      "date": "2026-07-22",
+      "pdf": "https://arxiv.org/pdf/2607.20417v1",
+      "score": "8.0",
+      "evidence": "自适应令牌扩展的前馈3DGS紧凑式重建",
+      "tldr": "现有前馈3D高斯泼溅方法因像素对齐导致高斯数密集冗余，丢失了场景自适应分配能力。ATSplat提出自适应3D Token，先提取稀疏锚点Token作为场景骨架，再回归局部高斯并引入可学习偏移，通过不确定性分数选择性扩展高不确定Token。在RealEstate10K和DL3DV上实现最先进渲染质量，高斯数减少5.7倍，12张512x960输入下重建不到1秒，渲染速度达1136 FPS。该方法恢复了3DGS优化的自适应容量分配能力，实现了紧凑高效的前馈三维重建。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting (3DGS) achieves high-quality novel-view synthesis by optimizing freely placed primitives in 3D and adaptively densifying them in under-reconstructed regions. However, this scene-adaptive capacity allocation is largely lost in existing feed-forward 3DGS methods, which commonly regress Gaussians at input pixels and lift them along camera rays. Such pixel-aligned formulations make the number and placement of primitives depend on image resolution and input viewpoints rather than scene complexity, resulting in dense and often redundant Gaussian sets. We present ATSplat, a feed-forward 3DGS framework that restores the adaptive allocation capability of 3DGS optimization through Adaptive 3D Tokens. ATSplat first lifts coarse patch-level depth and camera cues into sparse 3D anchor tokens, forming a compact scaffold of the scene. Each token is then regressed into local Gaussians with learnable 3D offsets, decoupling primitive placement from input image grids. An Adaptive Token Expansion module predicts a token-level uncertainty score, supervised by rendering error maps, and selectively expands high-uncertainty tokens through learnable expansion layers. This sparse-to-adaptive formulation enables ATSplat to concentrate primitives in challenging regions while maintaining a compact representation. Experiments on two representative datasets, RealEstate10K and DL3DV, show that ATSplat achieves state-of-the-art rendering quality while reducing the number of Gaussians by more than $5.7\\times$ compared with dense feed-forward 3DGS methods. From 12 input images at $512 \\times 960$ resolution, ATSplat completes reconstruction in less than a second using a single commercial GPU, and renders high-quality novel views at 1136 FPS ($512 \\times 960$) with only 311K Gaussians.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/23/2607.18539v1-anigs-bridging-rendering-and-diffusion-prior-for-3d-scene-animation",
+      "section": "quick",
+      "title_en": "AniGS: Bridging Rendering and Diffusion Prior for 3D Scene Animation",
+      "authors": "Yen-Chi Cheng, Chen Gao, Chuhan Chen, Tuotuo Li, Rajvi Shah, Ayush Saraf, Changil Kim, Liangyan Gui, Alexander Schwing, Johannes Kopf, Hung-Yu Tseng",
+      "date": "2026-07-20",
+      "pdf": "https://arxiv.org/pdf/2607.18539v1",
+      "score": "7.0",
+      "evidence": "使用3DGS重建进行场景动画",
+      "tldr": "现有3D场景重建多为静态，缺乏环境动态。AniGS针对3D高斯溅射重建，使用规范3DGS与时变变形场建模全局运动，借助预训练视频扩散模型，通过迭代渲染-精炼策略逐步扩展视角覆盖，并设计组合视频细化方案将运动限制在目标区域。在五个大型户外场景中，该方法生成了自然的环境动态与高质量新视角视频，有效提升了沉浸感。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Novel view rendering of large and complex reconstructed scenes is becoming increasingly photorealistic. However, most reconstructions remain static and lack the ambient motion that makes environments immersive. We present AniGS, a method for scene-level animation of 3D Gaussian Splatting (3DGS) reconstructions that adds subtle, distributed dynamics, e.g., vegetation motion, while preserving rigid structures. Unlike existing 3D animation techniques which are limited to object-centric subjects or small regions, AniGS is designed for large, cluttered, navigable scenes. AniGS represents the scene with a canonical 3DGS and models motion using a time-conditioned deformation field. To animate the entire scene, we leverage a pretrained video diffusion model and introduce an iterative dataset--model update strategy that progressively expands viewpoint coverage and repeatedly updates camera-fixed training videos using a render-and-refine scheme. To prevent artifacts from unintended motion in static areas, we further introduce a composed video-to-video refinement scheme that restricts motion to desired regions. Experiments on five real-world, large-scale outdoor scenes demonstrate that AniGS produces natural ambient dynamics and high-quality novel view videos, enabling more immersive viewing experiences of reconstructed environments.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
