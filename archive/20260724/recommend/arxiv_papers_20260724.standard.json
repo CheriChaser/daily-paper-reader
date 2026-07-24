@@ -1,0 +1,249 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-24T21:32:58.915037+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2607.20789v1",
+      "source": "arxiv",
+      "title": "3D-GIMP: When 3D Gaussian Inpainting Meets PatchMatch",
+      "abstract": "Recent advances in 3D scene editing have leveraged iterative diffusion models to update input views. However, this process is computationally expensive and struggles to produce sharp details. Meanwhile, ``hallucination drift'' frequently introduces multi-view inconsistencies, leading to structural artifacts when rendering novel viewpoints. To address this problem, we present 3D-GIMP (3D Gaussian Inpainting Meets Patch Matching), a novel hybrid paradigm designed for high-fidelity object removal in 3D Gaussian Splatting. Instead of diffusing every view, 3D-GIMP performs a single generative inpainting on a key reference view, which serves as an appearance prior. We then introduce a 3D-aware PatchMatch algorithm to propagate these reference textures across all remaining views via correspondence matching, effectively bypassing the stochastic nature of frame-by-frame diffusion. By prioritizing reconstructive consistency over iterative generation, 3D-GIMP maintains high-frequency details across arbitrary resolutions while ensuring a mathematically consistent 3D reconstruction. Our experiments demonstrate that 3D-GIMP not only achieves competitive inpainting quality as previous methods using diffusion in multiple views, but also outperforms these methods in rendering speed and view consistency.",
+      "authors": [
+        "Xuening Tian",
+        "Dieter Schmalstieg",
+        "Shohei Mori"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-07-22T23:27:20+00:00",
+      "link": "https://arxiv.org/pdf/2607.20789v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "uses 3D Gaussian Splatting for inpainting and editing",
+      "llm_evidence_cn": "使用3D高斯溅射进行修复与编辑",
+      "llm_evidence": "使用3D高斯溅射进行修复与编辑",
+      "canonical_evidence": "使用3D高斯溅射进行修复与编辑",
+      "llm_tldr_en": "3D-GIMP performs object removal in 3D Gaussian Splatting by inpainting a key view and propagating textures with PatchMatch.",
+      "llm_tldr_cn": "现有3D编辑方法依赖逐视图扩散，计算昂贵且易产生多视图不一致。3D-GIMP提出混合范式：先对单参考视图进行生成式修复，再通过3D感知的PatchMatch算法将纹理传播到所有视角。实验表明该方法在保持3DGS渲染质量的同时，实现了高效且几何一致的物体移除，显著减少了伪影。",
+      "llm_tldr": "现有3D编辑方法依赖逐视图扩散，计算昂贵且易产生多视图不一致。3D-GIMP提出混合范式：先对单参考视图进行生成式修复，再通过3D感知的PatchMatch算法将纹理传播到所有视角。实验表明该方法在保持3DGS渲染质量的同时，实现了高效且几何一致的物体移除，显著减少了伪影。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.20813v1",
+      "source": "arxiv",
+      "title": "SubSplat: High-Resolution Pixel-aligned 3DGS via Sub-pixel Gaussian Reparameterization",
+      "abstract": "Pixel-aligned Gaussian splatting enables efficient and generalizable novel-view synthesis. However, high-resolution rendering faces a critical trade-off where increasing input resolution improves detail at the expense of quadratically rising network computational cost. Conversely, maintaining low-resolution inputs stabilizes this cost but results in insufficient Gaussian density and artifacts. To address this, we propose SubSplat, which introduces Sub-pixel Gaussian Reparameterizer(SPGR) to subdivide primary Gaussians into fine-grained primitives, restoring structural density directly from low-resolution features. We further enhance the reparameterization quality through feature aggregation, which effectively captures high-frequency details across multiple views. Experiments on RealEstate10K and ACID demonstrate that SubSplat achieves high-fidelity rendering with superior efficiency. Our results validate that the proposed framework successfully resolves the trade-off between reparameterization fidelity and network computational cost inherent in pixel-aligned Gaussian Splatting.",
+      "authors": [
+        "Jiun Lee",
+        "Jaekwang Kim",
+        "Sangmin Lee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-23T00:56:18+00:00",
+      "link": "https://arxiv.org/pdf/2607.20813v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "high-resolution pixel-aligned 3DGS via sub-pixel Gaussian reparameterization",
+      "llm_evidence_cn": "通过子像素高斯重参数化的高分辨率像素对齐3DGS",
+      "llm_evidence": "通过子像素高斯重参数化的高分辨率像素对齐3DGS",
+      "canonical_evidence": "通过子像素高斯重参数化的高分辨率像素对齐3DGS",
+      "llm_tldr_en": "SubSplat introduces a Sub-pixel Gaussian Reparameterizer to subdivide Gaussians for high-resolution novel-view synthesis from low-resolution inputs.",
+      "llm_tldr_cn": "像素对齐高斯溅射在输入分辨率与计算成本之间存在根本性权衡。本文提出SubSplat，通过子像素高斯重参数化器（SPGR）从低分辨率特征中恢复结构密度，将主高斯细分为细粒度原语。同时通过特征聚合增强重参数化质量。实验表明，该方法在保持低计算开销的同时实现了高分辨率渲染，消除了伪影。",
+      "llm_tldr": "像素对齐高斯溅射在输入分辨率与计算成本之间存在根本性权衡。本文提出SubSplat，通过子像素高斯重参数化器（SPGR）从低分辨率特征中恢复结构密度，将主高斯细分为细粒度原语。同时通过特征聚合增强重参数化质量。实验表明，该方法在保持低计算开销的同时实现了高分辨率渲染，消除了伪影。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.21099v1",
+      "source": "arxiv",
+      "title": "Construction and Dynamic Update of Channel Gain Maps via 3D Gaussian Splatting",
+      "abstract": "Channel knowledge maps (CKMs) have emerged as a promising technique for providing scene-specific and location-dependent propagation knowledge to enable environment-aware wireless network design. This paper investigates the construction and dynamic updating of a particular type of CKM, namely grid-based channel gain maps (CGMs), for large-scale networks using three-dimensional Gaussian splatting (3DGS). First, we formulate a grid-based channel gain model, where each map entry is defined as the locally averaged channel gain over a receiver grid, thereby suppressing phase-sensitive small-scale fluctuations. The resulting channel gain is decomposed into distance-dependent attenuation, path transmittance, and effective scattering contributions. Based on this decomposition, we develop a physics-informed Gaussian-splatting-based channel gain (GS-CG) model, which represents the propagation environment as a set of Gaussian primitives. The proposed model maps Gaussian geometry, opacity, and directional features to propagation-related factors and renders grid-level channel gains through a differentiable process. To accommodate real-time environmental changes, we further propose an incremental learning mechanism that updates a static reference GS-CG representation into a dynamic CGM. Specifically, the reference Gaussian primitives are frozen, while a compact set of tunable Gaussians is introduced to capture newly induced local channel-gain variations from sparse measurements.Numerical results demonstrate that the proposed GS-CG methods accurately reconstruct grid-based CGMs, efficiently adapt to dynamic environmental changes, and achieve a favorable accuracy-complexity tradeoff for fast CGM refinement.",
+      "authors": [
+        "Yilong Chen",
+        "Yuan Guo",
+        "Juncong Zhou",
+        "Jie Xu",
+        "Rui Zhang"
+      ],
+      "primary_category": "cs.IT",
+      "categories": [
+        "cs.IT"
+      ],
+      "published": "2026-07-23T09:30:08+00:00",
+      "link": "https://arxiv.org/pdf/2607.21099v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Directly uses 3D Gaussian splatting for channel gain map reconstruction",
+      "llm_evidence_cn": "直接使用3D高斯泼溅进行信道增益图重建",
+      "llm_evidence": "直接使用3D高斯泼溅进行信道增益图重建",
+      "canonical_evidence": "直接使用3D高斯泼溅进行信道增益图重建",
+      "llm_tldr_en": "This paper applies 3D Gaussian splatting to construct and dynamically update grid-based channel gain maps for wireless networks, demonstrating its utility beyond visual scenes.",
+      "llm_tldr_cn": "针对无线网络中的信道知识地图构建问题，现有方法难以处理大规模动态场景。该论文提出利用3D高斯泼溅（3DGS）来表示和更新信道增益图，将接收机网格上的信道增益建模为多变量高斯分布，实现了高精度且可动态更新的地图。实验表明，3DGS在信道建模任务上优于传统方法，为3DGS在非视觉领域的应用开辟了新方向。",
+      "llm_tldr": "针对无线网络中的信道知识地图构建问题，现有方法难以处理大规模动态场景。该论文提出利用3D高斯泼溅（3DGS）来表示和更新信道增益图，将接收机网格上的信道增益建模为多变量高斯分布，实现了高精度且可动态更新的地图。实验表明，3DGS在信道建模任务上优于传统方法，为3DGS在非视觉领域的应用开辟了新方向。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.21448v1",
+      "source": "arxiv",
+      "title": "GrainGS: Gradient-Decoupled Gaussian Splatting for Efficient Dynamic Novel View Synthesis",
+      "abstract": "Dynamic scene reconstruction with 3D Gaussian Splatting requires a balance between fine-grained motion modeling, structural stability, and compact representation. Existing per-primitive methods provide flexible local deformation but often suffer from redundant primitive growth, while anchor-based methods improve spatial regularity at the cost of suppressing locally varying motion. To address these issues, we present GrainGS, a dynamic Gaussian framework that combines a hierarchical anchor scaffold with per-Gaussian deformation. A static warm-up stage first establishes a time-invariant canonical representation from observations across all timestamps. During joint training, a stop-gradient operation blocks the deformation-mediated gradient pathway to the canonical positions while preserving their direct refinement through the reconstruction objective. Each Gaussian then predicts independent temporal offsets for position, rotation, and scale, enabling detailed local motion within a structurally constrained scaffold. A canonical-residual appearance decomposition further models frame-dependent photometric changes without forcing them into geometric deformation. Experiments on synthetic monocular and real-world multiview benchmarks show that GrainGS achieves high reconstruction quality, real-time novel view synthesis, and compact storage. Under the synthetic benchmark setting, it reaches an average peak signal-to-noise ratio of 36.98 decibels, renders at 435.6 frames per second, and requires 4.67 megabytes of storage.",
+      "authors": [
+        "Jiahao He",
+        "Yihua Shao",
+        "Zhengkai Zhao",
+        "Pan Gao",
+        "Fei Ma",
+        "Jingcai Guo",
+        "Hao Tang",
+        "Nicu Sebe",
+        "Qi Tian"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-23T15:52:35+00:00",
+      "link": "https://arxiv.org/pdf/2607.21448v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "uses 3D Gaussian Splatting for dynamic novel view synthesis",
+      "llm_evidence_cn": "使用3D高斯溅射进行动态新视图合成",
+      "llm_evidence": "使用3D高斯溅射进行动态新视图合成",
+      "canonical_evidence": "使用3D高斯溅射进行动态新视图合成",
+      "llm_tldr_en": "GrainGS combines hierarchical anchors with per-Gaussian deformation for efficient dynamic 3D Gaussian Splatting.",
+      "llm_tldr_cn": "动态场景重建需要在精细运动建模与结构稳定性之间权衡，现有方法存在冗余生长或运动抑制问题。GrainGS提出层次化锚点骨架与逐高斯形变相结合的框架，通过静态预热阶段建立时不变规范表示，并利用梯度阻断操作稳定训练。实验证明该方法在多个动态数据集上实现了高质量的新视图合成，同时保持了紧凑的模型大小。",
+      "llm_tldr": "动态场景重建需要在精细运动建模与结构稳定性之间权衡，现有方法存在冗余生长或运动抑制问题。GrainGS提出层次化锚点骨架与逐高斯形变相结合的框架，通过静态预热阶段建立时不变规范表示，并利用梯度阻断操作稳定训练。实验证明该方法在多个动态数据集上实现了高质量的新视图合成，同时保持了紧凑的模型大小。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.20922v1",
+      "source": "arxiv",
+      "title": "FA-LAM: Focus-Aware Large Avatar Model for One-Shot 4D Animatable Gaussian Head",
+      "abstract": "We propose FA-LAM, a Focus-Aware Large Avatar Model for one-shot animatable Gaussian head creation, while simultaneously enabling static 3D and dynamic 4D full-head recovery. The core of our method lies in a thorough analysis of the attention mechanisms and the entangled reconstruction and animation training pipeline adopted by prior state-of-the-art approaches. Our analysis identifies two main factors that compromise the quality of 3D full-head generation: (1) incorrect and noisy attention activations, and (2) conflicts between the tasks of reconstruction and animation. To address the first issue, we introduce a symmetric and semantic attention regularization strategy that leverages the inherent semantics and structural symmetry of human heads. To disentangle the objectives of reconstruction and animation, we develop a novel dual-phase training pipeline that separates the model's capabilities for large-view hallucination and animation into distinct modules. Moreover, we enhance our model to support multi-view and streaming 4D reconstruction in an efficient and memory-friendly manner through a core autoregressive modification with tailored visibility-aware token fusion. Collectively, these innovations enable FA-LAM to reconstruct animatable Gaussian full heads with superior quality, particularly in fine facial regions and large viewing angles.",
+      "authors": [
+        "Yingdong Hu",
+        "Yisheng He",
+        "Yiming Jiang",
+        "Zehong Lin",
+        "Steven Hoi",
+        "Jun Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-23T04:57:22+00:00",
+      "link": "https://arxiv.org/pdf/2607.20922v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "one-shot 4D animatable Gaussian head creation using 3DGS",
+      "llm_evidence_cn": "使用3DGS的一次性4D可动画高斯头部创建",
+      "llm_evidence": "使用3DGS的一次性4D可动画高斯头部创建",
+      "canonical_evidence": "使用3DGS的一次性4D可动画高斯头部创建",
+      "llm_tldr_en": "FA-LAM proposes a focus-aware large avatar model for one-shot animatable Gaussian head synthesis, addressing attention noise and reconstruction-animation conflicts.",
+      "llm_tldr_cn": "现有可动画头部生成方法受限于注意力噪声和重建与动画任务的冲突。本文提出FA-LAM，通过对称语义注意力正则化和解耦训练管线，实现一次性高质量3D/4D头部重建与动画。实验证明该方法在静态3D和动态4D头部生成中均达到最先进性能，具有更好的鲁棒性。",
+      "llm_tldr": "现有可动画头部生成方法受限于注意力噪声和重建与动画任务的冲突。本文提出FA-LAM，通过对称语义注意力正则化和解耦训练管线，实现一次性高质量3D/4D头部重建与动画。实验证明该方法在静态3D和动态4D头部生成中均达到最先进性能，具有更好的鲁棒性。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.21416v1",
+      "source": "arxiv",
+      "title": "GLAM-SLAM: Real-time Gaussian Large-scale Mapping via Flow Densification and Spatial Decomposition",
+      "abstract": "Existing Gaussian-splatting-based monocular Simultaneous Localization and Mapping (SLAM) systems are either tailored to short sequences, are not real-time, or suffer from prohibitive GPU memory requirements, limiting their applicability in realistic, long-horizon scenarios. To address this, we present GLAM-SLAM, a real-time, decoupled Gaussian-splatting SLAM system designed for large-scale outdoor scenes. We ensure lightweight tracking using a robust, feature-based SLAM frontend, while for mapping, we adopt a structured, sparse anchor grid representation that ensures scalable operation and maintains scene coherence across long-term sequences. To satisfy the dense initialization requirements of 3D Gaussian Splatting (3DGS), we introduce a geometry-based flow-densification anchoring strategy using epipolar constraints. Furthermore, by treating mapping as a multi-scene problem, we propose a scene-partitioning strategy that introduces a strong spatial inductive bias via MLP initializations to generate localized Gaussians. We evaluate our system on the challenging, long-sequence KITTI Odometry, Oxford RobotCar, and M'alaga datasets. Extensive ablations and comparisons demonstrate a 15% improvement in reconstruction quality over the second-best performer, while maintaining real-time performance and the ability to scale to longer sequences. Code is publicly available for the benefit of the community.",
+      "authors": [
+        "Panagiotis Mermigkas",
+        "Argyris Manetas",
+        "Petros Maragos"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-07-23T15:22:42+00:00",
+      "link": "https://arxiv.org/pdf/2607.21416v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3DGS-based mapping for large-scale reconstruction",
+      "llm_evidence_cn": "基于3DGS的大规模重建映射",
+      "llm_evidence": "基于3DGS的大规模重建映射",
+      "canonical_evidence": "基于3DGS的大规模重建映射",
+      "llm_tldr_en": "GLAM-SLAM proposes a real-time decoupled Gaussian-splatting SLAM system for large-scale outdoor scenes, achieving scalable mapping with a sparse anchor grid.",
+      "llm_tldr_cn": "现有基于高斯溅射的单目SLAM系统在长序列场景中面临实时性差和内存消耗高的问题。本文提出GLAM-SLAM，一种解耦的高斯溅射SLAM系统，采用鲁棒的特征SLAM前端和稀疏锚点网格表示，实现了大规模室外场景的实时映射。实验表明该方法在保持轻量跟踪的同时，能够处理长期序列并保持场景一致性，为3DGS在SLAM中的实际应用提供了可行方案。",
+      "llm_tldr": "现有基于高斯溅射的单目SLAM系统在长序列场景中面临实时性差和内存消耗高的问题。本文提出GLAM-SLAM，一种解耦的高斯溅射SLAM系统，采用鲁棒的特征SLAM前端和稀疏锚点网格表示，实现了大规模室外场景的实时映射。实验表明该方法在保持轻量跟踪的同时，能够处理长期序列并保持场景一致性，为3DGS在SLAM中的实际应用提供了可行方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
