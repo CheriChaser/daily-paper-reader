@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-25",
+  "date": "2026-07-25",
+  "generated_at": "2026-07-25T19:56:18",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/25/2607.20325v1-mr-compare-a-mixed-reality-framework-for-spatially-grounded-visual-comparison-of-3d-gaussian-splatting-and-mesh-reconstructions-with-the-physical-environment",
+      "section": "deep",
+      "title_en": "MR-Compare: A Mixed-Reality Framework for Spatially Grounded Visual Comparison of 3D Gaussian Splatting and Mesh Reconstructions with the Physical Environment",
+      "authors": "Changrui Zhu, Ernst Kruijff, Pengju Zhang, Simon Julier",
+      "date": "2026-07-22",
+      "pdf": "https://arxiv.org/pdf/2607.20325v1",
+      "score": "8.0",
+      "evidence": "比较3DGS与网格重建",
+      "tldr": "3D重建比较面临空间锚定和直观交互的挑战。MR-Compare框架结合两阶段注册管道与3D滑动条，在Meta Quest 3上实现3D高斯泼溅和网格重建与视频透视的空间对齐。评估显示厘米级平移误差，各向异性滤波器进一步提升注册鲁棒性。研究证实了系统级可行性，为混合现实中的跨媒体重建比较提供基础。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "We introduce MR-Compare, a mixed reality framework for spatially grounded visual comparison between 3D Gaussian splatting and mesh reconstructions with live video see-through (VST). Implemented on a PC-tethered Meta Quest~3, it combines a two-stage registration pipeline with a 3D Slider for cross-media comparison. We evaluated five representative desktop and mobile reconstruction workflows through a real-world benchmark with an exploratory user study ($n=30$) in two static indoor rooms. MR-Compare achieved centimetre-level translation error across all workflows. The two desktop 3DGS workflows showed the strongest overall pattern, with 3DGS-MCMC yielding the lowest registration error and strongest VST-referenced visual consistency. Room-session measures indicated high perceived usability and low workload. We further propose an anisotropy filter, a zero-shot module that leverages Gaussian anisotropies to improve 3DGS registration in MR-Compare. A controlled Replica threshold sweep shows that moderate pruning can improve robustness and reduce residual errors. These results establish system-level feasibility in the tested setting rather than task-level effectiveness or standalone deployment. The project is available at https://github.com/changruizhu96/MR-Compare.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/25/2607.16897v1-glide-slam-gl-accelerated-indirect-direct-embedded-slam",
+      "section": "quick",
+      "title_en": "GLidE-SLAM: GL-Accelerated Indirect-Direct Embedded SLAM",
+      "authors": "Carlos A. Pinheiro de Sousa, Heiko Hamann, Oliver Deussen",
+      "date": "2026-07-18",
+      "pdf": "https://arxiv.org/pdf/2607.16897v1",
+      "score": "6.0",
+      "evidence": "在嵌入式设备上使用GPU加速SLAM，为3D重建提供硬件加速",
+      "tldr": "随着机器人、自主无人机和可穿戴扩展现实系统需求增长，嵌入式设备部署视觉SLAM面临高帧率与资源分配挑战。本文提出GLidE-SLAM，一种单目混合间接-直接框架，通过架构分离：GPU加速直接跟踪在中间帧上执行高度并行图像对齐实现仅姿态估计，无需深度优化或地图点创建，释放CPU资源；完整间接管道保留用于地图扩展和全局一致性。实验表明帧率较仅CPU基线提升高达9倍，同时保持轨迹精度，并在资源受限硬件上改善部署。这是首个利用OpenGL ES计算着色器实现的完整直接光度姿态估计器，无需CUDA，可在更广泛商品嵌入式平台部署。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "With the growing demand for robotics, autonomous drones, and wearable extended reality systems, the deployment of Visual SLAM on embedded devices remains challenging. Tracking must sustain high frame rates while preserving compute resources for map extension and maintenance. This paper presents GLidE-SLAM, a monocular hybrid indirect-direct framework that addresses this by architectural separation: the system performs GPU-accelerated direct tracking on intermediate frames, while reserving the full indirect pipeline for map extension and global consistency. We leverage highly parallel image-alignment operations for pose-only estimation without depth optimization or map point creation, making the workload suitable for GPU offloading and freeing CPU resources for backend tasks. We implement the direct tracker using vendor-agnostic OpenGL ES~3.1 compute shaders, enabling deployment across a broader range of commodity embedded platforms without requiring CUDA support. To our knowledge, this is the first complete direct photometric pose estimator realized via compute shaders for embedded-class devices. Experiments on target platforms demonstrate up to 9$\\times$ higher frame rates than the CPU-only baseline while maintaining trajectory accuracy and improving practical deployment across commodity resource-constrained hardware.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,199 @@
+Title: GLidE-SLAM: GL-Accelerated Indirect-Direct Embedded SLAM
+
+URL Source: https://arxiv.org/pdf/2607.16897v1
+
+Published Time: Tue, 21 Jul 2026 00:44:04 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# GLidE-SLAM: GL-Accelerated Indirect-Direct Embedded SLAM 
+
+Carlos A. Pinheiro de Sousa, Heiko Hamann, and Oliver Deussen 
+
+Abstract — With the growing demand for robotics, au-tonomous drones, and wearable extended reality systems, the deployment of Visual SLAM on embedded devices remains challenging. Tracking must sustain high frame rates while preserving compute resources for map extension and mainte-nance. This paper presents GLidE-SLAM, a monocular hybrid indirect-direct framework that addresses this by architectural separation: the system performs GPU-accelerated direct track-ing on intermediate frames, while reserving the full indirect pipeline for map extension and global consistency. We lever-age highly parallel image-alignment operations for pose-only estimation without depth optimization or map point creation, making the workload suitable for GPU offloading and freeing CPU resources for backend tasks. We implement the direct tracker using vendor-agnostic OpenGL ES 3.1 compute shaders, enabling deployment across a broader range of commodity embedded platforms without requiring CUDA support. To our knowledge, this is the first complete direct photometric pose estimator realized via compute shaders for embedded-class devices. Experiments on target platforms demonstrate up to 9× higher frame rates than the CPU-only baseline while maintaining trajectory accuracy and improving practical deployment across commodity resource-constrained hardware. 
+
+I. INTRODUCTION Visual SLAM has been extensively studied, yet prac-tical deployment on embedded devices remains challeng-ing. Growing applications in robotics, autonomous drones, and wearable extended reality (XR) systems are driving demand for efficient embedded implementations. Robotics trends increasingly favor fully onboard SLAM [1], [2]; these platforms operate under strict constraints in cost, power, and form factor, where efficiency and portability matter as much as raw accuracy. Although recent learning-based SLAM methods [3]–[7] have attracted substantial attention for richer scene recon-struction and understanding, their practical requirements are mismatched to embedded deployment: they require vendor-specific, high-power GPU hardware. Classical geometric approaches and lightweight hybrid designs, therefore, remain the most practical path to real-time SLAM on small, portable, resource-constrained devices. Yet, real-time operation re-mains limited by the tracking front end, whose per-frame cost can starve mapping and optimization, even with multi-threaded approaches. The central challenge is therefore to re-      
+
+> This work was funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under Germany’s Excellence Strategy – EXC 2117 – 422037984. The authors are with the Department of Computer and Information Science, University of Konstanz, 78464 Konstanz, Germany.
+
+{carlos.pinheiro-de-sousa, heiko.hamann, oliver.deussen }@uni-konstanz.de https://github.com/capsMD 
+
+duce front-end compute while preserving robustness and map quality under tight computing and portability constraints. Our GLidE-SLAM approach addresses this by assigning each paradigm exclusively to the regime where it is naturally strongest. A lightweight direct tracker performs pose-only visual odometry on the majority of intermediate or tween 
+
+frames and alternates back sporadically to indirect tracking to regain stability, re-anchor the pose and extend the map structure. The relationship is symbiotic: indirect tracking constructs the map that direct tracking consumes, while fre-quent direct poses keep the indirect pipeline well-initialized. Because the direct module performs pose-only estimation with no depth optimization or map point creation, its work-load reduces to highly parallel local photometric operations, making it a natural fit for GPU execution. We implement a complete end-to-end direct photometric pose estimation using compute shaders. This approach not only frees CPU headroom for backend tasks that would otherwise compete with tracking on constrained platforms, but also provides a vendor-agnostic acceleration path on embedded GPUs, enabling SLAM on resource-constrained devices where it was previously prohibitive. We provide, through this framework, at least three main contributions: 1) Novel indirect-direct architectural separation. We introduce a hybrid visual SLAM architecture that combines indirect and direct tracking according to their respective strengths: indirect tracking provides keyframe structure, map extension, and recovery, while direct photometric tracking performs efficient pose-only estimation on intermediate frames. 2) Pose-only direct photometric tracking over a sparse map. We formulate direct tracking as a lightweight pose-only estimator over existing sparse map points, avoiding depth optimization and map point creation during intermediate frames. This keeps the direct work-load compact, parallelizable, and suitable for repeated high-rate execution. 3) Vendor-agnostic compute-shader implementation. 
+
+To the best of our knowledge, GLidE-SLAM is the first pose-only direct photometric estimator implemented with OpenGL ES 3.1 compute shaders for embedded-class devices, supporting execution across a broader range of commodity embedded GPUs. II. RELATED WORK 
+
+A. Indirect and Direct Tracking Paradigms 
+
+The architectural separation in GLidE-SLAM builds on the complementary strengths of classical tracking methods, arXiv:2607.16897v1 [cs.RO] 18 Jul 2026 which fall into indirect feature-based and direct photometric paradigms. Indirect feature-based methods [8]–[12] match sparse keypoints and minimize reprojection error, offering robustness to large inter-frame motion and natural support for relocalization and loop closure, but impose a high constant cost per frame through feature extraction and matching. Di-rect photometric methods [13]–[16], on the other hand, min-imize pixel-intensity differences between frames to achieve subpixel-accurate alignment, but are fragile under moderate motion, illumination changes, and motion blur. 
+
+B. Hybrid and Semi-Direct Methods 
+
+Semi-direct and hybrid methods aim to combine the complementary strengths of the two paradigms. LCSD-SLAM [17] loosely couples direct and indirect methods [10], [15] in parallel, but maintains two separate map represen-tations that can drift relative to each other and increase computational overhead. H-SLAM [18] proposes a unified inverse-depth representation shared by both direct and indi-rect components to eliminate dual-map drift. Closer to our approach are systems that use lightweight tracking between keyframes: SVO [19] refines pose via direct image alignment while jointly estimating inverse-depth for features during tracking, and OV2SLAM [20] performs inter-frame tracking by optical-flow feature propagation followed by Perspective-n-Point (PnP) pose refinement. In contrast, GLidE-SLAM enforces strict paradigm separation: direct tracking is re-stricted to camera pose-only estimation over an existing sparse map, enabling a highly parallel GPU-friendly front end for embedded systems. 
+
+C. Embedded SLAM Acceleration 
+
+Although accelerated approaches have emerged to reduce computational overhead in embedded SLAM, most systems rely on CUDA to offload front-end operations such as feature detection and tracking [21], [22], as well as back-end com-ponents including local mapping and bundle adjustment [23]. This vendor-specific dependence restricts deployment on commodity off-the-shelf embedded platforms. FPGA-based accelerators can achieve strong performance-per-watt for specific kernels such as ORB extraction and semi-dense tracking [24], [25], but require hardware-software co-design that couples algorithms to fixed platforms, further limiting flexibility and portability. Mobile AR frameworks such as ARCore and ARKit [26] are proprietary and device-specific, and thus unsuitable for reproducible research comparisons. In contrast, GLidE-SLAM designs and implements the direct photometric pose estimator natively as an OpenGL ES 3.1 compute-shader pipeline, enabling vendor-agnostic GPU ac-celeration across diverse embedded platforms without CUDA dependency. III. SYSTEM OVERVIEW GLidE-SLAM follows the standard keyframe-based orga-nization of visual SLAM. After initialization and bootstrap map creation, the system alternates between two modes. The indirect pipeline creates keyframes , extends the map, and provides stable anchor poses. For the larger set of intermedi-ate tween frames , GLidE-SLAM performs pose-only direct photometric tracking on the GPU. When direct alignment degrades or the baseline to the current reference exceeds a threshold, the system returns to the indirect pipeline to regain stability, re-anchor the pose, update the map, and refresh the direct reference. Fig. 1 illustrates this schedule.     
+
+> Fig. 1. Windowed visual odometry schedule. Interflow GPU-CPU: Track
+> (orange) performs photometric alignment of sequential images to a same reference Precompute IC on the GPU. Indirect tracking generates keyframes, bundle adjustment (BA) and loop closure (LC) on the CPU.
+
+For this architecture, the indirect tracking pipeline pro-vides the reference 3D map points and a corresponding reference camera pose, which serve as inputs to the GPU direct-tracking precompute process and cache generation. This step is performed primarily on keyframes, executed sporadically, and its results are reused within a variable-length window of consecutive frames for direct tracking. In contrast, for most sequential frames, estimates of the current 
+
+frame’s camera pose are produced by the track process using incoming images together with the previously cached IC reference. An overview of the two symbiotic pipelines is provided in Fig. 2, and a formal discussion is presented in IV.      
+
+> Fig. 2. Direct/indirect tracking pipeline overview. GPU tracking estimates poses for current frames n+kusing IC precomputed from reference frame
+> n.
+
+The next section formalizes the photometric alignment objective, the inverse compositional formulation used for caching, and the main stages of our compute-shader pipeline. IV. DIRECT PHOTOMETRIC TRACKING 
+
+A. Problem Formulation 
+
+Direct photometric tracking estimates the current camera pose T ∈ SE(3) by minimizing photometric residuals over a set of 3D map points provided by the indirect pipeline. Let {Pi}Ni=1 be N 3D map points. Each incoming frame is aligned to a fixed reference frame with pose T0 and reference image I0. For a candidate current pose T , point Pi projects to 
+
+u0 
+
+> i
+
+= π(T0Pi), ui(T ) = π(T P i). (1) where π denotes the projection, u0 
+
+> i
+
+denotes the projection in the reference image I0, and ui(T ) denotes the projection in the current image I.A small p × p patch is compared around each projection. Let P = {1, . . . , p 2} index the pixels of the patch, where each k ∈ P corresponds to a fixed 2D offset ∆uk relative to the patch center. The photometric residual for map point i
+
+and patch pixel k is defined as 
+
+ri,k (T ) = I0
+
+ u0 
+
+> i
+
++ ∆ uk
+
+ − I(ui(T ) + ∆ uk) , (2) where intensities are sampled bilinearly. The pose can be estimated by minimizing the sum of squared residuals for all pixels around all points: 
+
+T ∗ = arg min 
+
+> TN
+
+X
+
+> i=1
+
+X
+
+> k∈P
+
+ri,k (T )2. (3) Optimization proceeds coarse-to-fine over the image pyra-mid, with the pose estimated at each coarser level used to initialize Gauss–Newton 1 optimization at the next finer level, using a fixed maximum number of iterations per level. Pose increments are parameterized as a 6D twist δ ∈ R6
+
+and applied with the exponential map using the update per iteration: 
+
+T ← T exp( δ).
+
+B. Inverse Compositional Template Approximation 
+
+Let r(T ) denote the stacked residual vector formed from 
+
+ri,k (T ). Using Gauss–Newton, the residual is linearized around the current estimate as 
+
+r(T exp( δ)) ≈ r(T ) + J δ, (4) Here, δ ∈ R6 is the pose increment and J is the Jacobian with respect to δ. Minimizing Eq. (4). is solved iteratively via the normal equations 
+
+H δ = b, H = J⊤J, b = −J⊤r, (5) In a forward-additive formulation, J depends on image gradients evaluated at warped locations in the current image 
+
+I and must be recomputed at each iteration and for every new 
+
+> 1Gauss–Newton is sufficient for this locally initialized pose-only problem with small inter-frame updates, and its fixed-iteration structure is more convenient for a compute-shader pipeline.
+
+image. Inverse compositional (IC) alignment [27] reduces this cost by evaluating derivatives in the fixed reference image I0, making J independent of the current pose estimate while a reference is reused. This is particularly favorable in the tween-frame regime, where several frames are aligned to the same reference frame. In the IC form used here, each Jacobian row follows the standard photometric chain rule evaluated on the reference side: 
+
+Ji,k = ∇I0
+
+ u0 
+
+> i
+
++ ∆ uk
+
+ ∂π ∂x ∂x ∂δ , (6) with x = T0Pi, where ∂π ∂x is the projection Jacobian and ∂x ∂δ 
+
+is the SE(3) motion Jacobian. While the reference is fixed, the Jacobian stack J in Eq. (5) remains constant; only the residual vector r(T ) changes with the current frame and pose estimate. Consequently, H can also be precomputed once per reference update. Solving Eq. (5) yields the pose increment 
+
+δ, which is applied via T ← T exp( δ) to update the current pose estimate. 
+
+C. GPU Compute Shader Pipeline 
+
+Our GPU framework is implemented using OpenGL for Embedded Systems (OpenGL ES) 3.1, providing portability across commodity embedded GPUs and direct support for image-processing operations. Within this framework, com-pute shaders perform the parallel computation required by our direct photometric pose estimator. GLidE-SLAM exe-cutes the direct photometric visual odometry pipeline end-to-end on the GPU to minimize CPU–GPU data exchange. This includes image-pyramid construction, image differentiation, tree-based reduction, and Gauss–Newton optimization. Per-point and per-patch data are stored in Shader Storage Buffer Objects (SSBOs) [28] and accessed directly by the compute-shader stages. The same framework also drives a custom lightweight 3D visualization engine. The pipeline consists of three main stages: 
+
+Image pyramids. Each frame is converted to a 32-bit floating-point representation to reduce quantization error and keep downstream gradient and residual computations numerically stable. A Gaussian pyramid is then built on the GPU (Fig. 3). The first level ( L = 0 ) is full resolution, and subsequent levels are generated recursively by blurring 2 and downsampling the previous level.  
+
+> Fig. 3. Multi-stage image pyramid generation.
+> 2We use two-pass vertical/horizontal blur on a temporary texture buffer.
+
+Precompute Inverse Compositional (IC). When pro-cessing a reference frame, for each of its pyramid levels, the inverse compositional cache is computed and stored in dedicated buffers ( I0, J, and H) shown in Fig. 4.        
+
+> Fig. 4. Per-level precompute cache storage. Per-point thread projection and buffer storage: Patch intensities I0and Jacobians Jare stored per patch pixel; Hessians Hmust be reduced and stored per level.
+
+Each compute-shader invocation processes one map point 
+
+Pi: it projects Pi using T0, samples the p × p reference patch, computes reference-side gradients, and stores the corresponding intensities and Jacobians Ji,k from Eq. (6). The Hessian contribution Hi is first written per point and then reduced across points into a single per-level Hessian used during later in the track process. Since each invocation writes only to the buffer slice associated with its point index, the stage is parallel and requires no CPU-side accumulation. 
+
+Track. For each current frame, tracking is performed as a three-stage compute-shader process, repeated at each pyramid level and each Gauss–Newton iteration Fig. 5. First, one compute-shader invocation per map point projects Pi using the current pose estimate T , samples the corresponding current-image patch, and computes photomet-ric residuals against the cached reference patch I0. For each patch pixel k, the residual contribution is combined with the cached Jacobian Ji,k . These per-pixel contributions are summed over the patch to produce one per-point right-hand-side vector bi = − P 
+
+> k
+
+J⊤
+
+> i,k
+
+ri,k .      
+
+> Fig. 5. Per-level, per-iteration photometric alignment: per-point thread projection yields residual, which is combined with cached Jacobian to output per-point bi. Posterior aggregation into per-level bis then used for solving for new pose T.
+
+Second, a tree-reduction stage aggregates all per-point vectors bi into a single per-level 6D vector b, corresponding to three rotational and three translational components. Finally, the normal equations Hδ = b are solved on the GPU via Cholesky factorization to obtain the pose increment, and the pose is updated as T ← T exp( δ). The updated pose initializes the next iteration, and the procedure is repeated across pyramid levels from coarse to fine. 
+
+D. Indirect Tracking Switch 
+
+Direct tracking is used only for tween frames and is guarded by photometric-quality and baseline criteria. Adirect-tracked frame is accepted when the GPU tracker returns a valid pose and the robust photometric error remains below the switching threshold. The system returns to the indirect pipeline given any of the following conditions: if direct tracking fails, if the error exceeds the failure threshold, or if the maximum number of direct frames since the last reference is reached. Upon successful switch back to indirect tracking, the direct pipeline is refreshed with new reference data: camera pose T0, input reference image and the 3D map points (see Fig. 2); the IC precompute stage is then re-run and track is performed for next consecutive frames. V. EXPERIMENTAL EVALUATION 
+
+A. Experimental Setup 
+
+We evaluate GLidE-SLAM on three platforms comprising two embedded devices and a development laptop: the Radxa Zero 3W (RK3566, Mali-G52 MP2 GPU), representing a severely resource-constrained embedded target; the NVIDIA Jetson Orin Nano (Arm Cortex-A78AE CPU, Ampere GPU); and a development laptop (AMD Ryzen AI 9 HX 370 CPU, NVIDIA GeForce RTX 4060 mobile GPU). The evaluation comprises six image sequences: three TUM RGB-D [29] sequences, freiburg3 long office household, freiburg2 desk, and freiburg2 xyz, reported as tum3, tum2 desk, and tum2 xyz, respectively; and three EuRoC MAV [30] machine-hall sequences, MH01, MH03, and MH05. All experiments use six image-pyramid levels. The direct-tracking patch size is dataset-specific: 7×7 for TUM RGB-D and 11 × 11 for EuRoC MAV. For each sequence, we report timing and accuracy over five runs to capture runtime per-formance and run-to-run variability. Rendering is disabled to avoid rendering-related bias. For this work GLidE-SLAM ex-tends ORB-SLAM2, the evaluation focuses on the controlled question of how much tracking throughput improves on embedded devices while maintaining comparable accuracy. Broader comparisons to other SLAM frameworks would require additional porting and tuning across heterogeneous software and hardware dependencies and are outside the scope of this work. VI. RESULTS We report median per-frame processing time, GPU-synchronized direct-tracking pipeline time, the percentage of frames processed by the direct tracker, and trajectory accuracy for GLidE-SLAM compared to ORB-SLAM2 on the platforms described in Sec. V-A. TABLE I FRAME PROCESSING TIME (MEDIAN IN MS )Sequence Laptop Nano Radxa ORB GLidE Spd. ORB GLidE Spd. ORB GLidE Spd.                                                       
+
+> tum3 9.6 5.0 1.9 ×31.1 4.8 6.5 ×131.0 58.8 2.2 ×
+> tum2 desk 9.9 5.1 1.9 ×32.8 3.6 9.0 ×132.0 64.3 2.1 ×
+> tum2 xyz 8.5 3.8 2.2 ×29.2 3.1 9.6 ×127.0 43.9 2.9 ×
+> MH01 10.9 3.9 2.8 ×35.4 6.2 5.7 ×136.0 107.4 1.3 ×
+> MH03 9.9 11.9 0.8 ×33.4 32.6 1.0 ×135.0 180.5 0.7 ×
+> MH05 9.2 3.4 2.7 ×30.8 6.9 4.4 ×124.0 127.0 1.0 ×
+
+A. Frame Processing Performance 
+
+Table I reports median per-frame processing time for ORB-SLAM2 and GLidE-SLAM on all three platforms, together with the speedup factor relative to ORB-SLAM2. GLidE-SLAM reduces per-frame processing time on most sequence-platform pairs, with the largest gains observed on sequences with high direct-tracking utilization. 
+
+B. GPU Timings 
+
+The GPU timing breakdown reports synchronized compute-shader execution times for the two GPU paths used by GLidE-SLAM. Since image-pyramid construction is required before both precomputate and track processes, Table II reports Pre as pyramid +precompute and Trk as 
+
+pyramid +track . All values are median elapsed times in milliseconds.                                                  
+
+> TABLE II MEDIAN GPU STAGE TIMINGS (MS ). PRE :PYRAMID +PRECOMPUTE ; T RK :PYRAMID +TRACK .Seq. Laptop Nano Radxa Pre Trk Pre Trk Pre Trk tum3 2.5 3.5 2.0 2.8 43.7 39.1 tum2 desk 2.5 3.6 2.1 2.8 43.7 38.9 tum2 xyz 2.6 3.4 2.0 2.7 51.0 40.8 MH01 1.6 2.6 2.7 3.9 69.5 46.4 MH03 2.3 3.0 2.7 3.9 68.0 45.6 MH05 1.1 1.9 2.8 3.8 67.3 45.7
+
+C. Direct Tracking Utilization 
+
+Higher direct-tracking utilization tends to increase speedup since direct tracking is significantly more efficient than indirect feature-based tracking. The indirect pipeline remains responsible for mapping and recovery when direct tracking is no longer reliable. This alternating relation is visible in Fig. 6, where indirect frames concentrate in regions requiring map extension or re-anchoring. Table III reports the percentage of frames successfully processed by the direct tracker using the acceptance criterion described in Sec. IV. 
+
+D. Trajectory Accuracy 
+
+Table IV reports absolute trajectory error (ATE RMSE) for ORB-SLAM2 and GLidE-SLAM. Overall, GLidE-SLAM maintains accuracy across the evaluated platforms, with ATE values broadly comparable to the ORB-SLAM2 baseline.                                                                              
+
+> Fig. 6. 3D render capture of GLidE-SLAM running on fr2/desk dataset: Orange camera frames represent direct tracking, dark blue frames represent indirect tracking. TABLE III DIRECT TRACKING SUCCESS RATE (% OF FRAMES )Sequence Laptop GLidE Nano GLidE Radxa GLidE
+> tum3 69.3% 68.5% 69.0% tum2 desk 70.1% 70.3% 69.2% tum2 xyz 89.9% 89.8% 89.8% MH01 63.6% 63.9% 65.3% MH03 46.1% 45.0% 46.5% MH05 61.3% 61.2% 60.3% TABLE IV TRAJECTORY ACCURACY (ATE RMSE IN METERS )Sequence Laptop Nano Radxa ORB GLidE ORB GLidE ORB GLidE tum3 0.010 0.014 0.012 0.021 0.009 0.016 tum2 desk 0.008 0.010 0.013 0.008 0.006 0.016 tum2 xyz 0.002 0.002 0.002 0.002 0.002 0.003 MH01 0.046 0.044 0.045 0.048 0.036 0.042 MH03 0.038 0.040 0.040 0.039 0.032 0.038 MH05 0.056 0.075 0.051 0.053 0.037 0.048
+
+E. Discussion 
+
+GLidE-SLAM improves runtime on most sequence-platform pairs while maintaining trajectory accuracy close to ORB-SLAM2. The largest gains occur with high direct-tracking utilization, especially on TUM sequences, where many frames are processed by the GPU direct tracker. Gains are more limited on EuRoC sequences, where faster motion and stronger viewpoint changes increase inter-frame base-line, reduce direct-tracking stability, and force more frequent returns to the indirect pipeline. All reported results use the same compute-shader con-figuration across platforms, including workgroup sizes and dispatch structure. Since the evaluated GPUs differ in ar-chitecture and driver behavior, the results reflect a portable but not platform-optimized configuration. Further gains may therefore be possible through device-specific shader and dispatch tuning. VII. CONCLUSION We presented GLidE-SLAM, a hybrid indirect-direct SLAM architecture that performs camera pose estimation through a fast GPU-accelerated direct pipeline and invokes the indirect pipeline primarily for re-stabilization, mapping, and relocalization. Our design allows camera tracking to be highly parallelizable on embedded GPUs, achieving sub-stantial speed gains while preserving accuracy close to the feature-based baseline. The direct pose estimator is im-plemented with vendor-agnostic OpenGL ES 3.1 compute shaders, supporting portability across heterogeneous embed-ded devices. Future work will extend GPU acceleration to additional pipeline stages, incorporate inertial motion priors, and in-vestigate platform-specific shader tuning. More broadly, our results highlight an opportunity beyond SLAM: embedded platforms often include capable GPUs that remain under-utilized for onboard compute, and portable GPU implemen-tations can provide significant performance gains. REFERENCES [1] A. Kumar, J. Park, and L. Behera, “High-speed stereo visual slam for low-powered computing devices,” IEEE Robotics and Automation Letters , vol. 9, no. 1, pp. 499–506, 2024. [2] C. Friess, V. Niculescu, T. Polonelli, M. Magno, and L. Benini, “Fully onboard slam for distributed mapping with a swarm of nano-drones,” IEEE Internet of Things Journal , vol. 11, no. 20, p. 32363–32380, Oct. 2024. [Online]. Available: http: //dx.doi.org/10.1109/JIOT.2024.3367451 [3] C. Yan, D. Qu, D. Xu, B. Zhao, Z. Wang, D. Wang, and X. Li, “Gs-slam: Dense visual slam with 3d gaussian splatting,” 2024. [Online]. Available: https://arxiv.org/abs/2311.11700 [4] E. Sandstr¨ om, K. Tateno, M. Oechsle, M. Niemeyer, L. V. Gool, M. R. Oswald, and F. Tombari, “Splat-slam: Globally optimized rgb-only slam with 3d gaussians,” 2024. [Online]. Available: https://arxiv.org/abs/2405.16544 [5] D. Maggio, H. Lim, and L. Carlone, “Vggt-slam: Dense rgb slam optimized on the sl(4) manifold,” 2025. [Online]. Available: https://arxiv.org/abs/2505.12549 [6] S. Wang, V. Leroy, Y. Cabon, B. Chidlovskii, and J. Revaud, “DUSt3R: Geometric 3d vision made easy,” 2024. [Online]. Available: https://arxiv.org/abs/2312.14132 [7] R. Murai, E. Dexheimer, and A. J. Davison, “Mast3r-slam: Real-time dense slam with 3d reconstruction priors,” 2025. [Online]. Available: https://arxiv.org/abs/2412.12392 [8] A. J. Davison, I. D. Reid, N. D. Molton, and O. Stasse, “MonoSLAM: Real-time single camera slam,” IEEE Transactions on Pattern Analysis and Machine Intelligence , vol. 29, no. 6, pp. 1052–1067, 2007. [9] R. Mur-Artal, J. M. M. Montiel, and J. D. Tardos, “ORB-SLAM: A versatile and accurate monocular SLAM system,” IEEE Transactions on Robotics , vol. 31, no. 5, p. 1147–1163, Oct. 2015. [Online]. Available: http://dx.doi.org/10.1109/TRO.2015.2463671 [10] R. Mur-Artal and J. D. Tardos, “Orb-slam2: An open-source slam system for monocular, stereo, and rgb-d cameras,” IEEE Transactions on Robotics , vol. 33, no. 5, p. 1255–1262, Oct. 2017. [Online]. Available: http://dx.doi.org/10.1109/TRO.2017.2705103 [11] T. Qin, P. Li, and S. Shen, “VINS-Mono: A robust and versa-tile monocular visual-inertial state estimator,” IEEE Transactions on Robotics , vol. 34, no. 4, pp. 1004–1020, 2018. [12] C. Campos, R. Elvira, J. J. G. Rodriguez, J. M. M. Montiel, and J. D. Tardos, “Orb-slam3: An accurate open-source library for visual, visual–inertial, and multimap slam,” IEEE Transactions on Robotics ,vol. 37, no. 6, p. 1874–1890, Dec. 2021. [Online]. Available: http://dx.doi.org/10.1109/TRO.2021.3075644 [13] R. A. Newcombe, S. J. Lovegrove, and A. J. Davison, “DTAM: Dense tracking and mapping in real-time,” in 2011 International Conference on Computer Vision , 2011, pp. 2320–2327. [14] J. Engel, V. Koltun, and D. Cremers, “Direct sparse odometry,” 2016. [Online]. Available: https://arxiv.org/abs/1607.02565 [15] J. Engel, T. Sch¨ ops, and D. Cremers, “LSD-SLAM: Large-scale direct monocular SLAM,” in European Conference on Computer Vision (ECCV) , September 2014. [16] X. Gao, R. Wang, N. Demmel, and D. Cremers, “LDSO: Direct sparse odometry with loop closure,” in 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) , 2018, pp. 2198– 2204. [17] S. H. Lee and J. Civera, “Loosely-coupled semi-direct monocular slam,” IEEE Robotics and Automation Letters , vol. 4, no. 2, p. 399–406, Apr. 2019. [Online]. Available: http://dx.doi.org/10.1109/L RA.2018.2889156 [18] G. Younes, D. Khalil, J. S. Zelek, and D. C. Asmar, “H-slam: Hybrid direct-indirect visual slam,” ArXiv , vol. abs/2306.07363, 2023. [Online]. Available: https://api.semanticscholar.org/CorpusID: 259145125 [19] C. Forster, M. Pizzoli, and D. Scaramuzza, “Svo: Fast semi-direct monocular visual odometry,” in 2014 IEEE International Conference on Robotics and Automation (ICRA) , 2014, pp. 15–22. [20] M. Ferrera, A. Eudes, J. Moras, M. Sanfourche, and G. L. Besnerais, “Ov 2slam : A fully online and versatile visual slam for real-time applications,” 2021. [Online]. Available: https: //arxiv.org/abs/2102.04060 [21] K. Khabiri, P. Hosseininejad, S. Gopinath, K. Dantu, and S. Y. Ko, “Fasttrack: Gpu-accelerated tracking for visual slam,” 2025. [Online]. Available: https://arxiv.org/abs/2509.10757 [22] F. Muzzini, N. Capodieci, R. Cavicchioli, and B. Rouxel, “High-performance feature extraction for gpu -accelerated orb-slamx,” in 
+
+2024 Design, Automation & Test in Europe Conference & Exhibition (DATE) , 2024, pp. 1–2. [23] A. Korovko, D. Slepichev, A. Efitorov, A. Dzhumamuratova, V. Kuznetsov, H. Rabeti, J. Biswas, and S. Pouya, “cuvslam: Cuda accelerated visual odometry and mapping,” 2025. [Online]. Available: https://arxiv.org/abs/2506.04359 [24] C. Wang, Y. Liu, K. Zuo, J. Tong, Y. Ding, and P. Ren, “ac2SLAM: FPGA accelerated high-accuracy SLAM with heapsort and paral-lel keypoint extractor,” in 2021 International Conference on Field-Programmable Technology (ICFPT) , 2021, pp. 1–9. [25] R. Liu, J. Yang, Y. Chen, and W. Zhao, “eslam: An energy-efficient accelerator for real-time ORB-SLAM on FPGA platform,” in 2019 56th ACM/IEEE Design Automation Conference (DAC) , 2019, pp. 1– 6. [26] J. Kim, M. Song, Y. Lee, M. Jung, and P. Kim, “An empirical evaluation of four off-the-shelf proprietary visual-inertial odometry systems,” 2022. [Online]. Available: https://arxiv.org/abs/2207.06780 [27] S. Baker and I. Matthews, “Lucas-Kanade 20 years on: A unifying framework part 1: The quantity approximated, the warp update rule, and the gradient descent approximation,” International Journal of Computer Vision - IJCV , 01 2004. [28] OpenGL ES 3.1 Specification , Version 3.1 ed., Khronos Group, Nov. 2016, see Section 7.8: Shader Buffer Variables and Shader Storage Blocks. [29] J. Sturm, N. Engelhard, F. Endres, W. Burgard, and D. Cremers, “A benchmark for the evaluation of RGB-D SLAM systems,” in 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems ,2012, pp. 573–580. [30] M. Burri, J. Nikolic, P. Gohl, T. Schneider, J. Rehder, S. Omari, M. W. Achtelik, and R. Siegwart, “The euroc micro aerial vehicle datasets,” The International Journal of Robotics Research , 2016. [Online]. Available: http://ijr.sagepub.com/content/early/2016/01/21/0 278364915620033.abstract

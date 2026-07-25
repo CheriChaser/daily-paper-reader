@@ -1,0 +1,92 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-25T19:53:31.000141+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.20325v1",
+      "source": "arxiv",
+      "title": "MR-Compare: A Mixed-Reality Framework for Spatially Grounded Visual Comparison of 3D Gaussian Splatting and Mesh Reconstructions with the Physical Environment",
+      "abstract": "We introduce MR-Compare, a mixed reality framework for spatially grounded visual comparison between 3D Gaussian splatting and mesh reconstructions with live video see-through (VST). Implemented on a PC-tethered Meta Quest~3, it combines a two-stage registration pipeline with a 3D Slider for cross-media comparison. We evaluated five representative desktop and mobile reconstruction workflows through a real-world benchmark with an exploratory user study ($n=30$) in two static indoor rooms. MR-Compare achieved centimetre-level translation error across all workflows. The two desktop 3DGS workflows showed the strongest overall pattern, with 3DGS-MCMC yielding the lowest registration error and strongest VST-referenced visual consistency. Room-session measures indicated high perceived usability and low workload. We further propose an anisotropy filter, a zero-shot module that leverages Gaussian anisotropies to improve 3DGS registration in MR-Compare. A controlled Replica threshold sweep shows that moderate pruning can improve robustness and reduce residual errors. These results establish system-level feasibility in the tested setting rather than task-level effectiveness or standalone deployment. The project is available at https://github.com/changruizhu96/MR-Compare.",
+      "authors": [
+        "Changrui Zhu",
+        "Ernst Kruijff",
+        "Pengju Zhang",
+        "Simon Julier"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR"
+      ],
+      "published": "2026-07-22T16:11:35+00:00",
+      "link": "https://arxiv.org/pdf/2607.20325v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "compares 3DGS and mesh reconstructions",
+      "llm_evidence_cn": "比较3DGS与网格重建",
+      "llm_evidence": "比较3DGS与网格重建",
+      "canonical_evidence": "比较3DGS与网格重建",
+      "llm_tldr_en": "MR-Compare is a mixed reality framework for comparing 3D Gaussian splatting and mesh reconstructions with real environment, achieving centimeter-level accuracy.",
+      "llm_tldr_cn": "现有3DGS重建评估缺乏与真实环境的直接对比。本文提出MR-Compare，一个混合现实框架，将3DGS和网格重建与视频透视进行空间对齐比较。通过两阶段配准和3D滑块实现跨媒体对比，在真实室内场景中达到厘米级精度，为重建质量评估提供了新的手段。",
+      "llm_tldr": "现有3DGS重建评估缺乏与真实环境的直接对比。本文提出MR-Compare，一个混合现实框架，将3DGS和网格重建与视频透视进行空间对齐比较。通过两阶段配准和3D滑块实现跨媒体对比，在真实室内场景中达到厘米级精度，为重建质量评估提供了新的手段。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.16897v1",
+      "source": "arxiv",
+      "title": "GLidE-SLAM: GL-Accelerated Indirect-Direct Embedded SLAM",
+      "abstract": "With the growing demand for robotics, autonomous drones, and wearable extended reality systems, the deployment of Visual SLAM on embedded devices remains challenging. Tracking must sustain high frame rates while preserving compute resources for map extension and maintenance. This paper presents GLidE-SLAM, a monocular hybrid indirect-direct framework that addresses this by architectural separation: the system performs GPU-accelerated direct tracking on intermediate frames, while reserving the full indirect pipeline for map extension and global consistency. We leverage highly parallel image-alignment operations for pose-only estimation without depth optimization or map point creation, making the workload suitable for GPU offloading and freeing CPU resources for backend tasks. We implement the direct tracker using vendor-agnostic OpenGL ES~3.1 compute shaders, enabling deployment across a broader range of commodity embedded platforms without requiring CUDA support. To our knowledge, this is the first complete direct photometric pose estimator realized via compute shaders for embedded-class devices. Experiments on target platforms demonstrate up to 9$\\times$ higher frame rates than the CPU-only baseline while maintaining trajectory accuracy and improving practical deployment across commodity resource-constrained hardware.",
+      "authors": [
+        "Carlos A. Pinheiro de Sousa",
+        "Heiko Hamann",
+        "Oliver Deussen"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-07-18T17:32:40+00:00",
+      "link": "https://arxiv.org/pdf/2607.16897v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "GPU-accelerated SLAM on embedded devices, providing hardware acceleration for 3D reconstruction",
+      "llm_evidence_cn": "在嵌入式设备上使用GPU加速SLAM，为3D重建提供硬件加速",
+      "llm_evidence": "在嵌入式设备上使用GPU加速SLAM，为3D重建提供硬件加速",
+      "canonical_evidence": "在嵌入式设备上使用GPU加速SLAM，为3D重建提供硬件加速",
+      "llm_tldr_en": "GLidE-SLAM uses GPU-accelerated direct tracking for high-frame-rate SLAM on embedded devices, freeing CPU for backend mapping.",
+      "llm_tldr_cn": "针对嵌入式设备上视觉SLAM实时性不足的问题，GLidE-SLAM提出混合间接-直接框架，通过GPU加速直接跟踪中间帧，保留CPU进行建图与全局优化。该方法利用高度并行的图像对齐操作进行位姿估计，无需深度优化，大幅降低延迟，在保持精度同时实现了高帧率跟踪。",
+      "llm_tldr": "针对嵌入式设备上视觉SLAM实时性不足的问题，GLidE-SLAM提出混合间接-直接框架，通过GPU加速直接跟踪中间帧，保留CPU进行建图与全局优化。该方法利用高度并行的图像对齐操作进行位姿估计，无需深度优化，大幅降低延迟，在保持精度同时实现了高帧率跟踪。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "hardware accelerator for 3D reconstruction",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
