@@ -6,26 +6,32 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-26
-- 运行时间：2026-07-26 20:52:09 UTC
+- 最新运行日期：2026-07-27
+- 运行时间：2026-07-27 20:23:36 UTC
 - 运行状态：成功
-- 本次总论文数：1
-- 精读区：1
-- 速读区：0
+- 本次总论文数：3
+- 精读区：0
+- 速读区：3
 
 ### 今日简报（AI）
-1. 今天精读了一篇8分论文，探讨如何通过注意力机制优化相机位置与多视图对齐，实现更精准的3D高斯溅射编辑。  
-2. 最值得关注的是其提出的注意力引导相机放置策略，能显著减少编辑时的人工干预，提升3D场景修改的鲁棒性。  
-3. 建议先理解基础3D高斯溅射原理，再结合该论文的注意力对齐方法，可尝试在简单场景中应用以减少手动调参。
-- 详情：[/202607/26/README](/202607/26/README)
+今日精选3篇速读论文，聚焦视觉重定位、3D高斯分割与视频去模糊。  
+最值得关注《Visual Relocalization from Sparse Views》中基于新视图合成应对混杂低纹理环境的方法，以及《RealVDeblur》的单步扩散视频去模糊技术。  
+建议普通读者优先尝试视频去模糊工具，再深入理解稀疏视图重定位如何提升机器人/AR定位鲁棒性。
+- 详情：[/202607/27/README](/202607/27/README)
 
 ### 精读区论文标签
-1. [Look Before You Edit: Attention-Guided Camera Placement and Multi-View Alignment for 3D Gaussian Splatting Editing](/202607/26/2607.19777v1-look-before-you-edit-attention-guided-camera-placement-and-multi-view-alignment-for-3d-gaussian-splatting-editing)  
-   标签：评分：8.0/10、query:dgs-recon
-   evidence：专注于3D高斯泼溅编辑，与重建相关
+- 本次无精读推荐。
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [Visual Relocalization from Sparse Views in Aliased and Low-Texture Environments via Novel View Synthesis](/202607/27/2607.22147v1-visual-relocalization-from-sparse-views-in-aliased-and-low-texture-environments-via-novel-view-synthesis)  
+   标签：评分：7.0/10、query:dgs-recon
+   evidence：利用3DGS构建可微地图进行视觉重定位
+2. [ZeroSplat: Generalized Referring Segmentation in 3D Gaussian Splatting](/202607/27/2607.18801v1-zerosplat-generalized-referring-segmentation-in-3d-gaussian-splatting)  
+   标签：评分：6.0/10、query:dgs-recon
+   evidence：将3D高斯溅射扩展到广义指代分割
+3. [RealVDeblur: One-Step Diffusion for Generalizable Real-World Video Deblurring](/202607/27/2607.20628v1-realvdeblur-one-step-diffusion-for-generalizable-real-world-video-deblurring)  
+   标签：评分：6.0/10、query:dgs-recon
+   evidence：使用3D高斯溅射资产合成模糊，用于下游3D重建
 
 
 <div class="dpr-home-promo-card">

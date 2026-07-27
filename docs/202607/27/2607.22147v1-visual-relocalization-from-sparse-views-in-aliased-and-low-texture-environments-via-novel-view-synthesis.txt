@@ -1,0 +1,892 @@
+Visual Relocalization from Sparse Views in Aliased and Low-Texture
+Environments via Novel View Synthesis
+Maria Periba˜nez1, Javier Civera1, Rudolph Triebel2,3 and Riccardo Giubilato2
+Abstract— Visual localization becomes extremely challeng-
+ing in planetary-like terrains characterized by low texture,
+perceptual aliasing, harsh illumination, and sparse, weakly
+overlapping viewpoints induced by forward rover motion and
+unconstrained driving directions. Under these conditions, state-
+of-the-art image-to-image and image-to-map matching pipelines
+suffer significant performance degradation. In this work, we
+propose a visual relocalization method that departs from
+classical correspondence-based pipelines by directly estimating
+camera poses against a differentiable map representation built
+with 3D Gaussian Splatting (3DGS). Our key contribution is
+a geometry-aware training strategy that combines photomet-
+ric and geometric losses, where the geometric supervision is
+provided for the first time by combining multi-view stereo
+(MVS) and LiDAR depths. We show that this joint optimization
+produces a 3DGS model that better fits the underlying scene
+geometry, leading to improved photometric and geometric con-
+sistency and more robust, accurate single-image 6-DoF pose es-
+timation. Extensive experiments on data acquired in planetary-
+analog environments validate the effectiveness of our approach,
+showing substantial gains in relocalization accuracy under chal-
+lenging conditions. Code is available at https://github.
+com/DLR-RM/multimodal-gsplat-relocalization.
+I. INTRODUCTION
+Reliable visual relocalization remains a major challenge
+for long-term robotic autonomy in GNSS-denied environ-
+ments
+[1], such as planetary-like scenarios [2], to enable
+loop closure and mitigate odometry drift. However, percep-
+tual aliasing and harsh illumination significantly degrades the
+performance of traditional visual place recognition and pose
+estimation. Moreover, the predominantly forward motion
+of planetary rovers results in restricted viewpoint diversity,
+limited parallax between consecutive frames, and significant
+perspective-induced appearance changes over longer time
+intervals [3]. Fig. 1 illustrates these aspects.
+Advances in novel view synthesis (NVS) offer an alterna-
+tive to feature-based localization [4], [5]. Instead of matching
+salient image features, camera poses are estimated in an
+This work was supported by the Helmholtz Association project iFOODis
+(contract number KA2-HSC-06), by the German Federal Ministry of
+Research, Technology and Space (BMFTR) under the Robotics Institute
+Germany (RIG), by Spanish projects PID2024-155886NB-I00 PID2024-
+158322OB-I00 (MCIN/ AEI/10.13039/ 501100011033, FEDER/UE and
+NextGenerationEU/PRTR) and by the Arag´on Government via project
+T45 23R.
+1Maria Periba˜nez, and Javier Civera are with University of Zaragoza,
+Spain {mperibanez,jcivera}@unizar.es
+2
+Riccardo
+Giubilato
+and
+Rudolph
+Triebel
+are
+with
+German
+Aerospace
+Center
+(DLR),
+Institute
+of
+Robotics
+and
+Mechatronics
+{Riccardo.Giubilato,rudolph.triebel}@dlr.de
+3 Rudolph Triebel is also with Karlsruhe Institute of Technology (KIT),
+Karlsruhe, Germany rudolph.triebel@kit.de
+Fig. 1.
+Illustration of relocalization challenges in extreme, planetary-
+like environments. Despite the three images at the bottom of the figure
+overlap, the large viewpoint change and weak, aliased textures pose sub-
+stantial challenges for visual relocalization, i.e., estimating the six-degrees-
+of-freedom camera pose within the map shown at the top of the figure.
+image-to-map manner against dense 3D scene representa-
+tions with richer photometric modeling. In particular, 3D
+Gaussian Splatting (3DGS) [6] provides an explicit, differ-
+entiable representation that enables render-based alignment
+and improved robustness to viewpoint changes. However,
+standard photometric 3DGS training is ill-suited for rover-
+acquired outdoor sequences. First, predominantly forward
+motion yields weak multi-view constraints, leading to high
+reconstruction error. Second, the sparsity of viewpoints limits
+generalization. And third, wide baselines during revisits
+challenge naive photometric losses due to strong perspective
+distortions. Together, these factors degrade the quality of
+3DGS representations and hinder reliable relocalization.
+In this work, we address these relocalization challenges
+arising in 3DGS-based scene representations at planetary
+environments with adverse perceptual conditions. Specifi-
+cally, in addition to the original photometric loss, we propose
+explicit supervision of the geometry by 1) depth and normal
+alignment with multi-view stereo (MVS), and 2) a novel
+Chamfer-based alignment with LiDAR point clouds. To our
+knowledge, this is the first time that a combination of such
+losses has been proposed. We implement a full relocalization
+pipeline composed of a first coarse stage of visual place
+recognition, followed by a fine-grained six-degrees of free-
+arXiv:2607.22147v1  [cs.CV]  24 Jul 2026
+
+
+dom camera pose estimation within the 3DGS representation.
+We evaluate the proposed pipeline on perceptually chal-
+lenging data collected in a planetary-analogous environ-
+ment [3], [7]. Our results show that enforcing geometric
+alignment significantly improves the fidelity of 3DGS repre-
+sentations and yields substantial gains in single-image relo-
+calization accuracy. These findings highlight the critical role
+of high-quality geometric and photometric scene representa-
+tions for robust robot localization in extreme environments.
+II. RELATED WORK
+A. Visual relocalization
+Visual SLAM pipelines typically address relocalization
+in two stages. First, retireving candidate images based on
+global visual appearance [8], and then estimating fine-
+grained camera poses with geometric or learned methods.
+Classical feature-based approaches, such as ORB-SLAM [9],
+rely on bags of words of handcrafted features [10] fol-
+lowed by PnP [11] with RANSAC [12] for robust out-
+lier rejection. While effective in textured environments and
+under small viewpoint changes, these methods degrade
+quickly under wide baselines and in perceptually ambiguous
+scenes. Learned components significantly improve robust-
+ness in modern pipelines, e.g., DINOv2 SALAD [13] and
+VGGT [14] in VGGT-SLAM [15]. Nevertheless, accurate
+pose estimation still remains challenging in scenarios involv-
+ing wide baselines and low-texture or weakly informative
+regions. LiDAR relocalization faces similar challenges in
+scenes with limited structure [16], [17], [18]. Finally, while
+direct pose regression approaches such as [19] are attractive
+due to their simplicity, they typically have lower accuracy
+than alternatives with explicit scene representations [20].
+B. Novel View Synthesis
+NVS techniques [21] estimate dense scene representations
+that can be directly aligned with new observations, offering
+a promising alternative for relocalization under significant
+viewpoint changes. Early NVS methods relied on structure-
+from-motion inputs and view interpolation [22], [23], which
+required densely sampled viewpoints and reliable correspon-
+dences. More recent approaches, such as Neural Radiance
+Fields (NeRF) [24] model scenes as continuous functions
+optimized through differentiable volume rendering, achieving
+high visual fidelity at the cost of computational complexity
+and implicit geometry encoding. In constrast, 3D Gaussian
+Splatting (3DGS) [6] introduces an explicit, differentiable
+scene representation that enables real-time rendering and
+stable gradient-based optimization. However, 3DGS training
+remains largely driven by photometric supervision, which
+can lead to geometric instability in sparse-view outdoor
+scenarios. Only recently have several works incorporated
+either MVS [25], [26], [27] or LiDAR point clouds [28],
+[29], [30] to improve geometric quality. To the best of our
+knowledge, ours is the first work to systematically demon-
+strate the complementarity of these supervision modalities
+and the performance gains obtained by combining both of
+them.
+C. Pose Estimation in Neural Representations
+Neural scene representations have recently emerged as a
+compelling alternative to correspondence-based localization
+pipelines. Methods such as iNeRF [31] cast pose estima-
+tion as a render-and-compare optimization problem, directly
+aligning query images with a continuous scene model, but in-
+heriting complexity and opaque representation from NERFs.
+Approaches such as 6DGS [32] instead leverage Gaussian-
+based maps to estimate single-image 6-DoF poses without
+iterative photometric refinement, highlighting the promise of
+differentiable scene models for relocalization. Nevertheless,
+pose accuracy remains strongly dependent on the geometric
+and photometric fidelity of the underlying reconstruction,
+properties that often deteriorate in sparse-view, large-scale
+outdoor environments.
+To address these limitations, recent works have incor-
+porated LiDAR-based geometric priors into 3DGS to im-
+prove structural realism and geometric accuracy, includ-
+ing GS-LiDAR [33] and SplatAD [34]. While these ap-
+proaches enhance geometric alignment, their impact on
+downstream camera relocalization performance in challeng-
+ing planetary-like scenarios remains largely unexplored. In
+contrast, our work further augments these geometric priors
+with MVS depths and normals, and explicitly investigates
+how geometry-aware Gaussian fitting affects single-image
+relocalization in sparse, forward-motion robotic settings.
+D. 3D Gaussian Splatting for SLAM
+Recent works have begun integrating 3DGS into full
+SLAM pipelines, enabling real-time tracking and dense map
+construction using explicit splat-based scene representations.
+Gaussian-SLAM [35] incorporates 3DGS within an online
+SLAM framework, jointly optimizing camera poses and
+Gaussian parameters for dense reconstruction and tracking.
+Beyond tracking and mapping, LoopSplat [36] explores
+loop closure directly in the Gaussian domain by registering
+splat-based maps across revisited areas, enabling map-level
+alignment without relying on sparse feature correspondences.
+These approaches highlight the potential of explicit Gaus-
+sian representations for geometric alignment and global
+consistency. Multi-modal extensions [37] further integrate
+additional sensing modalities within Gaussian-based SLAM
+frameworks to enhance structural accuracy and robustness.
+However, existing GS-based SLAM systems primarily focus
+on tracking stability, reconstruction fidelity, or map registra-
+tion strategies. The role of training-level geometric supervi-
+sion and global consistency in improving downstream single-
+image relocalization and loop closure robustness, particularly
+under sparse forward motion and severe perceptual aliasing,
+remains largely unexplored.
+In contrast, our work isolates and analyzes how geometry-
+aware training of Gaussian maps influences 6-DoF relocal-
+ization performance in challenging planetary-like environ-
+ments, providing a controlled study of metric consistency
+for loop closure.
+
+
+Fig. 2.
+Overview of our relocalization pipeline, based on structure-preserving 3DGS. RGB images and LiDAR readings are grouped into submaps,
+and used to train a 3DGS with strong geometric supervision, in addition to the standard photometric supervision. At inference, the query image is used to
+retrieve top-k candidate submaps, and camera pose is estimated by minimizing the rendering error against the 3DGS representations.
+III. STRUCTURE-PRESERVING GAUSSIAN SPLATTING
+A. Gaussian Splatting Submaps
+Our overall scene representation G is composed of a set of
+m submaps G = {G1, . . . , Gs, . . . , Gm}, where each submap
+Gs = f(Ps, Is, Ts) models a part of the scene as a set of
+Gaussians encoding its geometry and visual appearance [6].
+The Gaussian representation Gs will be estimated, as detailed
+in the next subsection, as a function f of an aggregated
+LiDAR point cloud Ps = {Ps
+1, . . . , Ps
+q, . . . , Ps
+r}, Ps
+j ∈
+R3, a set of m RGB images Is = {Is
+1, . . . , Is
+i, . . . , Is
+m},
+Is
+i ∈Rw×h×3, and their respective camera poses Ts =
+{Ts
+1, . . . , Ts
+i, . . . , Ts
+m}, Ts
+i ∈SE(3).
+Given this Gaussian Splatting-based scene representation
+G and a query image Iq, visual relocalization consists in the
+estimation of the pose Ts
+q of the query image in the reference
+frame of the corresponding submap. In a first stage, a set of
+candidate submaps is retrieved by visual place recognition
+among the submap images Is. After that, the 6-DoF pose
+Ts
+q is estimated directly against the corresponding Gaussian
+representation. See Fig. 2 for an overview of the pipeline,
+and find additional details in the next subsections.
+B. Structure-Preserving 3DGS fitting
+3DGS fitting was originally formulated using only photo-
+metric supervision [6], which is insufficient to ensure geo-
+metric fidelity, in particular in sparse-view outdoor scenarios.
+In this section, we first review the original photometric objec-
+tive and then introduce our geometric supervision strategies:
+(i) depth- and normal-guided constraints derived from MVS
+to improve local surface coherence, and (ii) a LiDAR-guided
+Chamfer loss to enforce better global metric alignment.
+Photometric Supervision. The photometric 3DGS loss
+typically combines a L1 loss and a structural similarity term
+Lphoto = (1 −λSSIM)L1 + λSSIMLSSIM
+(1)
+As in the original work [6], we use λssim = 0.2.
+MVSA Supervision. To mitigate the geometric ambigui-
+ties observed in the original 3DGS formulation, we introduce
+depth- and normal-guided supervision using MVSAnywhere
+(MVSA) [38], a multi-view stereo model with strong cross-
+domain generalization capabilities. The predicted depth maps
+are incorporated as geometric supervision signals during
+training. Specifically, we introduce depth and surface normal
+consistency losses to further constrain the Gaussian param-
+eters. We enforce depth alignment through a L1 loss over
+valid pixels
+LMVSD = 1
+|Ω|
+X
+i∈Ω
+dGS
+i
+−dMVS
+i
+ ,
+(2)
+where dGS denotes the depth rendered from the 3DGS model,
+dMVS the depth predicted by MVSA, and Ωthe set of valid
+pixels.
+Additionally, surface normal consistency is enforced
+through a cosine similarity loss
+LMSVN = 1 −1
+|Ω|
+X
+i∈Ω
+nGS
+i
+⊤· nMVS
+i
+,
+(3)
+where surface normals are obtained by differentiating the
+depth maps predicted by MVSAnywhere.
+Together, these geometric constraints enhance local sur-
+face coherence and alleviate depth ambiguities in weakly tex-
+tured regions, resulting in a more stable and structurally con-
+sistent reconstruction. Nevertheless, since multi-view depth
+estimation fundamentally depends on geometric parallax, its
+reliability decreases under sparse viewpoints and near-linear
+rover trajectories. In such scenarios, the limited baseline
+leads to noisy or biased depth predictions, particularly in
+distant or poorly observed areas.
+LiDAR Supervision. To further enforce global geometric
+consistency, we introduce a LiDAR-guided Chamfer-based
+loss that aligns the reconstructed Gaussian scene with met-
+rically accurate LiDAR measurements. Given the predicted
+
+
+point cloud PGS obtained from rendered depth maps and the
+LiDAR point cloud Ps, we define a symmetric Chamfer loss
+LCh = Lacc + λcompLcomp ,
+(4)
+where the weighting factor λcomp balances both objectives.
+Lacc measures reconstruction accuracy and Lcomp enforces
+geometric completeness and are formulated as follows
+Lacc =
+1
+|PGS|
+X
+p∈PGS
+min
+q∈Ps ∥p −q∥2
+(5)
+Lcomp =
+1
+|Ps|
+X
+q∈Ps
+min
+p∈PGS ∥q −p∥2 .
+(6)
+This formulation is particularly suited to our setting, as
+it tolerates large density differences between sparse LiDAR
+measurements and dense Gaussian reconstructions, requires
+no explicit correspondences, and remains fully differentiable.
+By anchoring the Gaussian scene to metrically accurate
+LiDAR observations, the proposed loss resolves depth at low
+parallax and directly improves the stability and accuracy of
+downstream 6-DoF pose estimation.
+The overall loss function L is defined as the weighted sum
+of the losses defined before
+L = Lphoto + λMVSDLMVSD + λMVSNLMVSN + λChLCh
+(7)
+IV. RELOCALIZATION FROM GEOMETRY-AWARE 3DGS
+Given the query image Iq and our 3DGS representation
+G described above, we aim to estimate the camera pose
+Ts
+q in the reference frame of the corresponding submap Gs.
+To reduce the search space, we first perform visual place
+recognition to retrieve a set of candidate submaps. We adopt
+an existing pipeline [39] built upon SALAD [13], and use
+FAISS indexing [40] to produce a coarse top-k retrieval of
+similarly-looking images.
+With the image candidates obtained from visual place
+recognition, we employ the 6DGS framework [32], which
+estimates the 6-DoF camera pose directly from a fixed
+3DGS representation using feature-based ray–pixel corre-
+spondences and a weighted least-squares formulation. The
+6DGS pipeline is used without modification. Across all
+experiments, the pose estimation algorithm remains fixed,
+and only the training strategy of the underlying 3DGS map
+is varied. This controlled setup enables us to isolate the
+effect of the map’s geometric and photometric fidelity on
+relocalization accuracy.
+V. EXPERIMENTS
+A. Submap Data Generation and Test Dataset
+We rely on a multi-modal submap-based SLAM approach
+[41] to generate the submaps containing LiDAR point clouds
+Ps, RGB images Is and respective poses Ts
+i, as defined in
+Sec. III-A. A visual-inertial front-end provides local pose
+estimates with respect to switching reference frames defining
+the origin of each submap. RGB images refer to visual
+keyframes extracted using a traditional co-visibility policy,
+Fig. 3.
+Top-down view of the moon lake sequence used in this work,
+from the DLR S3LI Vulcano dataset. Impressions from the sequence are
+presented in Fig. 1
+.
+with their pose in the parent submap reference frame. LiDAR
+point clouds are aggregated based on local VIO estimates.
+Intrinsic camera parameters and keyframe poses are fixed
+during training, and geometry-aware variants of the 3DGS
+training pipelines operate directly in metric scale.
+Focusing on the task of relocalization on challenging
+unstructured terrains, for which available data is extremely
+scarce, we test our proposed approach on the DLR S3LI
+Vulcano Dataset [7]. The dataset targets multi-modal SLAM
+and place recognition recorded on planetary analogous ter-
+rains from the perspective of a mobile rover. The sequences
+we focus on belong to an extension of the original dataset [3]
+and take place on the island of Vulcano, Sicily, where
+an old inactive crater creates a valuable playground to
+test the limits of place recognition. The data consists of
+synchronized RGB images and LiDAR point clouds, and
+differential GNSS ground truth. In this work we focus on the
+moon lake sequence from the dataset, offering a challenging
+benchmark for place recognition tasks. The sequence spans
+about 25 minutes of recordings of multi-modal data along
+a trajectory of 1.5 km length. A top-down view of d-GNSS
+data points and elevation is shown in Fig. 3. The trajectory
+is characterized by predominantly forward-facing motion
+with limited viewpoint diversity, resulting in limited parallax
+among observations of significant points of interest. Repeated
+observations of previously visited places happen without
+specific patterns of viewpoint intersection, as the observer
+is unconstrained in traversing the environment. Furthermore,
+the absence of man-made features, such as hiking paths or
+visual landmarks, cause significant perceptual aliasing.
+B. Baselines
+We compare the proposed geometry-aware 3DGS repre-
+sentation against two baselines:
+3DGS. As a direct baseline, we train standard 3D Gaus-
+sian Splatting models using only photometric supervision,
+without any geometric constraints. The retrieval stage and
+pose estimation pipeline (6DGS [32]), introduced in Sec. IV,
+remain identical to our method.
+
+
+PnP. For comparison with classical relocalization pipelines,
+we implement a feature-based PnP baseline. For each query
+image, the top-K candidate submaps are retrieved using the
+same place recognition pipeline. SuperPoint features [42]
+are extracted from the query and retrieved images, and
+are matched with SuperGlue [43]. Using the depth map
+associated with each retrieved image, matched keypoints are
+back-projected to obtain 3D points. The camera pose of the
+query image is then estimated from the resulting 2D–3D
+correspondences using a RANSAC-based PnP solver.
+C. Training Details
+All experiments are conducted using the Nerfstudio frame-
+work. Photo-3DGS models are trained independently for
+each submap using the standard splatfacto pipeline for
+30,000 iterations with the Adam optimizer. Camera in-
+trinsics and poses are kept fixed, and Nerfstudio’s built-
+in pose normalization and scene centering mechanisms are
+enabled. No explicit geometric supervision is applied beyond
+photometric consistency for Photo-3DGS. Geometry-aware
+variants are trained using the regsplatfacto pipeline, which
+incorporates additional geometric regularization terms. In
+contrast to the baseline, automatic pose normalization and
+scene centering are disabled, and optimization is performed
+directly in the metric reference frame. Each submap is
+trained for 20,000 iterations with identical optimizer set-
+tings. Depth and surface normal supervision are provided by
+MVSAnywhere, initialized from the pretrained checkpoint
+mvsanywhere hero.ckpt. The optimization objective
+combines photometric loss with additional depth and nor-
+mal regularization terms weighted by λMVSD = 0.05 and
+λMVSN = 0.1. For the final variant, a LiDAR-guided Cham-
+fer loss is introduced to enforce global metric scale consis-
+tency. The Chamfer term is activated after 2,000 iterations
+and linearly increased until iteration 8,000, reaching a final
+weight of λCh = 5 × 10−5. All remaining hyperparameters
+are kept fixed to isolate the impact of geometric supervision.
+D. Reconstruction Results
+We begin by evaluating the geometric fidelity of the
+reconstructed 3DGS models, as reconstruction quality has
+a direct impact on downstream relocalization accuracy.
+Fig. 4 presents a qualitative comparison of RGB ren-
+derings and depth maps obtained with different training
+variants in representative examples. From left to right, the
+photometric-only 3DGS baseline exhibits blurred surfaces,
+floating Gaussians, and inconsistent depth structures, partic-
+ularly in low-texture areas. Initializing the Gaussian centers
+with a LiDAR prior (3DGS + LiDAR) improves structural
+coherence; however, noticeable noise and local artifacts
+persist. Introducing MVSA supervision (3DGS + MVSA)
+enhances local surface smoothness and depth consistency, but
+depth estimates in distant regions remain unstable, leading to
+visible rendering artifacts at larger ranges. Incorporating the
+LiDAR prior (3DGS + MVSA + LiDAR) further improves
+global geometric consistency, especially in far-field areas.
+Applying the proposed Chamfer loss without MVSA (3DGS
+TABLE I
+AVERAGE PHOTOMETRIC AND GEOMETRIC METRICS ACROSS SUBMAPS,
+FOR DIFFERENT GEOMETRIC SUPERVISION.
+Method
+Chamfer ↓PSNR ↑SSIM ↑LPIPS↓
+3DGS
+3.36
+20.77
+0.52
+0.26
+3DGS + MVSA
+4.03
+22.19
+0.49
+0.27
+3DGS + LiDAR
+1.32
+23.55
+0.67
+0.18
+3DGS + Chamfer + LiDAR
+1.03
+24.21
+0.70
+0.17
+3DGS + MVSA + LiDAR
+1.02
+25.54
+0.74
+0.17
+3DGS + MVSA + LiDAR +
+Chamfer (ours)
+0.88
+25.27
+0.72
+0.18
+Best results are bolded, second best are underlined.
++ Chamfer + LiDAR) better anchors the reconstruction
+to the LiDAR geometry, reducing large-scale geometric
+distortions despite lower local accuracy. Finally, our full
+method (Ours) combines all components, producing the
+best geometric accuracy while preserving high photometric
+fidelity.
+Fig. 5 presents an aggregated quantitative analysis of
+the photometric–geometric trade-off. The baseline 3DGS
+model achieves the lowest (worst) PSNR, highlighting the
+limitations of purely photometric supervision. MVSA and
+LiDAR supervision play complementary roles: MVSA im-
+proves photometric reconstruction but degrades geometric
+accuracy, yielding the worst Chamfer distance among all
+variants, whereas LiDAR is the primary driver of geometric
+fidelity, lowering the Chamfer distance while also improving
+photometric metrics. Their combination (3DGS + MVSA +
+LiDAR) exploits this complementarity and achieves the best
+photometric quality. Finally, adding this combination with
+our LiDAR-guided Chamfer loss (Ours) yields the lowest
+Chamfer distance overall, at the cost of only a marginal,
+statistically non-significant decrease in PSNR.
+Quantitatively, Table I shows that LiDAR-based initial-
+ization reduces the geometric error by 61% with respect to
+the original 3DGS baseline, while the addition of Chamfer-
+based supervision lowers the error by roughly 74%. Impor-
+tantly, these geometric improvements are obtained without
+compromising photometric fidelity. This confirms that metric
+consistency, rather than photometric reconstruction quality
+alone, is a key factor for achieving high-quality representa-
+tions. Moreover, it shows for the first time that combining
+MVS and LiDAR supervision yields a more accurate and
+consistent model than either source of geometric information
+used independently.
+E. Relocalization Results
+We
+now
+evaluate
+how
+geometric
+and
+photometric
+consistency
+impacts
+relocalization
+accuracy.
+We
+com-
+pare our geometry-aware 3DGS representation against the
+photometric-only baseline, while keeping the place recogni-
+tion pipeline and the 6DGS pose estimator fixed. Therefore,
+performance differences directly reflect the impact of geo-
+metric consistency in the underlying map representation.
+We additionally evaluate a classical relocalization pipeline
+based on feature matching followed by PnP. Fig. 6 illustrates
+
+
+GT
+3DGS
+3DGS
++ LiDAR
+3DGS
++ MVSA
+3DGS
++ MVSA
++ LiDAR
+3DGS
++ Chamfer
++ LiDAR
+Ours
+RGB
+Depth
+RGB
+Depth
+Fig. 4.
+Qualitative comparison of Gaussian Splatting variants on two representative submaps. Rows alternate RGB renderings and depth maps (blue
+denotes closer regions and red denotes farther ones), while columns compare different supervision strategies. The rectangle overlaid on the RGB rendering
+of the 3DGS baseline indicates the field of view of the test camera, highlighting the region directly comparable to the ground-truth image. Our method
+exhibits markedly improved photometric quality and geometric consistency compared to alternatives with weaker geometric supervision.
+Fig. 5.
+Rendering quality (vertical axis) versus geometric accuracy
+(horizontal axis) under different photometric and geometric supervision
+alternatives. The top-left region indicates better performance. As claimed,
+stronger geometric supervision substantially improves both metrics. Addi-
+tionally, note that MVSA and LiDAR supervision exhibit complementary
+effects, and their combination achieves the best overall results.
+a representative matching example. Despite the abundance
+of texture, resulting in large amounts of SuperPoint fea-
+tures, only a few reliable correspondences are established
+by SuperGlue. As a result, the geometric constraints are
+weak or outlier-contaminated, and the overall relocalization
+performance degrades significantly.
+Table II reports pose recall. Under the relaxed (10m,
+15°) threshold, both PnP, 3DGS and 3DGS with LiDAR
+prior exhibit extremely limited recall (0.16%, 6.25%, 2.10%
+respectively), whereas the proposed method reaches 43.2%.
+This indicates that the geometry-aware map enables the
+pose optimizer to successfully refine moderately misaligned
+retrieval candidates. Under the stricter (2m, 10°) threshold,
+both baselines completely fail (0.0% recall), while our pro-
+posed methods, with stronger geometric supervision, yield
+higher recall ranges, with our method achieving the best
+Fig. 6.
+Illustrative example of SuperPoint and SuperGlue feature
+matching between a query and a retrieved image. Several incorrect
+correspondences are observed, particularly at close range, caused by aliasing
+and significant viewpoint changes.
+TABLE II
+POSE RECALL COMPARISON BETWEEN BASELINES PNP AND 3DGS,
+AND OUR GEOMETRY-AWARE 3DGS MODEL.
+Method
+Recall (10m, 15°)
+Recall (2m, 10°)
+PnP
+0.16
+0.00
+3DGS
+6.25
+0.00
+3DGS + LiDAR
+2.10
+0.00
+3DGS + MVSA
+22.90
+6.20
+3DGS + MVSA + LiDAR
+31.20
+6.20
+3DGS + Chamfer + LiDAR
+28.26
+6.52
+Ours
+43.20
+6.80
+result (6.80%).
+Fig. 7 further details the pose errors for each of the meth-
+ods. PnP exhibits large translation errors, while maintaining
+stable yaw errors (around 30º). This indicates that the lack
+of reliable depth correspondences, due to the small number
+of matched keypoints, impacts mainly position estimates. In
+contrast, the baseline 3DGS model exhibits consistently large
+rotation errors, while conserving lower translational errors
+across all ranks. This behavior indicates severe geometric
+inconsistencies in the photometric-only reconstruction, where
+visually similar candidates frequently correspond to incorrect
+
+
+Fig. 7.
+Translation and rotation estimation error distribution for
+relocalization baselines and ours.
+spatial alignments. The proposed geometry-aware represen-
+tation substantially reduces rotation errors at all ranks, with
+median values consistently below 25◦, while maintaining
+competitive translation accuracy. This demonstrates that en-
+forcing global metric consistency in the Gaussian map is
+critical for stable and accurate 6-DoF pose recovery.
+Fig. 8 presents qualitative relocalization examples. Even
+when rendering from the ground-truth pose, the synthesized
+views do not perfectly match the corresponding query im-
+ages. This discrepancy is likely due to local inaccuracies
+in the 3DGS models, close to the submap boundaries, and
+the low parallax between viewpoints during training. These
+examples, together with the low recall rates in Table II,
+evidence the challenge of the data.
+Furthermore, the rendered views may exhibit photometric
+artifacts. This is expected since 6DGS does not refine camera
+poses via photometric alignment, but rather relying on sparse
+geometric ray correspondences derived from the underlying
+Gaussian representation. Even when appearance fidelity is
+imperfect, the preserved geometric structure of the scene
+remains sufficient to recover stable 6-DoF camera poses.
+The examples include both successful and failed estima-
+tions. Interestingly, even in failure cases, the reconstructed
+geometry often remains partially aligned with the scene
+structure, suggesting that residual errors are primarily due to
+local ambiguities or insufficient geometric constraints rather
+than catastrophic map degradation.
+VI. CONCLUSIONS
+We introduced a relocalization approach tailored to chal-
+lenging outdoor, planetary-like environments, where low-
+texture surfaces, perceptual aliasing, and sparse viewpoints
+Query Image
+Render (GT Pose)
+Render (Est. Pose)
+Fig. 8.
+Qualitative relocalization examples. Each row corresponds to
+a different query. From left to right within each image: observed image,
+ground-truth render, and render obtained from the estimated pose.
+severely degrade existing pipelines. By leveraging 3D Gaus-
+sian Splatting as an explicit and differentiable scene rep-
+resentation, we show that purely photometric supervision
+leads to geometrically inconsistent and metrically unreliable
+reconstructions. In contrast, our geometry-aware training
+framework, which combines depth and surface normal su-
+pervision with a LiDAR-guided Chamfer alignment, enforces
+structural fidelity and global scale consistency.
+Experiments on a real-world planetary rover dataset show
+that enforcing geometric consistency reduces reconstruction
+errors over 74% and improves pose recall from 6.25% to
+43.20% under challenging conditions. Our findings highlight
+that geometric consistency, rather than photometric fidelity
+alone, is the key factor for reliable 6-DoF relocalization in
+extreme outdoor environments.
+REFERENCES
+[1] K. Ebadi, L. Bernreiter, H. Biggie, G. Catt, Y. Chang, A. Chatterjee,
+C. E. Denniston, S.-P. Deschˆenes, K. Harlow, S. Khattak et al.,
+“Present and future of slam in extreme environments: The darpa subt
+challenge,” IEEE Transactions on Robotics, vol. 40, pp. 936–959,
+2023.
+[2] D. Geromichalos, M. Azkarate, E. Tsardoulias, L. Gerdes, L. Petrou,
+and C. Perez Del Pulgar, “Slam for autonomous planetary rovers with
+global localization,” Journal of Field Robotics, vol. 37, no. 5, pp. 830–
+847, 2020.
+[3] R. Giubilato, W. St¨urzl, A. Wedler, and R. Triebel, “Challenges of slam
+in extremely unstructured environments: the dlr planetary stereo, solid-
+state lidar, inertial dataset,” IEEE Robotics and Automation Letters, pp.
+1–8, 2022.
+[4] T. Deng, Y. Pan, S. Yuan, D. Li, C. Wang, M. Li, L. Chen, L. Xie,
+D. Wang, J. Wang et al., “What is the best 3d scene representation
+for robotics? from geometric to foundation models,” arXiv preprint
+arXiv:2512.03422, 2025.
+
+
+[5] F. Tosi, Y. Zhang, Z. Gong, S. Mattoccia, M. R. Oswald, E. Sandstrom,
+and M. Poggi, “How nerfs and 3d gaussian splatting are reshaping
+slam: a survey,” IEEE Transactions on Robotics, 2026.
+[6] B. Kerbl, G. Kopanas, T. Leimk¨uhler, G. Drettakis et al., “3d gaussian
+splatting for real-time radiance field rendering.” ACM Trans. Graph.,
+vol. 42, no. 4, pp. 139–1, 2023.
+[7] R. Giubilato, M. G. M¨uller, M. Sewtz, L. A. E. Gonzalez, J. Folkesson,
+and R. Triebel, “The s3li vulcano dataset: A dataset for multi-modal
+slam in unstructured planetary environments,” 2026 IEEE Aerospace
+Conference, 2026.
+[8] S. Schubert, P. Neubert, S. Garg, M. Milford, and T. Fischer, “Visual
+place recognition: A tutorial [tutorial],” IEEE Robotics & Automation
+Magazine, vol. 31, no. 3, pp. 139–153, 2023.
+[9] C. Campos, R. Elvira, J. J. G. Rodr´ıguez, J. M. Montiel, and
+J. D. Tard´os, “Orb-slam3: An accurate open-source library for visual,
+visual–inertial, and multimap slam,” IEEE transactions on robotics,
+vol. 37, no. 6, pp. 1874–1890, 2021.
+[10] D. G´alvez-L´opez and J. D. Tardos, “Bags of binary words for fast
+place recognition in image sequences,” IEEE Transactions on robotics,
+vol. 28, no. 5, pp. 1188–1197, 2012.
+[11] V. Lepetit, F. Moreno-Noguer, and P. Fua, “Epnp: An accurate o(n)
+solution to the pnp problem,” International Journal of Computer
+Vision, vol. 81, no. 2, pp. 155–166, 2009.
+[12] M. A. Fischler and R. C. Bolles, “Random sample consensus: a
+paradigm for model fitting with applications to image analysis and
+automated cartography,” Commun. ACM, vol. 24, no. 6, p. 381–395,
+1981.
+[13] S. Izquierdo and J. Civera, “Optimal transport aggregation for visual
+place recognition,” in Proceedings of the ieee/cvf conference on
+computer vision and pattern recognition, 2024, pp. 17 658–17 668.
+[14] J. Wang, M. Chen, N. Karaev, A. Vedaldi, C. Rupprecht, and
+D. Novotny, “Vggt: Visual geometry grounded transformer,” in Pro-
+ceedings of the Computer Vision and Pattern Recognition Conference,
+2025, pp. 5294–5306.
+[15] D. Maggio, H. Lim, and L. Carlone, “Vggt-slam: Dense rgb slam
+optimized on the sl (4) manifold,” arXiv preprint arXiv:2505.12549,
+2025.
+[16] Y. Cui, X. Chen, Y. Zhang, J. Dong, Q. Wu, and F. Zhu, “Bow3d: Bag
+of words for real-time loop closing in 3d lidar slam,” IEEE Robotics
+and Automation Letters, vol. 8, no. 5, pp. 2828–2835, 2022.
+[17] D. Cattaneo, M. Vaghi, and A. Valada, “Lcdnet: Deep loop closure de-
+tection and point cloud registration for lidar slam,” IEEE Transactions
+on Robotics, vol. 38, no. 4, pp. 2074–2093, 2022.
+[18] C. Shi, X. Chen, J. Xiao, B. Dai, and H. Lu, “Fast and accurate
+deep loop closing and relocalization for reliable lidar slam,” IEEE
+Transactions on Robotics, vol. 40, pp. 2620–2640, 2024.
+[19] A. Kendall, M. Grimes, and R. Cipolla, “Convolutional networks for
+real-time 6-dof camera relocalization,” CoRR, vol. abs/1505.07427,
+2015.
+[20] T. Sattler, Q. Zhou, M. Pollefeys, and L. Leal-Taixe, “Understanding
+the limitations of cnn-based absolute camera pose regression,” in
+Proceedings of the IEEE/CVF conference on computer vision and
+pattern recognition, 2019, pp. 3302–3312.
+[21] A. Tewari, J. Thies, B. Mildenhall, P. Srinivasan, E. Tretschk, W. Yifan,
+C. Lassner, V. Sitzmann, R. Martin-Brualla, S. Lombardi, T. Simon,
+C. Theobalt, M. Nießner, J. T. Barron, G. Wetzstein, M. Zollh¨ofer,
+and V. Golyanik, “Advances in neural rendering,” Computer Graphics
+Forum, vol. 41, no. 2, pp. 703–735, 2022.
+[22] S. E. Chen and L. Williams, “View interpolation for image synthesis,”
+in Proceedings of the 20th Annual Conference on Computer Graphics
+and Interactive Techniques, ser. SIGGRAPH ’93, 1993, p. 279–288.
+[23] S. M. Seitz and C. R. Dyer, “View morphing,” in Proceedings of
+the 23rd Annual Conference on Computer Graphics and Interactive
+Techniques, ser. SIGGRAPH ’96, 1996, p. 21–30.
+[24] B. Mildenhall, P. P. Srinivasan, M. Tancik, J. T. Barron, R. Ramamoor-
+thi, and R. Ng, “Nerf: Representing scenes as neural radiance fields
+for view synthesis,” Communications of the ACM, vol. 65, no. 1, pp.
+99–106, 2021.
+[25] T. Liu, G. Wang, S. Hu, L. Shen, X. Ye, Y. Zang, Z. Cao, W. Li, and
+Z. Liu, “Mvsgaussian: Fast generalizable gaussian splatting reconstruc-
+tion from multi-view stereo,” in European Conference on Computer
+Vision.
+Springer, 2024, pp. 37–53.
+[26] Y. Chen, H. Xu, C. Zheng, B. Zhuang, M. Pollefeys, A. Geiger,
+T.-J. Cham, and J. Cai, “Mvsplat: Efficient 3d gaussian splatting
+from sparse multi-view images,” in European conference on computer
+vision.
+Springer, 2024, pp. 370–386.
+[27] N. Takama, S. Ito, K. Ito, H.-T. Chen, and T. Aoki, “Sparse2dgs:
+Sparse-view surface reconstruction using 2d gaussian splatting with
+dense point cloud,” in 2025 IEEE International Conference on Image
+Processing (ICIP).
+IEEE, 2025, pp. 2844–2849.
+[28] X. Zhou, Z. Lin, X. Shan, Y. Wang, D. Sun, and M.-H. Yang,
+“Drivinggaussian: Composite gaussian splatting for surrounding dy-
+namic autonomous driving scenes,” in Proceedings of the IEEE/CVF
+conference on computer vision and pattern recognition, 2024, pp.
+21 634–21 643.
+[29] Y. Yan, H. Lin, C. Zhou, W. Wang, H. Sun, K. Zhan, X. Lang,
+X. Zhou, and S. Peng, “Street gaussians: Modeling dynamic urban
+scenes with gaussian splatting,” in European Conference on Computer
+Vision.
+Springer, 2024, pp. 156–173.
+[30] J. Peng, T. H. E. Tse, K. Xu, W. Gao, and A. Yao, “A constrained
+optimization approach for gaussian splatting from coarsely-posed
+images and noisy lidar point clouds,” in Proceedings of the IEEE/CVF
+International Conference on Computer Vision, 2025, pp. 2961–2970.
+[31] L. Yen-Chen, P. Florence, J. T. Barron, A. Rodriguez, P. Isola, and T.-
+Y. Lin, “iNeRF: Inverting neural radiance fields for pose estimation,” in
+IEEE/RSJ International Conference on Intelligent Robots and Systems
+(IROS), 2021.
+[32] B. Matteo, T. Tsesmelis, S. James, F. Poiesi, and A. Del Bue, “6dgs:
+6d pose estimation from a single image and a 3d gaussian splatting
+model,” Springer, pp. 420–436, 2024.
+[33] J. Jiang, C. Gu, Y. Chen, and L. Zhang, “Gs-lidar: Generating realistic
+lidar point clouds with panoramic gaussian splatting,” 2025.
+[34] G. Hess, C. Lindstr¨om, M. Fatemi, C. Petersson, and L. Svensson,
+“Splatad: Real-time lidar and camera rendering with 3d gaussian
+splatting for autonomous driving,” in Proceedings of the Computer
+Vision and Pattern Recognition Conference, 2025, pp. 11 982–11 992.
+[35] H. Matsuki, R. Murai, P. H. Kelly, and A. J. Davison, “Gaussian
+splatting slam,” in Proceedings of the IEEE/CVF conference on
+computer vision and pattern recognition, 2024, pp. 18 039–18 048.
+[36] L. Zhu, Y. Li, E. Sandstr¨om, S. Huang, K. Schindler, and I. Armeni,
+“Loopsplat: Loop closure by registering 3d gaussian splats,” in Inter-
+national Conference on 3D Vision (3DV), 2025.
+[37] L. C. Sun, N. P. Bhatt, J. C. Liu, Z. Fan, Z. Wang, T. E. Humphreys,
+and U. Topcu, “Mm3dgs slam: Multi-modal 3d gaussian splatting
+for slam using vision, depth, and inertial measurements,” in 2024
+IEEE/RSJ International Conference on Intelligent Robots and Systems
+(IROS).
+IEEE, 2024, pp. 10 159–10 166.
+[38] S. Izquierdo, M. Sayed, M. Firman, G. Garcia-Hernando, D. Tur-
+mukhambetov, J. Civera, O. Mac Aodha, G. Brostow, and J. Watson,
+“Mvsanywhere: Zero-shot multi-view stereo,” in Proceedings of the
+Computer Vision and Pattern Recognition Conference, 2025, pp.
+11 493–11 504.
+[39] L. A. E. Gonzalez, J. Folkesson, R. Triebel, and R. Giubilato, “Multi-
+modal loop closure detection with foundation models in severely
+unstructured environments,” 2026 IEEE international conference on
+robotics and automation (ICRA), 2026.
+[40] M. Douze, A. Guzhva, C. Deng, J. Johnson, G. Szilvasy, P.-E. Mazar´e,
+M. Lomeli, L. Hosseini, and H. J´egou, “The faiss library,” IEEE
+Transactions on Big Data, 2025.
+[41] R. Giubilato, M. Vayugundla, W. St¨urzl, M. J. Schuster, A. Wedler,
+and R. Triebel, “Multi-modal loop closing in unstructured planetary
+environments with visually enriched submaps,” in 2021 IEEE/RSJ
+International Conference on Intelligent Robots and Systems (IROS).
+IEEE, 2021, pp. 8758–8765.
+[42] D. DeTone, T. Malisiewicz, and A. Rabinovich, “Superpoint: Self-
+supervised interest point detection and description,” in Proceedings
+of the IEEE conference on computer vision and pattern recognition
+workshops, 2018, pp. 224–236.
+[43] P.-E. Sarlin, D. DeTone, T. Malisiewicz, and A. Rabinovich, “Su-
+perglue: Learning feature matching with graph neural networks,” in
+Proceedings of the IEEE/CVF conference on computer vision and
+pattern recognition, 2020, pp. 4938–4947.

@@ -1,0 +1,141 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-27T20:21:17.888499+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2607.22147v1",
+      "source": "arxiv",
+      "title": "Visual Relocalization from Sparse Views in Aliased and Low-Texture Environments via Novel View Synthesis",
+      "abstract": "Visual localization becomes extremely challenging in planetary-like terrains characterized by low texture, perceptual aliasing, harsh illumination, and sparse, weakly overlapping viewpoints induced by forward rover motion and unconstrained driving directions. Under these conditions, state-of-the-art image-to-image and image-to-map matching pipelines suffer significant performance degradation. In this work, we propose a visual relocalization method that departs from classical correspondence-based pipelines by directly estimating camera poses against a differentiable map representation built with 3D Gaussian Splatting (3DGS). Our key contribution is a geometry-aware training strategy that combines photometric and geometric losses, where the geometric supervision is provided for the first time by combining multi-view stereo (MVS) and LiDAR depths. We show that this joint optimization produces a 3DGS model that better fits the underlying scene geometry, leading to improved photometric and geometric consistency and more robust, accurate single-image 6-DoF pose estimation. Extensive experiments on data acquired in planetary-analog environments validate the effectiveness of our approach, showing substantial gains in relocalization accuracy under challenging conditions. Code is available at https://github.com/DLR-RM/multimodal-gsplat-relocalization.",
+      "authors": [
+        "Maria Peribañez",
+        "Javier Civera",
+        "Rudolph Triebel",
+        "Riccardo Giubilato"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-24T09:46:07+00:00",
+      "link": "https://arxiv.org/pdf/2607.22147v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "uses 3DGS for visual relocalization with novel view synthesis",
+      "llm_evidence_cn": "利用3DGS构建可微地图进行视觉重定位",
+      "llm_evidence": "利用3DGS构建可微地图进行视觉重定位",
+      "canonical_evidence": "利用3DGS构建可微地图进行视觉重定位",
+      "llm_tldr_en": "Proposes a relocalization method using 3DGS as a differentiable map, combining photometric and geometric loss for pose estimation.",
+      "llm_tldr_cn": "在低纹理、弱重叠的极端环境下，传统视觉定位方法失效。本文提出基于3DGS的可微地图重定位流水线，直接估计相机位姿。关键贡献是几何感知训练策略，融合光度与几何损失。实验表明在类火星地形上显著优于基于特征匹配的方法，展现了3DGS在定位任务中的潜力。",
+      "llm_tldr": "在低纹理、弱重叠的极端环境下，传统视觉定位方法失效。本文提出基于3DGS的可微地图重定位流水线，直接估计相机位姿。关键贡献是几何感知训练策略，融合光度与几何损失。实验表明在类火星地形上显著优于基于特征匹配的方法，展现了3DGS在定位任务中的潜力。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.18801v1",
+      "source": "arxiv",
+      "title": "ZeroSplat: Generalized Referring Segmentation in 3D Gaussian Splatting",
+      "abstract": "Recent advancements in 3D Gaussian Splatting (3DGS) have enabled language-guided scene understanding. However, existing Referring 3D Gaussian Splatting (R3DGS) methods are fundamentally restricted to single-target queries. To reflect the ambiguity of real-world instructions, we introduce the Generalized Referring 3D Gaussian Splatting Segmentation (GR3DGS) task, which requires dynamically segmenting an arbitrary number of targets (0, 1, or $N$). To facilitate comprehensive evaluation of this new task, we construct two new benchmarks: GR-LERF and GR-ScanNet. Crucially, existing R3DGS paradigms exhibit fundamental technical bottlenecks that severely limit their performance on the GR3DGS task: they lack intrinsic 3D point-level understanding by operating merely on 2D rendered pixels, and they incur prohibitive computational overhead by requiring per-scene optimization to embed heavy semantic features. To dismantle these bottlenecks, we propose ZeroSplat, a novel training-free and zero-feature framework. ZeroSplat lifts 2D Vision-Language Model (VLM) priors into 3D space through robust multi-view geometric constraints. This strategy enables intrinsic point-level understanding without incurring any additional feature storage. Extensive experiments demonstrate that ZeroSplat significantly outperforms state-of-the-art methods across generalized and single-target scenarios while maintaining exceptional efficiency. Project Page: https://inkmind-ai.github.io/ZeroSplat",
+      "authors": [
+        "Jiayu Ding",
+        "Meilu Song",
+        "Xiaoyi Zhang",
+        "Hongbo Jin",
+        "Yichen Jin",
+        "Xiangtian Si"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-21T07:27:10+00:00",
+      "link": "https://arxiv.org/pdf/2607.18801v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Extends 3D Gaussian Splatting to generalized referring segmentation",
+      "llm_evidence_cn": "将3D高斯溅射扩展到广义指代分割",
+      "llm_evidence": "将3D高斯溅射扩展到广义指代分割",
+      "canonical_evidence": "将3D高斯溅射扩展到广义指代分割",
+      "llm_tldr_en": "ZeroSplat proposes Generalized Referring 3D Gaussian Splatting Segmentation (GR3DGS) for segmenting arbitrary number of targets in 3DGS scenes.",
+      "llm_tldr_cn": "现有基于3DGS的指代分割仅限于单目标查询，无法处理实际指令的歧义性。ZeroSplat提出广义指代3DGS分割（GR3DGS）任务，支持动态分割任意数量目标（0、1或N个），并构建GR-LERF和GR-ScanNet基准。该方法通过内在3D点级理解克服现有技术瓶颈，在多个基准上取得最优性能。",
+      "llm_tldr": "现有基于3DGS的指代分割仅限于单目标查询，无法处理实际指令的歧义性。ZeroSplat提出广义指代3DGS分割（GR3DGS）任务，支持动态分割任意数量目标（0、1或N个），并构建GR-LERF和GR-ScanNet基准。该方法通过内在3D点级理解克服现有技术瓶颈，在多个基准上取得最优性能。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.20628v1",
+      "source": "arxiv",
+      "title": "RealVDeblur: One-Step Diffusion for Generalizable Real-World Video Deblurring",
+      "abstract": "Real-world video deblurring remains challenging due to diverse motion patterns, complex degradations, and the scarcity of realistic training data, yet robust restoration is critical for downstream pipelines such as mobile imaging and 3D reconstruction. This work presents \\textbf{RealVDeblur}, an efficient generative framework designed to improve in-the-wild robustness under diverse real capture conditions. First, a large-scale, physically grounded blur synthesis pipeline is constructed from scene-level 3D Gaussian Splatting (3DGS) assets and high-frame-rate videos, providing realistic training data covering both camera-induced and object-motion blur. Second, a video diffusion prior is leveraged for restoration; to better accommodate frame-dependent blur variations, temporal compression in the VAE is disabled and a frame-wise encoding scheme is adopted. For practical deployment on long videos, multi-step diffusion sampling is distilled into an efficient one-step generator, and a training-free Temporal Window Mask stabilizes inference beyond the training horizon with constant memory usage. Extensive experiments on diverse real-world benchmarks demonstrate strong perceptual quality, semantic fidelity, and temporal consistency on unseen videos, as well as improved robustness in downstream 3D reconstruction under severe motion blur. Project page: https://rbjin.github.io/RealVDeblur",
+      "authors": [
+        "Renbiao Jin",
+        "Mingxin Yang",
+        "Yutian Chen",
+        "Junhao Zhuang",
+        "Xin Cai",
+        "Mulin Yu",
+        "Linning Xu",
+        "Wenxian Yu",
+        "Danping Zou",
+        "Shi Guo",
+        "Tianfan Xue"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-07-22T18:01:03+00:00",
+      "link": "https://arxiv.org/pdf/2607.20628v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Uses 3D Gaussian Splatting assets in blur synthesis pipeline for downstream 3D reconstruction",
+      "llm_evidence_cn": "使用3D高斯溅射资产合成模糊，用于下游3D重建",
+      "llm_evidence": "使用3D高斯溅射资产合成模糊，用于下游3D重建",
+      "canonical_evidence": "使用3D高斯溅射资产合成模糊，用于下游3D重建",
+      "llm_tldr_en": "RealVDeblur uses 3D Gaussian Splatting assets to synthesize realistic blur and a video diffusion prior for robust video deblurring, supporting downstream 3D reconstruction.",
+      "llm_tldr_cn": "真实世界视频去模糊面临运动模式多样和训练数据稀缺的挑战，本文提出RealVDeblur，利用从3D高斯溅射（3DGS）资产和高速视频构建的大规模物理模糊合成管道生成逼真训练数据，再结合视频扩散先验实现一步去模糊。实验表明该方法在多种真实场景下具有鲁棒性，其合成管道可辅助3D重建等下游任务。",
+      "llm_tldr": "真实世界视频去模糊面临运动模式多样和训练数据稀缺的挑战，本文提出RealVDeblur，利用从3D高斯溅射（3DGS）资产和高速视频构建的大规模物理模糊合成管道生成逼真训练数据，再结合视频扩散先验实现一步去模糊。实验表明该方法在多种真实场景下具有鲁棒性，其合成管道可辅助3D重建等下游任务。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

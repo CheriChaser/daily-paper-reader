@@ -1,0 +1,54 @@
+{
+  "label": "2026-07-27",
+  "date": "2026-07-27",
+  "generated_at": "2026-07-27T20:23:41",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/27/2607.22147v1-visual-relocalization-from-sparse-views-in-aliased-and-low-texture-environments-via-novel-view-synthesis",
+      "section": "quick",
+      "title_en": "Visual Relocalization from Sparse Views in Aliased and Low-Texture Environments via Novel View Synthesis",
+      "authors": "Maria Peribañez, Javier Civera, Rudolph Triebel, Riccardo Giubilato",
+      "date": "2026-07-24",
+      "pdf": "https://arxiv.org/pdf/2607.22147v1",
+      "score": "7.0",
+      "evidence": "利用3DGS构建可微地图进行视觉重定位",
+      "tldr": "在低纹理、视觉混淆、恶劣光照和稀疏视角的行星类似环境中，视觉重定位极具挑战，现有基于对应匹配的流程性能严重下降。本文提出一种基于3D高斯泼溅的可微地图表示方法，通过几何感知训练策略联合优化光度损失与结合多视角立体和LiDAR深度提供的几何损失。该方法直接估计单幅图像的6自由度位姿，在行星类似环境数据集上重定位精度显著提升。其贡献在于首次将MVS和LiDAR深度融合用于3DGS几何监督，增强了场景几何拟合与位姿估计鲁棒性。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Visual localization becomes extremely challenging in planetary-like terrains characterized by low texture, perceptual aliasing, harsh illumination, and sparse, weakly overlapping viewpoints induced by forward rover motion and unconstrained driving directions. Under these conditions, state-of-the-art image-to-image and image-to-map matching pipelines suffer significant performance degradation. In this work, we propose a visual relocalization method that departs from classical correspondence-based pipelines by directly estimating camera poses against a differentiable map representation built with 3D Gaussian Splatting (3DGS). Our key contribution is a geometry-aware training strategy that combines photometric and geometric losses, where the geometric supervision is provided for the first time by combining multi-view stereo (MVS) and LiDAR depths. We show that this joint optimization produces a 3DGS model that better fits the underlying scene geometry, leading to improved photometric and geometric consistency and more robust, accurate single-image 6-DoF pose estimation. Extensive experiments on data acquired in planetary-analog environments validate the effectiveness of our approach, showing substantial gains in relocalization accuracy under challenging conditions. Code is available at https://github.com/DLR-RM/multimodal-gsplat-relocalization.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/27/2607.18801v1-zerosplat-generalized-referring-segmentation-in-3d-gaussian-splatting",
+      "section": "quick",
+      "title_en": "ZeroSplat: Generalized Referring Segmentation in 3D Gaussian Splatting",
+      "authors": "Jiayu Ding, Meilu Song, Xiaoyi Zhang, Hongbo Jin, Yichen Jin, Xiangtian Si",
+      "date": "2026-07-21",
+      "pdf": "https://arxiv.org/pdf/2607.18801v1",
+      "score": "6.0",
+      "evidence": "将3D高斯溅射扩展到广义指代分割",
+      "tldr": "3D高斯泼溅的指代分割现有方法仅支持单目标且依赖2D渲染像素，计算开销大。ZeroSplat提出无需训练和特征存储的框架，通过多视图几何约束将2D视觉语言模型先验提升到3D空间，实现任意数量目标分割。在广义指代分割任务上显著超越现有方法，同时保持高效率。该方法为3D场景理解提供了零额外开销的解决方案。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Recent advancements in 3D Gaussian Splatting (3DGS) have enabled language-guided scene understanding. However, existing Referring 3D Gaussian Splatting (R3DGS) methods are fundamentally restricted to single-target queries. To reflect the ambiguity of real-world instructions, we introduce the Generalized Referring 3D Gaussian Splatting Segmentation (GR3DGS) task, which requires dynamically segmenting an arbitrary number of targets (0, 1, or $N$). To facilitate comprehensive evaluation of this new task, we construct two new benchmarks: GR-LERF and GR-ScanNet. Crucially, existing R3DGS paradigms exhibit fundamental technical bottlenecks that severely limit their performance on the GR3DGS task: they lack intrinsic 3D point-level understanding by operating merely on 2D rendered pixels, and they incur prohibitive computational overhead by requiring per-scene optimization to embed heavy semantic features. To dismantle these bottlenecks, we propose ZeroSplat, a novel training-free and zero-feature framework. ZeroSplat lifts 2D Vision-Language Model (VLM) priors into 3D space through robust multi-view geometric constraints. This strategy enables intrinsic point-level understanding without incurring any additional feature storage. Extensive experiments demonstrate that ZeroSplat significantly outperforms state-of-the-art methods across generalized and single-target scenarios while maintaining exceptional efficiency. Project Page: https://inkmind-ai.github.io/ZeroSplat",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/27/2607.20628v1-realvdeblur-one-step-diffusion-for-generalizable-real-world-video-deblurring",
+      "section": "quick",
+      "title_en": "RealVDeblur: One-Step Diffusion for Generalizable Real-World Video Deblurring",
+      "authors": "Renbiao Jin, Mingxin Yang, Yutian Chen, Junhao Zhuang, Xin Cai, Mulin Yu, Linning Xu, Wenxian Yu, Danping Zou, Shi Guo, Tianfan Xue",
+      "date": "2026-07-22",
+      "pdf": "https://arxiv.org/pdf/2607.20628v1",
+      "score": "6.0",
+      "evidence": "使用3D高斯溅射资产合成模糊，用于下游3D重建",
+      "tldr": "现实世界视频去模糊面临运动模式多样、退化复杂和数据稀缺的挑战。本文提出RealVDeblur，基于3D高斯泼溅构建物理模糊合成管道生成逼真训练数据，利用视频扩散先验并禁用VAE时间压缩以处理帧间模糊变化，通过蒸馏为一步生成器并引入时域窗口掩码支持长视频推理。在多样真实基准上展现了强感知质量、语义保真度和时间一致性，并提升了下游3D重建的鲁棒性。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Real-world video deblurring remains challenging due to diverse motion patterns, complex degradations, and the scarcity of realistic training data, yet robust restoration is critical for downstream pipelines such as mobile imaging and 3D reconstruction. This work presents \\textbf{RealVDeblur}, an efficient generative framework designed to improve in-the-wild robustness under diverse real capture conditions. First, a large-scale, physically grounded blur synthesis pipeline is constructed from scene-level 3D Gaussian Splatting (3DGS) assets and high-frame-rate videos, providing realistic training data covering both camera-induced and object-motion blur. Second, a video diffusion prior is leveraged for restoration; to better accommodate frame-dependent blur variations, temporal compression in the VAE is disabled and a frame-wise encoding scheme is adopted. For practical deployment on long videos, multi-step diffusion sampling is distilled into an efficient one-step generator, and a training-free Temporal Window Mask stabilizes inference beyond the training horizon with constant memory usage. Extensive experiments on diverse real-world benchmarks demonstrate strong perceptual quality, semantic fidelity, and temporal consistency on unseen videos, as well as improved robustness in downstream 3D reconstruction under severe motion blur. Project page: https://rbjin.github.io/RealVDeblur",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
