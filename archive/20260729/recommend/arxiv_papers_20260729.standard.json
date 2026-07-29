@@ -1,0 +1,132 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-29T21:30:15.726307+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2607.25569v1",
+      "source": "arxiv",
+      "title": "CORF-GS: Real-Time Wireless Radiance Field Reconstruction via Coupled Optical-RF Gaussian Splatting",
+      "abstract": "Recent advances in 3D Gaussian Splatting (3DGS)-based wireless radiance field (WRF) reconstruction provide an efficient solution for wireless channel modeling. However, existing WRF reconstruction methods rely on pre-collected observations and offline optimization, and thus struggle to provide real-time channel knowledge. To bridge this gap, we propose CORF-GS, a real-time WRF reconstruction framework that processes sequential optical and radio frequency (RF) keyframes. Specifically, CORF-GS constructs a unified Gaussian representation for optical and RF with shared geometry and modality-specific appearance, allowing high-resolution optical images to provide structural priors for WRF reconstruction. When a new keyframe arrives, CORF-GS first employs optical-guided Gaussian sampling to densify the WRF in under-represented regions. Since light and radio waves may respond differently to the same object surfaces due to wavelength mismatch, relying solely on optical guidance may neglect RF-informative areas. Therefore, CORF-GS performs coupled optical-RF optimization to jointly refine the shared Gaussians. Compared with the existing two-stage training pipelines, this prevents WRF from passively adapting to a frozen optical geometry and encourages the shared Gaussians to adapt to both optical structures and RF power distributions. Simulations show that CORF-GS achieves state-of-the-art RF spectrum synthesis quality and reduces the reconstruction time by $6.4\\times$ compared with existing WRF methods.",
+      "authors": [
+        "Jinya Zhang",
+        "Jiajia Guo",
+        "Chao-Kai Wen",
+        "Shi Jin"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP",
+        "cs.AI",
+        "cs.CV",
+        "cs.IT"
+      ],
+      "published": "2026-07-28T10:56:52+00:00",
+      "link": "https://arxiv.org/pdf/2607.25569v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D Gaussian splatting for real-time wireless radiance field reconstruction",
+      "llm_evidence_cn": "基于3D高斯散射的实时无线辐射场重建",
+      "llm_evidence": "基于3D高斯散射的实时无线辐射场重建",
+      "canonical_evidence": "基于3D高斯散射的实时无线辐射场重建",
+      "llm_tldr_en": "CORF-GS uses coupled optical-RF Gaussian splatting to enable real-time wireless radiance field reconstruction from sequential keyframes.",
+      "llm_tldr_cn": "针对现有无线辐射场重建依赖离线优化、无法实时提供信道知识的局限，本文提出CORF-GS，一个实时无线辐射场重建框架。通过构造光学与射频共享几何的联合高斯表示，利用高分辨率光学图像提供结构先验，实现了在线顺序关键帧处理。该方法在实时信道建模中取得了高效可靠的性能。",
+      "llm_tldr": "针对现有无线辐射场重建依赖离线优化、无法实时提供信道知识的局限，本文提出CORF-GS，一个实时无线辐射场重建框架。通过构造光学与射频共享几何的联合高斯表示，利用高分辨率光学图像提供结构先验，实现了在线顺序关键帧处理。该方法在实时信道建模中取得了高效可靠的性能。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.25971v1",
+      "source": "arxiv",
+      "title": "SplatStream: Fine Granular Scalable Gaussian Splatting for Adaptive 3D Scene Streaming",
+      "abstract": "Dynamic 3D Gaussian Splatting (GS) enables high quality real-time rendering for immersive media, but its large representation size and frame-wise redundancy create significant challenges for adaptive streaming. This paper presents SplatStream, a fine granular scalable Gaussian splatting framework for dynamic 3D scene delivery. The proposed method decompose the GS scenes into quality and resolution layers, and introduces inter-layer predictive coding to achieve scalability. For temporal direction, B-frames are introduced to have temporal quality scalability. A lightweight cross-layer transformer based predictor is utilized for both cross layer and temporal predictions. In addition, a volume-opacity based importance measure is used for fine-grained Gaussian packetization, allowing visually important primitives to be transmitted earlier for progressive refinement. Finally, the scalable GS bitstream is mapped to an MPEG-DASH compatible sub-representation structure, enabling fine granular adaptive, low-latency delivery of dynamic Gaussian splatting content under bandwidth-varying conditions.",
+      "authors": [
+        "Muhammad Talha",
+        "William Gordon",
+        "Sajid Umair",
+        "Anique Akhtar",
+        "Joel Jung"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "eess.SP"
+      ],
+      "published": "2026-07-28T16:52:45+00:00",
+      "link": "https://arxiv.org/pdf/2607.25971v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "proposes fine granular scalable Gaussian splatting for adaptive streaming",
+      "llm_evidence_cn": "提出细粒度可扩展高斯溅射用于自适应流传输",
+      "llm_evidence": "提出细粒度可扩展高斯溅射用于自适应流传输",
+      "canonical_evidence": "提出细粒度可扩展高斯溅射用于自适应流传输",
+      "llm_tldr_en": "SplatStream decomposes GS scenes into quality and resolution layers with inter-layer predictive coding for adaptive 3D scene streaming.",
+      "llm_tldr_cn": "针对动态3D高斯溅射表示庞大且帧间冗余导致流传输困难的问题，SplatStream提出细粒度可扩展框架，将场景分解为质量和分辨率层，引入层间预测编码和B帧实现时间可扩展性，并利用体积-不透明度重要性度量进行帧选择。实验证明在带宽自适应流中实现了高效传输和高质量渲染。",
+      "llm_tldr": "针对动态3D高斯溅射表示庞大且帧间冗余导致流传输困难的问题，SplatStream提出细粒度可扩展框架，将场景分解为质量和分辨率层，引入层间预测编码和B帧实现时间可扩展性，并利用体积-不透明度重要性度量进行帧选择。实验证明在带宽自适应流中实现了高效传输和高质量渲染。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.25362v1",
+      "source": "arxiv",
+      "title": "PanoLess: Environment Reconstruction from Partial Reflective Views",
+      "abstract": "Reflections from shiny objects and glass facades naturally extend the field of view of a camera, capturing the surrounding environment without the need to pan the camera or acquire a full panorama. We propose PanoLess, a Gaussian-splat-based framework that reconstructs the surrounding environment as a distant illumination map from images captured on only one side of a reflective surface. PanoLess leverages surface-aligned 2D Gaussian splats with deferred shading to recover accurate per-pixel normals and reflection cues, which are fused into a neural cubemap representation of the environment. In addition, PanoLess produces a visibility map that explicitly denotes which regions of the environment are supported by the partial reflective observations. Unlike existing inverse-rendering and reflection-aware Gaussian-splatting approaches, which typically require full 360-degree coverage and struggle under incomplete views, PanoLess enables consistent, physically grounded illumination estimation from partial-view input. We show that PanoLess achieves high-fidelity and geometrically consistent environment reconstruction, outperforming reflection-aware baselines on a new custom synthetic benchmark and publicly available datasets, and demonstrating generalization to real-world reflective captures.",
+      "authors": [
+        "Ahitagni Das",
+        "Ashok Veeraraghavan",
+        "Vivek Boominathan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-28T07:13:11+00:00",
+      "link": "https://arxiv.org/pdf/2607.25362v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D Gaussian splatting used for environment reconstruction from reflective views",
+      "llm_evidence_cn": "使用3D高斯泼溅从反射视图进行环境重建",
+      "llm_evidence": "使用3D高斯泼溅从反射视图进行环境重建",
+      "canonical_evidence": "使用3D高斯泼溅从反射视图进行环境重建",
+      "llm_tldr_en": "PanoLess reconstructs environment illumination from partial reflective views using surface-aligned 2D Gaussian splats and deferred shading.",
+      "llm_tldr_cn": "针对反射物体提供额外视野但重建困难的问题，提出PanoLess框架，利用表面对齐的2D高斯泼溅和延迟着色恢复环境光照图，并通过神经立方体贴图融合反射线索。实验证明该方法能从单侧反射图像有效重建环境，无需全景采集。",
+      "llm_tldr": "针对反射物体提供额外视野但重建困难的问题，提出PanoLess框架，利用表面对齐的2D高斯泼溅和延迟着色恢复环境光照图，并通过神经立方体贴图融合反射线索。实验证明该方法能从单侧反射图像有效重建环境，无需全景采集。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

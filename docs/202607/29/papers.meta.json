@@ -1,0 +1,54 @@
+{
+  "label": "2026-07-29",
+  "date": "2026-07-29",
+  "generated_at": "2026-07-29T21:32:12",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/29/2607.25569v1-corf-gs-real-time-wireless-radiance-field-reconstruction-via-coupled-optical-rf-gaussian-splatting",
+      "section": "deep",
+      "title_en": "CORF-GS: Real-Time Wireless Radiance Field Reconstruction via Coupled Optical-RF Gaussian Splatting",
+      "authors": "Jinya Zhang, Jiajia Guo, Chao-Kai Wen, Shi Jin",
+      "date": "2026-07-28",
+      "pdf": "https://arxiv.org/pdf/2607.25569v1",
+      "score": "9.0",
+      "evidence": "基于3D高斯散射的实时无线辐射场重建",
+      "tldr": "现有无线辐射场重建方法依赖预采集和离线优化，无法实时应用。CORF-GS构建光学与射频的联合高斯表示，共享几何结构但分别优化外观，利用光学引导采样稠密化欠采样区域，并通过耦合光-射频优化联合调整共享高斯参数。相比已有方法，重建时间减少6.4倍，同时实现射频频谱合成质量最优，为实时信道建模提供新方案。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Recent advances in 3D Gaussian Splatting (3DGS)-based wireless radiance field (WRF) reconstruction provide an efficient solution for wireless channel modeling. However, existing WRF reconstruction methods rely on pre-collected observations and offline optimization, and thus struggle to provide real-time channel knowledge. To bridge this gap, we propose CORF-GS, a real-time WRF reconstruction framework that processes sequential optical and radio frequency (RF) keyframes. Specifically, CORF-GS constructs a unified Gaussian representation for optical and RF with shared geometry and modality-specific appearance, allowing high-resolution optical images to provide structural priors for WRF reconstruction. When a new keyframe arrives, CORF-GS first employs optical-guided Gaussian sampling to densify the WRF in under-represented regions. Since light and radio waves may respond differently to the same object surfaces due to wavelength mismatch, relying solely on optical guidance may neglect RF-informative areas. Therefore, CORF-GS performs coupled optical-RF optimization to jointly refine the shared Gaussians. Compared with the existing two-stage training pipelines, this prevents WRF from passively adapting to a frozen optical geometry and encourages the shared Gaussians to adapt to both optical structures and RF power distributions. Simulations show that CORF-GS achieves state-of-the-art RF spectrum synthesis quality and reduces the reconstruction time by $6.4\\times$ compared with existing WRF methods.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/29/2607.25971v1-splatstream-fine-granular-scalable-gaussian-splatting-for-adaptive-3d-scene-streaming",
+      "section": "deep",
+      "title_en": "SplatStream: Fine Granular Scalable Gaussian Splatting for Adaptive 3D Scene Streaming",
+      "authors": "Muhammad Talha, William Gordon, Sajid Umair, Anique Akhtar, Joel Jung",
+      "date": "2026-07-28",
+      "pdf": "https://arxiv.org/pdf/2607.25971v1",
+      "score": "9.0",
+      "evidence": "提出细粒度可扩展高斯溅射用于自适应流传输",
+      "tldr": "动态3D高斯泼溅渲染质量高但数据量大，帧间冗余导致自适应流传输困难。SplatStream将GS场景分解为质量和分辨率层，采用层间预测编码和B帧实现可伸缩性，利用跨层Transformer预测器，并基于体素不透明度进行细粒度高斯打包。生成的比特流映射到MPEG-DASH子表示结构，支持带宽变化下的细粒度自适应、低延迟流传输。该方法有效解决了动态3D场景的高效传输问题。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Dynamic 3D Gaussian Splatting (GS) enables high quality real-time rendering for immersive media, but its large representation size and frame-wise redundancy create significant challenges for adaptive streaming. This paper presents SplatStream, a fine granular scalable Gaussian splatting framework for dynamic 3D scene delivery. The proposed method decompose the GS scenes into quality and resolution layers, and introduces inter-layer predictive coding to achieve scalability. For temporal direction, B-frames are introduced to have temporal quality scalability. A lightweight cross-layer transformer based predictor is utilized for both cross layer and temporal predictions. In addition, a volume-opacity based importance measure is used for fine-grained Gaussian packetization, allowing visually important primitives to be transmitted earlier for progressive refinement. Finally, the scalable GS bitstream is mapped to an MPEG-DASH compatible sub-representation structure, enabling fine granular adaptive, low-latency delivery of dynamic Gaussian splatting content under bandwidth-varying conditions.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/29/2607.25362v1-panoless-environment-reconstruction-from-partial-reflective-views",
+      "section": "deep",
+      "title_en": "PanoLess: Environment Reconstruction from Partial Reflective Views",
+      "authors": "Ahitagni Das, Ashok Veeraraghavan, Vivek Boominathan",
+      "date": "2026-07-28",
+      "pdf": "https://arxiv.org/pdf/2607.25362v1",
+      "score": "8.0",
+      "evidence": "使用3D高斯泼溅从反射视图进行环境重建",
+      "tldr": "反射表面可扩展相机视野，但现有方法依赖全360度覆盖，难以处理仅从反射面一侧观测的部分视图输入。本文提出PanoLess，利用表面对齐的2D高斯泼溅与延迟着色恢复准确法线和反射线索，融合为神经立方体贴图并生成可见性图。仅需单侧反射观测即可重建物理一致的环境光照图，在合成基准和真实数据上超越反射感知基线，且能泛化到真实场景。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Reflections from shiny objects and glass facades naturally extend the field of view of a camera, capturing the surrounding environment without the need to pan the camera or acquire a full panorama. We propose PanoLess, a Gaussian-splat-based framework that reconstructs the surrounding environment as a distant illumination map from images captured on only one side of a reflective surface. PanoLess leverages surface-aligned 2D Gaussian splats with deferred shading to recover accurate per-pixel normals and reflection cues, which are fused into a neural cubemap representation of the environment. In addition, PanoLess produces a visibility map that explicitly denotes which regions of the environment are supported by the partial reflective observations. Unlike existing inverse-rendering and reflection-aware Gaussian-splatting approaches, which typically require full 360-degree coverage and struggle under incomplete views, PanoLess enables consistent, physically grounded illumination estimation from partial-view input. We show that PanoLess achieves high-fidelity and geometrically consistent environment reconstruction, outperforming reflection-aware baselines on a new custom synthetic benchmark and publicly available datasets, and demonstrating generalization to real-world reflective captures.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
