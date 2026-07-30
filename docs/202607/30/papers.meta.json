@@ -1,0 +1,54 @@
+{
+  "label": "2026-07-30",
+  "date": "2026-07-30",
+  "generated_at": "2026-07-30T21:44:11",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/30/2607.26525v1-atlaslc-fast-codec-ready-compression-of-object-centric-3d-gaussian-splatting",
+      "section": "deep",
+      "title_en": "AtlasLC: Fast Codec-Ready Compression of Object-Centric 3D Gaussian Splatting",
+      "authors": "ByungHyun Kim, Jinwoo Jeon, Woontack Woo",
+      "date": "2026-07-29",
+      "pdf": "https://arxiv.org/pdf/2607.26525v1",
+      "score": "9.0",
+      "evidence": "面向物体的3D高斯泼溅压缩",
+      "tldr": "面向对象的3D高斯溅射（3DGS）在XR资产管线中面临压缩率、解码延迟和几何保真度的权衡。现有场景级压缩方法因依赖全局剪枝或布局生成，不适用于语义集中的前景对象。AtlasLC是一种免源免训练压缩管线，通过局部竞争剪枝和确定性图集打包，无需原始图像或优化，实现快速编解码。实验表明，图集准备时间减少25倍，端到端压缩时间减少5倍，比特率比结构化基线低6-8%，同时保持感知和几何质量。该方法为可扩展XR资产库提供了部署感知的压缩方案。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting (3DGS) enables photorealistic novel-view synthesis with real-time rendering, but deploying compressed object-centric 3DGS in XR requires more than image-space rate-distortion. In practical XR asset pipelines, reusable objects are repeatedly packaged, transmitted, decoded, and instantiated, making asset-preparation cost, codec compatibility, decoding latency, and preservation of depth and silhouette cues first-class concerns. Existing 3DGS compression methods are largely developed for scene-scale captures and often rely on heavy layout generation or aggressive global pruning, assumptions that transfer poorly to semantically concentrated foreground objects. We present AtlasLC, a source-free, training-free compression pipeline for object-centric 3DGS that operates directly on released Gaussian assets, without original images, camera poses, or per-asset optimization. AtlasLC couples local-competition pruning with deterministic atlas packing to remove the mapping/remapping bottleneck while preserving object-wide foreground support; a lightweight single-pass sort-based conditional transport is used as a shared coordinate backbone for these stages. Across the evaluated assets, AtlasLC reduces atlas-preparation time by up to a factor of 25 and end-to-end compression time by up to a factor of 5, while offering a favorable deployment-aware balance of payload, decode latency, runtime FPS, and 3D geometry relative to the evaluated compressed baselines. Relative to similarly compact structured baselines, it uses about 6 to 8 percent fewer bits while maintaining comparable perceptual and geometric quality. These results show that object-centric 3DGS compression should be optimized for a deployment-aware operating point enabling scalable XR asset libraries.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/30/2607.26578v1-3dgbgs-3d-granular-ball-gaussian-splatting-for-compact-novel-view-synthesis",
+      "section": "deep",
+      "title_en": "3DGBGS: 3D Granular Ball Gaussian Splatting for Compact Novel View Synthesis",
+      "authors": "Meng Yang, Shuyin Xia, Dawei Dai, YiWang",
+      "date": "2026-07-29",
+      "pdf": "https://arxiv.org/pdf/2607.26578v1",
+      "score": "9.0",
+      "evidence": "使用粒度球组织进行紧凑新颖视图合成的3D高斯溅射重建",
+      "tldr": "现有基于锚点的3D高斯泼溅方法采用固定体素化构建锚点，无法适应非均匀点云分布，导致模型紧凑性与渲染质量难以权衡。本文提出3DGBGS，引入颗粒球计算自适应划分点云为不同尺寸的3D颗粒球，大球表示平滑区域，小球保留细节，并利用球心初始化锚点、球半径提供尺度先验。在四个基准上，初始锚点减少37.1%，最终锚点减少10.0%，模型存储减少9.8%，渲染质量相当。贡献在于首次将颗粒球思想融入锚点3DGS，实现了更紧凑自适应的新视图合成。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Three-dimensional Gaussian Splatting (3DGS) enables high-quality real-time novel-view synthesis through explicit Gaussian primitives and differentiable rasterization. 3DGS and Granular Ball Computing (GBC), proposed in 2019, share a natural compatibility in adaptive representation. The efficiency of 3DGS partly stems from a coarse-to-fine and on-demand refinement process that draws on the generation principle of GBC. This connection motivates us to further introduce adaptive granular ball organization into anchor-based 3DGS. Existing anchor-based methods typically construct anchors from sparse SfM point clouds through fixed voxelization, which cannot adequately adapt to spatially non-uniform point distributions and leads to a trade-off among anchor count, model compactness, and rendering quality. To address this issue, we propose 3DGBGS (3D Granular Ball Gaussian Splatting), a compact anchor-based framework for novel-view synthesis. 3DGBGS adaptively partitions SfM point clouds into 3D granular balls, using larger balls to compactly represent smooth and redundant regions and smaller balls to preserve complex geometry and local details. Based on this representation, Granular Ball Anchor Initialization (GBAI) uses granular ball centers to initialize compact anchor positions, while the Granular Ball Scale Prior (GBSP) exploits granular ball radii to provide local scale priors for Gaussian generation. Experiments on four benchmarks show that 3DGBGS reduces initial and final anchors by 37.1% and 10.0%, respectively, and model storage by 9.8% on average, while maintaining comparable rendering quality.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/30/2607.26889v1-structuregs-structure-aware-gaussian-splatting-for-articulated-object-reconstruction",
+      "section": "deep",
+      "title_en": "StructureGS: Structure-aware Gaussian Splatting for Articulated Object Reconstruction",
+      "authors": "Gahye Lee, Gyoonseo Kim, Wonjong Jang, Jooeun Son, Seungyong Lee",
+      "date": "2026-07-29",
+      "pdf": "https://arxiv.org/pdf/2607.26889v1",
+      "score": "9.0",
+      "evidence": "基于3DGS的铰接物体重建方法，融合结构感知引导。",
+      "tldr": "铰接物体重建中，几何、外观和运动参数相互纠缠导致部件分解模糊。现有方法仅用光度监督难以解耦。StructureGS将结构感知引导融入3D Gaussian Splatting，通过有向包围盒强制空间连贯性与结构连通性，并设计结构感知损失注入显式约束。实验表明，该方法在铰接物体重建上达到最先进性能，生成具有清晰部件几何的高质量结果，为物理交互提供了更准确的结构信息。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Reconstructing articulated objects with multiple movable parts is essential for understanding object structure and enabling physical interaction. However, this reconstruction task poses significant challenges due to the entanglement of geometry, appearance, and motion parameters during optimization. Existing methods rely primarily on photometric supervision, which commonly fails to disentangle these interdependent components, resulting in poor part decomposition with blurred boundaries and geometric artifacts. To address this limitation, we introduce StructureGS, a reconstruction framework for articulated objects that integrates structure-aware guidance into 3D Gaussian Splatting. Our approach leverages oriented bounding boxes of object parts to enforce two key structural properties: spatial coherence, which constrains each part's geometry to remain compact and spatially coherent within its designated region, and structural connectivity, which enforces physically plausible contact relationships between adjacent parts. These properties are realized through structure-aware losses that inject explicit structural constraints into the optimization process. Extensive experiments demonstrate that our method achieves state-of-the-art performance in articulated object reconstruction, producing high-quality results with well-defined part geometries.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
