@@ -1,0 +1,215 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-31T21:45:03.955787+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.28300v1",
+      "source": "arxiv",
+      "title": "MonoVoc: Decoupling Geometry and Semantics for Lightweight Monocular Open-Vocabulary 3D Gaussians",
+      "abstract": "Open vocabulary 3D scene understanding is essential for next-generation interactive systems, empowering users to intuitively query and navigate reconstructed environments using natural language. However, current 3D Gaussian frameworks are often bottlenecked by restrictive multiview capture requirements, costly scene-specific optimization, and the massive memory overhead of storing dense language features. We present a novel, training-free pipeline that fundamentally reimagines this paradigm by explicitly decoupling 3D geometric reconstruction from semantic integration. Given a standard monocular video sequence as input, our method efficiently outputs a compact, highly interpretable, and fully searchable object-level semantic Gaussian map. Rather than entangling heavy language embeddings within the mapping loop, we extract geometry independently and ground semantics through a lightweight, modular post-processing framework. Extensive evaluations on the Replica dataset demonstrate that this decoupled architecture preserves strong rendering fidelity and competitive segmentation accuracy. Crucially, by replacing dense per-Gaussian storage with modular, object-level semantic embeddings, our approach delivers an order-of-magnitude reduction in memory usage compared to SOTA baselines. This provides a highly efficient, scalable, and practical solution for open-vocabulary 3D retrieval and question answering directly from everyday monocular video.",
+      "authors": [
+        "Pouya Ardekhani",
+        "Zahra Dehghanian",
+        "Morteza Abolghasemi",
+        "Hamid R. Rabiee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-07-30T14:41:02+00:00",
+      "link": "https://arxiv.org/pdf/2607.28300v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Lightweight monocular 3D Gaussian reconstruction decoupling geometry and semantics",
+      "llm_evidence_cn": "轻量级单目3D高斯重建，解耦几何与语义",
+      "llm_evidence": "轻量级单目3D高斯重建，解耦几何与语义",
+      "canonical_evidence": "轻量级单目3D高斯重建，解耦几何与语义",
+      "llm_tldr_en": "MonoVoc decouples geometric reconstruction from semantic integration to produce compact, interpretable open-vocabulary 3D Gaussians from a monocular video, removing multiview and optimization bottlenecks.",
+      "llm_tldr_cn": "现有3D高斯场景理解通常受限于多视图采集、场景级优化和大量语言特征存储。MonoVoc提出免训练流程，将3D几何重建与语义集成显式解耦，仅需单目视频即可输出紧凑、可解释且可搜索的对象级语义3D高斯。该方法降低了内存开销，同时支持开放词汇查询，为高效3D场景理解提供了新范式。",
+      "llm_tldr": "现有3D高斯场景理解通常受限于多视图采集、场景级优化和大量语言特征存储。MonoVoc提出免训练流程，将3D几何重建与语义集成显式解耦，仅需单目视频即可输出紧凑、可解释且可搜索的对象级语义3D高斯。该方法降低了内存开销，同时支持开放词汇查询，为高效3D场景理解提供了新范式。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.28320v1",
+      "source": "arxiv",
+      "title": "AdaAnchor4D: Anchor-Conditioned Spatiotemporal Feature Aggregation for Monocular UAV 4D Reconstruction",
+      "abstract": "Monocular UAV videos provide valuable observations for dynamic reconstruction of complex urban scenes. However, such scenes exhibit pronounced spatiotemporal heterogeneity: different regions follow distinct temporal activity patterns, while the motion states of some dynamic regions may further evolve over time. Although dynamic Gaussian methods based on decomposed shared spatiotemporal feature fields have achieved efficient and accurate reconstruction in object-centric or relatively compact scenes, their commonly adopted fixed plane-wise feature combination mechanisms are less suited to the heterogeneous local dynamics of UAV scenes, often leading to ghosting artifacts and blurred dynamic details. To address this challenge, we propose AdaAnchor4D, an adaptive anchor deformation framework for monocular UAV dynamic scene reconstruction. At its core, Anchor-Conditioned Feature Aggregation (ACFA) adaptively aggregates shared spatiotemporal features using anchor-specific aggregation embeddings and temporal information, allowing different local units to obtain dynamic representations tailored to their local and temporal states. Decoupled Local Geometry Deformation (DLGD) separates anchor-state deformation from local Gaussian geometry deformation, while Density-Adaptive Coordinate Warping (DACW) reparameterizes feature-query coordinates according to the axis-wise anchor distributions, alleviating the mismatch between non-uniform geometric sampling and uniform grid parameterization. Experiments on UAV-Arc4D, VisDrone, and UAVDT show that AdaAnchor4D achieves higher rendering quality than representative dynamic Gaussian methods while maintaining real-time rendering performance. The code will be made publicly available.",
+      "authors": [
+        "Peiyi Xu",
+        "Junpeng Zhang",
+        "Guanbin Li",
+        "Ronghua Shang",
+        "Mingtao Feng",
+        "Le Dong",
+        "Weisheng Dong",
+        "Guangming Shi",
+        "Jie Feng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-30T14:55:06+00:00",
+      "link": "https://arxiv.org/pdf/2607.28320v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "monocular UAV 4D reconstruction using dynamic Gaussian methods",
+      "llm_evidence_cn": "利用动态高斯方法进行单目无人机4D重建",
+      "llm_evidence": "利用动态高斯方法进行单目无人机4D重建",
+      "canonical_evidence": "利用动态高斯方法进行单目无人机4D重建",
+      "llm_tldr_en": "AdaAnchor4D addresses heterogeneous spatiotemporal dynamics in monocular UAV scenes with anchor-conditioned feature aggregation, reducing ghosting and blur in dynamic Gaussian 4D reconstruction.",
+      "llm_tldr_cn": "单目无人机视频中的城市动态场景存在显著时空异质性，固定平面特征组合难以建模局部运动演化，导致重影和动态模糊。本文提出AdaAnchor4D，通过锚点条件化的时空特征聚合机制，根据区域运动模式自适应组合特征，提升动态场景的表示能力。在多个无人机重建数据集上，该方法有效抑制了重影并恢复清晰动态细节，实现了更准确的城市4D重建。",
+      "llm_tldr": "单目无人机视频中的城市动态场景存在显著时空异质性，固定平面特征组合难以建模局部运动演化，导致重影和动态模糊。本文提出AdaAnchor4D，通过锚点条件化的时空特征聚合机制，根据区域运动模式自适应组合特征，提升动态场景的表示能力。在多个无人机重建数据集上，该方法有效抑制了重影并恢复清晰动态细节，实现了更准确的城市4D重建。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.28032v1",
+      "source": "arxiv",
+      "title": "Split and Drive: Dual-Axis Disentanglement for Real-Time Gaussian Head Avatars",
+      "abstract": "Creating photorealistic animatable head avatars from a single image remains a fundamental challenge in digital human synthesis. While recent 3D Gaussian Splatting methods have achieved promising results, they rely on external tracking pipelines whose latency is excluded from inference measurements. Furthermore, they adopt unified representations that entangle geometrically distinct facial regions, limiting both expressiveness and rendering fidelity. We propose SpiD (Split and Drive), a single-image Gaussian head avatar framework built on two disentanglement axes. The compute axis internalizes per-frame driving, eliminating external tracking dependency at inference. The feature axis decomposes the avatar into three specialized Gaussian branches, each modeling a geometrically distinct facial domain. Extensive experiments demonstrate consistently strong performance against state-of-the-art methods while achieving the fastest inference speed among all compared methods on a single GPU with the complete driving pipeline included.",
+      "authors": [
+        "MD Wahiduzzaman Khan",
+        "Mingshan Jia",
+        "Xiaolin Zhang",
+        "En Yu",
+        "Kaska Musial-Gabrys"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-30T11:17:25+00:00",
+      "link": "https://arxiv.org/pdf/2607.28032v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Single-image 3D head avatar reconstruction using 3D Gaussian Splatting, real-time inference",
+      "llm_evidence_cn": "基于3D高斯泼溅的单图像头部三维重建，实时推理",
+      "llm_evidence": "基于3D高斯泼溅的单图像头部三维重建，实时推理",
+      "canonical_evidence": "基于3D高斯泼溅的单图像头部三维重建，实时推理",
+      "llm_tldr_en": "Proposes SpiD, a single-image Gaussian head avatar framework that disentangles compute and feature axes, internalizing per-frame driving and splitting the avatar into three specialized Gaussian branches for real-time, high-fidelity rendering.",
+      "llm_tldr_cn": "针对3D高斯泼溅头部虚拟形象依赖外部跟踪管线且统一表示纠缠不同面部区域的问题，提出SpiD（分裂与驱动）框架。该框架沿计算轴将逐帧驱动内化，消除推理时对外部跟踪的依赖；沿特征轴将头像分解为三个专用高斯分支，从而增强表情表达能力与渲染保真度。实验表明该方法能够从单张图像生成实时、高保真度的可动画头部虚拟形象，是3DGS单图重建方向的重要进展。",
+      "llm_tldr": "针对3D高斯泼溅头部虚拟形象依赖外部跟踪管线且统一表示纠缠不同面部区域的问题，提出SpiD（分裂与驱动）框架。该框架沿计算轴将逐帧驱动内化，消除推理时对外部跟踪的依赖；沿特征轴将头像分解为三个专用高斯分支，从而增强表情表达能力与渲染保真度。实验表明该方法能够从单张图像生成实时、高保真度的可动画头部虚拟形象，是3DGS单图重建方向的重要进展。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.28164v1",
+      "source": "arxiv",
+      "title": "S-Avatar: Diffusion-Guided Gaussian Head Avatars from a Single Image",
+      "abstract": "We propose S-Avatar, a novel method for generating photorealistic 3D head avatars from a single image using a diffusion-guided 3D model generation module and strategies for animating 3D Gaussian Splatting (3DGS). While single-image head avatar reconstruction is crucial for lifelike Virtual Reality (VR) applications, existing approaches often struggle to preserve 3D consistency under unseen viewpoints. S-Avatar addresses this limitation through a three-stage pipeline. First, a high-resolution 3DGS is synthesized directly from a single image using a diffusion-based Gaussian splat generation module. Next, the parametric head model FLAME is aligned with the generated 3DGS by optimizing its parameters and spatial transformations. Finally, to adapt the 3DGS to FLAME variations, we construct a binding template that encodes the spatial relationship between the initial splats and FLAME. The dynamic 3D head avatar can then be rendered in real time by deforming the 3DGS with the binding template. By combining diffusion-guided canonical 3DGS generation with FLAME-based control, our method achieves efficient and accurate reconstruction with enhanced 3D consistency. Evaluations on public datasets demonstrate that S-Avatar outperforms state-of-the-art methods in novel-view and expression generation, achieving superior realism and consistency. Consequently, our approach represents a significant advance in accessible avatar creation, applicable to a wide range of VR/AR applications. The project page is available at https://github.com/hailsong/savatar.",
+      "authors": [
+        "Hail Song",
+        "Seokhwan Yang",
+        "Jiwon Yang",
+        "Woojin Cho",
+        "Woontack Woo"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-07-30T13:04:03+00:00",
+      "link": "https://arxiv.org/pdf/2607.28164v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Single-image 3D head avatar reconstruction using 3D Gaussian Splatting",
+      "llm_evidence_cn": "基于三维高斯溅射的单图头部虚拟化身重建",
+      "llm_evidence": "基于三维高斯溅射的单图头部虚拟化身重建",
+      "canonical_evidence": "基于三维高斯溅射的单图头部虚拟化身重建",
+      "llm_tldr_en": "S-Avatar generates photorealistic 3D head avatars from a single image via diffusion-guided 3D Gaussian splat generation and FLAME alignment, preserving 3D consistency under unseen viewpoints.",
+      "llm_tldr_cn": "针对单图头部化身重建中未知视角下三维一致性难以保持的问题，S-Avatar提出三阶段流水线：先用扩散模型从单图直接生成高分辨率3DGS，再将参数化头部模型FLAME与生成的3DGS对齐，最后优化动画策略。该方法无需多视角数据即可生成照片级逼真的3D头部虚拟化身，并支持动画。实验证明了其在VR等应用中的潜力。",
+      "llm_tldr": "针对单图头部化身重建中未知视角下三维一致性难以保持的问题，S-Avatar提出三阶段流水线：先用扩散模型从单图直接生成高分辨率3DGS，再将参数化头部模型FLAME与生成的3DGS对齐，最后优化动画策略。该方法无需多视角数据即可生成照片级逼真的3D头部虚拟化身，并支持动画。实验证明了其在VR等应用中的潜力。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.28049v1",
+      "source": "arxiv",
+      "title": "TSOG: A Format For Temporally And Spatially Ordered Gaussians",
+      "abstract": "We propose Temporally and Spatially Ordered Gaussians (TSOG), a format for efficient representation of 4D Gaussian Splatting (4DGS) content. TSOG extends the Spatially Ordered Gaussians (SOG) framework to the temporal domain by introducing a timeline attribute and temporal parameterization of geometry and appearance attributes. Similar to SOG, TSOG is a lossy format that assigns each Gaussian a unique index and encodes attribute values as index-aligned image data. TSOG is model-agnostic, extensible, and compatible with both discrete and continuous 4DGS representations. Evaluation using a PLYs sequence and FreeTimeGS as baselines, serving as simplistic and state-of-the-art 4DGS representations respectively, shows file size reductions exceeding 90%, with PSNR differences ranging between -0.42 and +0.85 dB. These results demonstrate substantial file size savings with minimal quality degradation, enabling efficient representation, storage, and delivery of dynamic scenes for next-generation 4D content.",
+      "authors": [
+        "Shady Gmira",
+        "Evangelos Alexiou",
+        "Emmanouil Potetsianakis",
+        "Emmanuel Thomas"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-07-30T11:28:01+00:00",
+      "link": "https://arxiv.org/pdf/2607.28049v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Efficient 4D Gaussian splatting representation format",
+      "llm_evidence_cn": "高效的4D高斯溅射表示格式",
+      "llm_evidence": "高效的4D高斯溅射表示格式",
+      "canonical_evidence": "高效的4D高斯溅射表示格式",
+      "llm_tldr_en": "TSOG introduces a compact, model-agnostic format for 4D Gaussian Splatting content by extending Spatially Ordered Gaussians to the temporal domain, achieving over 90% file size reduction.",
+      "llm_tldr_cn": "针对4D高斯溅射（4DGS）内容表示效率低下的问题，提出TSOG格式。该格式在时间维度上扩展空间有序高斯（SOG）框架，为每个高斯分配唯一索引并将属性编码为索引对齐的图像数据。实验表明，TSOG相比PLY序列和FreeTimeGS基线可减少超过90%的文件大小，同时保持较高的渲染质量。这为4DGS内容的存储与传输提供了一种通用紧凑方案，有助于相关重建与渲染系统。",
+      "llm_tldr": "针对4D高斯溅射（4DGS）内容表示效率低下的问题，提出TSOG格式。该格式在时间维度上扩展空间有序高斯（SOG）框架，为每个高斯分配唯一索引并将属性编码为索引对齐的图像数据。实验表明，TSOG相比PLY序列和FreeTimeGS基线可减少超过90%的文件大小，同时保持较高的渲染质量。这为4DGS内容的存储与传输提供了一种通用紧凑方案，有助于相关重建与渲染系统。",
+      "llm_tags": [
+        "query:dgs-recon:composite"
+      ],
+      "matched_query_tag": "query:dgs-recon:composite",
+      "matched_query_text": "Papers central to 帮我查找基于3dgs的3D重建的论文，以及对这些算法的加速器的论文, especially work that connects or combines: 3D Gaussian splatting reconstruction; hardware accelerator for 3D reconstruction; FPGA implementation of Gaussian splatting; ASIC design for neural rendering; 3D reconstruction using 3D Gaussian splatting; hardware accelerator designs for 3D Gaussian splatting; survey on Gaussian splatting acceleration techniques.",
+      "matched_requirement_id": "req-composite-dgs-recon",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
