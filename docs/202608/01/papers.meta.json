@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-01",
+  "date": "2026-08-01",
+  "generated_at": "2026-08-01T21:17:19",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/01/2607.28132v1-convolutional-neural-shading-for-high-quality-3d-reconstruction-from-multi-view-images",
+      "section": "quick",
+      "title_en": "Convolutional Neural Shading for High-Quality 3D Reconstruction from Multi-View Images",
+      "authors": "Juheon Hwang, Taewan Kim, Heeseok Oh, Jiwoo Kang",
+      "date": "2026-07-30",
+      "pdf": "https://arxiv.org/pdf/2607.28132v1",
+      "score": "6.0",
+      "evidence": "利用卷积神经着色进行多视图3D重建，与3DGS同属可微渲染方法，可能对3DGS重建有借鉴意义。",
+      "tldr": "多视图3D重建中，现有神经渲染方法依赖单点几何信息，导致细节缺失。本文提出卷积神经着色（CNS），通过神经着色器捕获暗区与无纹理区域变化，并引入细粒度位移网络消除边界不规则。实验表明，CNS在重建形状和渲染图像质量上显著优于现有方法，实现高精度几何重建。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "We propose a convolutional neural shading (CNS), a novel pipeline to reconstruct high-quality 3D shapes from multi-view images. Several recent studies have used neural radiance fields and other neural differentiable rendering methods to understand 3D geometry. However, these approaches rely on single-point geometric information, such as positions and normals of the surface, leading to a lack of detailed local geometry. Our approach addresses the inherent limitations of single-point information by leveraging a neural shader to capture variations even in dark and textureless regions with a convolutional neural shader, resulting in far more accurate geometry predictions. Additionally, our method mitigates surface irregularities at image boundaries by introducing a fine-detail displacement network, which utilizes spatial information of surface geometry and learns fine displacement details by correlating neighboring values in the rendering coordinates. Through extensive experiments, our proposed method has demonstrated significant quality improvements in the reconstructed shapes and rendered images over current state-of-the-art methods.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

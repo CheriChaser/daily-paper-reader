@@ -1,0 +1,55 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-01T21:16:35.299102+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2607.28132v1",
+      "source": "arxiv",
+      "title": "Convolutional Neural Shading for High-Quality 3D Reconstruction from Multi-View Images",
+      "abstract": "We propose a convolutional neural shading (CNS), a novel pipeline to reconstruct high-quality 3D shapes from multi-view images. Several recent studies have used neural radiance fields and other neural differentiable rendering methods to understand 3D geometry. However, these approaches rely on single-point geometric information, such as positions and normals of the surface, leading to a lack of detailed local geometry. Our approach addresses the inherent limitations of single-point information by leveraging a neural shader to capture variations even in dark and textureless regions with a convolutional neural shader, resulting in far more accurate geometry predictions. Additionally, our method mitigates surface irregularities at image boundaries by introducing a fine-detail displacement network, which utilizes spatial information of surface geometry and learns fine displacement details by correlating neighboring values in the rendering coordinates. Through extensive experiments, our proposed method has demonstrated significant quality improvements in the reconstructed shapes and rendered images over current state-of-the-art methods.",
+      "authors": [
+        "Juheon Hwang",
+        "Taewan Kim",
+        "Heeseok Oh",
+        "Jiwoo Kang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-30T12:41:50+00:00",
+      "link": "https://arxiv.org/pdf/2607.28132v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D reconstruction from multi-view images using convolutional neural shading, a differentiable rendering approach that could benefit 3DGS reconstruction.",
+      "llm_evidence_cn": "利用卷积神经着色进行多视图3D重建，与3DGS同属可微渲染方法，可能对3DGS重建有借鉴意义。",
+      "llm_evidence": "利用卷积神经着色进行多视图3D重建，与3DGS同属可微渲染方法，可能对3DGS重建有借鉴意义。",
+      "canonical_evidence": "利用卷积神经着色进行多视图3D重建，与3DGS同属可微渲染方法，可能对3DGS重建有借鉴意义。",
+      "llm_tldr_en": "Introduces a convolutional neural shading pipeline that goes beyond single-point geometry to capture detailed local variations, improving 3D reconstruction accuracy from multi-view images in dark and textureless regions.",
+      "llm_tldr_cn": "提出卷积神经着色（CNS）管线，利用卷积神经着色器捕捉单点信息之外的局部几何变化，解决了暗区和无纹理区域重建质量差的问题，显著提升了多视图3D重建的精度。",
+      "llm_tldr": "提出卷积神经着色（CNS）管线，利用卷积神经着色器捕捉单点信息之外的局部几何变化，解决了暗区和无纹理区域重建质量差的问题，显著提升了多视图3D重建的精度。",
+      "llm_tags": [
+        "query:dgs-recon:composite"
+      ],
+      "matched_query_tag": "query:dgs-recon:composite",
+      "matched_query_text": "Papers central to 帮我查找基于3dgs的3D重建的论文，以及对这些算法的加速器的论文, especially work that connects or combines: 3D Gaussian splatting reconstruction; hardware accelerator for 3D reconstruction; FPGA implementation of Gaussian splatting; ASIC design for neural rendering; 3D reconstruction using 3D Gaussian splatting; hardware accelerator designs for 3D Gaussian splatting; survey on Gaussian splatting acceleration techniques.",
+      "matched_requirement_id": "req-composite-dgs-recon",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
