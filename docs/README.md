@@ -6,28 +6,31 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-01
-- 运行时间：2026-08-01 21:17:14 UTC
+- 最新运行日期：2026-08-02
+- 运行时间：2026-08-02 21:09:53 UTC
 - 运行状态：成功
-- 本次总论文数：1
+- 本次总论文数：2
 - 精读区：0
-- 速读区：1
+- 速读区：2
 
 ### 今日简报（AI）
-今日速读1篇论文：基于卷积神经着色实现多视图图像的高质量3D重建。
+今日速读2篇3D高斯泼溅相关论文，聚焦场景质量评估与时空有序格式。
 
-最值得看的方向是神经着色与多视图重建结合，该文评分6.0/10，可关注其技术思路。
+值得关注《SpatialQ》用多模态大模型理解三维场景质量，以及《TSOG》为动态高斯提出时空有序格式。
 
-建议普通读者延伸查阅多视图重建与神经渲染的交叉研究，验证方法泛化性。
-- 详情：[/202608/01/README](/202608/01/README)
+建议下一步可精读这两篇，重点比较其适用场景与性能基准。
+- 详情：[/202608/02/README](/202608/02/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Convolutional Neural Shading for High-Quality 3D Reconstruction from Multi-View Images](/202608/01/2607.28132v1-convolutional-neural-shading-for-high-quality-3d-reconstruction-from-multi-view-images)  
+1. [SpatialQ: Understanding 3D Gaussian Splatting Scene Quality via Visual-based MLLM](/202608/02/2607.26595v1-spatialq-understanding-3d-gaussian-splatting-scene-quality-via-visual-based-mllm)  
    标签：评分：6.0/10、query:dgs-recon
-   evidence：利用卷积神经着色进行多视图3D重建，与3DGS同属可微渲染方法，可能对3DGS重建有借鉴意义。
+   evidence：直接研究3D高斯泼溅场景质量评估，并涉及3D场景重建
+2. [TSOG: A Format For Temporally And Spatially Ordered Gaussians](/202608/02/2607.28049v1-tsog-a-format-for-temporally-and-spatially-ordered-gaussians)  
+   标签：评分：6.0/10、query:dgs-recon
+   evidence：提出时间和空间有序高斯格式，高效表示4D高斯泼溅内容
 
 
 <div class="dpr-home-promo-card">

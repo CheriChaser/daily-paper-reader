@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-02",
+  "date": "2026-08-02",
+  "generated_at": "2026-08-02T21:09:58",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/02/2607.26595v1-spatialq-understanding-3d-gaussian-splatting-scene-quality-via-visual-based-mllm",
+      "section": "quick",
+      "title_en": "SpatialQ: Understanding 3D Gaussian Splatting Scene Quality via Visual-based MLLM",
+      "authors": "Jingxuan Su, Shenglin Wang, Tiesong Zhao, Ge Li, Wei Gao",
+      "date": "2026-07-29",
+      "pdf": "https://arxiv.org/pdf/2607.26595v1",
+      "score": "6.0",
+      "evidence": "直接研究3D高斯泼溅场景质量评估，并涉及3D场景重建",
+      "tldr": "3D高斯泼溅场景质量评估需同时考虑渲染保真度与空间结构、跨视图一致性。现有图像质量评估方法仅依赖2D感知线索，通用多模态大模型也难以稳定回归质量。为此提出 SpatialQ 框架，利用 VGGT 编码器与质量头学习结构感知表示，并让 Qwen 多模态模型融合图像、深度、点云和相机参数进行接地推理。该框架能更全面地评估 3DGS 场景质量，弥补了传统方法在空间几何与跨视图建模上的不足。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting (3DGS) has emerged as an effective representation for novel view synthesis and 3D scene reconstruction, creating an increasing demand for reliable quality assessment. Unlike conventional image quality assessment (IQA), the quality of a 3DGS scene depends not only on the perceptual fidelity of rendered views, but also on scene-level factors such as spatial structure and cross-view consistency. Existing IQA methods are limited by their reliance on 2D perceptual cues, whereas general multimodal large language models (MLLMs) are not designed for stable quality regression and may produce unreliable judgments. To address these limitations, a multimodal quality assessment framework is developed for 3DGS scene understanding. First, a 3D-aware quality representation learning framework is introduced by augmenting a VGGT-based encoder with a dedicated quality head. Multi-view images are encoded into view-specific features and aggregated to capture cross-view consistency, while geometric cues are incorporated through joint modeling of depth and point-cloud-related structural information, enabling the learning of structure-aware quality representations beyond appearance-driven features. Second, a grounded multimodal reasoning mechanism is constructed by jointly feeding original images, depth maps, point cloud renderings, and camera parameters into a Qwen-based MLLM.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/02/2607.28049v1-tsog-a-format-for-temporally-and-spatially-ordered-gaussians",
+      "section": "quick",
+      "title_en": "TSOG: A Format For Temporally And Spatially Ordered Gaussians",
+      "authors": "Shady Gmira, Evangelos Alexiou, Emmanouil Potetsianakis, Emmanuel Thomas",
+      "date": "2026-07-30",
+      "pdf": "https://arxiv.org/pdf/2607.28049v1",
+      "score": "6.0",
+      "evidence": "提出时间和空间有序高斯格式，高效表示4D高斯泼溅内容",
+      "tldr": "4D高斯泼溅内容表示文件体积庞大，制约动态场景存储与传输。TSOG将空间有序高斯扩展至时间域，引入时间轴属性并参数化几何外观，以索引对齐图像编码各高斯属性。实验显示文件大小减少逾90%，PSNR变化在-0.42至+0.85dB之间。该格式模型无关且兼容离散连续表示，为高效动态场景内容提供新方案。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "We propose Temporally and Spatially Ordered Gaussians (TSOG), a format for efficient representation of 4D Gaussian Splatting (4DGS) content. TSOG extends the Spatially Ordered Gaussians (SOG) framework to the temporal domain by introducing a timeline attribute and temporal parameterization of geometry and appearance attributes. Similar to SOG, TSOG is a lossy format that assigns each Gaussian a unique index and encodes attribute values as index-aligned image data. TSOG is model-agnostic, extensible, and compatible with both discrete and continuous 4DGS representations. Evaluation using a PLYs sequence and FreeTimeGS as baselines, serving as simplistic and state-of-the-art 4DGS representations respectively, shows file size reductions exceeding 90%, with PSNR differences ranging between -0.42 and +0.85 dB. These results demonstrate substantial file size savings with minimal quality degradation, enabling efficient representation, storage, and delivery of dynamic scenes for next-generation 4D content.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
