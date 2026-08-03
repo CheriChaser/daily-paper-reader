@@ -1,0 +1,130 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-03T21:04:27.117351+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2607.29106v1",
+      "source": "arxiv",
+      "title": "Forwardrobe: Garment-Aware Gaussian Avatars from a Single Image",
+      "abstract": "Reconstructing animatable 3D human avatars from a single image remains particularly challenging for loose garments, whose geometry and motion cannot be adequately represented by body-aligned topology and skinning. We present Forwardrobe, a feed-forward framework for reconstructing garment-aware Gaussian avatars from a single image. Forwardrobe explicitly separates clothing from the body in canonical Gaussian space and equips the garment layer with continuity-aware geometry and skinning initialization, pose-conditioned non-rigid deformation, and appearance adaptation. These designs improve garment reconstruction and visual quality during animation, particularly for skirts and dresses. The separated garment layer additionally forms an independently controllable 3D asset, enabling garment editing, transfer, and 3D virtual try-on. Experiments demonstrate improved garment reconstruction quality and greater flexibility in garment manipulation compared with existing single-image avatar reconstruction methods.",
+      "authors": [
+        "Daisheng Jin",
+        "Shuyun Wang",
+        "Ying He"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-31T07:35:52+00:00",
+      "link": "https://arxiv.org/pdf/2607.29106v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D Gaussian avatar reconstruction from single image",
+      "llm_evidence_cn": "基于3DGS的单图人体重建",
+      "llm_evidence": "基于3DGS的单图人体重建",
+      "canonical_evidence": "基于3DGS的单图人体重建",
+      "llm_tldr_en": "Forwardrobe reconstructs garment-aware 3D Gaussian avatars from a single image by explicitly separating clothing from body and adding continuity-aware geometry, skinning init, pose-conditioned deformation and appearance adaptation, improving loose-garment reconstruction and animation quality.",
+      "llm_tldr_cn": "单张图像重建可动画3D人体时，宽松衣物的几何与运动难以用人体拓扑表达。论文提出Forwardrobe前向框架，在规范高斯空间显式分离服装与身体，引入连续感知几何与蒙皮初始化、姿态条件非刚性形变和外观自适应。实验表明该方法显著改善裙装等场景的重建与动画质量，衣物层还可独立控制。该工作为基于3DGS的单图人体重建提供了可行方案。",
+      "llm_tldr": "单张图像重建可动画3D人体时，宽松衣物的几何与运动难以用人体拓扑表达。论文提出Forwardrobe前向框架，在规范高斯空间显式分离服装与身体，引入连续感知几何与蒙皮初始化、姿态条件非刚性形变和外观自适应。实验表明该方法显著改善裙装等场景的重建与动画质量，衣物层还可独立控制。该工作为基于3DGS的单图人体重建提供了可行方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.29284v1",
+      "source": "arxiv",
+      "title": "FillGS: Filling Observation Gaps in 4D Gaussian Splatting via Viewpoint-Time Selection and Generative Refinement",
+      "abstract": "4D Gaussian Splatting (4DGS) can render dynamic scenes photorealistically. However, with limited viewpoint coverage, some spatiotemporal regions remain sparsely observed, leading to artifacts, particularly in scenes with large motion. Existing approaches leveraging generative models rely on heuristic virtual-viewpoint selection before refining rendered views. As a result, they cannot actively explore such sparsely observed regions. To address this issue, we propose a pipeline that actively selects spatiotemporal virtual viewpoints to improve 4DGS reconstruction. Our method selects virtual viewpoints for generative enhancement based on the rendering sensitivity and motion-aware observation density of 4D Gaussians, prioritizing views that alleviate observation sparsity. In the refined images, we filter out regions that conflict with captured observations or are likely to contain generative artifacts and then fine-tune 4DGS using only the reliable regions. We evaluate our method on multi-view video benchmarks using new train/test splits designed to induce observation gaps. Results show consistent improvements over prior viewpoint selection strategies and fine-tuning methods in both qualitative and quantitative evaluations, while reducing artifacts.",
+      "authors": [
+        "Takashi Otonari",
+        "Toshihiko Yamasaki"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-31T10:57:07+00:00",
+      "link": "https://arxiv.org/pdf/2607.29284v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "4D Gaussian splatting reconstruction with observation gap filling",
+      "llm_evidence_cn": "基于4D高斯泼溅的重建与观测空洞填补",
+      "llm_evidence": "基于4D高斯泼溅的重建与观测空洞填补",
+      "canonical_evidence": "基于4D高斯泼溅的重建与观测空洞填补",
+      "llm_tldr_en": "FillGS actively selects spatiotemporal virtual viewpoints to fill observation gaps in 4D Gaussian splatting, improving dynamic scene reconstruction under sparse view coverage.",
+      "llm_tldr_cn": "针对4D高斯泼溅在视角覆盖不足时时空区域观测稀疏、动态场景出现伪影的问题，本文提出FillGS，基于渲染敏感度和运动感知观测密度主动选取虚拟视点，利用生成模型补全稀疏区域。该方法突破了以往启发式选点的局限，能更有效地探索欠观测时空位置，提升动态场景重建的完整性与视觉质量。",
+      "llm_tldr": "针对4D高斯泼溅在视角覆盖不足时时空区域观测稀疏、动态场景出现伪影的问题，本文提出FillGS，基于渲染敏感度和运动感知观测密度主动选取虚拟视点，利用生成模型补全稀疏区域。该方法突破了以往启发式选点的局限，能更有效地探索欠观测时空位置，提升动态场景重建的完整性与视觉质量。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.29633v1",
+      "source": "arxiv",
+      "title": "OASIS: Occlusion-aware Single-image Hand Avatar Reconstruction via 3D Gaussian Splatting",
+      "abstract": "Single-image 3D hand avatar reconstruction is fundamentally ill-posed and particularly challenging due to limited visual evidence under severe self-occlusion and the complex pose-dependent deformation of highly articulated hands. Existing methods predominantly rely on implicit NeRF-style representations, whose volumetric fitting is computationally expensive and often struggles to preserve fine-grained hand details. In this work, we present OASIS, a tailored 3D Gaussian Splatting framework for single-image hand avatar reconstruction. To faithfully encode sparse image-specific appearance cues in single-view reconstruction, we construct geometry-aligned visual evidence tokens by explicitly aligning input image observations with 3D hand geometry and context-adaptively tokenizing the resulting visual evidence. Since severe self-occlusion makes the reliability of image evidence inherently visibility-dependent, we introduce a visibility-conditioned point-image attention to reliably transfer visual evidence to geometric tokens, yielding occlusion-aware Gaussian features for faithful and robust reconstruction. To further capture non-rigid deformation of articulated hands, we introduce a Feature-on-Mesh representation to enable Gaussian deformation to be guided by local surface stretching. Under this framework, we adopt a one-shot adaptation scheme that learns a shared hand prior from multi-identity training data and then fits it to a target image for target-specific reconstruction. Extensive experiments show that OASIS outperforms existing baselines in both visual fidelity and efficiency across challenging poses and in-the-wild scenarios, and further demonstrates strong versatility in downstream applications such as text-to-avatar generation and texture editing.",
+      "authors": [
+        "Zhisheng Han",
+        "Shiyao Wu",
+        "Jiayan Qiu",
+        "Yakun Ju",
+        "Lu Liu",
+        "Le Zhang",
+        "Pengfei Feng",
+        "Huiyu Zhou",
+        "Zheheng Jiang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-31T17:09:46+00:00",
+      "link": "https://arxiv.org/pdf/2607.29633v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "single-image 3D hand avatar reconstruction via 3D Gaussian Splatting",
+      "llm_evidence_cn": "基于3D高斯泼溅的单图手部化身重建",
+      "llm_evidence": "基于3D高斯泼溅的单图手部化身重建",
+      "canonical_evidence": "基于3D高斯泼溅的单图手部化身重建",
+      "llm_tldr_en": "OASIS proposes a 3DGS-based framework for single-image hand avatar reconstruction, using geometry-aligned visual evidence tokens to handle self-occlusion and outperform NeRF-style methods.",
+      "llm_tldr_cn": "单图手部化身重建存在严重自遮挡与复杂姿态形变，现有隐式NeRF式方法体积拟合计算昂贵且难以保留手指等细节。本文提出OASIS，一个专门针对单视图手部重建的3D高斯泼溅框架，通过将输入图像观测与3D手部几何显式对齐来构造几何一致的视觉证据令牌，从而在稀疏图像线索下保持高保真细节，并在遮挡区域也能生成可靠的手部形状。实验表明该方法比NeRF式方案更高效且重建质量更高。",
+      "llm_tldr": "单图手部化身重建存在严重自遮挡与复杂姿态形变，现有隐式NeRF式方法体积拟合计算昂贵且难以保留手指等细节。本文提出OASIS，一个专门针对单视图手部重建的3D高斯泼溅框架，通过将输入图像观测与3D手部几何显式对齐来构造几何一致的视觉证据令牌，从而在稀疏图像线索下保持高保真细节，并在遮挡区域也能生成可靠的手部形状。实验表明该方法比NeRF式方案更高效且重建质量更高。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}

@@ -1,0 +1,54 @@
+{
+  "label": "2026-08-03",
+  "date": "2026-08-03",
+  "generated_at": "2026-08-03T21:06:14",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202608/03/2607.29106v1-forwardrobe-garment-aware-gaussian-avatars-from-a-single-image",
+      "section": "deep",
+      "title_en": "Forwardrobe: Garment-Aware Gaussian Avatars from a Single Image",
+      "authors": "Daisheng Jin, Shuyun Wang, Ying He",
+      "date": "2026-07-31",
+      "pdf": "https://arxiv.org/pdf/2607.29106v1",
+      "score": "9.0",
+      "evidence": "基于3DGS的单图人体重建",
+      "tldr": "单图重建可驱动3D人体化身时，宽松衣物因几何和运动难以用人体对齐拓扑表达。Forwardrobe提出前馈框架，在规范高斯空间显式分离衣物与身体，为衣物层配备连续性感知几何与蒙皮初始化、姿态条件非刚性形变和外观自适应。该设计提升裙装等宽松衣物的重建与动画质量，衣物层作为独立可编辑3D资产，支持编辑、迁移与虚拟试穿。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Reconstructing animatable 3D human avatars from a single image remains particularly challenging for loose garments, whose geometry and motion cannot be adequately represented by body-aligned topology and skinning. We present Forwardrobe, a feed-forward framework for reconstructing garment-aware Gaussian avatars from a single image. Forwardrobe explicitly separates clothing from the body in canonical Gaussian space and equips the garment layer with continuity-aware geometry and skinning initialization, pose-conditioned non-rigid deformation, and appearance adaptation. These designs improve garment reconstruction and visual quality during animation, particularly for skirts and dresses. The separated garment layer additionally forms an independently controllable 3D asset, enabling garment editing, transfer, and 3D virtual try-on. Experiments demonstrate improved garment reconstruction quality and greater flexibility in garment manipulation compared with existing single-image avatar reconstruction methods.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/03/2607.29284v1-fillgs-filling-observation-gaps-in-4d-gaussian-splatting-via-viewpoint-time-selection-and-generative-refinement",
+      "section": "deep",
+      "title_en": "FillGS: Filling Observation Gaps in 4D Gaussian Splatting via Viewpoint-Time Selection and Generative Refinement",
+      "authors": "Takashi Otonari, Toshihiko Yamasaki",
+      "date": "2026-07-31",
+      "pdf": "https://arxiv.org/pdf/2607.29284v1",
+      "score": "9.0",
+      "evidence": "基于4D高斯泼溅的重建与观测空洞填补",
+      "tldr": "4D高斯泼溅在视点覆盖有限时，时空区域观测稀疏，大运动场景易现伪影；现有生成式方法仅用启发式虚拟视点选择，无法主动探索稀疏区域。FillGS依据渲染敏感性与运动感知观测密度，主动选取时空虚拟视点以缓解观测稀疏，并过滤冲突或含伪影区域，仅用可靠区域微调4DGS。在诱导观测缺口的多视角视频基准上，方法定性与定量均优于既有视点选择策略与微调方案，伪影显著减少。该工作为4D重建生成式增强提出主动探索范式，提升稀疏观测场景的渲染质量。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "4D Gaussian Splatting (4DGS) can render dynamic scenes photorealistically. However, with limited viewpoint coverage, some spatiotemporal regions remain sparsely observed, leading to artifacts, particularly in scenes with large motion. Existing approaches leveraging generative models rely on heuristic virtual-viewpoint selection before refining rendered views. As a result, they cannot actively explore such sparsely observed regions. To address this issue, we propose a pipeline that actively selects spatiotemporal virtual viewpoints to improve 4DGS reconstruction. Our method selects virtual viewpoints for generative enhancement based on the rendering sensitivity and motion-aware observation density of 4D Gaussians, prioritizing views that alleviate observation sparsity. In the refined images, we filter out regions that conflict with captured observations or are likely to contain generative artifacts and then fine-tune 4DGS using only the reliable regions. We evaluate our method on multi-view video benchmarks using new train/test splits designed to induce observation gaps. Results show consistent improvements over prior viewpoint selection strategies and fine-tuning methods in both qualitative and quantitative evaluations, while reducing artifacts.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/03/2607.29633v1-oasis-occlusion-aware-single-image-hand-avatar-reconstruction-via-3d-gaussian-splatting",
+      "section": "deep",
+      "title_en": "OASIS: Occlusion-aware Single-image Hand Avatar Reconstruction via 3D Gaussian Splatting",
+      "authors": "Zhisheng Han, Shiyao Wu, Jiayan Qiu, Yakun Ju, Lu Liu, Le Zhang, Pengfei Feng, Huiyu Zhou, Zheheng Jiang",
+      "date": "2026-07-31",
+      "pdf": "https://arxiv.org/pdf/2607.29633v1",
+      "score": "9.0",
+      "evidence": "基于3D高斯泼溅的单图手部化身重建",
+      "tldr": "单图手部重建因自遮挡和姿态变形而极具挑战，现有NeRF方法计算昂贵且细节不足。提出OASIS，基于3D高斯泼溅的框架，通过几何对齐的视觉证据令牌和可见性条件注意力处理遮挡，并引入Feature-on-Mesh表示引导非刚性变形。采用单次自适应学习共享先验并适配目标图像，在保真度和效率上超越现有方法，并支持文本生成和纹理编辑等应用。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Single-image 3D hand avatar reconstruction is fundamentally ill-posed and particularly challenging due to limited visual evidence under severe self-occlusion and the complex pose-dependent deformation of highly articulated hands. Existing methods predominantly rely on implicit NeRF-style representations, whose volumetric fitting is computationally expensive and often struggles to preserve fine-grained hand details. In this work, we present OASIS, a tailored 3D Gaussian Splatting framework for single-image hand avatar reconstruction. To faithfully encode sparse image-specific appearance cues in single-view reconstruction, we construct geometry-aligned visual evidence tokens by explicitly aligning input image observations with 3D hand geometry and context-adaptively tokenizing the resulting visual evidence. Since severe self-occlusion makes the reliability of image evidence inherently visibility-dependent, we introduce a visibility-conditioned point-image attention to reliably transfer visual evidence to geometric tokens, yielding occlusion-aware Gaussian features for faithful and robust reconstruction. To further capture non-rigid deformation of articulated hands, we introduce a Feature-on-Mesh representation to enable Gaussian deformation to be guided by local surface stretching. Under this framework, we adopt a one-shot adaptation scheme that learns a shared hand prior from multi-identity training data and then fits it to a target image for target-specific reconstruction. Extensive experiments show that OASIS outperforms existing baselines in both visual fidelity and efficiency across challenging poses and in-the-wild scenarios, and further demonstrates strong versatility in downstream applications such as text-to-avatar generation and texture editing.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
