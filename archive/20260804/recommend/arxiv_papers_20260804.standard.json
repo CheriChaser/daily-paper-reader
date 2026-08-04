@@ -1,0 +1,604 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-04T21:03:02.046608+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 14,
+    "deep_cap": 6,
+    "deep_selected": 13,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2608.02099v1",
+      "source": "arxiv",
+      "title": "DeGS: A Scalable 3DGS Architecture via Decoupled Workload Parsing and Reorganization",
+      "abstract": "3D Gaussian Splatting (3DGS) has emerged as a leading technique for real-time novel view synthesis, yet existing 3DGS accelerators suffer from poor architectural scalability: increasing the number of PEs leads to marginal performance improvement during rendering. We identify that the root cause is the tightly coupled ``checking-while-blending'' dataflow, which exacerbates PE underutilization caused by spatial redundancy from irregular Gaussian coverage and temporal redundancy from asynchronous pixel-wise termination under parallel execution.   To address this issue, we propose DeGS, a scalable architecture for efficient 3DGS inference. To systematically eliminate the redundancies inherent in rendering, DeGS exploits a decoupled dataflow, restructuring the coupled $α$-checking, transmittance checking, and $α$-blending of the standard rendering process into consecutive workload parsing, reorganization, and blending stages. This allows the fragmented, length-variable, and temporal-dependent workloads to be reorganized into compact, conflict-free, and dense workloads prior to blending, thereby significantly improving PE utilization during parallel blending. Implemented in 28 nm technology, DeGS achieves 2.36$\\times$--7.25$\\times$ throughput, 1.82$\\times$--6.02$\\times$ end-to-end speedup, and 1.59$\\times$--4.42$\\times$ energy efficiency over state-of-the-art 3DGS accelerators (GSCore, GBU, GCC) across diverse scenes and resolutions (720p to 8K). Moreover, scaling from 16 to 1024 PEs, DeGS maintains over 80\\% PE utilization at high resolutions, significantly outperforming existing accelerators.",
+      "authors": [
+        "Minnan Pei",
+        "Gang Li",
+        "Zeyu Zhu",
+        "Siting Wang",
+        "Junwen Si",
+        "Zhuoran Song",
+        "Yu Feng",
+        "Fangxin Liu",
+        "Xiaoyao Liang",
+        "Jian Cheng"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR",
+        "cs.AI",
+        "cs.CV"
+      ],
+      "published": "2026-08-03T11:59:51+00:00",
+      "link": "https://arxiv.org/pdf/2608.02099v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Scalable hardware architecture for 3D Gaussian splatting inference",
+      "llm_evidence_cn": "面向3D高斯溅射推理的可扩展硬件架构",
+      "llm_evidence": "面向3D高斯溅射推理的可扩展硬件架构",
+      "canonical_evidence": "面向3D高斯溅射推理的可扩展硬件架构",
+      "llm_tldr_en": "DeGS is a scalable hardware architecture for 3DGS inference that decouples workload parsing from blending, improving PE utilization and scalability.",
+      "llm_tldr_cn": "针对现有3DGS加速器因紧耦合的边检查边混合数据流导致扩展性差、PE利用率低的问题，提出DeGS。该架构解耦工作负载解析与重组，系统性地消除不规则高斯覆盖带来的空间冗余和异步像素终止造成的时间冗余。实验表明DeGS在增加PE数量时能维持近线性加速比，显著提升了3DGS推理的性能和可扩展性，为实时新视角合成提供了高效硬件方案。",
+      "llm_tldr": "针对现有3DGS加速器因紧耦合的边检查边混合数据流导致扩展性差、PE利用率低的问题，提出DeGS。该架构解耦工作负载解析与重组，系统性地消除不规则高斯覆盖带来的空间冗余和异步像素终止造成的时间冗余。实验表明DeGS在增加PE数量时能维持近线性加速比，显著提升了3DGS推理的性能和可扩展性，为实时新视角合成提供了高效硬件方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "hardware accelerator designs for 3D Gaussian splatting",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.00931v1",
+      "source": "arxiv",
+      "title": "Stipple: Real-Time Incremental Gaussian Splatting with Visual-Inertial Tracking",
+      "abstract": "3D Gaussian Splatting (3DGS) provides efficient rendering of photo-realistic scenes, but its heavy preprocessing and training steps make it a poor fit for applications that require real-time reconstruction in robotics or XR. This capability is important since it allows immediate feedback and interaction with new environments. Visual-inertial odometry (VIO) and simultaneous localization and mapping (VI-SLAM) systems, on the other hand, specifically target these real-time applications, which makes them a good choice for integration with 3DGS. We propose a new method that tracks and reconstructs simultaneously in real-time by leveraging an efficient visual-inertial tracking system based on Basalt together with a novel incremental method built on top of Brush, an efficient Rust-based GPU-vendor-agnostic implementation of 3D Gaussian Splatting. We show that many of the heavy preprocessing and training steps of 3DGS can be replaced with a more efficient incremental training strategy that has direct access to the information generated by the visual-inertial tracking system. Furthermore, we propose and combine multiple practical improvements to increase the efficiency of the training pipeline and adapt it to run in real-time, parallel to the tracking thread. This work highlights the value of exploiting the complementary nature of SLAM and 3DGS, and how that can lead to promising results for real-time 3D reconstruction.",
+      "authors": [
+        "Kilian Northoff",
+        "Mateo de Mayo",
+        "Daniel Cremers"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-08-02T02:17:05+00:00",
+      "link": "https://arxiv.org/pdf/2608.00931v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Real-time incremental 3D Gaussian splatting reconstruction",
+      "llm_evidence_cn": "实时增量式三维高斯溅射重建",
+      "llm_evidence": "实时增量式三维高斯溅射重建",
+      "canonical_evidence": "实时增量式三维高斯溅射重建",
+      "llm_tldr_en": "Presents Stipple, a real-time system combining visual-inertial tracking (Basalt) with incremental 3D Gaussian splatting to simultaneously track and reconstruct scenes in robotics and XR applications.",
+      "llm_tldr_cn": "面向机器人及XR环境对实时重建与交互的需求，提出Stipple方法，将高效的视觉惯性跟踪系统Basalt与新颖的增量式3D高斯溅射相结合，在同一过程中完成相机跟踪和场景重建，克服了传统3DGS预处理和训练耗时的问题。实验结果显示该方法能实时重构新环境，支持即时反馈与交互，为动态场景下的实时三维高斯溅射重建提供了有效方案。",
+      "llm_tldr": "面向机器人及XR环境对实时重建与交互的需求，提出Stipple方法，将高效的视觉惯性跟踪系统Basalt与新颖的增量式3D高斯溅射相结合，在同一过程中完成相机跟踪和场景重建，克服了传统3DGS预处理和训练耗时的问题。实验结果显示该方法能实时重构新环境，支持即时反馈与交互，为动态场景下的实时三维高斯溅射重建提供了有效方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.00950v1",
+      "source": "arxiv",
+      "title": "Swimm3R: Splatting with Medium-aware SfM for Underwater 3D Reconstruction",
+      "abstract": "We propose Swimm3R, a unified framework that combines medium-aware structure-from-motion (SfM) with Underwater Beta Splatting to address scattering- and attenuation-induced failures in underwater 3D reconstruction. Swimm3R distills in-air geometric priors into a feed-forward backbone and uses a physics head to regress underwater image-formation parameters, camera poses, and restored point clouds. Additionally, we introduce Underwater Beta Splatting, which extends Gaussian splatting with Beta primitives and scattering-aware geometric gradients for stable underwater geometry representation. We further establish the Barbados underwater video dataset to demonstrate the effectiveness of our method in challenging underwater environments. On this dataset, Swimm3R robustly recovers underwater scene structure under challenging scattering conditions, yielding coherent seafloor geometry. Using these predicted point clouds, the proposed Underwater Beta Splatting improves average PSNR by $1.47$ dB over WaterSplatting while increasing downstream localization performance by $2.0$ and $2.4$ percentage points in RRA@15 and RTA@15, respectively.",
+      "authors": [
+        "Minseong Kweon",
+        "Junaed Sattar"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO",
+        "eess.IV"
+      ],
+      "published": "2026-08-02T03:01:15+00:00",
+      "link": "https://arxiv.org/pdf/2608.00950v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Underwater 3D reconstruction via Gaussian splatting",
+      "llm_evidence_cn": "基于高斯溅射的水下三维重建",
+      "llm_evidence": "基于高斯溅射的水下三维重建",
+      "canonical_evidence": "基于高斯溅射的水下三维重建",
+      "llm_tldr_en": "Proposes Swimm3R, a unified framework combining medium-aware SfM with Underwater Beta Splatting to address scattering and attenuation failures in underwater 3D reconstruction.",
+      "llm_tldr_cn": "针对水下三维重建中散射和衰减导致几何外观退化的问题，提出Swimm3R框架，结合介质感知SfM与水下Beta溅射。通过蒸馏空中几何先验到前馈骨干，并用物理头回归水下成像参数、相机姿态及修复点云，网络能够稳定重建。在巴巴多斯水下视频数据集上的实验表明，该方法显著提升了水下三维重建的质量与鲁棒性，为复杂水下环境提供了新的解决方案。",
+      "llm_tldr": "针对水下三维重建中散射和衰减导致几何外观退化的问题，提出Swimm3R框架，结合介质感知SfM与水下Beta溅射。通过蒸馏空中几何先验到前馈骨干，并用物理头回归水下成像参数、相机姿态及修复点云，网络能够稳定重建。在巴巴多斯水下视频数据集上的实验表明，该方法显著提升了水下三维重建的质量与鲁棒性，为复杂水下环境提供了新的解决方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.01178v1",
+      "source": "arxiv",
+      "title": "DynActiveGS: Active Gaussian Splatting for Dynamic Scene Reconstruction",
+      "abstract": "We present DynActiveGS, a dynamic-aware active reconstruction framework based on 3D Gaussian Splatting (3DGS) for autonomous exploration in dynamic environments. The framework incrementally reconstructs a 3D Gaussian scene representation while suppressing motion-corrupted observations through online uncertainty prediction and uncertainty-weighted Gaussian optimization. A key component of DynActiveGS is the explicit decomposition of uncertainty into structural uncertainty and motion-induced uncertainty, which enables the system to distinguish under-reconstructed static regions from dynamically unreliable areas. Based on these uncertainty fields, DynActiveGS performs dynamic-aware viewpoint selection and dynamic-constrained path planning to favor informative yet stable observations during exploration. The resulting system forms a unified closed-loop pipeline for robust active reconstruction in dynamic scenes. Extensive experiments on challenging dynamic benchmarks demonstrate consistent improvements over existing active reconstruction baselines in reconstruction accuracy, completeness, rendering quality, and exploration efficiency.",
+      "authors": [
+        "Hongbo Duan",
+        "Pengting Luo",
+        "Chengzhi Zhao",
+        "Yuanhao Chiang",
+        "Fangming Liu",
+        "Xueqian Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-08-02T11:57:49+00:00",
+      "link": "https://arxiv.org/pdf/2608.01178v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Active 3D reconstruction framework using 3DGS for dynamic environments.",
+      "llm_evidence_cn": "基于3DGS的动态场景主动重建框架。",
+      "llm_evidence": "基于3DGS的动态场景主动重建框架。",
+      "canonical_evidence": "基于3DGS的动态场景主动重建框架。",
+      "llm_tldr_en": "DynActiveGS integrates online uncertainty prediction with 3DGS optimization for active dynamic scene reconstruction, separating structural and motion uncertainty to guide viewpoint selection and path planning.",
+      "llm_tldr_cn": "针对动态环境中的自主探索场景重建问题，提出DynActiveGS，基于3D高斯泼溅增量重建场景，通过在线不确定性预测抑制运动损坏的观测，并将不确定性显式分解为结构不确定性与运动不确定性，用于区分未重建静态区域和动态不可靠区域，进而指导视角选择与路径规划，实现动态场景的主动重建。",
+      "llm_tldr": "针对动态环境中的自主探索场景重建问题，提出DynActiveGS，基于3D高斯泼溅增量重建场景，通过在线不确定性预测抑制运动损坏的观测，并将不确定性显式分解为结构不确定性与运动不确定性，用于区分未重建静态区域和动态不可靠区域，进而指导视角选择与路径规划，实现动态场景的主动重建。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.01186v1",
+      "source": "arxiv",
+      "title": "QuerySplat: Decoupling Geometry and Appearance Representations in 3DGS Prediction",
+      "abstract": "While feed-forward 3D Gaussian Splatting (3DGS) enables efficient 3D reconstruction, achieving high-fidelity rendering remains challenging. Existing pixel-aligned approaches suffer from spatial inflexibility and massive structural redundancy, whereas query-based methods lack 3D priors and entangle geometry with appearance, yielding blurry, pose-dependent results. To overcome these deficiencies, we propose \\textbf{QuerySplat}, a feed-forward 3DGS framework driven by geometric priors and explicit appearance decoupling. Specifically, we design a dual-branch query-based decoder: the geometry branch leverages a pretrained Vision Geometric Model for spatial understanding, which intrinsically endows QuerySplat with pose-free modeling capabilities, while the appearance branch recovers high-frequency details through a dedicated pathway separated from geometric attribute regression. Extensive experiments demonstrate that QuerySplat mitigates the blurry rendering issues of early query-based models and consistently outperforms pixel-aligned approaches in rendering fidelity. On the challenging DL3DV benchmark, it achieves state-of-the-art novel view synthesis performance, with average PSNR gains of 2.30 dB and 1.04 dB over the best pose-free and pose-required baselines, respectively. Project Page: https://inspatio.github.io/querysplat.",
+      "authors": [
+        "Yinglong Li",
+        "Donghui Shen",
+        "Xiaoyu Zhang",
+        "Zhichao Ye",
+        "Hongyu Wu",
+        "Aimin Hao",
+        "Guofeng Zhang",
+        "Haomin Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-02T12:12:02+00:00",
+      "link": "https://arxiv.org/pdf/2608.01186v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Feed-forward 3D Gaussian splatting for 3D reconstruction with geometry-appearance decoupling",
+      "llm_evidence_cn": "前馈三维高斯溅射重建，解耦几何与外观",
+      "llm_evidence": "前馈三维高斯溅射重建，解耦几何与外观",
+      "canonical_evidence": "前馈三维高斯溅射重建，解耦几何与外观",
+      "llm_tldr_en": "QuerySplat decouples geometry and appearance in feed-forward 3DGS prediction using a pretrained geometric model, enabling pose-free and high-fidelity reconstruction.",
+      "llm_tldr_cn": "针对现有前馈式3DGS重建方法中几何与外观纠缠、缺乏3D先验导致重建模糊的问题，提出QuerySplat。该方法设计双分支查询解码器，利用预训练视觉几何模型提供空间理解，实现几何与外观的解耦。实验表明QuerySplat在不同视角下能生成更清晰、更稳定的重建结果，显著提升了前馈3DGS的重建质量与泛化能力。",
+      "llm_tldr": "针对现有前馈式3DGS重建方法中几何与外观纠缠、缺乏3D先验导致重建模糊的问题，提出QuerySplat。该方法设计双分支查询解码器，利用预训练视觉几何模型提供空间理解，实现几何与外观的解耦。实验表明QuerySplat在不同视角下能生成更清晰、更稳定的重建结果，显著提升了前馈3DGS的重建质量与泛化能力。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.01588v1",
+      "source": "arxiv",
+      "title": "D^2-4DGS: Dual-Depth Guided Sparse-Camera 4D Gaussian Splatting",
+      "abstract": "Dynamic 4D Gaussian Splatting has emerged as an efficient representation for dynamic novel view synthesis through explicit scene modeling and real-time rendering. However, existing methods typically require dense multi-view videos for sufficient geometric constraints, making capture expensive and limiting sparse-camera deployment. Reducing input views lowers acquisition cost but weakens geometry supervision, often causing missing structures and floating Gaussians. Depth priors provide geometric cues, yet no single source offers both dense coverage and reliable geometry. Monocular depth provides dense structure but is scale-ambiguous and locally biased, whereas multi-view geometric depth provides incomplete anchors consistent with the reconstruction coordinate system. To exploit their complementarity, we propose D$^2$-4DGS, a sparse-camera dynamic 4D Gaussian Splatting framework guided by dual-source depth priors. We align monocular estimates with valid multi-view geometric depths and verify their consistency to identify reliable geometric anchors. These verified anchors support consistency-aware pruning and depth supervision, while verified geometric depths and aligned mono-only estimates provide candidate geometry for densification in under-reconstructed regions. Finally, RGB-D joint optimization improves appearance fidelity and geometric consistency under sparse-view supervision. Across all nine dataset--view settings, D$^2$-4DGS achieves the highest PSNR, improving by 1.33 dB on average over the best competing method in each setting.",
+      "authors": [
+        "Jijian Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-03T01:46:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.01588v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Dual-depth guided sparse-camera 4D Gaussian splatting reconstruction",
+      "llm_evidence_cn": "双深度引导的稀疏相机4D高斯泼溅重建",
+      "llm_evidence": "双深度引导的稀疏相机4D高斯泼溅重建",
+      "canonical_evidence": "双深度引导的稀疏相机4D高斯泼溅重建",
+      "llm_tldr_en": "Presents D^2-4DGS, a dual-depth guided 4D Gaussian splatting method for sparse-camera dynamic reconstruction, combining monocular and multi-view geometric depth.",
+      "llm_tldr_cn": "动态4D高斯泼溅通常需要密集多视角视频提供几何约束，稀疏相机部署会因几何监督不足而产生缺失与漂浮高斯。本文提出D^2-4DGS，利用双深度引导将单目稠密深度与多视角几何深度互补，为稀疏相机动态场景重建提供可靠几何线索，从而减少结构缺失和漂浮伪影。",
+      "llm_tldr": "动态4D高斯泼溅通常需要密集多视角视频提供几何约束，稀疏相机部署会因几何监督不足而产生缺失与漂浮高斯。本文提出D^2-4DGS，利用双深度引导将单目稠密深度与多视角几何深度互补，为稀疏相机动态场景重建提供可靠几何线索，从而减少结构缺失和漂浮伪影。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.01659v1",
+      "source": "arxiv",
+      "title": "StreamSplat: Streaming Feed-Forward 3D Gaussian Splatting",
+      "abstract": "Feed-forward 3D Gaussian Splatting enables efficient novel-view synthesis without per-scene optimization, but most existing methods assume a fixed set of context views and process them jointly. This limits their applicability to online scenarios where calibrated views arrive sequentially and the scene must be updated causally. We present \\emph{StreamSplat}, a streaming feed-forward 3DGS framework that incrementally maintains a persistent geometry-grounded scene state and decodes it into renderable 3D Gaussians after each input chunk. StreamSplat centers on a \\textbf{Voxel-Aligned Causal Cache (VACC)}, which stores historical 3D tokens in a memory-bounded voxel structure so that memory grows with explored scene geometry rather than stream length. To better reuse history during causal prediction, we introduce \\textbf{History-Projected Depth Anchoring (HPDA)} to project cached geometry as depth guidance for current cost-volume estimation, and \\textbf{Cache-Guided Feature Injection (CGFI)} to inject cached latent evidence into Gaussian-token regression. Experiments on DL3DV, RealEstate10K, and ScanNet show that StreamSplat remains competitive with state-of-the-art feed-forward 3DGS methods under sparse causal inputs, despite not using future views or full-scene context. More importantly, it scales to long input streams with 256, 512, and 1024 views where fixed-view baselines run out of memory, yielding sustained improvements in novel-view synthesis quality as more observations arrive. The code will be made publicly available upon acceptance.",
+      "authors": [
+        "Changhao Song",
+        "Yuxuan Wang",
+        "Qibiao Li",
+        "Youcheng Cai",
+        "Ligang Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-03T03:48:20+00:00",
+      "link": "https://arxiv.org/pdf/2608.01659v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Feed-forward 3DGS reconstruction for streaming scenes, direct match to 3DGS reconstruction",
+      "llm_evidence_cn": "面向流式场景的前馈3DGS重建，直接匹配3DGS重建需求",
+      "llm_evidence": "面向流式场景的前馈3DGS重建，直接匹配3DGS重建需求",
+      "canonical_evidence": "面向流式场景的前馈3DGS重建，直接匹配3DGS重建需求",
+      "llm_tldr_en": "StreamSplat presents a streaming feed-forward 3DGS framework with a voxel-aligned causal cache, enabling incremental online scene reconstruction without per-scene optimization.",
+      "llm_tldr_cn": "针对前馈3DGS依赖固定上下文视图、难以处理顺序到达视图的问题，本文提出StreamSplat流式重建框架。其核心是体素对齐因果缓存，以内存有界方式存储历史3D token，使内存随场景几何而非流长度增长。每来一个输入块即可增量解码出可渲染的3D高斯，实现因果在线场景更新。实验显示其能稳定处理长时间顺序输入并保持重建质量，扩展了3DGS在在线应用中的可用性。",
+      "llm_tldr": "针对前馈3DGS依赖固定上下文视图、难以处理顺序到达视图的问题，本文提出StreamSplat流式重建框架。其核心是体素对齐因果缓存，以内存有界方式存储历史3D token，使内存随场景几何而非流长度增长。每来一个输入块即可增量解码出可渲染的3D高斯，实现因果在线场景更新。实验显示其能稳定处理长时间顺序输入并保持重建质量，扩展了3DGS在在线应用中的可用性。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.01761v1",
+      "source": "arxiv",
+      "title": "DecoupleGS: Interactive 3D Gaussian Splatting for End-to-End Autonomous Driving Testing",
+      "abstract": "End-to-end (E2E) autonomous driving algorithms require rigorous closed-loop validation in simulation environments offering high visual fidelity, strong interactivity, and real-time performance. Existing approaches, from game engines to static neural rendering, inherently trade off these requirements and struggle with the dynamic scene composition essential for E2E testing. To bridge this gap, we propose a novel decoupled 3D Gaussian Splatting (3DGS) framework tailored for large-scale E2E evaluation. We fundamentally decompose scenes into a high-fidelity static background and manipulable dynamic agents using an object-centric canonical representation. To resolve resulting representational conflicts, we introduce three targeted modules: (1) asset compression via perceptual pruning and vector quantization for real-time traffic rendering; (2) map-guided geometric registration leveraging semantic topology to strictly align trajectories; and (3) proxy-based relighting transferring ambient illumination for seamless photometric integration. Extensive experiments demonstrate that DecoupleGS achieves a balanced fidelity-efficiency trade-off, improves metric and photometric consistency, and provides a practical closed-loop sensor simulation platform for E2E autonomous driving evaluation.",
+      "authors": [
+        "Siying Li",
+        "Ying Ni",
+        "Jie Sun",
+        "Jian Sun",
+        "Haotian Shi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-03T06:32:00+00:00",
+      "link": "https://arxiv.org/pdf/2608.01761v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D Gaussian splatting scene reconstruction for autonomous driving simulation",
+      "llm_evidence_cn": "面向自动驾驶仿真的三维高斯泼溅场景重建",
+      "llm_evidence": "面向自动驾驶仿真的三维高斯泼溅场景重建",
+      "canonical_evidence": "面向自动驾驶仿真的三维高斯泼溅场景重建",
+      "llm_tldr_en": "Proposes a decoupled 3D Gaussian splatting framework for interactive end-to-end autonomous driving testing, decomposing scenes into static background and dynamic agents.",
+      "llm_tldr_cn": "针对端到端自动驾驶测试对高保真、可交互和实时仿真的需求，现有方法难以兼顾动态场景合成。本文提出解耦式三维高斯泼溅框架，将场景分解为高保真静态背景与可操控动态目标，并设计三个目标模块解决表示冲突，从而在仿真环境中实现大规模交互式测试。",
+      "llm_tldr": "针对端到端自动驾驶测试对高保真、可交互和实时仿真的需求，现有方法难以兼顾动态场景合成。本文提出解耦式三维高斯泼溅框架，将场景分解为高保真静态背景与可操控动态目标，并设计三个目标模块解决表示冲突，从而在仿真环境中实现大规模交互式测试。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.02145v1",
+      "source": "arxiv",
+      "title": "UniqueSplat: View-conditioned 3D Gaussian Splatting for Generalizable 3D Reconstruction",
+      "abstract": "In this paper, we propose UniqueSplat, a view-conditioned feed-forward 3D Gaussian Splatting model to reconstruct customized 3D radiance fields for each view query. Existing feed-forward methods such as pixelSplat and MVSplat aim to generate fixed Gaussians across all views of each scene by minimizing the error between rendered views and ground-truth images. However, such fixed Gaussians generally render images from all views and lack the ability to adapt to specific viewpoints, as they do not incorporate target view information when predicting Gaussians. To address this, our UniqueSplat learns the view-conditioned information as a prior and incorporates this knowledge into network parameters, so that Gaussians are dynamically adjusted in accordance with different views. Specifically, we propose a two-branch view-conditioned hyperNetwork to simultaneously learn view-agnostic embeddings and view-specific knowledge, which not only explores the shareable knowledge from various views, but also adapts the model to specific views at test time. Extensive experiments on widely-used datasets including RealEstate10K, ACID and DTU demonstrate the superiority of UniqueSplat over the state-of-the-art methods. Moreover, UniqueSplat encouragingly outperforms existing methods in cross-dataset evaluation, showing its notable generalization ability.",
+      "authors": [
+        "Haixu Song",
+        "Xiaoke Yang",
+        "Shengjun Zhang",
+        "Jiwen Lu",
+        "Yueqi Duan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-08-03T12:31:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.02145v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "View-conditioned 3DGS for generalizable reconstruction from multi-view images.",
+      "llm_evidence_cn": "视图条件化3D高斯泼溅用于多视图图像的可泛化重建。",
+      "llm_evidence": "视图条件化3D高斯泼溅用于多视图图像的可泛化重建。",
+      "canonical_evidence": "视图条件化3D高斯泼溅用于多视图图像的可泛化重建。",
+      "llm_tldr_en": "UniqueSplat conditions Gaussian prediction on the query view, allowing adaptive reconstruction tailored to specific viewpoints and improving generalizable 3D reconstruction.",
+      "llm_tldr_cn": "针对现有前馈式3D高斯泼溅方法生成固定高斯难以适应特定视角的问题，提出UniqueSplat，通过将目标视图信息作为先验并入网络参数，使高斯随查询视图动态调整，从而在可泛化3D重建中实现视图自适应渲染，提高多视角重建质量。",
+      "llm_tldr": "针对现有前馈式3D高斯泼溅方法生成固定高斯难以适应特定视角的问题，提出UniqueSplat，通过将目标视图信息作为先验并入网络参数，使高斯随查询视图动态调整，从而在可泛化3D重建中实现视图自适应渲染，提高多视角重建质量。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.02191v1",
+      "source": "arxiv",
+      "title": "DerainSplat: Feed-Forward Clean 3D Gaussian Splatting from Sparse Rainy Views",
+      "abstract": "Although image deraining has advanced substantially, existing methods mainly focus on 2D image restoration. As spatial intelligence applications such as embodied AI and autonomous driving continue to emerge, reconstructing clean 3D scenes from sparse rainy views in a feed-forward manner becomes increasingly important. Existing feed-forward 3D Gaussian Splatting (3DGS) methods often assume clean inputs and collapse under rainy conditions. To this end, we present \\textbf{\\textit{DerainSplat}}, a feed-forward framework that reconstructs clean 3D scenes from only a few rainy views. To support this task, we build a large-scale multi-view derain dataset through a four-stage synthesis pipeline that sequentially models overcast illumination, depth-dependent haze, rain streaks, and lens raindrops, producing privileged weather factors. We introduce a weather net that predicts the weather factors from rainy context and yields two support maps. Scene support modulates cross-view cost-volume matching, while radiance support drives depth-aligned appearance fusion to fill corrupted pixels. The derived geometry evidence further attenuates Gaussian opacity to reduce spurious structures. A rainy cycle consistency re-renders clean views using the predicted factors and aligns them with rainy inputs. Extensive experiments show that \\textbf{\\textit{DerainSplat}} outperforms existing methods on various datasets, including RealEstate10K, ACID, Mip-NeRF360, and real-world rainy scenes, with strong cross-dataset generalization.",
+      "authors": [
+        "Fuzhen Jiang",
+        "Changyue Shi",
+        "Chuxiao Yang",
+        "Xinyuan Hu",
+        "Wenjie Ye",
+        "Minghao Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-03T13:15:37+00:00",
+      "link": "https://arxiv.org/pdf/2608.02191v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Feed-forward 3D Gaussian splatting for clean scene reconstruction",
+      "llm_evidence_cn": "利用前馈式三维高斯溅射重建干净场景",
+      "llm_evidence": "利用前馈式三维高斯溅射重建干净场景",
+      "canonical_evidence": "利用前馈式三维高斯溅射重建干净场景",
+      "llm_tldr_en": "Introduces DerainSplat, a feed-forward 3DGS framework that reconstructs clean 3D scenes from sparse rainy views, supported by a large-scale multi-view derain dataset synthesized via a four-stage pipeline.",
+      "llm_tldr_cn": "针对现有前馈式三维高斯溅射在雨雾条件下失效，难以重建干净三维场景的问题，提出DerainSplat框架。该框架仅需少数稀疏雨景视图即可前馈式重建干净场景，并构建了大规模多视角去雨数据集，通过四阶段合成流水线模拟阴天光照与深度依赖的雨痕退化。实验表明，DerainSplat在雨景输入下仍能获得高质量的重建结果，拓展了3DGS在恶劣环境下的适用性。",
+      "llm_tldr": "针对现有前馈式三维高斯溅射在雨雾条件下失效，难以重建干净三维场景的问题，提出DerainSplat框架。该框架仅需少数稀疏雨景视图即可前馈式重建干净场景，并构建了大规模多视角去雨数据集，通过四阶段合成流水线模拟阴天光照与深度依赖的雨痕退化。实验表明，DerainSplat在雨景输入下仍能获得高质量的重建结果，拓展了3DGS在恶劣环境下的适用性。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.02206v1",
+      "source": "arxiv",
+      "title": "CLEAR: Conflict-aware Learning via Evidence-guided Adaptive Routing for Unified Sparse-View 3D Gaussian Super-Resolution",
+      "abstract": "Sparse-view 3D Gaussian Splatting Super-resolution is highly challenging since the sparse and low-resolution (LR) inputs lack sufficient geometric and high-frequency information for accurate reconstruction. To achieve high-quality reconstruction, existing sparse-view super-resolution methods adhere to two-stage pipeline that performs LR Gaussian reconstruction and then high-resolution (HR) Gaussian refinement, which directly results in stage-wise Gaussian transfer and reconstruction error accumulation. To this end, we propose CLEAR, a Conflict-aware Learning via Evidence-guided Adaptive Routing, as the first unified single-stage framework for Sparse-view 3D Gaussian Splatting Super-resolution. Specifically, CLEAR performs joint the optimization of authentic LR observations and external HR priors within a unified Gaussian representation. To mitigate the gradient conflicts introduced by sparse supervision during training, we propose a Gaussian-wise conflict-aware optimization strategy that regards the LR gradient as a reliable anchor and applies evidence-conditioned soft correction only to severe HR conflicts. Moreover, to recover high-frequency details, we introduce an evidence-guided Patch-to-Gaussian routing mechanism which estimates patch reliability and detail demand, lifts them into Gaussian space, and selectively routes high-frequency gradients and densification. Finally, we employ shared Gaussian dropout and a detached mid-training anchoring to enhance the robustness of training framework. Extensive experiments on both synthetic and real-world $4\\times$ super-resolution benchmarks demonstrate that CLEAR consistently achieves state-of-the-art rendering quality and superior geometric fidelity.",
+      "authors": [
+        "Hantang Li",
+        "Qiang Zhu",
+        "Xiandong Meng",
+        "Debin Zhao",
+        "Xiaopeng Fan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-03T13:31:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.02206v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Unified single-stage sparse-view 3D Gaussian splatting super-resolution reconstruction",
+      "llm_evidence_cn": "统一单阶段的稀疏视图3D高斯泼溅超分辨率重建",
+      "llm_evidence": "统一单阶段的稀疏视图3D高斯泼溅超分辨率重建",
+      "canonical_evidence": "统一单阶段的稀疏视图3D高斯泼溅超分辨率重建",
+      "llm_tldr_en": "CLEAR is a unified single-stage framework for sparse-view 3D Gaussian splatting super-resolution, using conflict-aware learning with evidence-guided adaptive routing to avoid two-stage error accumulation.",
+      "llm_tldr_cn": "稀疏视图3D高斯泼溅超分辨率面临几何与高频信息不足的挑战，现有两阶段方法导致误差累积。本文提出CLEAR，首个统一单阶段框架，通过冲突感知学习与证据引导的自适应路由，直接优化超分辨率重建，避免阶段间高斯转移和误差累积，提升重建质量。",
+      "llm_tldr": "稀疏视图3D高斯泼溅超分辨率面临几何与高频信息不足的挑战，现有两阶段方法导致误差累积。本文提出CLEAR，首个统一单阶段框架，通过冲突感知学习与证据引导的自适应路由，直接优化超分辨率重建，避免阶段间高斯转移和误差累积，提升重建质量。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.02304v1",
+      "source": "arxiv",
+      "title": "TRACE: Ergodic Trajectory Optimization for Active Scene Reconstruction",
+      "abstract": "Existing active reconstruction systems with Gaussian-splatting maps select observations greedily, optimizing a single next-best-view (NBV) at each step and connecting the chosen views by short-horizon path planning. This greedy decoupling disregards the global structure of scene information, producing inefficient trajectories that waste sensing capacity in transit between selected views. In this work, we study active reconstruction as an ergodic coverage problem: the time-averaged spatial statistics of the sensor trajectory should match a target information distribution induced by the current map. Our approach derives this target distribution online from uncertainty and visibility, and calculates ergodic trajectories via a kernel-ergodic horizon planner with gradient flow and footprint depletion, closing the loop between mapping and trajectory optimization. We thoroughly evaluate TRACE on the Replica dataset against the Next-Best-View (NBV) baselines, improving PSNR by 1.5 dB. Code: https://github.com/spikelab-jhu/trace-active-reconstruction.",
+      "authors": [
+        "Ziyue Zheng",
+        "Linli Shi",
+        "Bingkun He",
+        "Wen Jiang",
+        "Ziyun Wang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-08-03T14:30:20+00:00",
+      "link": "https://arxiv.org/pdf/2608.02304v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Active scene reconstruction using Gaussian splatting map with ergodic trajectory optimization",
+      "llm_evidence_cn": "基于高斯泼溅地图的主动场景重建，采用遍历轨迹优化",
+      "llm_evidence": "基于高斯泼溅地图的主动场景重建，采用遍历轨迹优化",
+      "canonical_evidence": "基于高斯泼溅地图的主动场景重建，采用遍历轨迹优化",
+      "llm_tldr_en": "Presents an ergodic coverage approach for active reconstruction with Gaussian-splatting maps, optimizing sensor trajectories to match an information distribution instead of greedy next-best-view.",
+      "llm_tldr_cn": "现有多数主动重建系统采用贪心下一最佳视角和短视路径规划，忽略场景全局信息结构，导致传感轨迹低效。本文将主动重建建模为遍历覆盖问题，从当前地图的置信度和可见性在线导出目标信息分布，并通过核遍历水平规划算法计算轨迹，从而提升重建质量与效率。",
+      "llm_tldr": "现有多数主动重建系统采用贪心下一最佳视角和短视路径规划，忽略场景全局信息结构，导致传感轨迹低效。本文将主动重建建模为遍历覆盖问题，从当前地图的置信度和可见性在线导出目标信息分布，并通过核遍历水平规划算法计算轨迹，从而提升重建质量与效率。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.02437v1",
+      "source": "arxiv",
+      "title": "InfiniSplat: Implicit Gaussian Decoding for Large-Baseline Monocular View Synthesis",
+      "abstract": "Single-image feed-forward 3D Gaussian Splatting (3DGS) aims to directly generate a renderable 3D scene representation from one input image, avoiding the cost of multi-view capture and per-scene optimization. However, existing methods are often constrained by a pixel-aligned representation, where Gaussians are predicted from fixed image-grid locations. Such pixel-aligned primitives can produce promising nearby-view renderings, but they remain weakly coupled to underlying scene surfaces and struggle to preserve coherent structures under large viewpoint shifts. We present InfiniSplat, a feed-forward single-image 3DGS framework that moves from a pixel-aligned representation toward a surface-aligned representation. InfiniSplat constructs this representation by first using geometry-guided sampling to place 2D supports according to depth-induced local surface structure, and then applying a query-conditioned implicit decoder to predict Gaussian attributes from the image features queried at these supports.By grounding support locations in geometry while decoupling Gaussian prediction from fixed pixel centers, InfiniSplat produces Gaussian layouts that better follow scene surfaces and reduce scattered primitives caused by grid discretization.Across multiple cross-dataset NVS evaluations, InfiniSplat achieves state-of-the-art performance compared with single-image feed-forward baselines, and demonstrates zero-shot generalization from Hypersim indoor synthetic training to complex open-world scenes.Project page: https://zju3dv.github.io/InfiniSplat.",
+      "authors": [
+        "Jiawei Wang",
+        "Hao Yu",
+        "Yongzhen Hu",
+        "Xinyi Yang",
+        "Tao Ni",
+        "Xin Zhan",
+        "Junbo Chen",
+        "Xiaowei Zhou",
+        "Ruizhen Hu",
+        "Sida Peng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-03T16:17:39+00:00",
+      "link": "https://arxiv.org/pdf/2608.02437v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Single-image feed-forward 3DGS reconstruction for large-baseline view synthesis, direct match",
+      "llm_evidence_cn": "单图前馈3DGS重建，用于大基线视图合成，直接匹配重建需求",
+      "llm_evidence": "单图前馈3DGS重建，用于大基线视图合成，直接匹配重建需求",
+      "canonical_evidence": "单图前馈3DGS重建，用于大基线视图合成，直接匹配重建需求",
+      "llm_tldr_en": "InfiniSplat moves from pixel-aligned to surface-aligned Gaussians via implicit decoding, enabling coherent large-baseline monocular view synthesis.",
+      "llm_tldr_cn": "针对单图前馈3DGS中像素对齐高斯在视角变化大时结构保持差的问题，本文提出表面对齐的表示。通过隐式高斯解码，使高斯基元与场景表面强耦合，从而在大基线视角下保持结构连贯。实验表明其能生成更可靠的新视角渲染。该方法推动了单图3D重建和视图合成的发展，属于3DGS重建方向的前沿工作。",
+      "llm_tldr": "针对单图前馈3DGS中像素对齐高斯在视角变化大时结构保持差的问题，本文提出表面对齐的表示。通过隐式高斯解码，使高斯基元与场景表面强耦合，从而在大基线视角下保持结构连贯。实验表明其能生成更可靠的新视角渲染。该方法推动了单图3D重建和视图合成的发展，属于3DGS重建方向的前沿工作。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.01958v1",
+      "source": "arxiv",
+      "title": "FAST-GS: Frequency Aware Space-time Gaussian Splatting for Photorealistic Dynamic Novel View Synthesis",
+      "abstract": "4D Gaussian Splatting (4DGS) excels in dynamic 3D reconstruction and real-time novel view synthesis via efficient 4D Gaussian representations and parallelizable rendering. However, existing 4DGS approaches rely on a single polynomial to model motion, which limits performance in complex dynamic scenes where high-frequency motion components are prevalent, and fails to ensure long-term stability due to cumulative trajectory drift. To address these issues, we propose a Fourier Motion Modeling module: this paradigm decomposes motion into frequency-based sinusoidal components, capturing both low-frequency global trajectories and high-frequency local details to model complex motion patterns accurately. It retains the real-time rendering capability of 4DGS while improving complex motion fitting and long-term coherence. Additionally, we integrate a motion-aware regularization strategy into the loss function: it uses frequency-dependent weights to suppress high-frequency jitter while preserving low-frequency motion coherence. Extensive experiments on N3V and Google Immersive datasets from multiple scenarios demonstrate the effectiveness of our method.",
+      "authors": [
+        "Zhengyang Zhang",
+        "Ziyu Lu",
+        "PengCheng Li",
+        "Hongbo Duan",
+        "Yi Liu",
+        "Pengting Luo",
+        "Peiyu Zhuang",
+        "Xinghui Li",
+        "Shaohua Ma"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-08-03T09:27:33+00:00",
+      "link": "https://arxiv.org/pdf/2608.01958v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "4D Gaussian Splatting for dynamic 3D reconstruction and novel view synthesis.",
+      "llm_evidence_cn": "4D高斯泼溅用于动态3D重建与新视角合成。",
+      "llm_evidence": "4D高斯泼溅用于动态3D重建与新视角合成。",
+      "canonical_evidence": "4D高斯泼溅用于动态3D重建与新视角合成。",
+      "llm_tldr_en": "FAST-GS introduces Fourier Motion Modeling to decompose motion into frequency-based sinusoidal components for 4DGS, improving high-frequency dynamic detail and long-term stability.",
+      "llm_tldr_cn": "针对现有4D高斯泼溅方法使用单一多项式建模运动，难以处理复杂高频运动且轨迹漂移等问题，提出FAST-GS，引入傅里叶运动建模模块，将运动分解为基于频率的正弦分量，同时捕捉低频全局轨迹和高频局部细节，在保持实时渲染的同时显著提升动态新视角合成的逼真度和长期稳定性。",
+      "llm_tldr": "针对现有4D高斯泼溅方法使用单一多项式建模运动，难以处理复杂高频运动且轨迹漂移等问题，提出FAST-GS，引入傅里叶运动建模模块，将运动分解为基于频率的正弦分量，同时捕捉低频全局轨迹和高频局部细节，在保持实时渲染的同时显著提升动态新视角合成的逼真度和长期稳定性。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.00214v1",
+      "source": "arxiv",
+      "title": "Manifold-GS: Certified Hybrid Assets via Varifold-Conservative Gaussian Splatting",
+      "abstract": "3D Gaussian Splatting (3DGS) gives high-quality novel-view synthesis, but its adaptive radiance primitives are not directly usable as structured assets: opacity is not an additive area measure, refinement can change the induced geometry, and watertight mesh extraction can hallucinate collision surfaces in unobserved regions. We introduce Manifold-GS, a certified hybrid asset layer for Gaussian scenes. The method separates appearance opacity from geometric quadrature mass, represents surface-like Gaussians as a discrete unoriented varifold, and exports only confidence-certified open surface patches while retaining uncertified content as residual splats. It provides refinement-conservative mass transport, local realizability diagnostics, source-preserving patch bindings, and conservative collision candidates. On three DTU scenes, a frozen asset benchmark shows zero patch-defined edit leakage, texture round-trip PSNR of 30.1/35.3/33.7 dB, and lower collision floater area than official 2DGS meshes on all scenes, with large gaps on two scenes. The result is a precision-coverage tradeoff rather than a universal reconstruction claim. External-region annotations, phantom-collision probes, and 5k-face simplification further support the certified asset interpretation, while RGB-only experiments show that local realizability is not sufficient for sparse-view surface identifiability.",
+      "authors": [
+        "Boyang Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-31T18:55:26+00:00",
+      "link": "https://arxiv.org/pdf/2608.00214v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Gaussian splatting reconstruction with certified geometry extraction",
+      "llm_evidence_cn": "高斯溅射重建与可认证几何提取",
+      "llm_evidence": "高斯溅射重建与可认证几何提取",
+      "canonical_evidence": "高斯溅射重建与可认证几何提取",
+      "llm_tldr_en": "Presents Manifold-GS, a certified hybrid asset layer for Gaussian scenes that separates appearance opacity from geometric quadrature mass and exports confidence-certified surface patches while retaining residual splats.",
+      "llm_tldr_cn": "针对3D高斯溅射产生的自适应辐射基元难以直接用作结构化资产、水密网格提取可能在未观测区域产生虚假碰撞面的问题，提出Manifold-GS方法。它分离外观不透明度与几何质量，将表面型高斯表示为离散无向变分形式，仅输出经过置信度认证的开放表面补片，并将未认证内容保留为残余溅射，从而提供可认证的混合资产，避免重建资产在后续使用中的几何误差。",
+      "llm_tldr": "针对3D高斯溅射产生的自适应辐射基元难以直接用作结构化资产、水密网格提取可能在未观测区域产生虚假碰撞面的问题，提出Manifold-GS方法。它分离外观不透明度与几何质量，将表面型高斯表示为离散无向变分形式，仅输出经过置信度认证的开放表面补片，并将未认证内容保留为残余溅射，从而提供可认证的混合资产，避免重建资产在后续使用中的几何误差。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
