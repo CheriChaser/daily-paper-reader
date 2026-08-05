@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-05",
+  "date": "2026-08-05",
+  "generated_at": "2026-08-05T21:22:46",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/05/2608.01053v1-struct-gstream-towards-efficient-free-viewpoint-video-streaming-at-low-bitrates-with-structured-3d-gaussians",
+      "section": "quick",
+      "title_en": "Struct-GStream: Towards Efficient Free-Viewpoint Video Streaming at Low-Bitrates with Structured 3D Gaussians",
+      "authors": "Han Jiao, Jiakai Sun, Lei Zhao, Wei Xing, Huaizhong Lin, Zhanjie Zhang, Ao Ma",
+      "date": "2026-08-02",
+      "pdf": "https://arxiv.org/pdf/2608.01053v1",
+      "score": "6.0",
+      "evidence": "基于结构化3D高斯的自由视角视频重建",
+      "tldr": "动态场景自由视角视频构建面临训练慢、存储大和实时渲染难等挑战。现有神经渲染方法质量高但难以实时且需完整序列训练，在线方法又受存储与训练时间限制。本文提出Struct-GStream，利用动态锚点生成结构化3D高斯构建场景，并基于局部刚体性假设建模运动，同时引入全局自由3D高斯修补策略处理新出现物体。方法在低码率下实现快速训练和高渲染质量，训练时间、存储与质量均显著优于现有在线方法。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Constructing photorealistic Free-Viewpoint Videos (FVVs) of dynamic scenes from a set of posed 2D images has been an intriguing yet challenging task in computer vision. Methods based on neural rendering achieve high-fidelity image quality in FVV construction. However, most of these methods are unable to achieve real-time rendering and often require complete video sequences to train. Despite the existence of some online training methods capable of rendering FVVs in real time, they struggle to meet the requirements for storage and training time for downstream applications. To overcome this problem, we propose Struct-GStream, which can achieve efficient FVV streaming using structured 3D Gaussians (3DGs). Specifically, we introduce dynamic anchor points to generate structured 3DGs to construct basic scenes and model approximate scene movements based on the assumption of local rigidity in object motion. Besides, we introduce a global free 3DGs patching strategy involving free 3DGs' generation, pruning, and optimization to patch and model deficient areas and emerging objects. Our method achieves fast training at low bitrates while maintaining high rendering quality. Extensive experiments demonstrate that Struct-GStream significantly outperforms existing online training methods for FVV construction in terms of training time, storage, and rendering quality while maintaining competitive rendering speed.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

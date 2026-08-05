@@ -1,0 +1,58 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-05T21:21:58.977914+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.01053v1",
+      "source": "arxiv",
+      "title": "Struct-GStream: Towards Efficient Free-Viewpoint Video Streaming at Low-Bitrates with Structured 3D Gaussians",
+      "abstract": "Constructing photorealistic Free-Viewpoint Videos (FVVs) of dynamic scenes from a set of posed 2D images has been an intriguing yet challenging task in computer vision. Methods based on neural rendering achieve high-fidelity image quality in FVV construction. However, most of these methods are unable to achieve real-time rendering and often require complete video sequences to train. Despite the existence of some online training methods capable of rendering FVVs in real time, they struggle to meet the requirements for storage and training time for downstream applications. To overcome this problem, we propose Struct-GStream, which can achieve efficient FVV streaming using structured 3D Gaussians (3DGs). Specifically, we introduce dynamic anchor points to generate structured 3DGs to construct basic scenes and model approximate scene movements based on the assumption of local rigidity in object motion. Besides, we introduce a global free 3DGs patching strategy involving free 3DGs' generation, pruning, and optimization to patch and model deficient areas and emerging objects. Our method achieves fast training at low bitrates while maintaining high rendering quality. Extensive experiments demonstrate that Struct-GStream significantly outperforms existing online training methods for FVV construction in terms of training time, storage, and rendering quality while maintaining competitive rendering speed.",
+      "authors": [
+        "Han Jiao",
+        "Jiakai Sun",
+        "Lei Zhao",
+        "Wei Xing",
+        "Huaizhong Lin",
+        "Zhanjie Zhang",
+        "Ao Ma"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-02T07:41:40+00:00",
+      "link": "https://arxiv.org/pdf/2608.01053v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Free-viewpoint video reconstruction with structured 3D Gaussians",
+      "llm_evidence_cn": "基于结构化3D高斯的自由视角视频重建",
+      "llm_evidence": "基于结构化3D高斯的自由视角视频重建",
+      "canonical_evidence": "基于结构化3D高斯的自由视角视频重建",
+      "llm_tldr_en": "Proposes structured 3D Gaussians for low-bitrate free-viewpoint video streaming, enabling real-time rendering with reduced storage and training time.",
+      "llm_tldr_cn": "动态场景自由视角视频构建在实时渲染和训练开销上面临挑战。Struct-GStream采用结构化3D高斯表示，通过高效的流式管线实现低码率下的重建。该方法不需要完整视频序列即可在线训练，支持实时渲染，同时降低了存储和训练时间。实验结果显示，它在保持高保真图像质量的同时显著提升压缩效率，为动态场景的自由视角视频应用提供了实用方案。",
+      "llm_tldr": "动态场景自由视角视频构建在实时渲染和训练开销上面临挑战。Struct-GStream采用结构化3D高斯表示，通过高效的流式管线实现低码率下的重建。该方法不需要完整视频序列即可在线训练，支持实时渲染，同时降低了存储和训练时间。实验结果显示，它在保持高保真图像质量的同时显著提升压缩效率，为动态场景的自由视角视频应用提供了实用方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

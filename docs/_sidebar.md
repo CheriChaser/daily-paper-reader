@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-05 <!--dpr-date:20260805-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/05/2608.01053v1-struct-gstream-towards-efficient-free-viewpoint-video-streaming-at-low-bitrates-with-structured-3d-gaussians" data-sidebar-item="{&quot;title&quot;: &quot;Struct-GStream: Towards Efficient Free-Viewpoint Video Streaming at Low-Bitrates with Structured 3D Gaussians&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.01053v1-struct-gstream-towards-efficient-free-viewpoint-video-streaming-at-low-bitrates-with-structured-3d-gaussians&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;基于结构化3D高斯的自由视角视频重建&quot;}">Struct-GStream: Towards Efficient Free-Viewpoint Video Streaming at Low-Bitrates with Structured 3D Gaussians</a>
   * 2026-08-04 <!--dpr-date:20260804-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/04/2608.02099v1-degs-a-scalable-3dgs-architecture-via-decoupled-workload-parsing-and-reorganization" data-sidebar-item="{&quot;title&quot;: &quot;DeGS: A Scalable 3DGS Architecture via Decoupled Workload Parsing and Reorganization&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.02099v1-degs-a-scalable-3dgs-architecture-via-decoupled-workload-parsing-and-reorganization&quot;, &quot;score&quot;: &quot;10.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;面向3D高斯溅射推理的可扩展硬件架构&quot;}">DeGS: A Scalable 3DGS Architecture via Decoupled Workload Parsing and Reorganization</a>
