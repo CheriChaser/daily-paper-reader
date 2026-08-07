@@ -1,0 +1,602 @@
+Title: Revisiting Pose Sensitivity in Splat-based Computed Tomography under Sparse-view Reconstruction
+
+URL Source: https://arxiv.org/pdf/2608.04752v1
+
+Published Time: Thu, 06 Aug 2026 01:06:37 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# Revisiting Pose Sensitivity in Splat-based Computed Tomography under Sparse-view Reconstruction 
+
+## Kiseok Choi Hyeongjun Cho Inchul Kim Min H. Kim KAIST 
+
+{kschoi;hjcho;ickim;mhkim }@vclab.kaist.ac.kr 
+
+## Abstract 
+
+X-ray computed tomography (CT) reconstructs volumetric representations of objects from projection images obtained by transmitting X-rays through a target. Recent splat-based tomography, which represents a volume as a continuous distribution of 3D Gaussians, has demonstrated both high reconstruction quality and fast convergence in cone-beam sparse-view CT. However, when deployed in real CT sys-tems with limited and non-uniform view distributions, we observe distinctive streak and strip artifacts that are far more pronounced than in conventional reconstruction meth-ods. Through detailed analysis, we show that these artifacts primarily originate from pose inaccuracies in the acquisi-tion geometry rather than from view sparsity itself. We re-visit pose sensitivity in the splatting formulation and derive a stable gradient-based framework that jointly refines ge-ometric parameters during reconstruction. Our study not only identifies how pose perturbations propagate through the differentiable projection operator but also reveals why splat-based CT is particularly vulnerable to geometric mis-alignment. The resulting formulation remains lightweight and easily integrable into existing pipelines while substan-tially improving reconstruction fidelity under real-world sparse-view conditions. 
+
+## 1. Introduction 
+
+X-ray computed tomography (CT) reconstructs the internal structure of an object by measuring the attenuation of X-rays transmitted through it [15]. It plays an essential role in both medical diagnostics and industrial inspection, provid-ing non-destructive access to volumetric structures. Among various system geometries such as parallel-beam, fan-beam, and cone-beam configurations [12], cone-beam CT (CBCT) has become the most widely adopted due to its ability to re-construct high-quality 3D volumes with fewer projections. The Feldkamp–Davis–Kress (FDK) algorithm [8] remains 0.5  
+
+> 0.0
+> Ours Thies et al. FDK
+> NeAT FDK (721 views) R2-Gaussian
+
+Figure 1. Reconstruction of a real walnut from cone-beam CT using FDK [8] (721 views), joint reconstruction–calibration meth-ods (NeAT [30], Thies et al. [39]), R 2-Gaussian [48], and our method (others use 75 sparse views). FDK suffers from severe radial artifacts and blur. NeAT reduces noise but introduces di-rectional streaks. Thies et al. improve edges but leave stripe artifacts. R2-Gaussian shows needle artifacts from pose errors. Our self-calibrating splat-based method suppresses these artifacts while preserving fine details, highlighting the importance of geo-metric calibration in real sparse-view CT. 
+
+a standard solution for fast reconstruction, while iterative optimization techniques [1, 34] improve quality at the cost of computation. Recent advances in differentiable rendering and implicit representation have transformed CT reconstruction into an optimization problem on continuous volumetric fields. Methods based on neural implicit functions [4, 30, 47] and, more recently, splat-based representations [48] have demonstrated superior performance in sparse-view recon-struction. By modeling the attenuation field as a set of anisotropic 3D Gaussians, splat-based tomography achieves both high-quality reconstruction and rapid convergence. However, despite its success on synthetic data, we observe that applying this approach to real CT acquisitions intro-duces distinctive streak and strip artifacts (Figure 3(a)). This discrepancy indicates that the degradation is not solely arXiv:2608.04752v1 [cs.CV] 5 Aug 2026 due to data sparsity, but arises from underlying geometric inconsistencies in the acquisition process. Through detailed analysis, we identify geometric calibration errors—particularly inaccuracies in camera poses—as the dominant source of these artifacts. This find-ing suggests that pose sensitivity, rather than view sparsity, fundamentally limits the robustness of splat-based CT. We therefore revisit the formulation of pose estimation in the splatting pipeline, examining how geometric perturbations propagate through differentiable projection operators and affect reconstruction stability. Our analysis leads to a re-fined gradient-based framework that allows joint optimiza-tion of volumetric and geometric parameters, ensuring sta-bility against small pose deviations. In summary, this work provides both empirical and the-oretical insights into pose sensitivity in splat-based CT and offers a practical self-calibrating formulation that mitigates artifacts under sparse-view conditions. Our main contribu-tions are as follows: • We conduct the first systematic analysis of pose sensitiv-ity in splat-based CT reconstruction, revealing that geo-metric misalignment, rather than data sparsity, is the dom-inant source of artifacts. • We reformulate the gradient-based pose optimization in splatting, deriving a stable and differentiable calibration framework that jointly refines geometry and volume. • We present an unbiased simulation framework for gener-ating cone-beam datasets with controlled pose perturba-tions, enabling reproducible evaluation of geometric sen-sitivity. 
+
+## 2. Related Work 
+
+This section reviews recent advances in cone-beam CT re-construction. 
+
+Cone-Beam CT Reconstruction. Cone-beam reconstruc-tion algorithms in X-ray CT can be categorized by the way the volume is represented. Voxel-based algorithms con-struct a cubic grid in 3D space and estimate the value of each element. A representative method is the FDK algo-rithm [8], which leverages the Fourier slice theorem, result-ing in fast and reliable performance that has made it a stan-dard algorithm. Iterative reconstruction methods [1, 34], on the other hand, use a ray-projection model based on the Beer–Lambert law and iteratively optimize the voxel val-ues to fit the model. Advances in computer graphics and neural networks have enabled implicit representation-based reconstruction methods [4, 30, 46, 47]. These approaches represent the volume using neural networks instead of ex-plicit voxel grids. These methods perform well even under sparse-view conditions; however, due to the dense modeling of a volume using neural networks, their time complexity is generally significantly higher. R 2-Gaussian [48] introduces a new approach to CT reconstruction using Gaussian splat-ting [17], where the volume is represented as a combination of 3D Gaussian primitives [50]. This approach shows fast and high-quality reconstruction. 
+
+Artifact Analysis. CT artifacts arise in various forms de-pending on their sources and have been extensively stud-ied [2]. For example, ring artifacts appear as circular bands and are typically caused by defective detector pix-els [6, 21, 32, 41]. Metal artifacts arise from the polychro-matic nature of X-rays [16, 26, 42]. Sparse-view artifacts manifest as directional streaks due to insufficient projec-tion data [5, 18, 20, 23, 40]. Calibration artifacts appear as blurring or subtle streaks [10, 30, 31, 37–39, 43], originat-ing from inaccuracies in system geometry. Recently, neural networks have been actively used to classify artifacts and identify their causes [14, 24, 29]. However, works in this category take a slice from the reconstructed volume to pro-duce heat maps of each artifact, so they do not account for these in 3D, and only partial 2D features from slices can be leveraged. Additionally, the performance of these methods is significantly constrained due to the limited access to real artifact datasets. 
+
+Geometric Calibration. Precise calibration of a geometry configuration is crucial to the quality of the CT reconstruc-tion. This is a challenging problem, particularly in rotat-ing systems, which can result in discrepancies between the actual and ideal geometries. Calibration methods can be broadly categorized into offline and online approaches [9]. The offline methods [13, 44, 45] use specially manufac-tured phantoms of known size to estimate accurate geom-etry. Although feature extraction from pre-scanned phan-toms can yield precise calibration parameters, these meth-ods cannot accommodate real-time geometric perturbations during scanning. Moreover, they require additional scan-ning time and are primarily used for initial system setup. Online approaches [19, 25, 27], in contrast, calibrate based on the actual target object. The calibration parameters are jointly optimized during the reconstruction process, thereby improving quality and eliminating the need for an addi-tional scan. These approaches calculate a loss based on reconstruction quality and compute gradients with respect to camera pose parameters to iteratively reduce the loss by pose errors. Thies et al. [39] perform FDK-based recon-struction while correcting head motion, but the FDK limits the output quality and is dependent on a pre-trained network to measure the quality of reconstruction. Gao et al. [10] re-duce pose errors using a pre-trained projection network with segmented object volumes and captured projections, but their method requires ground-truth segmentation as prior in-formation. Wu et al. [43] optimize an implicit representa-tion network while correcting camera poses, but their ap-proach supports only the fan-beam geometry and does not provide publicly available code. R¨ uckert et al. [30] employ an adaptive octree structure for an efficient implicit repre-sentation network with pose correction. In our method, we employ a splat-based method [48] that offers fast, robust, and fully differentiable reconstruction. We further study the geometry parameters in [48] that support volumetric X-ray projections with various poses, which differ from those of the splatting method in the novel view synthesis [17]. 
+
+## 3. Analysis 
+
+In the splat baseline work [48], the results from the real datasets in the sparse-view setting show streaky arti-facts (Figure 3(a)), even though there were no metallic ob-jects that induced anomalies in the scene. We study this problem by designing experiments shown in Figure 2. We first obtain a pseudo ground-truth volume by reconstructing with FDK using dense 721 projections, under the assump-tion that FDK can produce a sufficiently accurate recon-struction when enough projections are available (Step 1 in Figure 2). Generally, the root mean squared error (RMSE) scales as 
+
+RMSE ∝ 1
+
+√N , (1) where N denotes the number of projections under unbi-ased beam geometry errors. The mathematical derivation supporting this assumption is provided in the supplemen-tal material. Then, we create projection images from the reconstructed volume, which consists of 75 views, serving as a sparse-view set of projections. We run the splat re-construction [48] using the regenerated 75 projections to obtain another volume. Notably, in the volume from the recreated projections, the streaky artifacts are significantly suppressed (Figure 3(b)) compared with those from the 75 projections from the original real projections (Figure 3(a)). According to this experiment, we find that the streaky arti-facts do not mainly come from the sparsity of input projec-tions. To further investigate the cause, we compare the error of the estimated projections from the splat reconstruction between the synthesized dataset and the real dataset (Fig-ure 4). The difference between the ground truth and the estimated projections using the synthetic data is uniformly distributed (Figure 4(c)); however, with the real data, it shows a directional bias around edges (Figure 4(f)). From this observation, we conclude that the artifacts from the real dataset, when using the splat reconstruction, mainly origi-nate from geometric errors. 
+
+## 4. Method 
+
+Projection Formulation. We first restate the forward pro-jection in the splatting formulation to examine how small pose perturbations affect the rendered intensity. Unlike the voxel-based Beer–Lambert model, the Gaussian represen-tation introduces anisotropic weighting along the ray direc-tion [48], making the reconstructed intensity inherently sen-FDK Geometry Parameters Splat-Based Reconstruction Sampling Forward Projection Splat-Based Reconstruction 
+
+> Real projection (721 views)
+> Real projection (75 views)
+> Synthetic projection (75 views) Reconstruction (Pseudo GT) Reconstruction (w/ artifacts) Reconstruction (w/o artifacts) Error
+> Step 2
+
+Step 1 
+
+> Error Estimated projection Estimated projection
+> Step 4
+
+Step 3 
+
+Figure 2. The pipeline of our artifact analysis experiment. (Step 1) A pseudo ground truth (GT) volume is reconstructed using 721-view projections from the real dataset by the FDK [8]. (Step 2) We synthesize the 75 projection images from the pseudo-GT volume. (Step 3) We compare the results from the splat reconstruction [48] using both real and synthetic projections. (Step 4) We compare the error of the estimated projections from the splat reconstruction between the real dataset and the synthesized dataset to identify the source of the error. Real (75 views) Synthetic (75 views) (a) (b) 
+
+> 0.0 0.6
+
+Figure 3. Comparison between the reconstructions from real 75-view projections and synthetic 75-view projections (Figure 2). The artifacts are observed only in the reconstruction from real pro-jections, indicating the sparse input is not the main cause of the streaky artifacts. 
+
+sitive to geometric misalignment. Formally, the attenuation field is modeled as: 
+
+μ(x) = 
+
+> M
+
+X
+
+> i
+
+ρi exp 
+
+
+
+− 12 (x − pi)T Σ−1 
+
+> i
+
+(x − pi)
+
+
+
+, (2) Ground truth  Estimated  Error   
+
+> Real  Synthetic
+> -0.6
+> 0.6
+> (a) (b)
+> (d) (e)
+> (c)
+> (f)
+
+Figure 4. Comparison of projection images and error maps be-tween the real and synthetic datasets with 75 projections. (a) and (b) show projections from the synthetic dataset and the estimated one from the splat reconstruction [48]. (d) and (e) show projec-tions from the real dataset and the estimated one from the splat method. The difference between the ground truth and the esti-mated projections using the synthetic data is uniformly distributed (c); however, with the real data, it shows a directional bias around edges (f), revealing the inaccuracy of camera poses. 
+
+where x is the spatial query point, M is the number of Gaussians, ρi is the density of the i-th Gaussian, and pi ∈
+
+R3×1, Σi ∈ R3×3 denote its center and covariance, respec-tively. The forward projection of a ray is then computed by integrating the contribution of all Gaussians along the ray path:             
+
+> I(ˆ xk) =
+> MX
+> i
+> s
+> 2π|˘Σi,k ||ˆΣi,k |ρiexp
+> 
+> −12 (ˆ xk−ˆpi,k )TˆΣ−1
+> i,k (ˆ x−ˆpi,k )
+> 
+> ,
+
+(3) where ˆxk ∈ R2×1 is the projected query point, ˘Σi,k ∈
+
+R3×3 is the ray-space covariance, ˆΣi,k ∈ R2×2 is the pro-jected Gaussian covariance, and ˆpi,k ∈ R2×1 is the center coordinate of the projected Gaussian. k is the index of the projection image. The parameters ρi, pi, and Σi are opti-mized to reduce the discrepancy between the computed pro-jections from Equation (3) and the input projection images. After optimization, the final attenuation volume is obtained by summing up the Gaussian components at query points such as voxel grids. 
+
+Pose Parameterization. To ensure stable optimization near the nominal geometry, we parameterize pose pertur-bations as small increments relative to the initial configu-ration. This incremental formulation mitigates gradient ex-plosion under small-angle approximation and allows fine-grained refinement of rotation and translation during joint optimization. We express the rigid body motion of each camera using a rotation matrix Wk ∈ R3×3 and a trans-lation vector tk ∈ R3×1, then the i-th Gaussian primi-tive (Equation (2)) is transformed as: 
+
+˜pi,k = Wkpi + tk, ˜Σi,k = WkΣiWTk , (4) where ˜pi,k and ˜Σi,k are the transformed Gaussian’s coordi-nates and covariance matrix in 3D. The transformed Gaus-sian is then projected onto the 2D detector as below: 
+
+ˆpi,k = ψ (˜ pi,k ) , ˆΣi,k =
+
+
+
+Ji,k ˜Σi,k JTi,k 
+
+
+
+> {0,1},{0,1}
+
+, (5) where ψ (·) : R3×1 → R2×1 is the non-linear projection function, (·){0,1},{0,1} is an operator that crops the first 2×2
+
+submatrix from a matrix, and Ji,k is the Jacobian of projec-tion function with respect to the camera-space position: 
+
+Ji,k = ∂ϕ (˜ pi,k )
+
+∂ ˜pi,k 
+
+∈ R3×3,ϕ (˜ pi,k ) = 
+
+ ˆpi,k 
+
+∥˜pi,k ∥
+
+
+
+∈ R3×1
+
+(6) where ϕ (·) is the mapping function from the camera-space to ray-space used in the volumetric EWA splatting [50]. Note that in the original Gaussian Splatting [17], this map-ping function does not include the last component, so it be-comes 2D. On the other hand, in the CT splatting the third component in ϕ (·) is included, since we need 3D informa-tion of the mapping function to compute the ray integral of the Gaussian primitives located in the real distance to sim-ulate the X-ray attenuation energy. To optimize the pose parameters, we model the motion using the 4D quaternion for rotation and the 3D vector for translation, following prior works [7, 22, 33, 49]. Unlike conventional CT calibration methods, our approach opti-mizes these parameters simultaneously with the volume, al-lowing for self-calibrating reconstruction. To ensure fine-grained optimization around the initial geometric configura-tion, we parameterize pose errors relative to the prior cam-era pose by introducing a motion increment as follows [7]: 
+
+∆qk = qk − qk, init ∈ R4×1, ∆tk = tk − tk, init ∈ R3×1,
+
+(7) where qk and tk represent the quaternion and translation vectors, while ∆qk and ∆tk denote the small pose correc-tion terms optimized during reconstruction. This formu-lation models a small linearized increment in motion, al-lowing more accurate pose refinement. The quaternion and translation parameters are converted to the rotation matrix and the translation vector: 
+
+Wk = Rot(∆ qk + qk, init ), tk = ∆ tk + tk, init , (8) where Rot ( ·) is the rotation mapping function from the quaternion vector. The parameters for our joint calibration and reconstruction method are as follows: 
+
+Θ = {pi, Σi, ρ i, ∆qk, ∆tk}. (9) 
+
+Optimization. Our optimization problem is given by: 
+
+Θ = arg min Θ L(Ik, ˆIk), (10) 𝐌𝐌 𝑖𝑖 ,𝑘𝑘 𝐖𝐖 𝑘𝑘                         
+
+> 𝜕𝜕ℒ 𝜕𝜕𝐖𝐖 𝑘𝑘
+> =𝜕𝜕ℒ 𝜕𝜕𝐖𝐖 𝑘𝑘 ,a
+> +𝜕𝜕ℒ 𝜕𝜕𝐖𝐖 𝑘𝑘 ,b
+> �𝐩𝐩 𝑖𝑖 ,𝑘𝑘
+> 𝜕𝜕ℒ 𝜕𝜕𝐖𝐖 𝑘𝑘 ,a
+> =𝜕𝜕ℒ 𝜕𝜕� 𝐩𝐩 𝑖𝑖 ,𝑘𝑘 𝜕𝜕� 𝐩𝐩 𝑖𝑖 ,𝑘𝑘 𝜕𝜕𝐖𝐖 𝑘𝑘
+> 𝜕𝜕ℒ 𝜕𝜕𝐖𝐖 𝑘𝑘 ,b
+> =𝜕𝜕ℒ 𝜕𝜕𝐌𝐌 𝑖𝑖 ,𝑘𝑘 𝜕𝜕𝐌𝐌 𝑖𝑖 ,𝑘𝑘 𝜕𝜕𝐖𝐖 𝑘𝑘
+> 𝐏𝐏 𝑘𝑘 �𝐩𝐩 𝑖𝑖 ,𝑘𝑘
+> 𝜕𝜕 ℒ
+> 𝜕𝜕𝐏𝐏 𝑘𝑘
+> =𝜕𝜕ℒ 𝜕𝜕� 𝐩𝐩 𝑖𝑖 ,𝑘𝑘 𝜕𝜕� 𝐩𝐩 𝑖𝑖 ,𝑘𝑘 𝜕𝜕𝐏𝐏 𝑘𝑘 Figure 5. The backward gradient computation pipeline with re-spect to the intermediate values Pkand Wk, which are directly dependent on the camera pose parameters. Pk∈R3×4is the perspective projection matrix that transforms 4D homogenous co-ordinates to the 3D ones. Mi,k ∈R3×3is the multiplication of
+> Ji,k and Wk. Note that the term ∂L
+> ∂Wk, bin blue is different from the calibration method in the RGB splatting [7].
+
+where L is the loss function, and Ik, ˆIk ∈ RH×W denote the given and estimated projection images respectively. Our loss function is defined as: 
+
+L(Ik, ˆIk) = LL1(Ik, ˆIk) + λLSSIM (Ik, ˆIk). (11) The objective function combines pixel-wise and structural similarity losses without total variation (TV) regularization. We find that, under our joint calibration framework, the explicit TV term becomes unnecessary and can even sup-press essential geometric gradients, thereby reducing the system’s ability to recover fine pose corrections. This ob-servation empirically supports that stability arises naturally from accurate geometric modeling rather than from heuris-tic smoothness constraints. Figure 5 illustrates the backward gradient flow through pose-dependent transformations. We explicitly track the Ja-cobian terms with respect to both the camera projection ma-trix Pk and the rotation matrix Wk, allowing us to observe how small geometric perturbations propagate through the differentiable rendering pipeline. This analysis provides in-sight into the source of instability in prior splat-based CT methods, which often neglect these cross-derivative depen-dencies. 
+
+## 5. Results 
+
+5.1. Experiment Setup 
+
+We implement our method using PyTorch [28] and CUDA [11], running experiments on an Intel Xeon 4214R CPU (2.4 GHz) and an NVIDIA RTX A6000 GPU. For op-timization, we adopt the Gaussian learning rates from R 2-Gaussian [48] while setting the learning rate for camera pa-rameters to 2e-4, which exponentially decays to 2e-5 over 30,000 steps. For synthetic data generation, we use TIGRE-v2.3 [3], while real-world evaluations are conducted on the CT dataset from [36]. This setup ensures a controlled eval-uation on synthetic data and a realistic assessment of our method’s robustness in real-world scenarios. 
+
+5.2. Dataset Generation with Geometric Error 
+
+To validate our self-calibration framework, we generate a CT dataset with simulated geometric errors. Conventional synthetic datasets typically assume an ideal circular trajec-tory, where the sensor rotates around a fixed center of ro-tation. However, mechanical imperfections in real systems introduce deviations from this ideal configuration, resulting in misaligned projections and degraded reconstruction qual-ity. To simulate these real-world effects, we apply pertur-bations to the camera parameters during projection genera-tion, embedding mechanical misalignment into the dataset. We model the detector geometry as a rigid-body transfor-mation T in the special Euclidean group SE(3) . To intro-duce realistic and unbiased perturbations, we treat rotation and translation errors separately. Since translation t is lin-ear, we sample it from a zero-mean Gaussian distribution: 
+
+t ∼ N (0 , σ 2
+
+> trans
+
+I3×3), where σ2 
+
+> trans
+
+controls the magnitude of translation variation. In contrast, rotation R lies in the nonlinear space SO(3) , preventing direct additive perturba-tions. Instead, we apply a logarithmic map to transform it into the tangent space, add Gaussian noise with variance 
+
+σ2
+
+> rot
+
+, and then apply the exponential map to project it back to 
+
+SO(3) [35]. This ensures realistic rotational perturbations while preserving valid transformations. Note that because translations are sampled in voxel space, their physical effect may vary with dataset scaling. By incorporating these cal-ibrated perturbations, our dataset provides an unbiased and realistic testbed for evaluating self-calibration in X-ray CT reconstruction. Mathematical proofs of the unbiasedness of our dataset generation are provided in the supplemental ma-terial. 
+
+5.3. Evaluation 
+
+Quantitative Evaluation. We evaluate our method on syn-thetic datasets and present the reconstructed volume results in Figure 6. We compare our approach against traditional tomography methods [8], sparse-view reconstruction meth-ods [4, 48], and the state-of-the-art joint calibration and re-construction methods [30, 39]. To simulate real-world geo-metric miscalibrations, we introduce camera rotation and translation noise with standard deviations of 0.03 in the Lie algebra domain and 1.0 in unit length (corresponding to the voxel size of the reconstruction volume), respec-tively. Our method consistently outperforms all baseline methods both quantitatively and qualitatively, demonstrat-ing robustness under geometric perturbations. Note that our approach exceeds the SOTA method [39] by approximately Ours FDK  SAX-NeRF  NeAT  Thies et al. R2-Gaussian Ground truth                 
+
+> Beetle
+> Broccoli
+> Engine
+> Pancreas
+> 0.0
+> 0.5
+> 0.0
+> 1.0
+> 0.0
+> 0.8
+> 0.0
+> 0.4
+> 28.12 31.33 32.99 29.03 33.15 40.48
+> 16.69 18.83 16.58 19.80 22.20 30.20
+> 16.66 18.62 17.69 19.39 24.69 31.60
+> 19.90 24.07 25.48 22.09 26.51 30.04
+
+Figure 6. Comparison of reconstructed volume slices on the synthetic dataset with the pose perturbation. We compare our method against existing approaches, including FDK [8], SAX-NeRF [4], R 2-Gaussian [48], NeAT [30], and Thies et al. [39] across multiple objects. The numbers in the upper-left corners of each image indicate the PSNR values (dB) relative to the respective ground truth volume. Our method achieves higher PSNR values and better visual quality, demonstrating superior robustness against geometric misalignments. 
+
+10 dB in PSNR, highlighting its superior reconstruction ac-curacy. In contrast, existing methods often fail to recover accurate volumes under geometric errors, as they rely on a pre-calibrated hardware setup or lack of self-correction per-formance. To further validate the effectiveness of our ap-proach, we report quantitative results across different syn-thetic datasets, with and without geometric perturbations on the baseline splat-based reconstruction method [48] and ours (Table 1). On the noise-free dataset, the baseline and ours indicates similar performance. But on the noisy dataset, ours shows significantly better results compared to the baseline. These results confirm that our method effec-tively reconstructs volumes while simultaneously handling camera pose errors. In addition to reconstruction accuracy, we evaluate geometric calibration performance in Table 2. We measure camera pose estimation errors using the trans-formation: 
+
+T =
+
+R t0t 
+
+> 3
+
+1
+
+
+
+= T−1 
+
+> gt
+
+Test , (12) where Tgt and Test represent the ground truth and estimated camera transformations, respectively. We compute the ori-entation error as θ = 1
+
+> N
+
+q
+
+arccos tr( R)−12 , and define the translation error as the Euclidean distance between the es-timated and ground truth camera positions. Table 2 reports the root mean squared error (RMSE) of θ and t, demon-strating that our self-calibration framework significantly re-duces pose estimation errors. These results highlight the effectiveness of our method in simultaneously optimizing 
+
+Table 1. Comparison of the baseline splat-based reconstruc-tion [48] and ours on the noise-free and noisy datasets. Values are reported in PSNR.                                                                  
+
+> Scene Noise-free dataset Noisy dataset Baseline Ours Baseline Ours Chest 35.81 35.68 26.69 30.44 Foot 32.51 32.04 25.46 30.57 Head 40.99 40.92 30.91 34.84 Jaw 37.27 36.77 27.12 32.38 Pancreas 37.91 37.50 26.51 30.04 Beetle 43.18 43.22 33.15 40.48 Bonsai 35.62 34.99 26.61 30.05 Broccoli 36.54 34.70 22.21 30.20 Kingsnake 39.85 39.97 35.86 38.16 Pepper 39.40 38.68 26.51 31.96 Backpack 38.69 38.90 27.88 32.19 Engine 40.25 39.33 24.69 31.60 Mount 38.94 38.08 29.07 31.13 Present 38.06 37.82 28.20 33.84 Teapot 47.81 47.79 36.65 43.43
+
+volume reconstruction and geometric calibration, making it a robust solution for real-world X-ray tomography applica-tions. 
+
+Qualitative Evaluation. Figure 7 presents the reconstruc-tion results on the real dataset [36] using 75 views. The FDK reconstruction exhibits strong radial artifacts, which arise due to sparse-view sampling. While SART provides improved reconstruction quality over FDK, it still suffers from similar structured artifacts. SAX-NeRF [4] effectively suppresses the radial artifacts, but details are smoothed out due to calibration errors. R 2-Gaussian [48] reduces anoma-Ours FDK  SART  R2-Gaussian  NeAT  Thies et al. 
+
+> 0.0
+> 0.6
+> 0.0
+> 0.2
+> 0.0
+> 0.5
+
+SAX-NeRF 
+
+> Walnut Pine Seashell
+
+Figure 7. Comparison of reconstructed volume slices on the real dataset [36]. All methods reconstruct the volume using 75 projections. Our approach achieves superior performance, effectively mitigating reconstruction artifacts and preserving fine details, thanks to our self-calibrating geometric correction. The zoomed-in regions (highlighted in red boxes) demonstrate that our method recovers finer structures with fewer artifacts compared to other approaches. Table 2. We report the root mean squared error (RMSE) of trans-lation and orientation errors after applying our self-calibration framework. The translation error is expressed in arbitrary units (1 AU corresponds to one voxel size of the reconstruction volume), and the orientation error is measured in degrees. Our method out-performs over the state-of-the-art online calibrating reconstruction methods with significantly reduced pose errors.                                                                                                        
+
+> Scene Translation (AU) Orientation (°) NeAT [30] Thies et al. [39] Ours NeAT [30] Thies et al. [39] Ours Chest 1.076 2.347 0.973 2.720 3.919 0.621
+> Foot 1.768 2.685 1.213 2.867 4.434 0.461
+> Head 1.254 2.371 0.726 3.019 3.682 0.782
+> Jaw 1.310 2.616 0.924 2.872 4.295 0.523
+> Pancreas 1.455 2.587 1.247 3.058 3.649 1.020
+> Beetle 1.076 2.037 0.809 3.030 3.144 0.194
+> Bonsai 2.804 3.083 0.732 3.035 3.961 0.747
+> Broccoli 1.475 2.095 0.671 2.857 5.580 0.314
+> Kingsnake 1.097 2.025 0.484 2.983 3.214 1.590
+> Pepper 1.469 2.711 0.397 2.789 4.892 0.629
+> Backpack 1.570 2.413 0.549 2.894 3.412 0.563
+> Engine 1.632 2.357 0.598 2.739 5.845 0.484
+> Mount 1.169 2.768 0.769 2.550 4.313 0.567
+> Present 1.243 2.546 0.399 3.022 3.784 0.577
+> Teapot 1.152 2.308 0.397 2.781 3.017 0.339
+> Mean 1.437 2.463 0.726 2.881 4.076 0.627
+
+lies but remains affected by needle-like artifacts, a conse-quence of imperfect camera calibration. To mitigate these issues, R 2-Gaussian employs TV regularization, which sup-presses artifacts but over-smooths surfaces, as observed in the fourth column of Figure 7. NeAT [30] produces sharp object boundaries but fails to reconstruct homoge-neous regions effectively. Thies et al. [39] show slightly better performance than their baseline method [8], but suffer from severe sparse-view artifacts inherited from the base-line FDK properties. In contrast, our method achieves high-accuracy reconstruction, effectively recovering fine details while suppressing radial artifacts without relying on aggres-sive smoothing. By jointly optimizing volumetric recon-struction and geometric calibration, our approach ensures artifact-free and detail-preserving reconstructions, demon-strating clear advantages over existing methods. 
+
+Computation Time. To evaluate the computational ef-ficiency of our method, we compare the average recon-struction time over all synthetic scenes across different ap-proaches, as summarized in Table 4. Our method achieves Table 3. Reconstruction performance with camera noise varies. We compare the baseline [48] and our method under different cam-era pose perturbations. Standard deviations σrot and σtrans indicate rotational and translational noise levels. Both methods perform well without noise (first row), but our method shows greater ro-bustness to pose errors, achieving higher PSNR and SSIM in most scenario levels. The best scores for each experiment are high-lighted in bold.                                                         
+
+> Scene σrot σtrans
+> Baseline [48] Ours PSNR (dB) SSIM PSNR (dB) SSIM Beetle --43.18 0.995 43.22 0.995
+> 0.01 0.5 37.28 0.979 41.38 0.992
+> 0.02 1.0 33.90 0.954 40.65 0.990
+> 0.05 2.5 31.91 0.930 35.42 0.970
+> 0.10 5.0 30.80 0.920 32.32 0.939
+> Head --40.99 0.983 40.92 0.981 0.01 0.5 35.29 0.932 37.87 0.954
+> 0.02 1.0 32.25 0.883 35.63 0.944
+> 0.05 2.5 28.53 0.808 32.61 0.892
+> 0.10 5.0 26.41 0.768 28.17 0.805
+
+Table 4. Comparison of mean computation time (in minutes) among joint reconstruction and calibration methods, including the baseline.       
+
+> Computation time (min) Baseline [48] NeAT [30] Thies et al. [39] Ours 23.19 48.35 31.15 20.89
+
+the lowest computation time among joint reconstruction and calibration methods, even outperforming the baseline [48]. The reduction in computation time compared to the base-line mainly arises from the absence of the total variation (TV) regularization term in our formulation. 
+
+5.4. Ablation Studies 
+
+We evaluate the reconstruction performance of our method against the baseline splat-based algorithm [48] under differ-ent levels of pose perturbation and varying numbers of in-put views. As shown in Table 3, both methods achieve high reconstruction accuracy in the absence of pose errors. How-ever, as the perturbation level increases, the baseline perfor-mance rapidly deteriorates, while our method maintains sta-ble results thanks to its self-calibrating design. Table 5 sum-marizes the results under pose perturbations ( σrot = 0 .03 ,
+
+σtrans = 1 .0) across 75, 50, and 25 views. As the num-ber of views decreases, reconstruction quality drops for both methods, yet our approach consistently outperforms the baseline. These results demonstrate the robustness of our joint calibration module in mitigating geometric mis-alignment while preserving fine structural details. 
+
+## 6. Limitation and Discussion 
+
+We further evaluate our method and the baseline method [48] under extremely sparse-view conditions (25 projections) with pose errors. Compared with the base-line (Figure 8(a)), our method still shows significantly fewer 
+
+Table 5. Quantitative comparison under geometric perturbations with different numbers of input views. Our method consistently outperforms the baseline [48] across 75, 50, and 25 views on syn-thetic datasets.                  
+
+> Views Baseline [48] Ours PSNR SSIM PSNR SSIM 75 28.50 0.820 33.42 0.906
+> 50 27.67 0.799 31.73 0.879
+> 25 26.44 0.764 29.02 0.810
+
+artifacts with the extremely sparse inputs (Figure 8(b)). However, ours starts to contain the needle-like artifacts due to the absence of the TV regularization. This suggests that Baseline Ours (a) (b) 
+
+> 0.0 0.5
+
+Figure 8. Comparison between the baseline [48] and ours from extremely sparse input projections (25 views) with geometric per-turbations. Our method reconstructs the volume with significantly fewer artifacts even under extreme conditions. 
+
+while our self-calibration framework consistently mitigates geometric misalignment, additional regularization strate-gies may be necessary for extreme sparse-view scenarios. Addressing this limitation to enhance reconstruction qual-ity in the extreme sparse inputs is future work. 
+
+## 7. Conclusion 
+
+We have presented an analysis method for localizing the root cause of stripe artifacts and a self-calibrating splat-based tomography framework that jointly optimizes volume reconstruction and geometric calibration. By introducing a differentiable loss with respect to camera parameters, our method corrects geometric errors and real-world misalign-ment in X-ray CT. Experiments demonstrate consistent re-construction accuracy in the presence of hardware-induced geometric faults, outperforming existing approaches. Our method is robust to pose errors and does not require pre-calibrated hardware. Furthermore, the estimated calibration parameters can be reused in other tomographic reconstruc-tion methods. 
+
+## Acknowledgements 
+
+Min H. Kim acknowledges the Samsung Research Funding & Incubation Center (SRFC-IT2402-02), the Korea NRF grant (RS-2024-00357548), the MSIT/IITP of Korea (RS-2022-00155620, RS-2024-00398830, RS-2024-00436680, and 2017-0-00072), the MSIT Advanced GPU Utilization Support Program, and Microsoft Research Asia, with addi-tional support by the KAIST Jang Young Sil Fellow Pro-gram. References 
+
+[1] A. H. Andersen and A. C. Kak. Simultaneous algebraic re-construction technique (sart): A superior implementation of the art algorithm. Ultrasonic Imaging , 6(1):81–94, 1984. PMID: 6548059. 1, 2 [2] Julia F Barrett and Nicholas Keat. Artifacts in ct: recognition and avoidance. Radiographics , 24(6):1679–1691, 2004. 2 [3] Ander Biguri, Manjit Dosanjh, Steven Hancock, and Manuchehr Soleimani. Tigre: a matlab-gpu toolbox for cbct image reconstruction. Biomedical Physics & Engineering Express , 2(5):055010, 2016. 5 [4] Yuanhao Cai, Jiahao Wang, Alan Yuille, Zongwei Zhou, and Angtian Wang. Structure-aware sparse-view x-ray 3d recon-struction. In CVPR , 2024. 1, 2, 5, 6 [5] Kyle M Champley, Michael B Zellner, Joseph W Tringe, and Harry E Martz Jr. Methods for few-view ct image recon-struction. arXiv preprint arXiv:2410.07552 , 2024. 2 [6] Linda CP Croton, Gary Ruben, Kaye S Morgan, David M Paganin, and Marcus J Kitchen. Ring artifact suppression in x-ray computed tomography using a simple, pixel-wise response correction. Optics express , 27(10):14231–14245, 2019. 2 [7] Youming Deng, Wenqi Xian, Guandao Yang, Leonidas Guibas, Gordon Wetzstein, Steve Marschner, and Paul De-bevec. Self-calibrating gaussian splatting for large field of view reconstruction. arXiv preprint arXiv:2502.09563 ,2025. 4, 5 [8] Lee A Feldkamp, Lloyd C Davis, and James W Kress. Prac-tical cone-beam algorithm. Journal of the Optical Society of America A , 1(6):612–619, 1984. 1, 2, 3, 5, 6, 7 [9] Massimiliano Ferrucci, Richard K Leach, Claudiu Giusca, Simone Carmignato, and Wim Dewulf. Towards geometrical calibration of x-ray computed tomography systems—a re-view. Measurement Science and Technology , 26(9):092003, 2015. 2 [10] Cong Gao, Anqi Feng, Xingtong Liu, Russell H Taylor, Mehran Armand, and Mathias Unberath. A fully differen-tiable framework for 2d/3d registration and the projective spatial transformers. IEEE transactions on medical imaging ,43(1):275–285, 2023. 2 [11] Design Guide. Cuda c programming guide. NVIDIA, July ,29:31, 2013. 5 [12] Jiang Hsieh. Computed tomography: principles, design, ar-tifacts, and recent advances. 2003. 1 [13] Jaehong Hwang, Hyeongseok Kim, Taewon Lee, Da in Choi, Taejin Kwon, and Seungryong Cho. Geometry calibration for a dental cone-beam ct system with an offset detector. Pre-cision Engineering , 79:264–276, 2023. 2 [14] Satu I Inkinen, AO Kotiaho, M Hanni, Miika T Nieminen, and Mikael AK Brix. Computed tomography artefact detec-tion using deep learning—towards automated quality assur-ance. In Nordic Conference on Digital Health and Wireless Solutions , pages 17–28. Springer, 2024. 2 [15] Avinash C Kak and Malcolm Slaney. Principles of comput-erized tomographic imaging . SIAM, 2001. 1 [16] Willi A Kalender, Robert Hebel, and Johannes Ebersberger. Reduction of ct artifacts caused by metallic implants. Radi-ology , 164(2):576–577, 1987. 2 [17] Bernhard Kerbl, Georgios Kopanas, Thomas Leimk¨ uhler, and George Drettakis. 3d gaussian splatting for real-time radiance field rendering. ACM Trans. Graph. , 42(4):139–1, 2023. 2, 3, 4 [18] Byeongjoon Kim, Hyunjung Shim, and Jongduk Baek. Astreak artifact reduction algorithm in sparse-view ct using a self-supervised neural representation. Medical physics , 49 (12):7497–7515, 2022. 2 [19] Y Kyriakou, R M Lapp, L Hillebrand, D Ertel, and W A Kalender. Simultaneous misalignment correction for approx-imate circular cone-beam computed tomography. Physics in Medicine & Biology , 53(22):6267, 2008. 2 [20] Anish Lahiri, Gabriel Maliakal, Marc L Klasky, Jeffrey A Fessler, and Saiprasad Ravishankar. Sparse-view cone beam ct reconstruction using data-consistent supervised and adver-sarial learning from scarce training data. IEEE Transactions on Computational Imaging , 9:13–28, 2023. 2 [21] Xiaokun Liang, Zhicheng Zhang, Tianye Niu, Shaode Yu, Shibin Wu, Zhicheng Li, Huailing Zhang, and Yaoqin Xie. Iterative image-domain ring artifact removal in cone-beam ct. Physics in Medicine & Biology , 62(13):5276, 2017. 2 [22] Changkun Liu, Shuai Chen, Yash Sanjay Bhalgat, HU Siyan, Ming Cheng, Zirui Wang, Victor Adrian Prisacariu, and Tris-tan Braud. Gs-cpr: Efficient camera pose refinement via 3d gaussian splatting. In The Thirteenth International Confer-ence on Learning Representations . 4 [23] Elena Loli Piccolomini. A comparison of regularization models for few-view ct image reconstruction. ANNALI DELL’UNIVERSITA’DI FERRARA , 68(2):385–396, 2022. 2 [24] Frederic Madesta, Thilo Sentker, Tobias Gauer, and Ren´ eWerner. Deep learning-based conditional inpainting for restoration of artifact-affected 4d ct images. Medical Physics , 51(5):3437–3454, 2024. 2 [25] Yuanzheng Meng, Hui Gong, and Xiaoquan Yang. Online geometric calibration of cone-beam computed tomography for arbitrary imaging objects. IEEE Transactions on Medical Imaging , 32(2):278–288, 2013. 2 [26] Esther Meyer, Rainer Raupach, Michael Lell, Bernhard Schmidt, and Marc Kachelrieß. Normalized metal artifact reduction (nmar) in computed tomography. Medical physics ,37(10):5482–5493, 2010. 2 [27] S Ouadah, J W Stayman, G J Gang, T Ehtiati, and J H Siew-erdsen. Self-calibration of cone-beam ct geometry using 3d–2d image registration. Physics in Medicine & Biology ,61(7):2613, 2016. 2 [28] Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban Desmaison, Andreas Kopf, Edward Yang, Zachary DeVito, Martin Rai-son, Alykhan Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu Fang, Junjie Bai, and Soumith Chintala. Pytorch: An im-perative style, high-performance deep learning library. 2019. 5[29] Prakhar Prakash and Sandeep Dutta. Deep learning-based ar-tifact detection for diagnostic ct images. In Medical Imaging 2019: Physics of Medical Imaging , pages 1055–1060. SPIE, 2019. 2 [30] Darius R¨ uckert, Yuanhao Wang, Rui Li, Ramzi Idoughi, and Wolfgang Heidrich. Neat: Neural adaptive tomography. 
+
+ACM Transactions on Graphics (TOG) , 41(4):1–13, 2022. 1, 2, 5, 6, 7, 8 [31] Darius R¨ uckert, Lorenz Butzhammer, Simon Wittl, Gabriel Herl, Tino Hausotte, and Philipp Kurth. Uncalibrated ct reconstruction for one-shot scanning of arbitrary trajecto-ries. In 13th conference on industrial computed tomography (iCT) , 2024. 2 [32] Jakub ˇ Salplachta, Tom´ aˇ s Zikmund, Marek Zemek, Adam Bˇ r´ ınek, Yoshihiro Takeda, Kazuhiko Omote, and Jozef Kaiser. Complete ring artifacts reduction procedure for lab-based x-ray nano ct systems. Sensors , 21(1):238, 2021. 2 [33] Dongbo Shi, Shen Cao, Lubin Fan, Bojian Wu, Jinhui Guo, Renjie Chen, Ligang Liu, and Jieping Ye. No parameters, no problem: 3d gaussian splatting without camera intrinsics and extrinsics. arXiv preprint arXiv:2502.19800 , 2025. 4 [34] Emil Y Sidky and Xiaochuan Pan. Image reconstruction in circular cone-beam computed tomography by constrained, total-variation minimization. Physics in Medicine & Biol-ogy , 53(17):4777, 2008. 1, 2 [35] Joan Sola, Jeremie Deray, and Dinesh Atchuthan. A micro lie theory for state estimation in robotics. arXiv preprint arXiv:1812.01537 , 2018. 5 [36] The Finnish Inverse Problems Society. X-ray tomographic datasets, 2024. 5, 6, 7 [37] Mareike Thies, Fabian Wagner, Noah Maul, Lukas Folle, Manuela Meier, Maximilian Rohleder, Linda-Sophie Schnei-der, Laura Pfaff, Mingxuan Gu, Jonas Utz, et al. Gradient-based geometry learning for fan-beam ct reconstruction. 
+
+Physics in Medicine & Biology , 68(20):205004, 2023. 2 [38] Mareike Thies, Noah Maul, Siyuan Mei, Laura Pfaff, Nas-tassia Vysotskaya, Mingxuan Gu, Jonas Utz, Dennis Pos-sart, Lukas Folle, Fabian Wagner, et al. Differentiable score-based likelihoods: Learning ct motion compensation from clean images. In International Conference on Medical Im-age Computing and Computer-Assisted Intervention , pages 253–263. Springer, 2024. [39] Mareike Thies, Fabian Wagner, Noah Maul, Haijun Yu, Manuela Goldmann Meier, Linda-Sophie Schneider, Mingx-uan Gu, Siyuan Mei, Lukas Folle, Alexander Preuhs, et al. A gradient-based approach to fast and accurate head motion compensation in cone-beam ct. IEEE Transactions on Med-ical Imaging , 2024. 1, 2, 5, 6, 7, 8 [40] Yanli Wang, Lianying Chao, Wenqi Shan, Haobo Zhang, Zhiwei Wang, and Qiang Li. Improving the quality of sparse-view cone-beam computed tomography via reconstruction-friendly interpolation network. In Proceedings of the Asian Conference on Computer Vision , pages 2255–2269, 2022. 2 [41] Markus Wedekind, Susana Castillo, and Marcus Magnor. Feature-sensitive ring artifact correction for computed to-mography. Journal of Nondestructive Evaluation , 42(1):5, 2023. 2 [42] Qing Wu, Lixuan Chen, Ce Wang, Hongjiang Wei, S Kevin Zhou, Jingyi Yu, and Yuyao Zhang. Unsupervised poly-chromatic neural representation for CT metal artifact reduc-tion. In Thirty-seventh Conference on Neural Information Processing Systems , 2023. 2 [43] Qing Wu, Xin Li, Hongjiang Wei, Jingyi Yu, and Yuyao Zhang. Joint rigid motion correction and sparse-view ct via self-calibrating neural field. In 2023 IEEE 20th International Symposium on Biomedical Imaging (ISBI) , pages 1–5. IEEE, 2023. 2 [44] Jingyan Xu and Benjamin M. W. Tsui. An analytical geo-metric calibration method for circular cone-beam geometry. 
+
+IEEE Transactions on Medical Imaging , 32(9):1731–1744, 2013. 2 [45] Kai Yang, Alexander L. C. Kwan, DeWitt F Miller, and John M Boone. A geometric calibration method for cone beam ct systems. Medical Physics , 33(6), 2006. 2 [46] Guangming Zang, Ramzi Idoughi, Rui Li, Peter Wonka, and Wolfgang Heidrich. Intratomo: self-supervised learning-based tomography via sinogram synthesis and prediction. In 
+
+Proceedings of the IEEE/CVF International Conference on Computer Vision , pages 1960–1970, 2021. 2 [47] Ruyi Zha, Yanhao Zhang, and Hongdong Li. Naf: neural attenuation fields for sparse-view cbct reconstruction. In In-ternational Conference on Medical Image Computing and Computer-Assisted Intervention , pages 442–452. Springer, 2022. 1, 2 [48] Ruyi Zha, Tao Jun Lin, Yuanhao Cai, Jiwen Cao, Yanhao Zhang, and Hongdong Li. R 2-gaussian: Rectifying radiative gaussian splatting for tomographic reconstruction. In Ad-vances in Neural Information Processing Systems (NeurIPS) ,2024. 1, 2, 3, 4, 5, 6, 8 [49] Qitao Zhao and Shubham Tulsiani. Sparse-view pose estima-tion and reconstruction via analysis by generative synthesis. In NeurIPS , 2024. 4 [50] M. Zwicker, H. Pfister, J. van Baar, and M. Gross. Ewa splatting. IEEE Transactions on Visualization and Computer Graphics , 8(3):223–238, 2002. 2, 4 Revisiting Pose Sensitivity in Splat-based Computed Tomography under Sparse-view Reconstruction 
+
+# Supplementary Material 
+
+## 1. Computation Time 
+
+Table 1 compares the computation times of the baseline method, NeAT [3], Thies et al. [6], and ours. Our ap-proach outperforms state-of-the-art joint calibration and re-construction methods. The baseline exhibits either lower or higher runtimes depending on the scene. Even though our method includes an additional calibration step, the compu-tation time does not notably increase, since our method does not include the volumetric TV regularization that requires costs, and the calibration stage significantly reduces recon-sruction errors, which saves computational costs. 
+
+Table 1. Computation time comparison in minutes.                                                                     
+
+> Computation time (min) Scene Baseline [8] NeAT [3] Thies et al. [6] Ours Chest 34.59 53.71 31.25 25.44
+> Foot 20.54 49.17 31.77 19.62
+> Head 26.03 51.43 31.01 22.10
+> Jaw 14.85 50.82 31.00 17.99 Pancreas 24.64 50.70 31.00 22.17
+> Beetle 9.27 36.41 31.00 13.58 Bonsai 20.64 45.15 30.76 19.17
+> Broccoli 29.21 50.16 31.25 23.18
+> Kingsnake 13.55 43.66 31.78 16.14 Pepper 38.50 50.97 31.00 29.10
+> Backpack 13.70 47.86 31.16 16.08 Engine 40.22 50.37 31.50 29.10
+> Mount 37.88 51.11 31.08 28.69
+> Present 12.85 50.29 30.99 15.80 Teapot 11.41 43.45 30.76 15.23 Mean 23.19 48.35 31.15 20.89
+
+## 2. Effect of View Count on FDK 
+
+We model cone-beam CT reconstruction via the FDK algo-rithm [2] as 
+
+x = R−1FDK 
+
+({yi}Ni=1 
+
+) , (1) where yi ∈ RM denotes the projection data for view i, x ∈
+
+RV is the reconstructed volume, and N is the number of projection views. The projection image yi is given by 
+
+yi = P (θi, ti) f + ϵi, (2) where P (θi, ti) is the forward projection operator parame-terized by the rotation θi and translation ti, f is the ground-truth object, and ϵi is a measurement noise. We now intro-duce geometry calibration errors: 
+
+ˆθi = θi + δθi, ˆti = ti + δti, (3) where δθi ∼ N (0 , Σθ ) and δti ∼ N (0 , Σt) are zero-mean Gaussian perturbations, independent across views. The re-construction with perturbed geometry is then 
+
+ˆx = R−1FDK 
+
+(
+
+{yi, ˆθi, ˆti}Ni=1 
+
+)
+
+. (4) For sufficiently small perturbations, the reconstruction error can be linearized by a first-order Taylor expansion: 
+
+ˆx − x ≈ 1
+
+N
+
+> N
+
+∑
+
+> i=1
+
+Ji δpi, (5) where δpi = [δθTi δtTi
+
+]T is the pose error vector for a view i, and Ji is the Jacobian of the reconstruction opera-tor with respect to the geometry parameters at the view i.Based on the independence of the Gaussians, we suppose 
+
+E[δpi] = 0 and Cov( δpi) = Σp, then the mean recon-struction error is zero: 
+
+E[ˆ x − x] ≈ 0. (6) The covariance of the reconstruction error is 
+
+Cov(ˆ x − x) ≈ 1
+
+N 2
+
+> N
+
+∑
+
+> i=1
+
+Ji Σp JTi . (7) If we further assume Ji ≈ J for all i, this simplifies to 
+
+Cov(ˆ x − x) ≈ 1
+
+N J Σ p JT . (8) The mean squared reconstruction error (MSE) is propor-tional to the trace of this covariance: 
+
+MSE ∝ 1
+
+N , (9) and therefore the root mean squared error (RMSE) scales as 
+
+RMSE ∝ 1
+
+√N . (10) Thus, under the assumption of independent, zero-mean Gaussian geometry perturbations, the RMSE of reconstruc-tion decreases proportionally to 1/√N as the number of views increases. 3. Validation of Synthetic Perturbation 
+
+In the dataset generation process, we model 3D rotation ma-trix R by sampling a Lie algebra ϕ = [ϕ1 ϕ2 ϕ3
+
+]T ∈
+
+so (3) from a normal distribution in the tangent space at 
+
+I3×3, given by: 
+
+R = exp ( ϕ∧) ∈ SO (3) , (11) where ϕ ∈ so (3) is a Lie algebra component, exp denotes the exponential map from the Lie algebra so (3) to the Lie group SO(3) and the hat operator ∧ maps a 3D vector to a skew-symmetric matrix [5]. Then, we generate R by sam-pling ϕ following the zero-mean Gaussian distribution be-low: 
+
+ϕ ∼ N (0 , σ 2
+
+> rot
+
+I3×3). (12) To compute the expected value of the rotation matrix, we leverage the Taylor series expansion of exp ( ϕ∧):
+
+E [R] = 
+
+> ∞
+
+∑
+
+> n=0
+
+1
+
+n! (ϕ∧)n . (13) For small σrot , we can approximate R ≈ I3×3 + ϕ∧ + 
+
+> 12
+
+(ϕ∧)2. Since 
+
+(ϕ∧)2 =
+
+
+
+−ϕ22 − ϕ23 ϕ1ϕ2 ϕ1ϕ3
+
+ϕ1ϕ2 −ϕ21 − ϕ23 ϕ2ϕ3
+
+ϕ1ϕ3 ϕ2ϕ3 −ϕ21 − ϕ22
+
+ , (14) 
+
+E [ϕ2
+
+> i
+
+] = σ2 
+
+> rot
+
+for i ∈ { 1, 2, 3} and E [ϕiϕj ] = 0 for i, j ∈{1, 2, 3} and i̸ = j, we obtain the expectation of second order term as: 
+
+E [ϕ∧] = 0, (15) 
+
+E
+
+[
+
+(ϕ∧)2]
+
+= −2σ2
+
+> rot
+
+I3×3, (16) 
+
+E [R] ≈ (1 − σ2
+
+> rot
+
+)I3×3. (17) Therefore, the expectation of R is approximately the iden-tity matrix with small σrot . In conclusion, we can gener-ate unbiased random translation and rotation perturbation via sampling from a normal distribution in the Euclidean and tangent space, respectively. 
+
+## 4. Comparison Details 
+
+In our evaluation experiments, we directly compare against NeAT [3] and Thies et al. [6], which are state-of-the-art joint calibration and reconstruction methods. 
+
+NeAT NeAT [3] introduces a hierarchical neural render-ing pipeline that supports both CBCT reconstruction and system calibration. To remain consistent with their origi-nal training configurations, we transform the projection im-ages into intensities using the Beer–Lambert law, with the maximum source intensity set to an unsigned 16-bit inte-ger value (65535). Notably, we experimentally confirmed that applying min–max normalization in log-scale, as done in the original implementation, degrades the output quality. Therefore, we omit this step by disabling it in the code. Us-ing these intensity images, we follow the training schedule of 40 epochs as specified in the original paper, while other configurations—such as the octree update strategy, learning rates, and regularization coefficients—are directly adopted from the released implementation. 
+
+Thies et al. Thies et al. [6] jointly reconstruct and cal-ibrate the CBCT using the gradient descent based on the filtered backprojection (FBP). In the paper, a score network is used to serve as a loss function to measure the quality of reconstruction. However, in their implementation, the score network is not given and the CBCT code is partially opened; only the differentiable FBP code is publicly available. We instead define the loss function that computes the L2-loss between the reconstructed volume and the reference volume created using the FBP and the dense (721) projections with-out geometric errors for fair comparison. Additionally, we implement the codes to import perspective projection ma-trices for each view, and the Ram-Lak filter to pre-filter the projections for the FBP. We set the number of iterations to 100 and the step-size to 5 that are empirically chosen that show the best performance. With these adjustments, we were able to successfully run both baseline methods and conduct a direct comparison against our approach. 
+
+## 5. Impact of Pose Calibration 
+
+To disentangle the effect of pose calibration from that of the underlying reconstruction model, we conduct experiments evaluating NeAT [3], Thies et al. [6], and our method under pose-perturbed inputs, both with and without pose calibra-tion enabled. As reported in Table 2, incorporating pose cal-ibration consistently improves reconstruction quality across all evaluated methods. Notably, our method with pose cal-ibration yields substantially larger gains, indicating that the performance improvement arises not only from the splat-based representation, but also from the effectiveness of the proposed pose calibration framework. 
+
+Table 2. Pose calibration effect (PSNR)                                 
+
+> NeAT Thies et al. Ours Scene Cal. Off Cal. On Cal. Off Cal. On Cal. Off Cal. On Beetle 31.64 32.99 28.12 29.03 33.15 40.48 Broccoli 15.94 16.58 16.69 19.80 22.21 30.20 Engine 16.81 17.69 16.66 19.39 24.69 31.60 Pancreas 24.31 25.48 19.90 22.09 26.51 30.04
+
+## 6. Comparisons with CT Novel View Synthesis Methods 
+
+We compare with X-Gaussian [1] and X-Field [7] by adapt-ing them to the CT reconstruction setting. We provide 75 input projections and synthesize 721 novel views, followed by ASD-POCS [4] reconstruction as in the original proto-cols. Quantitative results are reported in Table 3. 
+
+Table 3. Additional comparison results against CT NVS methods.                                                
+
+> X-Gaussian X-Field Ours Scene PSNR SSIM RMSE PSNR SSIM RMSE PSNR SSIM RMSE Beetle 18.88 0.673 0.1065 30.30 0.923 0.0286 40.48 0.990 0.0095
+> Broccoli 14.96 0.502 0.1787 18.99 0.686 0.1123 30.20 0.931 0.0309
+> Engine 15.36 0.418 0.1706 18.66 0.585 0.1167 31.60 0.874 0.0263
+> Pancreas 13.03 0.268 0.2230 23.06 0.620 0.0703 30.04 0.890 0.0315
+
+## 7. Reproducibility of Pose-induced Artifacts 
+
+To validate that the observed needle-like artifacts originate from pose inaccuracies, we perform a controlled reproduc-tion experiment by estimating pose errors from real sparse-view data and applying them to generate simulated projec-tions from the ground-truth volume, which are then recon-structed using the same baseline R 2-Gaussian [8] pipeline (Figure 1). As shown in Figure 1(b), the simulated re-0.0 
+
+0.5 
+
+With real data  With simulated data 
+
+(a)  (b) 
+
+Figure 1. Reproducibility of a real artifact. 
+
+construction reproduces artifact patterns consistent with the real result (Figure 1(a)), establishing a direct causal link be-tween pose errors and needle-like artifacts. 
+
+## 8. Limitation Analysis 
+
+We conduct an additional experiment under extremely sparse-view conditions by applying total variation (TV) reg-ularization. As shown in Figure 2, the needle-like artifacts are effectively suppressed; however, the volumetric textures become noticeably over-smoothed. This result illustrates a clear trade-off between artifact suppression and structural detail preservation, which is particularly critical in applica-tions such as medical imaging. We emphasize that this ex-periment is not intended to advocate the use of TV regular-ization in all cases, but rather to highlight the limitation of purely image-space regularization under severe view spar-sity. Geometry-aware regularization remains an important direction for future work. Baseline  Ours  
+
+> 0.0
+> 0.5
+> Ours+TV(0.5) Ours+TV(5.0) GT
+
+Figure 2. TV term impact under extreme sparse-view conditions. 
+
+## 9. Additional Results on Synthetic Dataset 
+
+We put additional figures for qualitative evaluation of ours against the SOTA joint reconstruction and calibration meth-ods (NeAT [3], Thies et al. [6]) as Figures 3, 4, and 5. Ours reconstructs detailed edge and homogeneous region better than others although the geometry misalignment is involved in input projection images. 
+
+## References 
+
+[1] Yuanhao Cai, Yixun Liang, Jiahao Wang, Angtian Wang, Yu-lun Zhang, Xiaokang Yang, Zongwei Zhou, and Alan Yuille. Radiative gaussian splatting for efficient x-ray novel view syn-thesis. In ECCV , 2024. 3 [2] Lee A Feldkamp, Lloyd C Davis, and James W Kress. Prac-tical cone-beam algorithm. Journal of the Optical Society of America A , 1(6):612–619, 1984. 1 [3] Darius R¨ uckert, Yuanhao Wang, Rui Li, Ramzi Idoughi, and Wolfgang Heidrich. Neat: Neural adaptive tomography. ACM Transactions on Graphics (TOG) , 41(4):1–13, 2022. 1, 2, 3, 4, 5, 6 [4] Emil Y Sidky and Xiaochuan Pan. Image reconstruction in cir-cular cone-beam computed tomography by constrained, total-variation minimization. Physics in Medicine & Biology , 53 (17):4777, 2008. 3 [5] Joan Sola, Jeremie Deray, and Dinesh Atchuthan. A mi-cro lie theory for state estimation in robotics. arXiv preprint arXiv:1812.01537 , 2018. 2 [6] Mareike Thies, Fabian Wagner, Noah Maul, Haijun Yu, Manuela Goldmann Meier, Linda-Sophie Schneider, Mingx-uan Gu, Siyuan Mei, Lukas Folle, Alexander Preuhs, et al. A gradient-based approach to fast and accurate head motion compensation in cone-beam ct. IEEE Transactions on Medi-cal Imaging , 2024. 1, 2, 3, 4, 5, 6 [7] Feiran Wang, Jiachen Tao, Junyi Wu, Haoxuan Wang, Bin Duan, Kai Wang, Zongxin Yang, and Yan Yan. X-field: A physically informed representation for 3d x-ray reconstruc-tion. In The Thirty-ninth Annual Conference on Neural In-formation Processing Systems . 3 [8] Ruyi Zha, Tao Jun Lin, Yuanhao Cai, Jiwen Cao, Yanhao Zhang, and Hongdong Li. R2-gaussian: Rectifying radia-tive gaussian splatting for tomographic reconstruction. In Ad-vances in Neural Information Processing Systems (NeurIPS) ,2024. 1, 3 Backpack Bonsai Chest Foot Ours NeAT Thies et al. Ground truth 
+
+26.41 24.06 25.31 24.64 24.67 21.16 20.30 22.32 32.19 30.05 30.44 30.57 
+
+> 0.9 0.0 0.8 0.0 0.6 0.0 1.0 0.0
+
+Figure 3. Comparison of reconstructed volume slices on the synthetic dataset with the pose perturbation. We compare our method against joint reconstruction and calibration approaches, including NeAT [3], and Thies et al. [6] across multiple objects. The numbers in the upper-left corners of each image indicate the PSNR values (dB) relative to the respective ground truth volume. Our method achieves higher PSNR values and better visual quality. Head Jaw Kingsnake Mount Ours NeAT Thies et al. Ground truth 
+
+28.33 24.63 33.92 21.98 22.84 24.80 27.46 19.50 34.84 32.38 38.16 31.13 
+
+> 0.6 0.0 0.5 0.0 0.4 0.0 0.8 0.0
+
+Figure 4. Comparison of reconstructed volume slices on the synthetic dataset with the pose perturbation. We compare our method against joint reconstruction and calibration approaches, including NeAT [3], and Thies et al. [6] across multiple objects. The numbers in the upper-left corners of each image indicate the PSNR values (dB) relative to the respective ground truth volume. Our method achieves higher PSNR values and better visual quality. Pepper Present Teapot Ours NeAT Thies et al. Ground truth 
+
+18.29 27.60 34.68 19.05 25.24 27.93 31.96 33.84 43.43 
+
+> 0.8 0.0 0.6 0.0 0.4 0.0
+
+Figure 5. Comparison of reconstructed volume slices on the synthetic dataset with the pose perturbation. We compare our method against joint reconstruction and calibration approaches, including NeAT [3], and Thies et al. [6] across multiple objects. The numbers in the upper-left corners of each image indicate the PSNR values (dB) relative to the respective ground truth volume. Our method achieves higher PSNR values and better visual quality.

@@ -1,0 +1,137 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-07T01:35:59.767120+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2608.04842v1",
+      "source": "arxiv",
+      "title": "RORA: Realistic Object Reconstruction with Articulation",
+      "abstract": "Replicating real-world environments into simulation by realistic visual representation like NeRF and 3D Gaussian Splatting (3DGS) has emerged as an effective strategy to reduce the sim-to-real gap in robot learning. However, implementing object articulation during the real-to-sim process is still a challenging task. Existing motion tracking or learning based articulation methods shows low success rates on complex kinematic structures having multiple joints. Furthermore, those methods require scan of dynamic motion of objects, which makes reconstruction process much complicated. In this work, we propose the first end-to-end pipeline that reconstructs simulation-ready assets with accurate articulation from a single static object video input through suggestion based human-in-the-loop process. Our approach exports a hybrid representation combining 3DGS for photorealistic rendering and mesh-based geometry for physical interaction. In the reconstruction process, our pipeline performs convex decomposition followed by user grouping for intuitive part segmentation, subsequently binding 3D Gaussians to the corresponding mesh parts. An Automatic Joint Suggestion Algorithm then calculates candidate joint axes from local boundary geometries and presents them to users for efficient articulated asset reconstruction. We have shown that our method achieves precise articulation results on partnet-mobility-v0 dataset and real objects. Additionally we presented a potential usage of our framework on robot learning, deploying the reconstructed assets in Unreal Engine and NVIDIA Isaac Sim, demonstrating real-time dexterous hand manipulation tasks.",
+      "authors": [
+        "Hyesung Lee",
+        "Youngseon Lee",
+        "Kyutae Lee",
+        "Dongjun Lee",
+        "Yongseok Lee"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.GR"
+      ],
+      "published": "2026-08-05T13:36:58+00:00",
+      "link": "https://arxiv.org/pdf/2608.04842v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "End-to-end object reconstruction with articulation using 3D Gaussian Splatting",
+      "llm_evidence_cn": "利用3DGS的带关节物体端到端重建",
+      "llm_evidence": "利用3DGS的带关节物体端到端重建",
+      "canonical_evidence": "利用3DGS的带关节物体端到端重建",
+      "llm_tldr_en": "End-to-end pipeline for reconstructing simulation-ready articulated objects from a single static video using 3D Gaussian Splatting, improving articulation accuracy in complex kinematic structures.",
+      "llm_tldr_cn": "针对机器人学习中真实到仿真过程难以复现物体关节结构的问题，本文提出首个端到端管线RORA，结合3D高斯泼溅与建议式人类交互，仅由单段静态物体视频即可重建带准确关节的仿真资产。该方法避免了动态扫描的复杂性，在复杂多关节结构上表现出更高的成功率和准确性，为机器人仿真资产生成提供了高效方案。",
+      "llm_tldr": "针对机器人学习中真实到仿真过程难以复现物体关节结构的问题，本文提出首个端到端管线RORA，结合3D高斯泼溅与建议式人类交互，仅由单段静态物体视频即可重建带准确关节的仿真资产。该方法避免了动态扫描的复杂性，在复杂多关节结构上表现出更高的成功率和准确性，为机器人仿真资产生成提供了高效方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.04581v1",
+      "source": "arxiv",
+      "title": "ACA-GS: Adaptive-Capacity Anchored Gaussian Splatting for Compact Dynamic Radiance Fields",
+      "abstract": "Recent advances in 4D Gaussian Splatting (4DGS) enable high-fidelity, real-time spatiotemporal rendering, but expose a fundamental trade-off between motion expressiveness and storage efficiency. While anchor-based designs achieve compactness through anchor-level parameter sharing, their rigid uniform parametrization enforces fixed Neural Gaussian counts and feature budgets per anchor. Consequently, insufficient fidelity is addressed by excessive anchor density, rather than lightweight, targeted increases in Neural Gaussian count or feature capacity, resulting in memory waste. To overcome this rigidity, we introduce an adaptive-capacity anchor-based framework that dynamically allocates the representational capacity based on local spatiotemporal demands. Adaptive Anchor Cardinality varies the number of Neural Gaussians per anchor, concentrating primitives in regions of high geometric or motion complexity while suppressing redundancy. In parallel, Adaptive Anchor Feature Masking modulates anchor-level feature channels, assigning rich features to complex regions and lightweight representations to simpler ones. Experiments on MPEG, Panoptic Sports, and N3DV datasets demonstrate substantial storage reduction without degrading visual quality. Notably, on challenging MPEG sequences with complex motion, our method achieves up to 1.5x higher compression than state-of-the-art anchor-based methods while preserving comparable quality.",
+      "authors": [
+        "Seunghyeon Song",
+        "Joo Chan Lee",
+        "Chanung Park",
+        "Jun Young Jeong",
+        "Minseo Lee",
+        "Eunbyung Park",
+        "Jong Hwan Ko"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-05T08:47:48+00:00",
+      "link": "https://arxiv.org/pdf/2608.04581v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "adaptive-capacity 3D Gaussian splatting for dynamic radiance fields",
+      "llm_evidence_cn": "面向动态辐射场的自适应容量3D高斯溅射",
+      "llm_evidence": "面向动态辐射场的自适应容量3D高斯溅射",
+      "canonical_evidence": "面向动态辐射场的自适应容量3D高斯溅射",
+      "llm_tldr_en": "ACA-GS proposes an adaptive-capacity anchored Gaussian splatting framework for 4D dynamic scenes, dynamically allocating Neural Gaussian counts and feature budgets per anchor to achieve compact storage without sacrificing fidelity.",
+      "llm_tldr_cn": "针对锚定式4D高斯溅射中均匀参数化导致存储浪费与表达能力受限的问题，ACA-GS提出自适应容量分配，依据局部时空复杂度动态调整每个锚点的神经高斯数量与特征预算，避免依赖过量锚点。实验表明该框架在显著提升动态辐射场紧凑性的同时保持高保真渲染，为高效4D高斯表示提供了新思路。",
+      "llm_tldr": "针对锚定式4D高斯溅射中均匀参数化导致存储浪费与表达能力受限的问题，ACA-GS提出自适应容量分配，依据局部时空复杂度动态调整每个锚点的神经高斯数量与特征预算，避免依赖过量锚点。实验表明该框架在显著提升动态辐射场紧凑性的同时保持高保真渲染，为高效4D高斯表示提供了新思路。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.04752v1",
+      "source": "arxiv",
+      "title": "Revisiting Pose Sensitivity in Splat-based Computed Tomography under Sparse-view Reconstruction",
+      "abstract": "X-ray computed tomography (CT) reconstructs volumetric representations of objects from projection images obtained by transmitting X-rays through a target. Recent splat-based tomography, which represents a volume as a continuous distribution of 3D Gaussians, has demonstrated both high reconstruction quality and fast convergence in cone-beam sparse-view CT. However, when deployed in real CT systems with limited and non-uniform view distributions, we observe distinctive streak and strip artifacts that are far more pronounced than in conventional reconstruction methods. Through detailed analysis, we show that these artifacts primarily originate from pose inaccuracies in the acquisition geometry rather than from view sparsity itself. We revisit pose sensitivity in the splatting formulation and derive a stable gradient-based framework that jointly refines geometric parameters during reconstruction. Our study not only identifies how pose perturbations propagate through the differentiable projection operator but also reveals why splat-based CT is particularly vulnerable to geometric misalignment. The resulting formulation remains lightweight and easily integrable into existing pipelines while substantially improving reconstruction fidelity under real-world sparse-view conditions.",
+      "authors": [
+        "Kiseok Choi",
+        "Hyeongjun Cho",
+        "Inchul Kim",
+        "Min H. Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-08-05T12:20:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.04752v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D Gaussian splatting based CT reconstruction",
+      "llm_evidence_cn": "基于3D高斯泼溅的CT重建",
+      "llm_evidence": "基于3D高斯泼溅的CT重建",
+      "canonical_evidence": "基于3D高斯泼溅的CT重建",
+      "llm_tldr_en": "This paper revisits pose sensitivity in splat-based computed tomography, finding that marked streak and strip artifacts in sparse-view reconstruction primarily originate from pose inaccuracies in acquisition geometry, not from view sparsity.",
+      "llm_tldr_cn": "基于3D高斯泼溅的锥束稀疏视图CT重建虽能获得高质量重建和快速收敛，但在真实CT系统的有限非均匀视图分布下会出现明显的条状伪影。本文通过分析指出，这些伪影主要源于采集几何中的姿态误差，而非视角稀疏性。该发现强调了姿态精度对splat重建质量的关键影响，为将其稳定部署于实际CT系统提供了方向。实验对比了传统重建方法，并验证了姿态校正的潜在价值，有助于后续开发更稳健的基于高斯泼溅的重建算法。",
+      "llm_tldr": "基于3D高斯泼溅的锥束稀疏视图CT重建虽能获得高质量重建和快速收敛，但在真实CT系统的有限非均匀视图分布下会出现明显的条状伪影。本文通过分析指出，这些伪影主要源于采集几何中的姿态误差，而非视角稀疏性。该发现强调了姿态精度对splat重建质量的关键影响，为将其稳定部署于实际CT系统提供了方向。实验对比了传统重建方法，并验证了姿态校正的潜在价值，有助于后续开发更稳健的基于高斯泼溅的重建算法。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
