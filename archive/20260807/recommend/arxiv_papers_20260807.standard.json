@@ -1,58 +1,53 @@
 {
   "mode": "standard",
-  "generated_at": "2026-08-07T01:35:59.767120+00:00",
+  "generated_at": "2026-08-07T20:47:26.892245+00:00",
   "stats": {
     "mode": "standard",
     "tag_count": 1,
-    "deep_divecandidates": 1,
+    "deep_divecandidates": 5,
     "deep_cap": 6,
-    "deep_selected": 1,
-    "quick_candidates": 2,
+    "deep_selected": 5,
+    "quick_candidates": 0,
     "quick_skim_target": 11,
-    "quick_selected": 2
+    "quick_selected": 0
   },
   "deep_dive": [
     {
-      "id": "2608.04842v1",
+      "id": "2608.06117v1",
       "source": "arxiv",
-      "title": "RORA: Realistic Object Reconstruction with Articulation",
-      "abstract": "Replicating real-world environments into simulation by realistic visual representation like NeRF and 3D Gaussian Splatting (3DGS) has emerged as an effective strategy to reduce the sim-to-real gap in robot learning. However, implementing object articulation during the real-to-sim process is still a challenging task. Existing motion tracking or learning based articulation methods shows low success rates on complex kinematic structures having multiple joints. Furthermore, those methods require scan of dynamic motion of objects, which makes reconstruction process much complicated. In this work, we propose the first end-to-end pipeline that reconstructs simulation-ready assets with accurate articulation from a single static object video input through suggestion based human-in-the-loop process. Our approach exports a hybrid representation combining 3DGS for photorealistic rendering and mesh-based geometry for physical interaction. In the reconstruction process, our pipeline performs convex decomposition followed by user grouping for intuitive part segmentation, subsequently binding 3D Gaussians to the corresponding mesh parts. An Automatic Joint Suggestion Algorithm then calculates candidate joint axes from local boundary geometries and presents them to users for efficient articulated asset reconstruction. We have shown that our method achieves precise articulation results on partnet-mobility-v0 dataset and real objects. Additionally we presented a potential usage of our framework on robot learning, deploying the reconstructed assets in Unreal Engine and NVIDIA Isaac Sim, demonstrating real-time dexterous hand manipulation tasks.",
+      "title": "Confidence matters: Leveraging Multi-view Geometric Priors for GS-based Reconstruction",
+      "abstract": "3D Gaussian splatting (3DGS) has emerged as a widely-used tool for novel view synthesis, offering real-time rendering in a sparse representation. However, the method's reliance on structure-from-motion initialization and photometric optimization can lead to suboptimal geometric reconstruction, particularly for objects with high specularity. In this work, we investigate the integration of geometric priors, in the form of predicted normal and depth maps, into the 3DGS framework to improve the reconstruction quality. We analyze the effect of incorporating these priors into GS-based methods and our evaluation reveals that multi-view predictions, as they are done by the recent visual geometry grounded transformer (VGGT), outperform single-view alternatives. A major factor is the existence of a confidence map for the estimations, which comes as a by-product of multi-view models and which can significantly improve the effectiveness of priors by weighting each prediction appropriately. Extensive experiments on standard benchmarks show consistent improvement in reconstruction quality and significant gains in complex scenes including specular objects.",
       "authors": [
-        "Hyesung Lee",
-        "Youngseon Lee",
-        "Kyutae Lee",
-        "Dongjun Lee",
-        "Yongseok Lee"
+        "Hongyu Zhou",
+        "Zorah Lähner"
       ],
-      "primary_category": "cs.RO",
+      "primary_category": "cs.CV",
       "categories": [
-        "cs.RO",
+        "cs.CV",
         "cs.GR"
       ],
-      "published": "2026-08-05T13:36:58+00:00",
-      "link": "https://arxiv.org/pdf/2608.04842v1",
+      "published": "2026-08-06T14:50:29+00:00",
+      "link": "https://arxiv.org/pdf/2608.06117v1",
       "tags": [
         "keyword:dgs-recon",
         "query:dgs-recon"
       ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "End-to-end object reconstruction with articulation using 3D Gaussian Splatting",
-      "llm_evidence_cn": "利用3DGS的带关节物体端到端重建",
-      "llm_evidence": "利用3DGS的带关节物体端到端重建",
-      "canonical_evidence": "利用3DGS的带关节物体端到端重建",
-      "llm_tldr_en": "End-to-end pipeline for reconstructing simulation-ready articulated objects from a single static video using 3D Gaussian Splatting, improving articulation accuracy in complex kinematic structures.",
-      "llm_tldr_cn": "针对机器人学习中真实到仿真过程难以复现物体关节结构的问题，本文提出首个端到端管线RORA，结合3D高斯泼溅与建议式人类交互，仅由单段静态物体视频即可重建带准确关节的仿真资产。该方法避免了动态扫描的复杂性，在复杂多关节结构上表现出更高的成功率和准确性，为机器人仿真资产生成提供了高效方案。",
-      "llm_tldr": "针对机器人学习中真实到仿真过程难以复现物体关节结构的问题，本文提出首个端到端管线RORA，结合3D高斯泼溅与建议式人类交互，仅由单段静态物体视频即可重建带准确关节的仿真资产。该方法避免了动态扫描的复杂性，在复杂多关节结构上表现出更高的成功率和准确性，为机器人仿真资产生成提供了高效方案。",
+      "llm_score": 9.0,
+      "llm_evidence_en": "Improves 3D Gaussian splatting reconstruction using multi-view geometric priors",
+      "llm_evidence_cn": "利用多视图几何先验提升三维高斯泼溅重建质量",
+      "llm_evidence": "利用多视图几何先验提升三维高斯泼溅重建质量",
+      "canonical_evidence": "利用多视图几何先验提升三维高斯泼溅重建质量",
+      "llm_tldr_en": "Integrates multi-view predicted normal and depth maps into 3D Gaussian splatting and shows that multi-view priors outperform single-view, improving reconstruction quality especially for specular objects.",
+      "llm_tldr_cn": "三维高斯泼溅凭借稀疏表示和实时渲染被广泛用于新视角合成，但其依赖运动恢复结构初始化与光度优化，在高光物体上常得到次优几何。该文系统分析了几何先验的集成方式，将多视图预测的法线图和深度图引入3DGS框架，发现基于视觉几何Transformer的多视图预测优于单视图预测，能显著提升重建质量。这项工作为GS类重建方法提供了有效的先验融合策略。",
+      "llm_tldr": "三维高斯泼溅凭借稀疏表示和实时渲染被广泛用于新视角合成，但其依赖运动恢复结构初始化与光度优化，在高光物体上常得到次优几何。该文系统分析了几何先验的集成方式，将多视图预测的法线图和深度图引入3DGS框架，发现基于视觉几何Transformer的多视图预测优于单视图预测，能显著提升重建质量。这项工作为GS类重建方法提供了有效的先验融合策略。",
       "llm_tags": [
         "query:dgs-recon"
       ],
       "matched_query_tag": "query:dgs-recon",
-      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
-      "matched_requirement_id": "req-5",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
       "selection_source": "fresh_fetch"
-    }
-  ],
-  "quick_skim": [
+    },
     {
       "id": "2608.04581v1",
       "source": "arxiv",
@@ -77,22 +72,21 @@
         "keyword:dgs-recon",
         "query:dgs-recon"
       ],
-      "llm_score": 7.0,
-      "llm_evidence_en": "adaptive-capacity 3D Gaussian splatting for dynamic radiance fields",
-      "llm_evidence_cn": "面向动态辐射场的自适应容量3D高斯溅射",
-      "llm_evidence": "面向动态辐射场的自适应容量3D高斯溅射",
-      "canonical_evidence": "面向动态辐射场的自适应容量3D高斯溅射",
-      "llm_tldr_en": "ACA-GS proposes an adaptive-capacity anchored Gaussian splatting framework for 4D dynamic scenes, dynamically allocating Neural Gaussian counts and feature budgets per anchor to achieve compact storage without sacrificing fidelity.",
-      "llm_tldr_cn": "针对锚定式4D高斯溅射中均匀参数化导致存储浪费与表达能力受限的问题，ACA-GS提出自适应容量分配，依据局部时空复杂度动态调整每个锚点的神经高斯数量与特征预算，避免依赖过量锚点。实验表明该框架在显著提升动态辐射场紧凑性的同时保持高保真渲染，为高效4D高斯表示提供了新思路。",
-      "llm_tldr": "针对锚定式4D高斯溅射中均匀参数化导致存储浪费与表达能力受限的问题，ACA-GS提出自适应容量分配，依据局部时空复杂度动态调整每个锚点的神经高斯数量与特征预算，避免依赖过量锚点。实验表明该框架在显著提升动态辐射场紧凑性的同时保持高保真渲染，为高效4D高斯表示提供了新思路。",
+      "llm_score": 8.0,
+      "llm_evidence_en": "Compact 4D Gaussian splatting reconstruction with adaptive capacity allocation",
+      "llm_evidence_cn": "自适应容量分配的紧凑4D高斯泼溅重建",
+      "llm_evidence": "自适应容量分配的紧凑4D高斯泼溅重建",
+      "canonical_evidence": "自适应容量分配的紧凑4D高斯泼溅重建",
+      "llm_tldr_en": "ACA-GS adaptively allocates Neural Gaussian counts and feature budgets per anchor based on local spatiotemporal complexity, yielding compact dynamic radiance fields with better fidelity.",
+      "llm_tldr_cn": "锚点式4DGS虽能实现紧凑重建，但均匀参数化导致容量分配僵化，资源浪费。ACA-GS根据局部时空复杂度动态调整每个锚点的神经高斯数量与特征预算，以轻量定向增量替代整体加密。实验表明在相同或更低存储下重建质量优于固定容量方法，为动态场景的紧凑表示提供了自适应方案。这种方法能够在表达力与存储效率之间取得更好的折中，尤其适合处理运动复杂度差异较大的动态场景。",
+      "llm_tldr": "锚点式4DGS虽能实现紧凑重建，但均匀参数化导致容量分配僵化，资源浪费。ACA-GS根据局部时空复杂度动态调整每个锚点的神经高斯数量与特征预算，以轻量定向增量替代整体加密。实验表明在相同或更低存储下重建质量优于固定容量方法，为动态场景的紧凑表示提供了自适应方案。这种方法能够在表达力与存储效率之间取得更好的折中，尤其适合处理运动复杂度差异较大的动态场景。",
       "llm_tags": [
         "query:dgs-recon"
       ],
       "matched_query_tag": "query:dgs-recon",
-      "matched_query_text": "3D Gaussian splatting reconstruction",
-      "matched_requirement_id": "req-1",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "7"
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
     },
     {
       "id": "2608.04752v1",
@@ -116,22 +110,98 @@
         "keyword:dgs-recon",
         "query:dgs-recon"
       ],
-      "llm_score": 6.0,
-      "llm_evidence_en": "3D Gaussian splatting based CT reconstruction",
-      "llm_evidence_cn": "基于3D高斯泼溅的CT重建",
-      "llm_evidence": "基于3D高斯泼溅的CT重建",
-      "canonical_evidence": "基于3D高斯泼溅的CT重建",
-      "llm_tldr_en": "This paper revisits pose sensitivity in splat-based computed tomography, finding that marked streak and strip artifacts in sparse-view reconstruction primarily originate from pose inaccuracies in acquisition geometry, not from view sparsity.",
-      "llm_tldr_cn": "基于3D高斯泼溅的锥束稀疏视图CT重建虽能获得高质量重建和快速收敛，但在真实CT系统的有限非均匀视图分布下会出现明显的条状伪影。本文通过分析指出，这些伪影主要源于采集几何中的姿态误差，而非视角稀疏性。该发现强调了姿态精度对splat重建质量的关键影响，为将其稳定部署于实际CT系统提供了方向。实验对比了传统重建方法，并验证了姿态校正的潜在价值，有助于后续开发更稳健的基于高斯泼溅的重建算法。",
-      "llm_tldr": "基于3D高斯泼溅的锥束稀疏视图CT重建虽能获得高质量重建和快速收敛，但在真实CT系统的有限非均匀视图分布下会出现明显的条状伪影。本文通过分析指出，这些伪影主要源于采集几何中的姿态误差，而非视角稀疏性。该发现强调了姿态精度对splat重建质量的关键影响，为将其稳定部署于实际CT系统提供了方向。实验对比了传统重建方法，并验证了姿态校正的潜在价值，有助于后续开发更稳健的基于高斯泼溅的重建算法。",
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D Gaussian splatting is used for CT reconstruction; paper analyzes pose sensitivity in sparse-view setup",
+      "llm_evidence_cn": "使用3D高斯泼溅进行CT重建，分析稀疏视角下的位姿敏感性",
+      "llm_evidence": "使用3D高斯泼溅进行CT重建，分析稀疏视角下的位姿敏感性",
+      "canonical_evidence": "使用3D高斯泼溅进行CT重建，分析稀疏视角下的位姿敏感性",
+      "llm_tldr_en": "Revisits splat-based CT reconstruction and shows that streak artifacts under sparse views mainly originate from pose inaccuracies in acquisition geometry rather than view sparsity, guiding robust CT reconstruction.",
+      "llm_tldr_cn": "基于3D高斯泼溅的稀疏视角CT重建在合成数据上效果优良，但实际CT系统受有限且非均匀视角分布影响，出现远强于传统方法的条纹和条带伪影。本文通过分析指出，伪影主要来源于采集几何的位姿不准确，而非稀疏视角本身。该发现为泼溅式CT重建在实际系统中的位姿校准与鲁棒性改进提供了重要依据。",
+      "llm_tldr": "基于3D高斯泼溅的稀疏视角CT重建在合成数据上效果优良，但实际CT系统受有限且非均匀视角分布影响，出现远强于传统方法的条纹和条带伪影。本文通过分析指出，伪影主要来源于采集几何的位姿不准确，而非稀疏视角本身。该发现为泼溅式CT重建在实际系统中的位姿校准与鲁棒性改进提供了重要依据。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.04842v1",
+      "source": "arxiv",
+      "title": "RORA: Realistic Object Reconstruction with Articulation",
+      "abstract": "Replicating real-world environments into simulation by realistic visual representation like NeRF and 3D Gaussian Splatting (3DGS) has emerged as an effective strategy to reduce the sim-to-real gap in robot learning. However, implementing object articulation during the real-to-sim process is still a challenging task. Existing motion tracking or learning based articulation methods shows low success rates on complex kinematic structures having multiple joints. Furthermore, those methods require scan of dynamic motion of objects, which makes reconstruction process much complicated. In this work, we propose the first end-to-end pipeline that reconstructs simulation-ready assets with accurate articulation from a single static object video input through suggestion based human-in-the-loop process. Our approach exports a hybrid representation combining 3DGS for photorealistic rendering and mesh-based geometry for physical interaction. In the reconstruction process, our pipeline performs convex decomposition followed by user grouping for intuitive part segmentation, subsequently binding 3D Gaussians to the corresponding mesh parts. An Automatic Joint Suggestion Algorithm then calculates candidate joint axes from local boundary geometries and presents them to users for efficient articulated asset reconstruction. We have shown that our method achieves precise articulation results on partnet-mobility-v0 dataset and real objects. Additionally we presented a potential usage of our framework on robot learning, deploying the reconstructed assets in Unreal Engine and NVIDIA Isaac Sim, demonstrating real-time dexterous hand manipulation tasks.",
+      "authors": [
+        "Hyesung Lee",
+        "Youngseon Lee",
+        "Kyutae Lee",
+        "Dongjun Lee",
+        "Yongseok Lee"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.GR"
+      ],
+      "published": "2026-08-05T13:36:58+00:00",
+      "link": "https://arxiv.org/pdf/2608.04842v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Realistic object reconstruction with articulation using 3D Gaussian Splatting from static video",
+      "llm_evidence_cn": "基于静态视频和3D高斯泼溅的带关节物体真实感重建",
+      "llm_evidence": "基于静态视频和3D高斯泼溅的带关节物体真实感重建",
+      "canonical_evidence": "基于静态视频和3D高斯泼溅的带关节物体真实感重建",
+      "llm_tldr_en": "RORA is an end-to-end pipeline that reconstructs simulation-ready articulated assets from a single static object video using 3DGS, avoiding dynamic scans and improving success on complex kinematic structures.",
+      "llm_tldr_cn": "将真实物体复现到仿真中常需NeRF/3DGS等真实感表示，但现有物体关节化重建方法成功率低且需动态扫描。RORA提出首个端到端流水线，仅从静态物体视频输入，通过建议引导生成带准确关节结构的仿真就绪资产。它结合3DGS表示和关节估计，避免了对物体动态运动的复杂扫描过程。实验显示RORA在复杂多关节结构上成功率显著高于现有方法。该工作简化了具身智能仿真数据生成流程。",
+      "llm_tldr": "将真实物体复现到仿真中常需NeRF/3DGS等真实感表示，但现有物体关节化重建方法成功率低且需动态扫描。RORA提出首个端到端流水线，仅从静态物体视频输入，通过建议引导生成带准确关节结构的仿真就绪资产。它结合3DGS表示和关节估计，避免了对物体动态运动的复杂扫描过程。实验显示RORA在复杂多关节结构上成功率显著高于现有方法。该工作简化了具身智能仿真数据生成流程。",
       "llm_tags": [
         "query:dgs-recon"
       ],
       "matched_query_tag": "query:dgs-recon",
       "matched_query_text": "3D Gaussian splatting reconstruction",
       "matched_requirement_id": "req-1",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "6"
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.05704v1",
+      "source": "arxiv",
+      "title": "G$^2$ARD-GS: Geometry-Guided Anchor-Regularized Gaussian Splatting Distillation",
+      "abstract": "Dense colored LiDAR maps provide accurate city-scale geometry, but lifting them into 3D Gaussian Splatting (3DGS) retains millions of primitives, making the resulting models costly to store, transmit, render, and adapt. Aggressive primitive reduction alleviates this burden, but can remove the local surface support needed for stable novel-view synthesis and downstream geometric use. We introduce G$^2$ARD-GS, a geometry-guided distillation method that converts a dense Gaussian prior instantiated either as a training-free point-cloud lift or a trained GS model into a compact, reusable representation. G$^2$ARD-GS progressively consolidates the prior into surface-aware representatives, then recovers appearance on the resulting fixed topology under construction-time anchor constraints, with no primitives added or removed during recovery. Under limited supervision, geometry-aware view selection allocates the available view budget. On MatrixCity, G$^2$ARD-GS achieves the best PSNR, SSIM, and LPIPS across matched $5\\times$--$30\\times$ compression budgets, outperforming PUP by $3.2$--$6.8$,dB in PSNR. When reused as frozen geometry, the compact model improves off-trajectory appearance adaptation by $3.7$--$4.9$,dB over PUP 3D-GS and preserves image-to-model registration accuracy on Cambridge KingsCollege at $30\\times$ compression. Project page: https://patrick1159.github.io/gardGS-page/.",
+      "authors": [
+        "Puyuan Zhang",
+        "Jianming Huang",
+        "Wenkai Ye",
+        "Wei Dong"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-06T07:46:49+00:00",
+      "link": "https://arxiv.org/pdf/2608.05704v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Gaussian splatting distillation compresses dense 3DGS priors for efficient reconstruction and rendering",
+      "llm_evidence_cn": "高斯泼溅蒸馏压缩密集3DGS先验，服务高效重建与渲染",
+      "llm_evidence": "高斯泼溅蒸馏压缩密集3DGS先验，服务高效重建与渲染",
+      "canonical_evidence": "高斯泼溅蒸馏压缩密集3DGS先验，服务高效重建与渲染",
+      "llm_tldr_en": "Proposes G2ARD-GS, a geometry-guided distillation method that consolidates dense Gaussian priors into compact surface-aware 3DGS representations, balancing primitive reduction with local surface support for stable novel-view synthesis.",
+      "llm_tldr_cn": "针对密集城市场景3D高斯泼溅模型基元数量庞大、存储与渲染开销高的问题，提出G2ARD-GS几何引导蒸馏方法。该方法将密集高斯先验逐步合并为表面感知的紧凑代表基元，并恢复外观。实验表明，在大幅削减基元数量的同时，能稳定支持新视角合成与下游几何应用，为3DGS高效重建提供了一种可复用的压缩蒸馏方案。",
+      "llm_tldr": "针对密集城市场景3D高斯泼溅模型基元数量庞大、存储与渲染开销高的问题，提出G2ARD-GS几何引导蒸馏方法。该方法将密集高斯先验逐步合并为表面感知的紧凑代表基元，并恢复外观。实验表明，在大幅削减基元数量的同时，能稳定支持新视角合成与下游几何应用，为3DGS高效重建提供了一种可复用的压缩蒸馏方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
     }
-  ]
+  ],
+  "quick_skim": []
 }
