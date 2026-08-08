@@ -6,36 +6,33 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-07
-- 运行时间：2026-08-07 20:49:45 UTC
+- 最新运行日期：2026-08-08
+- 运行时间：2026-08-08 20:08:38 UTC
 - 运行状态：成功
-- 本次总论文数：5
-- 精读区：5
-- 速读区：0
+- 本次总论文数：3
+- 精读区：1
+- 速读区：2
 
 ### 今日简报（AI）
-今日精读5篇，聚焦高斯泼溅方向，其中2篇获高分推荐；最值得关注的是利用多视角几何先验提升重建置信度的新方法（9.0分），以及面向动态辐射场的自适应容量高斯泼溅压缩方案（8.0分）；建议优先精读这两篇，前者适合理解几何约束对重建质量的影响，后者则适合关注动态场景的存储效率优化。
-- 详情：[/202608/07/README](/202608/07/README)
+今日精读 3D 语言高斯泼溅 UAV 户外场景论文，另速读两篇主动重建与椭球稀疏体渲染方法。
+
+最值得关注的是 OutLangSplat（8.0/10），聚焦无人机户外场景的 3D 语言建模，适合多模态空间理解。
+
+建议先读这篇高分精读论文，同时可留意另两篇作为重建效率与采样策略的补充。
+- 详情：[/202608/08/README](/202608/08/README)
 
 ### 精读区论文标签
-1. [Confidence matters: Leveraging Multi-view Geometric Priors for GS-based Reconstruction](/202608/07/2608.06117v1-confidence-matters-leveraging-multi-view-geometric-priors-for-gs-based-reconstruction)  
-   标签：评分：9.0/10、query:dgs-recon
-   evidence：利用多视图几何先验提升三维高斯泼溅重建质量
-2. [ACA-GS: Adaptive-Capacity Anchored Gaussian Splatting for Compact Dynamic Radiance Fields](/202608/07/2608.04581v1-aca-gs-adaptive-capacity-anchored-gaussian-splatting-for-compact-dynamic-radiance-fields)  
+1. [OutLangSplat: 3D Language Gaussian Splatting for UAV Outdoor Scenes](/202608/08/2608.04560v1-outlangsplat-3d-language-gaussian-splatting-for-uav-outdoor-scenes)  
    标签：评分：8.0/10、query:dgs-recon
-   evidence：自适应容量分配的紧凑4D高斯泼溅重建
-3. [Revisiting Pose Sensitivity in Splat-based Computed Tomography under Sparse-view Reconstruction](/202608/07/2608.04752v1-revisiting-pose-sensitivity-in-splat-based-computed-tomography-under-sparse-view-reconstruction)  
-   标签：评分：8.0/10、query:dgs-recon
-   evidence：使用3D高斯泼溅进行CT重建，分析稀疏视角下的位姿敏感性
-4. [RORA: Realistic Object Reconstruction with Articulation](/202608/07/2608.04842v1-rora-realistic-object-reconstruction-with-articulation)  
-   标签：评分：8.0/10、query:dgs-recon
-   evidence：基于静态视频和3D高斯泼溅的带关节物体真实感重建
-5. [G$^2$ARD-GS: Geometry-Guided Anchor-Regularized Gaussian Splatting Distillation](/202608/07/2608.05704v1-g2ard-gs-geometry-guided-anchor-regularized-gaussian-splatting-distillation)  
-   标签：评分：8.0/10、query:dgs-recon
-   evidence：高斯泼溅蒸馏压缩密集3DGS先验，服务高效重建与渲染
+   evidence：基于三维高斯泼溅的重建方法，并嵌入语言特征用于户外场景
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [GO-PRE: Goal-Oriented Next-Best-View Selection via Predictive Rendering Entropy for Active 3D Reconstruction](/202608/08/2607.29037v1-go-pre-goal-oriented-next-best-view-selection-via-predictive-rendering-entropy-for-active-3d-reconstruction)  
+   标签：评分：6.0/10、query:dgs-recon
+   evidence：通过预测渲染熵进行下一最佳视角选择，适用于主动3D重建
+2. [ESVR: 3D Ellipsoid-based Sparse Volume Rendering via Structure-aware Primitive Learning and Per-primitive Ray Sampling](/202608/08/2608.05564v1-esvr-3d-ellipsoid-based-sparse-volume-rendering-via-structure-aware-primitive-learning-and-per-primitive-ray-sampling)  
+   标签：评分：6.0/10、query:dgs-recon
+   evidence：将3D高斯泼溅扩展到椭球基元的稀疏体绘制
 
 
 <div class="dpr-home-promo-card">

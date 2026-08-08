@@ -1,0 +1,54 @@
+{
+  "label": "2026-08-08",
+  "date": "2026-08-08",
+  "generated_at": "2026-08-08T20:08:44",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202608/08/2608.04560v1-outlangsplat-3d-language-gaussian-splatting-for-uav-outdoor-scenes",
+      "section": "deep",
+      "title_en": "OutLangSplat: 3D Language Gaussian Splatting for UAV Outdoor Scenes",
+      "authors": "Xia Yan, He Wu, Yanghui Xu, Zizhao Wu, Jiazhou Chen",
+      "date": "2026-08-05",
+      "pdf": "https://arxiv.org/pdf/2608.04560v1",
+      "score": "8.0",
+      "evidence": "基于三维高斯泼溅的重建方法，并嵌入语言特征用于户外场景",
+      "tldr": "现有3D语言高斯泼溅方法局限于室内或小规模场景，在UAV户外场景中因严重遮挡和远距离视角导致语义激活错误、目标响应缺失。OutLangSplat提出2D-3D双分支表示与区域对齐融合，提升空间一致性；并设计无需训练的贡献与一致性感知特征聚合策略，抑制不可靠响应。在四个真实UAV户外数据集上，开放词汇语义分割与实例定位均超越SOTA，且首个提供该场景的开放词汇3D理解数据集。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Language Gaussian Splatting embeds open-vocabulary language features into 3D Gaussian Splatting, providing an efficient explicit representation for text-driven 3D scene understanding. However, existing methods are limited to indoor or small-scale scenes, and tend to fail in Unmanned Aerial Vehicle (UAV) outdoor scenes, where severe occlusions and long distance viewpoints often lead to incorrect semantic activations and missing target responses. In this paper, we present OutLangSplat which adapts language Gaussian representations to UAV outdoor scenes by improving feature representation and aggregation reliability. For the feature representation, a 2D-3D dual-branch representation with region-based alignment and fusion is designed to improve spatial consistency, reducing incomplete target responses and background misactivations. For the feature aggregation, we introduce a training-free contribution and consistency-aware Gaussian feature aggregation strategy that leverages pixel contribution reliability and cross-view semantic consistency to suppress unreliable responses from noisy viewpoints. A new dataset is provided by manually annotating various objects on four real-world public UAV outdoor scene datasets. To the best of our knowledge, it is the first accessible dataset of open-vocabulary 3D scene understanding for UAV outdoor scenes. Quantitative evaluations and ablation studies demonstrate that OutLangSplat outperforms SOTA methods on both open-vocabulary semantic segmentation and instance localization tasks. The datasets and codes will be open-sourced.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/08/2607.29037v1-go-pre-goal-oriented-next-best-view-selection-via-predictive-rendering-entropy-for-active-3d-reconstruction",
+      "section": "quick",
+      "title_en": "GO-PRE: Goal-Oriented Next-Best-View Selection via Predictive Rendering Entropy for Active 3D Reconstruction",
+      "authors": "Yan Song, Zhihao Li, Chenglong Li, Li He, Yan Wang, Wenqiang Zhang",
+      "date": "2026-07-31",
+      "pdf": "https://arxiv.org/pdf/2607.29037v1",
+      "score": "6.0",
+      "evidence": "通过预测渲染熵进行下一最佳视角选择，适用于主动3D重建",
+      "tldr": "主动三维重建需在有限采集预算下选择视角，但现有方法采用参数不确定性或几何启发式等替代信号，与最终渲染保真度目标不一致。为此提出GO-PRE框架，将目标表述为用户指定目标视角流形上平均边际预测熵的减少，直接优化预测空间信息增益，并支持交互式目标与实时计算。实验表明，GO-PRE在多个基准上持续提升重建性能，并提供比现有方法更可靠的不确定性量化，为主动重建提供了目标导向的新方案。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Active 3D reconstruction relies on active view selection to maximize reconstruction fidelity under limited capture budgets. However, most existing methods rely on surrogate signals such as parameter uncertainty or geometric heuristics, but these signals are often misaligned with the ultimate goal: the fidelity of rendered predictions. We propose GO-PRE, a goal-oriented next-best-view selection framework that explicitly targets information gain in the prediction space. Specifically, we formulate the objective as maximizing the reduction of the average marginal predictive entropy over a user-specified target view manifold. GO-PRE supports interactive goal specification and yields an efficient acquisition rule that enables real-time computation of information gain. Extensive experiments across benchmarks demonstrate that GO-PRE consistently improves active reconstruction performance and provides more reliable uncertainty quantification compared to state-of-the-art methods.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/08/2608.05564v1-esvr-3d-ellipsoid-based-sparse-volume-rendering-via-structure-aware-primitive-learning-and-per-primitive-ray-sampling",
+      "section": "quick",
+      "title_en": "ESVR: 3D Ellipsoid-based Sparse Volume Rendering via Structure-aware Primitive Learning and Per-primitive Ray Sampling",
+      "authors": "Suemin Jeon, Youjin Kim, Jungwoo Park, Kyungryun Lee, Won-Ki Jeong",
+      "date": "2026-08-06",
+      "pdf": "https://arxiv.org/pdf/2608.05564v1",
+      "score": "6.0",
+      "evidence": "将3D高斯泼溅扩展到椭球基元的稀疏体绘制",
+      "tldr": "大规模稀疏体数据可视化面临计算和内存开销大的挑战，现有3DGS方法从渲染图像学习导致信息损失且缺乏传递函数控制。ESVR直接在三维空间学习体数据，采用可微椭球原语、结构感知学习和逐原语光线采样，实现快速准确的传递函数映射，并引入分块优化与幽灵椭球支持大规模数据。实验表明，ESVR实现高达四个数量级压缩和43-223 FPS实时渲染，同时保持重建质量，为稀疏体数据高效渲染提供新方案。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Efficient representation and rendering of large-scale sparse volumetric data remain challenging in scientific visualization, as meaningful structures often occupy only a small fraction of the spatial domain. While direct volume rendering (DVR) provides high-quality visualization, its computational and memory costs scale poorly with data size. Recent advances in 3D Gaussian Splatting (3DGS) address this challenge by representing volumetric scenes with compact geometric primitives, enabling efficient, high-fidelity rendering. However, existing 3DGS-based methods learn from DVR rendered images rather than raw volumes, leading to information loss and limiting flexible transfer function control for interactive exploration. To address these limitations, we propose ESVR, an ellipsoid-based sparse volume rendering framework that directly learns and renders volumetric data in 3D space. Our method combines differentiable ellipsoidal primitives with bounded support, structure-aware primitive learning with complementary pruning, and a per-primitive ray sampling strategy for fast and accurate transfer function mapping. To support large-scale datasets, we further introduce a chunk-based optimization scheme with ghost ellipsoids, providing boundary context during training. Across large sparse datasets, ESVR achieves up to four orders of magnitude compression and real-time rendering at 43-223 FPS while maintaining competitive reconstruction quality.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
