@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-10 <!--dpr-date:20260810-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/10/2608.07144v1-instancesplat-instance-aware-feed-forward-3d-gaussian-splatting-for-scene-understanding" data-sidebar-item="{&quot;title&quot;: &quot;InstanceSplat: Instance-Aware Feed-Forward 3D Gaussian Splatting for Scene Understanding&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.07144v1-instancesplat-instance-aware-feed-forward-3d-gaussian-splatting-for-scene-understanding&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;前馈3D高斯泼溅用于可泛化的3D重建&quot;}">InstanceSplat: Instance-Aware Feed-Forward 3D Gaussian Splatting for Scene Understanding</a>
   * 2026-08-08 <!--dpr-date:20260808-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/08/2608.04560v1-outlangsplat-3d-language-gaussian-splatting-for-uav-outdoor-scenes" data-sidebar-item="{&quot;title&quot;: &quot;OutLangSplat: 3D Language Gaussian Splatting for UAV Outdoor Scenes&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.04560v1-outlangsplat-3d-language-gaussian-splatting-for-uav-outdoor-scenes&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;基于三维高斯泼溅的重建方法，并嵌入语言特征用于户外场景&quot;}">OutLangSplat: 3D Language Gaussian Splatting for UAV Outdoor Scenes</a>
