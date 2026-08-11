@@ -1,0 +1,864 @@
+Title: Splat-Based Metal Artifact Reduction in Cone-Beam CT via Compact Attenuation Modeling
+
+URL Source: https://arxiv.org/pdf/2608.04764v1
+
+Published Time: Thu, 06 Aug 2026 01:07:30 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+# Splat-Based Metal Artifact Reduction in Cone-Beam CT via Compact Attenuation Modeling 
+
+## Kiseok Choi Jaemin Cho Inchul Kim Min H. Kim KAIST 
+
+{kschoi;jmcho;ickim;mhkim }@vclab.kaist.ac.kr 
+
+## Abstract 
+
+X-ray computed tomography (CT) suffers from severe metal artifacts when high-attenuation objects such as dental fill-ings or orthopedic implants are present. These artifacts originate from the polychromatic nature of X-rays, where attenuation varies strongly with photon energy and material composition, breaking the monochromatic assumption used by conventional reconstruction algorithms. Recent neu-ral rendering approaches attempt to address this mismatch through differentiable polychromatic projection models, but they still struggle with smoothness bias, loss of fine struc-tures, and prohibitive computation when extended to large-scale cone-beam CT. We introduce a splat-based metal ar-tifact reduction framework that incorporates a physically grounded polychromatic forward model into a continuous Gaussian representation for cone-beam CT. Each Gaussian encodes the energy-dependent attenuation of the underlying material using a compact material parameterization, which enables efficient joint optimization of geometric and mate-rial properties without relying on a metal mask. This com-pact attenuation formulation captures the essential varia-tion across biological tissues and metallic implants, allow-ing our model to explain metal-induced nonlinearity while preserving high-frequency structure. Experiments on simu-lated and real cone-beam CT scans show that our method converges significantly faster and suppresses metal arti-facts more effectively than existing reconstruction and neu-ral field-based approaches. 
+
+## 1. Introduction 
+
+X-ray computed tomography (CT) is a non-destructive imaging technique that recovers the internal structure of an object by transmitting X-rays through it and measuring the attenuated energy. The geometry of CT systems has evolved from parallel-beam to fan-beam, and more recently to cone-beam configurations [13, 14]. Cone-beam CT (CBCT) en-Polyner  Ours  
+
+> 0.00
+> 0.04
+> FDK LIMAR
+
+Figure 1. Qualitative comparison of CBCT reconstructions for a real walnut specimen containing inserted metal pins (highlighted in red). Each method is shown using a horizontal slice (top row) and a vertical slice (bottom row). FDK [8], when applied directly to the metal-inserted scan, produces strong beam hardening arti-facts including dark streaks, severe shading, and distorted inten-sities. LIMAR [15] reduces some streaks but noticeably degrades overall structural fidelity. Polyner [35] removes most streaks, how-ever it introduces blurring and oversmoothing that wipe out fine details near metal boundaries. In contrast, our method delivers the most faithful reconstruction, suppressing metal-induced artifacts while preserving crisp structural detail in both axial and sagittal views, demonstrating strong robustness under severe beam hard-ening in cone-beam CT. 
+
+ables volumetric reconstruction from a single rotation, mak-ing it widely used in medical diagnostics and industrial in-spection. Despite its efficiency, CBCT reconstruction is highly sensitive to inaccuracies in the underlying X-ray physics. In practice, the detected intensity follows a polychromatic 
+
+Beer–Lambert integration over the source spectrum and material-dependent attenuation coefficients. The attenua-tion of photons varies strongly with their energy and the ma-terial composition they traverse. Conventional reconstruc-tion algorithms, including Feldkamp–Davis–Kress (FDK) and analytical back-projection methods, assume monochro-matic attenuation, an assumption that breaks down in the presence of high-attenuation metals. This mismatch pro-duces nonlinear distortions in the projection data, result-arXiv:2608.04764v1 [cs.CV] 5 Aug 2026 ing in severe streaking and shading artifacts around metal-lic regions. The problem becomes especially pronounced in medical applications, where dental fillings or orthopedic implants introduce extreme beam hardening [3, 12, 27]. Many approaches have attempted to mitigate metal ar-tifacts in fan-beam CT [15, 19, 22, 35]. Early methods corrected corrupted projection bins or interpolated miss-ing regions, sometimes combined with image-domain pri-ors [15, 19]. Although simple, these heuristics are fragile, geometry dependent, and unable to explain the nonlinear physics induced by metal. More recent work has shifted to-ward model-based reconstruction using differentiable poly-chromatic forward projections. Neural field-based methods draw inspiration from NeRFs [20] and optimize a continu-ous attenuation function to match polychromatic measure-ments [22, 35]. However, such representations often ex-hibit noise amplification, and their computational cost be-comes prohibitive in full 3D cone-beam geometry. Gaus-sian splatting offers a more efficient and expressive alter-native for CBCT reconstruction, enabling faster optimiza-tion and improved structural detail [39]. However, existing splat-based methods are still limited to monochromatic at-tenuation models. In this work, we introduce a splat-based metal artifact reduction framework that incorporates not only a differen-tiable polychromatic forward projection model into a con-tinuous Gaussian representation, but also a differentiable reconstruction formulation that enables effective image-domain regularization. A key component of our method is a compact representation of energy-dependent material at-tenuation that captures essential variations across biological tissues and metallic implants using a physically grounded, low-dimensional model. This formulation enables efficient joint optimization of geometry and material properties, im-proving optimization stability, accelerating convergence, and effectively reducing metal-induced artifacts. Our main contributions are as follows: • We introduce a Gaussian-splatting-based CBCT recon-struction framework that incorporates both a physically grounded polychromatic forward-projection model and a differentiable reconstruction pipeline to achieve effective metal artifact reduction. • We propose a compact representation of energy-dependent attenuation that maintains physical realism while reducing the dimensionality of material optimiza-tion. • We provide a 3D CBCT dataset with realistic metal-induced artifacts and plan to release both the dataset and code upon publication. 
+
+## 2. Related Work 
+
+CBCT reconstruction. Cone-beam CT reconstruction has been a central topic in X-ray imaging since the mid-20th century. The FDK algorithm [8], a 3D extension of filtered back-projection based on the Fourier slice theorem, remains the industrial standard due to its simplicity and computa-tional efficiency. However, FDK relies on a monochro-matic attenuation assumption and uniform sampling, which makes it sensitive to interpolation errors and geometric in-consistencies, resulting in radial artifacts and limited recon-struction quality. Iterative reconstruction methods [1, 9, 10] cast CBCT as an inverse problem by repeatedly updating voxel intensities to minimize projection discrepancies. These methods al-low the integration of regularizers, such as total variation (TV) [6, 7, 37], which improve edge preservation and noise robustness. Yet, their reliance on voxel discretization and repeated forward and back projections leads to high compu-tational cost, making them impractical for high-resolution CBCT volumes. To move beyond voxel-based representations, recent work incorporates continuous neural fields. SAX-NeRF [4] uses transformer-based attention along projection rays to re-construct high-quality volumes, but optimization remains slow and memory-intensive. NAF [38] and NeAT [25] im-prove efficiency using octrees and the instant-NGP [21], achieving faster reconstructions but still exhibiting over-smoothing and blurry structures. R2-Gaussian [39] intro-duces Gaussian splatting with differentiable projection and Beer–Lambert modeling, providing both speed and fine de-tail. However, the method assumes a normalized volume space and relies on a monochromatic attenuation model, which prevents accurate modeling of real polychromatic X-ray physics and limits its ability to handle metal-induced nonlinearity. 
+
+Metal artifact reduction. Early metal artifact reduction techniques [15, 19] identify metal-corrupted regions in the sinogram and replace them with interpolated neighboring values to suppress streaking artifacts. Although simple and fast, these heuristic approaches are highly sensitive to metal size, shape, and placement, which leads to inconsistent be-havior across scans and an inability to model the underlying physics. Learning-based post-processing methods [16, 30–33] at-tempt to remove artifacts directly from reconstructed slices using neural networks. While they can improve visual qual-ity within the distribution of the training data, their depen-dence on supervised examples limits generalization under different imaging geometries, object compositions, or ac-quisition conditions. More physically grounded approaches incorporate dif-ferentiable CBCT models to enable physics-aware MAR [4, 39]. Polyner [35] embeds the source spectrum and metal masks as priors to estimate energy-dependent at-tenuation, but its reliance on metal segmentation and its NeRF backbone results in amplified noise and slow conver-gence. Diner [36] simplifies the problem using an energy-independent attenuation parameter, which reduces com-plexity at the cost of missing key polychromatic behavior. Park et al. [22] assume a linearly energy-dependent model, avoiding metal masks but oversimplifying the attenuation physics, which leaves noticeable residual artifacts. In contrast, our method introduces a splat-based, physics-driven polychromatic projection and differentiable reconstruction framework that does not require metal masks or computationally heavy volumetric rendering networks. Furthermore, our formulation naturally supports incorporat-ing image-domain priors. By leveraging a compact material representation within Gaussian splatting, our approach pre-serves sharp structural boundaries while accurately model-ing metal-induced nonlinear attenuation, resulting in more effective and efficient artifact reduction. 
+
+## 3. Background 
+
+Polychromatic forward projection. X-ray photons atten-uate according to the Beer–Lambert law: 
+
+I = I0 exp 
+
+
+
+−
+
+Z
+
+> L
+
+μ(l) dl 
+
+
+
+, (1) where I0 is the source intensity, μ(l) is the linear attenu-ation coefficient along the ray path L, and I is the detec-tor measurement. Taking the logarithm yields the standard monochromatic projection model: 
+
+P = − log II0
+
+=
+
+Z
+
+> L
+
+μ(l) dl. (2) Real X-ray sources, however, emit polychromatic spectra, and both the source and attenuation depend on photon en-ergy. The monochromatic model therefore fails to describe the true physical process. The correct formulation integrates attenuation over the entire energy spectrum E:
+
+P = − log 
+
+Z
+
+> E
+
+η(E) exp 
+
+
+
+−
+
+Z
+
+> L
+
+μ(l, E ) dl 
+
+
+
+dE, (3) where η(E) denotes the spectral distribution and filtration, and μ(l, E ) is the energy-dependent linear attenuation co-efficient (LAC). This coupling between energy and material composition produces the characteristic beam-hardening behavior observed in polychromatic CT and creates a strong physical prior for inferring material-specific attenuation. 
+
+Material attenuation. The linear attenuation coefficient can be factorized into mass density ρ and the mass attenua-tion coefficient (MAC) μρ(E) [26]: 
+
+μ(E) = ρ μ ρ(E). (4) The MAC is an intrinsic quantity determined solely by el-emental composition and photon energy. It does not de-pend on the material’s geometry or microstructure, and tab-ulated MAC curves are available for most materials through NIST [26]. The density ρ, in contrast, varies with physi-cal structure, such as variations in bone density across in-dividuals or the difference between soft tissue and corti-cal tissue. This decomposition separates a fixed, energy-dependent material signature from a variable, scene-specific density term. In our Gaussian-splatting representation, this structure-dependent density is encoded in the density pa-rameter of each Gaussian primitive, enabling us to model heterogeneous attenuation fields. 
+
+Splat-based reconstruction. In R 2-Gaussian [39], the attenuation field is modeled as a continuous sum of anisotropic Gaussian primitives: 
+
+μ(x) = 
+
+> M
+
+X
+
+> i
+
+δi exp 
+
+
+
+− 12 (x − pi)T Σ−1 
+
+> i
+
+(x − pi)
+
+
+
+, (5) where x is a spatial query point, M is the number of Gaus-sians, δi is the density of the ith Gaussian, and pi and Σi
+
+denote its center and covariance. The forward projection of a ray is computed by accumu-lating the contributions of all Gaussians along the ray path:              
+
+> P(ˆ x) =
+> Z
+> L
+> μ(l)dl
+> ≈
+> MX
+> i
+> s
+> 2π|˜Σi||ˆΣi|δiexp
+> 
+> −12 (ˆ x−ˆpi)TˆΣ−1
+> i(ˆ x−ˆpi)
+> 
+> ,
+
+(6) where ˆx is the pixel location, ˜Σi is the view-space covari-ance, ˆΣi is the projected covariance, and ˆpi is the projected center. The parameters δi, pi, and Σi are optimized so that Equation (6) matches the measured projections. After opti-mization, the final attenuation field is evaluated using Equa-tion (5), yielding a continuous reconstruction. 
+
+## 4. Method 
+
+Overview. 
+
+Our method extends Gaussian-splatting based CBCT re-construction [39] to perform metal artifact reduction by ex-plicitly modeling polychromatic X-ray physics. Figure 2 summarizes the overall pipeline. Instead of assuming a monochromatic source, we adopt the full polychromatic projection model in Equation (3), which integrates energy-dependent attenuation along each ray. Directly optimizing this formulation, however, is challenging due to its non-linear coupling between material properties and the X-ray spectrum. To make this optimization tractable, we assign each Gaussian primitive a compact material parameter that gov-erns its mass attenuation behavior across energy. This pa-rameter controls a low-dimensional approximation of the Projection:  𝑃𝑃 � 𝐱𝐱 , 𝐸𝐸 = − log �𝐸𝐸=0 𝐸𝐸max 𝜂𝜂 𝐸𝐸 exp − � 𝑖𝑖=1 𝑀𝑀 𝑓𝑓 𝑃𝑃 �𝐱𝐱 |𝐩𝐩𝑖𝑖 , 𝚺𝚺𝑖𝑖 𝛿𝛿𝑖𝑖𝜇𝜇𝜌𝜌 (𝑢𝑢𝑖𝑖 , 𝐸𝐸 )
+
+𝜇𝜇 𝐱𝐱 , 𝐸𝐸 = �𝑖𝑖=1 𝑀𝑀 𝑓𝑓 𝑅𝑅 𝐱𝐱 |𝐩𝐩𝑖𝑖 , 𝚺𝚺𝑖𝑖 𝛿𝛿𝑖𝑖𝜇𝜇 𝜌𝜌 (𝑢𝑢𝑖𝑖 , 𝐸𝐸 )Reconstruction: 
+
+ℒ = ℒ1 𝑃𝑃𝐺𝐺𝐺𝐺 , 𝑃𝑃 + 𝜆𝜆ssimℒssim 𝑃𝑃GT , 𝑃𝑃  + 𝜆𝜆1ℒTV 𝜇𝜇 𝑉𝑉 , 𝐸𝐸𝑒𝑒𝑒𝑒𝑒𝑒 Optimization loss:    
+
+> 𝐩𝐩𝑖𝑖 ,𝚺𝚺𝑖𝑖 ,𝛿𝛿𝑖𝑖 ,𝑢𝑢𝑖𝑖
+
+𝑢𝑢𝑖𝑖 
+
+𝜇𝜇 𝜌𝜌 (𝑢𝑢𝑖𝑖 , 𝐸𝐸 )
+
+𝐸𝐸               
+
+> 𝑖𝑖 : Index of a Gaussian primitive
+> 𝐸𝐸 : X-ray photon energy
+> M: Number of Gaussian primitives
+> 𝐩𝐩𝑖𝑖 : Center position of the Gaussian primitive
+> 𝚺𝚺𝑖𝑖 : Covariance of the Gaussian primitive
+> 𝛿𝛿𝑖𝑖 : Density of the Gaussian primitive
+> 𝑢𝑢𝑖𝑖 : Compact material parameter of the Gaussian primitive
+> 𝑓𝑓𝑅𝑅 ⋅ : Weight function for reconstruction
+> 𝑓𝑓 𝑃𝑃 ⋅: Weight function for projection
+> 𝜇𝜇 𝐱𝐱 ,𝐸𝐸 : Attenuation coefficient at 𝐱𝐱 and 𝐸𝐸 𝑃𝑃 � 𝐱𝐱 ,𝐸𝐸 : Pixel value of the projection image at �𝐱𝐱 and 𝐸𝐸 𝐱𝐱 : Voxel position of the reconstruction volume
+> �𝐱𝐱 : Pixel position of a projection image
+> 𝜂𝜂 𝐸𝐸 : X-ray spectrum response at 𝐸𝐸
+
+�𝐱𝐱 
+
+𝐱𝐱 Figure 2. Method overview. Instead of using the conventional monochromatic attenuation assumption, we introduce an energy-dependent formulation and additional compact material parameters for each Gaussian primitive to simulate energy-dependent attenuation. These parameters are jointly optimized along with the baseline Gaussian parameters during reconstruction. 
+
+MAC curve, allowing us to express the polychromatic forward model with significantly fewer variables while maintaining physical realism. As a result, our approach can jointly optimize geometric parameters and material-dependent attenuation in a mask-free manner, enabling ef-ficient and physically consistent metal artifact reduction within the Gaussian-splatting framework. 
+
+Compact material attenuation. In medical imaging, metallic implants introduce strong energy-dependent atten-uation. Among clinically used metals, titanium and iron are most common, with aluminum, chromium, cobalt, and nickel also appearing in specialized applications [3, 12, 27]. Biological tissues, in contrast, are largely composed of wa-ter, protein, lipid, and carbohydrate [28, 34], which results in a comparatively narrow range of mass attenuation coeffi-cients. Empirically, the MAC curves of common biologi-cal tissues and clinically relevant metals occupy a low-dimensional manifold. Although the absolute magnitude differs substantially between soft tissue and metal, the shape of the MAC curve across energy remains smooth and highly correlated. Leveraging this observation, we approximate the MAC of each Gaussian primitive using a quadratic B´ ezier curve whose control points represent the minimum, intermediate, and maximum MAC vectors ( bs, bm, bf ) ob-served across these materials: 
+
+μρ(ui, E ) = (1 − ui)2 bs(E) + 2(1 − ui)ui bm(E) + u2 
+
+> i
+
+bf (E),
+
+(7) where ui ∈ [0 , 1] is a continuous scalar that smoothly inter-polates along this material manifold. This compact representation offers three key benefits. First, it captures the dominant variation of real MAC curves across energy, since the difference between materials lies primarily in scale and curvature rather than in complex high-frequency patterns. Second, it provides a compact and smoothly varying parameterization that stabilizes the optimization of polychromatic attenuation within the Gaus-10 30 50 70 90 110 130 1      
+
+> 0123
+> log(MAC) (cm²/g)  Al Ti Cr Fe Co Ni Water Protein Carb. Lipid Bone
+> 10 30 50 70 90 110 130
+> Energy (keV)
+> u=0.432 u=0.804 u=0.872 u=0.936 u=0.960 u=1.000 u=0.134 u=0.039 u=0.061 u=0.000 u=0.334
+
+Figure 3. (a) Representative mass attenuation coefficients (MACs) from the NIST database [26] of biological and metallic materi-als. (b) A quadratic B´ ezier curve defined by minimum, intermedi-ate, and maximum MAC vectors closely approximates the MACs of real materials in (a), confirming that the real MACs lie on a smooth, low-dimensional manifold. 
+
+sian framework. Third, by encoding MAC variation in one scalar, it avoids spatially inconsistent attenuation estimates that arise when optimizing a high-dimensional material vec-tor at every primitive. To validate this formulation, we compare real MAC curves from NIST with their B´ ezier-approximated counter-parts (Figure 3). The interpolated curves reproduce both the magnitude and the shape of the energy-dependent atten-uation with high fidelity, indicating that a scalar parameter 
+
+ui is sufficient to approximate the physically relevant vari-ation of MACs. Prior work has also observed similar low-dimensional structure in energy-dependent attenuation for related tasks [17], supporting the feasibility of our compact modeling approach. 
+
+Polychromatic forward projection. The baseline ap-proach [39] reformulates the Beer–Lambert law into a Gaussian-based forward projection model (Equation (6)), but it assumes a monochromatic X-ray source and therefore cannot capture the energy-dependent attenuation responsi-ble for metal artifacts. We address this limitation by extend-ing the formulation to a fully polychromatic model (Equa-tion (8)), where the X-ray spectrum is explicitly integrated over energy:           
+
+> P(ˆ x, E ) = −log
+> Emax X
+> E=0
+> η(E) exp −
+> MX
+> i=1
+> fP(ˆ x|pi,Σi)δiμρ(ui, E )
+> !
+> ,
+
+(8) where η(E) is the X-ray spectrum response, and fP (ˆ x |
+
+pi, Σi) is the projection weight of the i-th Gaussian: fP (ˆ x |
+
+pi, Σi) =
+
+r 2π| ˜Σi|| ˆΣi| exp 
+
+
+
+− 12 (ˆ x − ˆpi)T ˆΣ−1 
+
+> i
+
+(ˆ x − ˆpi)
+
+
+
+.Here, δi denotes the density of the primitive, and μρ(ui, E )
+
+is the energy-dependent attenuation model controlled by its 
+
+compact material parameter ui. This formulation embeds a differentiable polychromatic Beer–Lambert law directly into the Gaussian splatting framework. To model the X-ray spectrum, we use η(E) generated by the SPEKTR simulator [24], following prior polychro-matic reconstruction studies [35, 36]. By jointly optimizing the compact material parameter ui along with all Gaussian primitives, our method adaptively captures diverse attenua-tion behaviors across tissue and metal, which enables effec-tive suppression of metal-induced artifacts. The attenuation field is reconstructed by aggregating all Gaussian contributions: 
+
+μ(x, E ) = 
+
+> M
+
+X
+
+> i=1
+
+fR(x | pi, Σi) δi μρ(ui, E ), (9) where the reconstruction weight is 
+
+fR(x | pi, Σi) = exp 
+
+
+
+− 12 (x − pi)T Σ−1 
+
+> i
+
+(x − pi)
+
+
+
+.
+
+This energy-aware reconstruction enables our method to ac-curately recover attenuation volumes across both biological tissue and metal regions, providing a physically consistent foundation for metal artifact reduction. Furthermore, we design the reconstruction pipeline to be fully differentiable, enabling seamless integration of image-domain priors. De-tailed derivations of the loss gradients with respect to the in-termediate variables in the reconstruction pipeline are pro-vided in the supplementary material. 
+
+Optimization. We optimize the per-Gaussian parame-ters {pi, Σi, δ i, u i | i = 1 , . . . , M }. where ui is the com-pact material parameter that controls the energy-dependent attenuation of each primitive. The overall objective com-bines a pixel-wise L1 loss, a structural similarity (SSIM) loss, and a total variation (TV) loss computed over ran-domly sampled voxel locations, following the baseline splat-based reconstruction [39]:        
+
+> Ltotal =L1(PGT , P ) + λ0LSSIM (PGT , P ) + λ1LTV (μ(V, E ef f )) ,
+
+(10) Here, V denotes voxel-grid query points. We set λ0 = 0 .25 
+
+and λ1 = 3 .0 in all experiments. Full gradient expres-sions for P and V with respect to the Gaussian parameters are provided in the supplemental material, enabling end-to-end backpropagation through our CUDA-based differen-tiable projection pipeline. After optimization, the final voxelized attenuation field is obtained using Equation (9). The reconstructed im-age is then computed at the effective energy Eeff =PNi=1 η(Ei)Ei, where N is the number of spectral bins, fol-lowing prior work [36]. 
+
+## 5. Evaluation 
+
+Implementation. We implement our method in Py-Torch [23] with CUDA [11]. The B´ ezier MAC basis is constructed from the NIST [26] attenuation curves of wa-ter, iron, and aluminum, assuming an operating spectrum of 10–90 keV. We use N = 15 uniformly spaced energy samples for spectrum integration and adopt the SPEKTR-generated spectral response η(E) following Polyner [35]. Gaussian initialization follows R 2-Gaussian [39]. 
+
+5.1. Validation 
+
+Dataset. We evaluate our method on three synthetic CBCT phantoms— Lung , Teeth , and Broccoli —constructed from the LIDC [2], X-plant [29], and ZCB100 [18] datasets, each containing inserted metal objects. The datasets are gener-ated using the synthetic projection pipeline introduced in prior work [5]. 
+
+Evaluation on synthetic dataset. Figure 4 shows qual-itative comparisons on three synthetic scenes. FDK [8] produces strong streak artifacts due to its monochromatic assumption, and Polyner [35] suppresses streaks but loses fine structures. Park et al. [22] yields heavily blurred results with incorrect intensity levels. Our method pre-serves structural details—clearly separating bone and soft tissue in Lung and retaining high-frequency textures in 
+
+Broccoli —while effectively removing metal artifacts. As reported in Table 2, our approach achieves the highest 3D PSNR and SSIM across all phantoms. LIMAR [15], NMAR [19], and Polyner improve over FDK but remain limited, whereas supervised baselines [31–33] fail to gener-alize due to domain gaps. We provide additional results on two synthetic scenes—a pancreas with titanium (Ti) and a pepper with iron (Fe)—in the supplementary material. 
+
+5.2. Real Experiment 
+
+Dataset. We acquire real CBCT scans using a Bruker SKYSCAN 1273 system at 90 kVp with 1.0 mm aluminum filtration. We construct four real datasets using readily available objects that mimic key anatomical characteristics: garlic (complex structures), enoki mushroom and blueberry (fine textures), and avocado (multiple internal materials). To represent soft-tissue and bone characteristics, we addi-tionally employ the chicken dataset from existing work [5]. FDK  Polyner  Park et al.  Ours 
+
+> 0.00
+> 0.04
+> 0.00
+> 0.08
+> 0.00
+> 0.04
+> Lung (Fe)
+> Teeth (Ti)
+> Broccoli (Al)
+> GT
+
+Figure 4. Axial (yellow), coronal (pink), and sagittal (green) slices from the three synthetic scenes are shown, with metal regions high-lighted in red. FDK produces severe streaking and shading artifacts. Polyner and Park et al. reduce some streaks but suffer from detail loss, contrast distortion, and heavy blurring (Park et al. displayed with a 0.12 intensity cap). In contrast, our method preserves fine structural details and effectively eliminates metal-induced artifacts, yielding the most faithful reconstruction across all scenes. 
+
+Furthermore, to evaluate our method on a human head–like structure, we also include the walnut dataset from the same work. Each specimen is scanned both with and without metal to capture metal-induced beam hardening, with the metal-free scans serving as a reference. Additional system details are provided in the supplemental material. 
+
+Evaluation on real dataset. Figure 5 shows reconstruction results on the real-world datasets. Similar to the synthetic experiments, FDK [8] produces strong streaking artifacts due to its monochromatic assumption. LIMAR [15] reduces Table 1. Efficiency comparison for joint reconstruction and metal artifact reduction methods. Ours is consistently faster across both synthetic and real datasets, achieving significant speedups over ex-isting polychromatic and neural-field–based methods.                                
+
+> Dataset Scene Polyner [35] Park et al. [22] Ours Synthetic Broccoli 1h 50m 02s 1h 48m 49s 28m 57s
+> Lung 1h 14m 34s 1h 12m 38s 41m 40s
+> Teeth 1h 15m 44s 1h 13m 41s 41m 14s
+> Real Walnut 1h 11m 58s 1h 10m 20s 30m 10s
+> Garlic 1h 30m 19s 1h 26m 34s 19m 54s
+> Avocado 1h 56m 49s 1h 50m 24s 27m 02s
+> Chicken 2h 02m 55s 2h 09m 43s 23m 36s
+> Enoki Mushroom 1h 33m 10s 1h 27m 54s 21m 11s
+> Blueberry 1h 33m 12s 1h 28m 12s 18m 52s
+
+some of the severe artifacts, particularly in the avocado scene, but leaves noticeable residual streaks. OSCNet [33] struggles to generalize beyond its training distribution, lead-ing to poor overall reconstruction quality. Polyner [35] achieves strong artifact suppression, yet it oversmooths important structural details, failing to capture the garlic’s fine internal texture and the chicken’s soft-tissue variations. Park et al. [22] also produce overly blurred reconstructions, losing high-frequency content across all scenes. In contrast, our method consistently removes metal-induced artifacts while preserving material-dependent density variations and high-frequency structural details, yielding the most faithful reconstructions across all real-world cases. 
+
+5.3. Computation Time 
+
+We compare the computation time of our method with state-of-the-art joint reconstruction and metal artifact reduction approaches in Table 1. All measurements are performed on an Intel Xeon 4214R CPU and an NVIDIA RTX A6000 GPU. Across all scenes, our method achieves an order-of-magnitude speedup, demonstrating the computational ad-vantage of the splat-based formulation and the compact ma-terial parameterization used in our polychromatic model. 
+
+## 6. Ablation 
+
+Component Contribution. We evaluate the impact of our polychromatic model and TV regularization. As shown in Table 4, the polychromatic model already yields a large im-provement over the baseline [39], and adding TV provides a small additional gain. 
+
+Number of spectrum components. We evaluate the effect of the number of spectral components N used for polychro-matic integration. As shown in Table 3, reconstruction qual-ity remains stable across a wide range of N , indicating that our compact material model is robust to the spectral sam-pling density. The differences between 7, 15, 31, and 63 samples are small, which suggests that the underlying atten-uation behavior is well captured even with relatively coarse sampling. We choose N = 15 as a practical operating point, 
+
+Table 2. Quantitative results on the synthetic CBCT datasets. We report 3D PSNR and SSIM for the Lung, Teeth, and Broccoli scenes (Figure 4). Our method achieves the highest reconstruction accuracy across all cases, demonstrating strong metal-artifact sup-pression and superior preservation of structural detail.                                                               
+
+> Method Lung Teeth Broccoli PSNR3D SSIM3D PSNR3D SSIM3D PSNR3D SSIM3D FDK [8] 17.21 0.905 17.71 0.885 18.00 0.963 LIMAR [15] 20.02 0.947 18.47 0.899 18.65 0.965 NMAR [19] 20.22 0.950 18.58 0.900 20.40 0.977 ACDNet [32] 13.89 0.655 9.21 0.436 14.36 0.939 DICDNet [31] 13.48 0.622 8.73 0.401 13.99 0.929 OSCNet [33] 13.39 0.615 8.67 0.392 13.81 0.922 Polyner [35] 20.63 0.977 20.74 0.970 21.60 0.990 Park et al. [22] 18.80 0.887 14.90 0.768 0.07 0.201 Ours 28.96 0.994 27.40 0.993 27.76 0.997
+
+Table 3. Effect of the number of spectral components on recon-struction performance. 
+
+# of Spec. Comp. ( N ) 7 15 31 63 PSNR3D 28.01 28.04 27.93 27.99 SSIM3D 0.994 0.995 0.994 0.994 
+
+Table 4. Ablation of the polychromatic model and TV regular-ization. Both components improve reconstruction quality over the baseline [39]. 
+
+Module PSNR3D SSIM3D Baseline 23.22 0.984 Baseline + Poly (Ours) 27.97 0.994 Baseline + Poly + TV (Ours) 28.04 0.995 
+
+since it provides the best balance between numerical accu-racy and computational efficiency, while further increasing 
+
+N yields negligible gains and slightly higher runtime. 
+
+## 7. Limitation 
+
+Our compact material model captures the dominant varia-tion in energy-dependent attenuation, yet it cannot repre-sent highly unusual materials or compounds whose MAC curves deviate significantly from the low-dimensional man-ifold shown in Figure 3. In practice, the X-ray spectrum cannot be measured directly because energy-integrating de-tectors are used. Following common practice and prior work [35], we therefore rely on physics-based spectrum simulation using SPEKTR [24]. Nevertheless, inaccura-cies in spectrum or filtration modeling may introduce resid-ual artifacts or global attenuation bias. In addition, while Gaussian splatting provides substantial efficiency, its per-formance depends on the density and placement of prim-itives, which may require tuning for extremely large vol-umes or highly anisotropic structures. Finally, our evalua-tion focuses on static CBCT scans; extending the method to dynamic or limited-angle acquisitions remains an open direction for future work. 
+
+## 8. Conclusion 
+
+We introduced a CBCT reconstruction framework that mit-igates metal-induced beam-hardening artifacts through ex-Blueberry     
+
+> Enoki Mushroom
+> Chicken
+> FDK Reference LIMAR Polyner Park et al. Ours OSCNET
+> 0.00
+> 0.04
+> 0.00
+> 0.04
+> 0.00
+> 0.04
+> 0.00
+> 0.04
+> 0.00
+> 0.04
+> Garlic
+> Avocado
+
+Figure 5. Real-data reconstruction results. FDK [8] produces strong streaking and shading artifacts. LIMAR [15] reduces some of these effects but leaves noticeable residuals. OSCNet [33] fails to generalize to unseen acquisition conditions and produces incorrect intensity distributions. Polyner [35] suppresses streaks but oversmooths fine structural details. Park et al. [22] yields heavily blurred reconstructions and does not recover the correct intensity scale due to its simplified polychromatic model. In contrast, our method effectively removes metal-induced artifacts while preserving material-dependent density variations and high-frequency structural details across all specimens. (For visualization, Park et al. is displayed with an intensity cap of 0.1 for avocado and 0.2 for the remaining scenes.) 
+
+plicit polychromatic modeling and a Gaussian-splatting for-mulation. Our method jointly estimates both scene struc-ture and energy-dependent attenuation parameters, all with-out relying on metal masks or paired supervision. Com-prehensive experiments on synthetic and real scans demon-strate that our approach surpasses state-of-the-art baselines in both reconstruction fidelity and artifact reduction. To fur-ther facilitate research on artifact-robust reconstruction, we also provide new CBCT datasets featuring realistic metal-induced artifacts. 
+
+## Acknowledgements 
+
+Min H. Kim acknowledges the Samsung Research Funding & Incubation Center (SRFC-IT2402-02), the Korea NRF grant (RS-2024-00357548), the MSIT/IITP of Korea (RS-2022-00155620, RS-2024-00398830, RS-2024-00436680, and 2017-0-00072), the MSIT Advanced GPU Utilization Support Pro-gram, and Microsoft Research Asia, with additional support by the KAIST Jang Young Sil Fellow Program. 
+
+## References 
+
+[1] A. H. Andersen and A. C. Kak. Simultaneous algebraic re-construction technique (sart): A superior implementation of the art algorithm. Ultrasonic Imaging , 6(1):81–94, 1984. 2 [2] Samuel G Armato III, Geoffrey McLennan, Luc Bidaut, Michael F McNitt-Gray, Charles R Meyer, Anthony P Reeves, Binsheng Zhao, Denise R Aberle, Claudia I Hen-schke, Eric A Hoffman, et al. The lung image database con-sortium (lidc) and image database resource initiative (idri): a completed reference database of lung nodules on ct scans. 
+
+Medical physics , 38(2):915–931, 2011. 5 [3] F Edward Boas, Dominik Fleischmann, et al. Ct artifacts: causes and reduction techniques. Imaging Med , 4(2):229– 240, 2012. 2, 4 [4] Yuanhao Cai, Jiahao Wang, Alan Yuille, Zongwei Zhou, and Angtian Wang. Structure-aware sparse-view x-ray 3d recon-struction. In CVPR , 2024. 2 [5] Kiseok Choi, Inchul Kim, Jaemin Cho, Hyeongjun Cho, and Min H. Kim. Splat-based metal artifact reduction in cone-beam ct via polychromatic modeling. Computer Graphics Forum (Proc. EUROGRAPHICS 2026) , 45(2):1–11, 2026. 5 [6] Ezgi Demircan-Tureyen and Mustafa E Kamasak. A dis-cretized tomographic image reconstruction based upon total variation regularization. Biomedical Signal Processing and Control , 38:44–54, 2017. 2 [7] Yi Du, Xiangang Wang, Xincheng Xiang, and Zhouping Wei. Evaluation of hybrid sart+ os+ tv iterative reconstruc-tion algorithm for optical-ct gel dosimeter imaging. Physics in Medicine & Biology , 61(24):8425, 2016. 2 [8] Lee A Feldkamp, Lloyd C Davis, and James W Kress. Prac-tical cone-beam algorithm. Journal of the Optical Society of America A , 1(6):612–619, 1984. 1, 2, 5, 6, 7, 8 [9] Peter Gilbert. Iterative methods for the three-dimensional reconstruction of an object from projections. Journal of The-oretical Biology , 36(1):105–117, 1972. 2 [10] Richard Gordon, Robert Bender, and Gabor T. Herman. Al-gebraic reconstruction techniques (art) for three-dimensional electron microscopy and x-ray photography. Journal of The-oretical Biology , 29(3):471–481, 1970. 2 [11] Design Guide. Cuda c programming guide. NVIDIA, July ,29:31, 2013. 5 [12] Nils Große Hokamp, Brendan Eck, Florian Siedek, Daniel Pinto Dos Santos, Jasmin A Holz, David Maintz, and Stefan Haneder. Quantification of metal artifacts in com-puted tomography: methodological considerations. Quanti-tative imaging in medicine and surgery , 10(5):1033, 2020. 2, 4[13] Avinash C Kak and Malcolm Slaney. Principles of comput-erized tomographic imaging . SIAM, 2001. 1 [14] Avinash C. Kak and Malcolm Slaney. Principles of Com-puterized Tomographic Imaging . Society for Industrial and Applied Mathematics, 2001. 1 [15] Willi A Kalender, Robert Hebel, and Johannes Ebersberger. Reduction of ct artifacts caused by metallic implants. Radi-ology , 164(2):576–577, 1987. 1, 2, 5, 6, 7, 8 [16] Haofu Liao, Wei-An Lin, S. Kevin Zhou, and Jiebo Luo. Adn: Artifact disentanglement network for unsupervised metal artifact reduction. IEEE Transactions on Medical Imaging , 39(3):634–643, 2020. 2 [17] Yong Long and Jeffrey A Fessler. Multi-material decompo-sition using statistical image reconstruction for spectral ct. 
+
+IEEE transactions on medical imaging , 33(8):1614–1626, 2014. 4 [18] Ting Luo, Changrong Shi, Xing Zhao, Yunsong Zhao, and Jinqiu Xu. Automatic synthesis of panoramic radiographs from dental cone beam computed tomography data. PloS one , 11(6):e0156976, 2016. 5 [19] Esther Meyer, Rainer Raupach, Michael Lell, Bernhard Schmidt, and Marc Kachelrieß. Normalized metal artifact reduction (nmar) in computed tomography. Medical physics ,37(10):5482–5493, 2010. 2, 5, 7 [20] Ben Mildenhall, Pratul P. Srinivasan, Matthew Tancik, Jonathan T. Barron, Ravi Ramamoorthi, and Ren Ng. Nerf: Representing scenes as neural radiance fields for view syn-thesis. In ECCV , 2020. 2 [21] Thomas M¨ uller, Alex Evans, Christoph Schied, and Alexan-der Keller. Instant neural graphics primitives with a multires-olution hash encoding. ACM Trans. Graph. , 41(4):102:1– 102:15, 2022. 2 [22] Hyoung Suk Park, Jin Keun Seo, and Kiwan Jeon. Implicit neural representation-based method for metal-induced beam hardening artifact reduction in x-ray ct imaging. Medical Physics . 2, 3, 5, 7, 8 [23] Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban Desmaison, Andreas Kopf, Edward Yang, Zachary DeVito, Martin Rai-son, Alykhan Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu Fang, Junjie Bai, and Soumith Chintala. Pytorch: An im-perative style, high-performance deep learning library. 2019. 5[24] J Punnoose, J Xu, A Sisniega, W Zbijewski, and JH Siew-erdsen. Technical note: spektr 3.0—a computational tool for x-ray spectrum. Medical Physics , 43(8):4711–4717, 2016. 5, 7 [25] Darius R¨ uckert, Yuanhao Wang, Rui Li, Ramzi Idoughi, and Wolfgang Heidrich. Neat: Neural adaptive tomography. 
+
+ACM Transactions on Graphics (TOG) , 41(4):1–13, 2022. 2[26] EB Saloman, JH Hubbell, and JH Scofield. X-ray attenuation cross sections for energies 100 ev to 100 kev and elements z= 1 to z= 92, 1988. 3, 4, 5 [27] Mark Selles, Jochen AC van Osch, Mario Maas, Martijn F Boomsma, and Ruud HH Wellenberg. Advances in metal artifact reduction in ct images: A review of traditional and novel metal artifact reduction techniques. European Journal of Radiology , 170:111276, 2024. 2, 4 [28] Jack Valentin. Basic anatomical and physiological data for use in radiological protection: reference values: Icrp publi-cation 89: Approved by the commission in september 2001. 
+
+Annals of the ICRP , 32(3-4):1–277, 2002. 4 [29] Pieter Verboven, Bart Dequeker, Jiaqi He, Michiel Pieters, Leroi Pols, Astrid Tempelaere, Leen Van Doorselaer, Hans Van Cauteren, Ujjwal Verma, Hui Xiao, et al. www. x-plant. org-the ct database of plant organs. In 6th Symposium on X-ray Computed Tomography: Inauguration of the KU Leuven XCT Core Facility, Location: Leuven, Belgium , 2022. 5 [30] Hong Wang, Yuexiang Li, Haimiao Zhang, Jiawei Chen, Kai Ma, Deyu Meng, and Yefeng Zheng. Indudonet: An in-terpretable dual domain network for ct metal artifact reduc-tion. In International Conference on Medical Image Com-puting and Computer-Assisted Intervention , pages 107–118. Springer, 2021. 2 [31] Hong Wang, Yuexiang Li, Nanjun He, Kai Ma, Deyu Meng, and Yefeng Zheng. Dicdnet: Deep interpretable convolu-tional dictionary network for metal artifact reduction in ct images. IEEE Transactions on Medical Imaging , 41(4):869– 880, 2022. 5, 7 [32] Hong Wang, Yuexiang Li, Deyu Meng, and Yefeng Zheng. Adaptive convolutional dictionary network for ct metal arti-fact reduction. In The 31st International Joint Conference on Artificial Intelligence . IEEE, 2022. 7 [33] Hong Wang, Qi Xie, Dong Zeng, Jianhua Ma, Deyu Meng, and Yefeng Zheng. Oscnet: Orientation-shared convolu-tional network for ct metal artifact learning. IEEE Trans-actions on Medical Imaging , 43(1):489–502, 2024. 2, 5, 7, 8[34] DR White, HQ Woodard, and SM Hammond. Average soft-tissue and bone models for use in radiation dosimetry. The British journal of radiology , 60(717):907–913, 1987. 4 [35] Qing Wu, Lixuan Chen, Ce Wang, Hongjiang Wei, S Kevin Zhou, Jingyi Yu, and Yuyao Zhang. Unsupervised poly-chromatic neural representation for CT metal artifact reduc-tion. In Thirty-seventh Conference on Neural Information Processing Systems , 2023. 1, 2, 3, 5, 7, 8 [36] Qing Wu, Xu Guo, Lixuan Chen, Yanyan Liu, Dongming He, Xudong Wang, Xueli Chen, Yifeng Zhang, S Kevin Zhou, Jingyi Yu, et al. Solving energy-independent density for ct metal artifact reduction via neural representation. arXiv preprint arXiv:2405.07047 , 2024. 3, 5 [37] Ru Xu. Total variation and tight frame iteration regulariza-tion based image reconstruction for short-scanning few-view computer tomography. 2019. 2 [38] Ruyi Zha, Yanhao Zhang, and Hongdong Li. Naf: neural attenuation fields for sparse-view cbct reconstruction. In In-ternational Conference on Medical Image Computing and Computer-Assisted Intervention , pages 442–452. Springer, 2022. 2 [39] Ruyi Zha, Tao Jun Lin, Yuanhao Cai, Jiwen Cao, Yanhao Zhang, and Hongdong Li. R 2-gaussian: Rectifying radiative gaussian splatting for tomographic reconstruction. In Ad-vances in Neural Information Processing Systems (NeurIPS) ,2024. 2, 3, 4, 5, 7 Splat-Based Metal Artifact Reduction in Cone-Beam CT via Compact Attenuation Modeling 
+
+# Supplementary Material 
+
+## 1. Derivation of Backward Propagation 
+
+We implement a custom CUDA [1] pipeline that enables automatic differentiation for both the discrete polychro-matic forward projection and reconstruction models, both of which are formulated using Gaussian primitives. 
+
+1.1. Projection Model 
+
+Our polychromatic forward projection is expressed as Equa-tion (1): 
+
+P (ˆ x) = − log 
+
+> N
+
+∑
+
+> k=1
+
+ηk exp 
+
+(
+
+−
+
+> M
+
+∑
+
+> i=1
+
+siGPi (ˆ x) δi μρ(ui, k )
+
+)
+
+(1) where 
+
+si =
+
+√
+
+2π| ˜Σi||Σi| ,GPi (ˆ x) = exp 
+
+(
+
+− 12 (ˆ x − ˆpi)T ˜Σ−1 
+
+> i
+
+(ˆ x − ˆpi)
+
+)
+
+,μρ(ui, k ) = (1 − ui)2 bs(k) + 2(1 − ui)ui bm(k) + u2 
+
+> i
+
+bf(k),ui ∈ [0 , 1] ,
+
+> N
+
+∑
+
+> k=1
+
+ηk = 1 .
+
+The baseline method [10] comprises a
+
+Rasterizer preprocess , which transforms each Gaussian’s position and shape according to the detector pixel coordinates, and a Rasterizer render , which computes the intensity projected onto each detector pixel. While we reuse the original implementation for the Rasterizer preprocess , we design a new 
+
+Rasterizer render module and manually derive gradients with respect to each intermediate parameter, as shown in Equations (2)–(5): 
+
+dL
+
+dδ i
+
+∣∣∣∣ˆx
+
+= dL
+
+dP · dP dδ i
+
+= dL
+
+dP ·
+
+( CA
+
+)
+
+(siGPi ), (2) 
+
+dL
+
+ds i
+
+∣∣∣∣ˆx
+
+= dL
+
+dP · dP ds i
+
+= dL
+
+dP ·
+
+( CA
+
+)
+
+(δiGPi ), (3) 
+
+dL
+
+dG Pi
+
+∣∣∣∣ˆx
+
+= dL
+
+dP · dP dG Pi
+
+= dL
+
+dP ·
+
+( CA
+
+)
+
+(siδi), (4) 
+
+dL
+
+du i
+
+∣∣∣∣ˆx
+
+= dL
+
+dP 
+
+( N∑
+
+> k=1
+
+dP dμ ρ(ui, k ) · dμ ρ(ui, k )
+
+du i
+
+)
+
+= dL
+
+dP ·
+
+( siGPi δi
+
+A
+
+) N∑
+
+> k=1
+
+Bk · dμ ρ(ui, k )
+
+du i
+
+, (5) where 
+
+A =
+
+> N
+
+∑
+
+> k=1
+
+Bk,Bk = ηk exp 
+
+(
+
+−
+
+> M
+
+∑
+
+> i=1
+
+si GPi (ˆ x) δi μρ(ui, k )
+
+)
+
+,C =
+
+> N
+
+∑
+
+> k=1
+
+(Bkμρ(ui, k )) ,dμ ρ(ui, k )
+
+du i
+
+= 2 
+
+[
+
+(1 − ui)( bm(k) − bs(k)) + ui(bf(k) − bm(k)) 
+
+]
+
+.
+
+All these equations are then implemented in the CUDA backward function. 
+
+1.2. Reconstruction Model 
+
+Our reconstruction is expressed as Equation (6): 
+
+μ(x, k ) = 
+
+> M
+
+∑
+
+> i=1
+
+GRi (x) δi μρ(ui, k ), (6) where 
+
+GRi (x) = exp 
+
+(
+
+− 12 (x − pi)T Σ−1 
+
+> i
+
+(x − pi)
+
+)
+
+.0 30 60 90 120 0.0 0.1 0.2 0.3                          
+
+> Response  90 kVp Al 0.5mm
+> Sampled SPEKTR
+> 030 60 90 120 0.0 0.1 0.2 0.3 90 kVp Al 1.0mm
+> Sampled SPEKTR
+> 030 60 90 120 0.0 0.1 0.2 0.3 90 kVp Cu 1.0mm
+> Sampled SPEKTR
+> 030 60 90 120 0.0 0.1 0.2 0.3 60 kVp Cu 0.5mm
+> Sampled SPEKTR
+> 030 60 90 120 0.0 0.1 0.2 0.3 90 kVp Cu 0.5mm
+> Sampled SPEKTR
+> 030 60 90 120
+> Photon Energy (keV)
+> 0.0 0.1 0.2 0.3 120 kVp Cu 0.5mm
+> Sampled SPEKTR
+
+Figure 1. Energy spectra generated using the SPEKTR simulator for various CT system configurations. Each curve represents the normalized photon distribution corresponding to a specific combination of tube voltage and filtration settings. The blue dots denote the 15 uniformly sampled energy components used by our method. 
+
+The baseline method [10] comprises a
+
+Voxelizer preprocess , which transforms each Gaussian’s position and shape according to the voxel grid coordinates, and a Voxelizer render , which computes the intensity accumulated within each voxel. While we reuse the original implementation for the Voxelizer preprocess , we design a new 
+
+Voxelizer render module and manually derive gradi-ents with respect to each intermediate parameter, as shown in Equations (7)–(9): 
+
+dL
+
+dδ i
+
+∣∣∣∣x
+
+=
+
+> N
+
+∑
+
+> k=1
+
+dL
+
+dμ (k) · dμ (k)
+
+dδ i
+
+=
+
+> N
+
+∑
+
+> k=1
+
+dL
+
+dμ (k) · GRi μρ(ui, k ), (7) 
+
+dL
+
+dG Ri
+
+∣∣∣∣x
+
+=
+
+> N
+
+∑
+
+> k=1
+
+dL
+
+dμ (k) · dμ (k)
+
+dG Ri
+
+=
+
+> N
+
+∑
+
+> k=1
+
+dL
+
+dμ (k) · δi μρ(ui, k ), (8) 
+
+dL
+
+du i
+
+∣∣∣∣x
+
+=
+
+> N
+
+∑
+
+> k=1
+
+dL
+
+dμ (k) · dμ (k)
+
+dμ ρ(ui, k ) · dμ ρ(ui, k )
+
+du i
+
+=
+
+> N
+
+∑
+
+> k=1
+
+dL
+
+dμ (k) · GRi δi · dμ ρ(ui, k )
+
+du i
+
+. (9) All these equations are then implemented in the CUDA backward function. 
+
+## 2. X-ray Spectrum 
+
+Our method relies on the X-ray spectrum response η(E),which depends on the CT system configuration used during data acquisition—specifically, the tube voltage, filter mate-rial, and filter thickness. Following prior work [9], we em-ploy the SPEKTR simulator [5] to generate polychromatic X-ray spectra at 1 keV resolution. The simulated spectra are subsequently resampled into 15 uniformly spaced energy components, matching the number of spectral bins used in our model. These interpolated spectral samples are then in-corporated into our polychromatic forward projection for-mulation. Figure 1 visualizes the energy-dependent spectra for the CT settings considered in our experiments. 
+
+## 3. Scanning and Reconstruction Configuration 
+
+Tables 1–2 summarize the scanning and reconstruction con-figurations used for both the synthetic and real datasets. To assess the robustness and generality of our method, we eval-uate performance across a wide range of acquisition set-tings, including variations in tube voltage, filtration, geom-etry, and object scale. These configurations closely follow the parameters of practical CBCT systems and ensure di-verse conditions for validating our polychromatic forward-projection and reconstruction framework. 
+
+## 4. Fairness of Comparison 
+
+Polyner [9] and Park et al. [4] are joint reconstruction and metal artifact reduction methods originally developed for 2D fan-beam geometry. To enable a fair compari-son with our 3D cone-beam method, we extend both im-Table 1. Scanning and reconstruction parameters for the synthetic datasets. The left three columns correspond to the main evaluation scenes, and the four rightmost columns denote the additional settings used in the supplementary experiments, including variations in tube voltage and filtration. All other geometric parameters are kept consistent across the datasets.                                                                                     
+
+> Parameters Synthetic Dataset
+> Lung Teeth Broccoli Lung (supple) Teeth (supple) Pancreas (supple) Pepper (supple) Source voltage (kV) 90 ←←60/90/120 ←90 ←
+> Filter (mm) Cu(1.0) Al(0.5) ←Cu(0.5) ←Cu(1.0) ←
+> Metal material Fe Ti Al Fe Ti ←Fe Volume resolution 256 ×256 ×256 ←←←←←←
+> Volume size (mm) 50.0 ×50.0 ×50.0 ←←←←←←
+> Angle range ( ◦)[0, 360) ←←←←←←
+> Number of angles 720 ←←←←←←
+> Detector resolution 512 ×512 ←←←←←←
+> Detector size (mm) 145.485 ←←←←←←
+> Source-to-object distance (mm) 200.962 ←←←←←←
+> Source-to-detector distance (mm) 501.309 ←←←←←←
+
+Table 2. Scanning and reconstruction parameters for the real datasets. Each object is scanned using high-resolution CBCT settings, with variations in object scale, and detector geometry inherent to the acquisition system. These diverse acquisition conditions enable a comprehensive evaluation of metal artifact behavior in real-world scenarios.                                                                               
+
+> Parameters Real Dataset
+> Walnut Avocado Chicken Garlic Enoki Mushroom Blueberry Source voltage (kV) 90 ←←←←←
+> Source current ( μA) 166 ←300 ←←←
+> Filter (mm) Al(1.0) ←←←←←
+> Metal material Fe ←←←←←
+> Volume resolution 256 ×256 ×256 ←←←←←
+> Volume size (mm) 40.0 ×40.0 ×40.0 60.0 ×60.0 ×60.0 120.0 ×120.0 ×120.0 80.0 ×80.0 ×80.0 ←←
+> Angle range ( ◦)[0, 360) ←←←←←
+> Number of angles 720 ←←←←←
+> Detector resolution 512 ×512 ←←←←←
+> Detector size (mm) 104.773 145.485 229.902 104.773 145.485 ←
+> Source-to-object distance (mm) 200.962 ←334.942 ←←←
+> Source-to-detector distance (mm) 501.309 ←←←←←
+
+Table 3. Quantitative comparison on additional synthetic scenes                                          
+
+> Method Pancreas (Ti) Pepper (Fe) PSNR3D SSIM3D PSNR3D SSIM3D FDK 23.99 0.974 11.92 0.894 LIMAR 26.76 0.985 16.33 0.952 NMAR 23.44 0.972 16.65 0.962 ACDNet 15.41 0.776 10.77 0.879 DICDNet 15.29 0.770 10.75 0.878 OSCNet 15.20 0.766 10.63 0.875 Polyner 28.17 0.992 22.30 0.995 Park et al. 15.77 0.695 12.69 0.863 Ours 33.73 0.998 25.13 0.997
+
+plementations to the cone-beam setting. LIMAR [2] and NMAR [3] are inherently applicable to 3D reconstruction and are therefore directly comparable. For learning-based methods (ACDNet [7], DICDNet [6], and OSCNet [8]), we use publicly available pre-trained models and apply them slice-wise to FDK-reconstructed volumes, following their original design. 
+
+## 5. Robustness to Tube Voltage Variation 
+
+To evaluate the stability of our method under different X-ray source energy conditions, we generated synthetic projection images at 60, 90, and 120 kVp and assessed the correspond-ing reconstruction quality. The Lung and Teeth scenes were simulated using a 0.5 mm Cu filter to match realistic CBCT acquisition settings. As shown in Figure 2, our method maintains consistent reconstruction performance across dif-ferent tube voltages, demonstrating strong robustness to variations in the underlying X-ray spectrum. 
+
+## 6. Additional Discussion 
+
+We compute 3D PSNR and SSIM to evaluate reconstruction quality on the synthetic dataset. For PSNR, the ground truth (GT) volume is defined using the effective energy described in the main paper, and—consistent with prior metal artifact reduction studies [4, 9]—the metric is computed over all regions excluding the metal mask. For real datasets, no re-liable GT is available; therefore, we report only qualitative comparisons rather than quantitative scores. 
+
+## 7. Additional Synthetic Results 
+
+We conducted additional experiments on two newly intro-duced synthetic scenes: a pancreas scene with titanium (Ti) GT Ours FDK  GT Ours FDK 
+
+> 0.00
+> 0.05
+> 0.00
+> 0.04
+> 0.00
+> 0.06
+> 0.00
+> 0.06
+> 0.00
+> 0.07
+> 0.00
+> 0.04
+
+Figure 2. Evaluation of reconstruction robustness under varying tube voltages (60, 90, and 120 kVp). Despite substantial changes in the underlying X-ray spectrum, our method consistently produces high-quality reconstructions. Rows 1–2 show results at 60 kVp, rows 3–4 at 90 kVp, and rows 5–6 at 120 kVp. 
+
+and a pepper scene with iron (Fe). Quantitative results, summarized in Table 3, show consistent improvements over all baseline methods. Qualitative results are shown in Fig-ure 4. 
+
+## 8. Additional Real Results 
+
+We provide additional orthogonal slices for the real-data re-sults in Figure 3. 
+
+## References 
+
+[1] Design Guide. Cuda c programming guide. NVIDIA, July ,29:31, 2013. 1 [2] Willi A Kalender, Robert Hebel, and Johannes Ebersberger. Reduction of ct artifacts caused by metallic implants. Radi-ology , 164(2):576–577, 1987. 3 [3] Esther Meyer, Rainer Raupach, Michael Lell, Bernhard Schmidt, and Marc Kachelrieß. Normalized metal artifact reduction (nmar) in computed tomography. Medical physics ,37(10):5482–5493, 2010. 3 [4] Hyoung Suk Park, Jin Keun Seo, and Kiwan Jeon. Implicit Blueberry     
+
+> Enoki Mushroom
+> Chicken
+> FDK Reference LIMAR Polyner Park et al. Ours OSCNET
+> 0.00
+> 0.04
+> 0.00
+> 0.04
+> 0.00
+> 0.04
+> 0.00
+> 0.04
+> 0.00
+> 0.04
+> Garlic
+> Avocado
+
+Figure 3. Qualitative comparison on additional slices for real scenes. neural representation-based method for metal-induced beam hardening artifact reduction in x-ray ct imaging. Medical Physics . 2, 3 [5] J Punnoose, J Xu, A Sisniega, W Zbijewski, and JH Siew-erdsen. Technical note: spektr 3.0—a computational tool for x-ray spectrum. Medical Physics , 43(8):4711–4717, 2016. 2 [6] Hong Wang, Yuexiang Li, Nanjun He, Kai Ma, Deyu Meng, and Yefeng Zheng. Dicdnet: Deep interpretable convolu-tional dictionary network for metal artifact reduction in ct images. IEEE Transactions on Medical Imaging , 41(4):869– 880, 2022. 3 [7] Hong Wang, Yuexiang Li, Deyu Meng, and Yefeng Zheng. FDK  Polyner  Park et al.  Ours 
+
+> 0.00
+> 0.04
+> 0.00
+> 0.04
+
+Pancreas (Ti) 
+
+Pepper (Fe) 
+
+GT Figure 4. Qualitative comparison on additional synthetic scenes. Adaptive convolutional dictionary network for ct metal arti-fact reduction. In The 31st International Joint Conference on Artificial Intelligence . IEEE, 2022. 3 [8] Hong Wang, Qi Xie, Dong Zeng, Jianhua Ma, Deyu Meng, and Yefeng Zheng. Oscnet: Orientation-shared convolu-tional network for ct metal artifact learning. IEEE Trans-actions on Medical Imaging , 43(1):489–502, 2024. 3 [9] Qing Wu, Lixuan Chen, Ce Wang, Hongjiang Wei, S Kevin Zhou, Jingyi Yu, and Yuyao Zhang. Unsupervised poly-chromatic neural representation for CT metal artifact reduc-tion. In Thirty-seventh Conference on Neural Information Processing Systems , 2023. 2, 3 [10] Ruyi Zha, Tao Jun Lin, Yuanhao Cai, Jiwen Cao, Yanhao Zhang, and Hongdong Li. R 2-gaussian: Rectifying radiative gaussian splatting for tomographic reconstruction. In Ad-vances in Neural Information Processing Systems (NeurIPS) ,2024. 1, 2

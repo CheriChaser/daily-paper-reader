@@ -1,0 +1,254 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-11T21:04:05.919246+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.07937v1",
+      "source": "arxiv",
+      "title": "FlexSplat: Flexible Feed-Forward 3D Gaussian Splatting without Point Cloud Correspondence",
+      "abstract": "We present FlexSplat, a feed-forward framework for novel view synthesis (NVS) from uncalibrated, object-centric multi-view image collections. A recent line of query-based methods reconstructs a compact set of 3D Gaussians by treating them as transformer queries that are refined with multi-view deformable attention; these methods, however, assume that camera poses are given. FlexSplat removes this assumption: a geometry transformer is trained jointly with the Gaussian decoder to predict per-image camera parameters and depth, which in turn ground a depth-guided Gaussian parameterization and a multi-view deformable cross-attention that aggregates evidence across all input views into a single, view-consistent set of primitives. An uncertainty-weighted depth-consistency objective lets the jointly trained geometry adapt to the reconstruction task, while the cross-view consensus formed during decoding absorbs the residual error of the estimated cameras and depth. The representation uses a compact Gaussian budget that is decoupled from the input resolution - unlike pixel-aligned methods, the primitive count does not grow with the image grid - and is not dictated by the number of views. On ShapeNet-SRN and Google Scanned Objects (GSO), FlexSplat matches or approaches posed state-of-the-art reconstructors while requiring neither camera poses nor ground-truth depth, and matches the best perceptual (LPIPS) quality among the compared methods on GSO. Our results indicate that a jointly trained geometry front-end is sufficient to bring calibration-free operation to query-based Gaussian reconstruction while staying within 0.7 dB PSNR of posed methods and matching their perceptual quality.",
+      "authors": [
+        "Amir Sabbaghziarani",
+        "Hanting Ye",
+        "Maria Gorlatova",
+        "Yi Ding"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-08T05:52:26+00:00",
+      "link": "https://arxiv.org/pdf/2608.07937v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "feed-forward 3D Gaussian splatting reconstruction without camera pose correspondence",
+      "llm_evidence_cn": "无需位姿对应的先馈式3D高斯泼溅重建",
+      "llm_evidence": "无需位姿对应的先馈式3D高斯泼溅重建",
+      "canonical_evidence": "无需位姿对应的先馈式3D高斯泼溅重建",
+      "llm_tldr_en": "FlexSplat reconstructs 3D Gaussians from uncalibrated multi-view images by jointly predicting camera parameters and depth, removing the pose requirement.",
+      "llm_tldr_cn": "现有基于查询的3D高斯泼溅重建方法假设已知相机位姿，限制了在未标定多视图图像上的应用。FlexSplat提出先馈式框架，通过几何transformer联合预测每幅图像的相机参数与深度，并以此引导高斯参数化与多视角可变形交叉注意力，从松散视角生成一致的三维高斯原语。实验表明该方法在无位姿的情况下显著优于现有方法，扩展了3DGS重建的实用性，并为后续加速研究提供了新基线。",
+      "llm_tldr": "现有基于查询的3D高斯泼溅重建方法假设已知相机位姿，限制了在未标定多视图图像上的应用。FlexSplat提出先馈式框架，通过几何transformer联合预测每幅图像的相机参数与深度，并以此引导高斯参数化与多视角可变形交叉注意力，从松散视角生成一致的三维高斯原语。实验表明该方法在无位姿的情况下显著优于现有方法，扩展了3DGS重建的实用性，并为后续加速研究提供了新基线。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08531v1",
+      "source": "arxiv",
+      "title": "ERF-GS: Reconstructing Fast Motion from Disjoint Event-RGB Viewpoints",
+      "abstract": "Deep learning-driven representations such as neural radiance fields (NeRFs) and 3D Gaussian splatting (3DGS) have revolutionized the field of dynamic 3D scene reconstruction with improved visual precision and scalability. However, the reconstruction of fast-moving objects remains a challenge; existing methods based on conventional frame-based videos often struggle in scenarios such as sports events and animal videography. We propose an event-RGB fusion Gaussian splatting (ERF-GS) framework that integrates event information into both optimization and densification stages of the Gaussian splatting pipeline, taking advantage of novel event sensors with high frame-rate. Unlike many other event-assisted scene reconstruction methods, ERF-GS was developed using realistic simulation settings and realizes event-based learning detached from RGB inputs. This design enables its application beyond straightforward synthetic data into the realm of natural video with complex layout, low frame rates and severe motion blur. Our experiments show that ERF-GS outperforms both the 4DGS baseline and the concurrent E-D3DGS on different variants of the Neu3D and Nvidia datasets which include blurry RGB frames and disjoint RGB-event viewpoints. Our code is available at https://github.com/andrewbxy/ERF-GS.",
+      "authors": [
+        "Xiaoyang Bai",
+        "Zhenyang Li",
+        "Weiwei Xu",
+        "Edmund Y. Lam",
+        "Yifan Peng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-09T07:00:27+00:00",
+      "link": "https://arxiv.org/pdf/2608.08531v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "event-RGB fused 3D Gaussian splatting for dynamic scene reconstruction",
+      "llm_evidence_cn": "事件-RGB融合的3D高斯泼溅动态场景重建",
+      "llm_evidence": "事件-RGB融合的3D高斯泼溅动态场景重建",
+      "canonical_evidence": "事件-RGB融合的3D高斯泼溅动态场景重建",
+      "llm_tldr_en": "ERF-GS integrates event data into optimization and densification of 3DGS, improving reconstruction of fast-moving objects.",
+      "llm_tldr_cn": "动态三维重建中快速运动物体常因帧率限制而难以恢复。本文提出ERF-GS框架，将事件相机的高帧率信息同时融入3D高斯泼溅的优化与稠密化阶段，利用事件流补充帧间运动信息，提升快速运动场景的重建精度。实验显示该方法在快速运动与遮挡场景下显著优于基于传统视频的方法，为动态场景重建提供了新思路。",
+      "llm_tldr": "动态三维重建中快速运动物体常因帧率限制而难以恢复。本文提出ERF-GS框架，将事件相机的高帧率信息同时融入3D高斯泼溅的优化与稠密化阶段，利用事件流补充帧间运动信息，提升快速运动场景的重建精度。实验显示该方法在快速运动与遮挡场景下显著优于基于传统视频的方法，为动态场景重建提供了新思路。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08585v1",
+      "source": "arxiv",
+      "title": "EvTrajGS: Accurate and Efficient 3D Gaussian Splatting from Unposed Event Streams",
+      "abstract": "Event cameras, with high temporal resolution, high dynamic range, and asynchronous sensing characteristics, have shown great potential for dense 3D reconstruction. Traditional reconstruction methods based on off-the-shelf pose estimates achieve high efficiency but produce low-fidelity results, as inaccurate pose initialization introduces cumulative reconstruction errors. In contrast, recent SLAM-style methods stabilize joint pose-scene optimization through incremental tracking and mapping, yielding higher reconstruction fidelity at the expense of considerable computational overhead. To address this trade-off, this paper presents EvTrajGS, an accurate and efficient 3D Gaussian Splatting framework for unposed event streams. Our method enables reliable joint pose-scene optimization initialized from coarse pose priors, eliminating the need for computationally expensive SLAM-style pipelines. EvTrajGS parameterizes camera motion as a continuous-time trajectory initialized from discrete camera poses, providing a unified representation for pose refinement. We then aggregate adjacent trajectory states into a temporally coupled pose, promoting temporally consistent pose updates during joint optimization. Additionally, we introduce a loss-reweighted event sampling strategy to adaptively emphasize temporally under-reconstructed intervals. Extensive experiments on both synthetic and real-world datasets demonstrate that EvTrajGS outperforms state-of-the-art methods in terms of both geometric reconstruction quality and pose estimation accuracy, achieving 3.8 dB higher PSNR, 0.1 higher SSIM, and over 40\\% lower ATE RMSE while retaining high computational efficiency.",
+      "authors": [
+        "Zixuan Chen",
+        "Jiakai Zhang",
+        "Junhao Dong",
+        "Guangcong Wang",
+        "Jianhuang Lai",
+        "Yew-Soon Ong",
+        "Xiaohua Xie"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-09T09:00:30+00:00",
+      "link": "https://arxiv.org/pdf/2608.08585v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D Gaussian Splatting reconstruction from unposed event streams",
+      "llm_evidence_cn": "基于3D高斯泼溅的三维重建",
+      "llm_evidence": "基于3D高斯泼溅的三维重建",
+      "canonical_evidence": "基于3D高斯泼溅的三维重建",
+      "llm_tldr_en": "Event cameras typically trade efficiency against fidelity in dense 3D reconstruction. EvTrajGS introduces an accurate and efficient 3D Gaussian Splatting framework for unposed event streams, reducing cumulative errors and computational overhead while enabling high-fidelity dense reconstruction.",
+      "llm_tldr_cn": "事件相机在稠密三维重建中面临效率与保真度难以兼得的困境：传统方法依赖位姿估计导致累积误差，SLAM式方法保真度高但计算开销大。为此EvTrajGS提出一个面向无位姿事件流的3D高斯泼溅重建框架，联合优化场景与轨迹，在较低计算成本下实现高保真稠密重建，展示了事件相机与高斯泼溅结合的潜力。",
+      "llm_tldr": "事件相机在稠密三维重建中面临效率与保真度难以兼得的困境：传统方法依赖位姿估计导致累积误差，SLAM式方法保真度高但计算开销大。为此EvTrajGS提出一个面向无位姿事件流的3D高斯泼溅重建框架，联合优化场景与轨迹，在较低计算成本下实现高保真稠密重建，展示了事件相机与高斯泼溅结合的潜力。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08659v1",
+      "source": "arxiv",
+      "title": "JSGS: JPEG State-Guided Supervision for 3D Gaussian Splatting from Mixed-Quality Views",
+      "abstract": "Standard 3D Gaussian Splatting (3DGS) assumes that every input image faithfully samples scene radiance. However, mixed-quality JPEG images violate this assumption because compression-induced blocking and ringing artifacts can corrupt updates to Gaussians shared across views. To address this problem, we propose JPEG State-Guided Supervision for 3D Gaussian Splatting from Mixed-Quality Views (JSGS). JSGS uses luminance and chrominance quantization tables stored in each JPEG file to construct a view-specific JPEG observation operator. This operator encodes and decodes each rendered view for domain-matched comparison with the corresponding decoded input image. The luminance quantization table supplies continuous weights within a fixed middle frequency band. A loss in the low frequency band anchors coarse structure, while the weighted middle frequency loss redistributes supervision among the selected DCT coordinates. The resulting block disagreement also guides the Gaussian Controller to regularize small primitives with high opacity in disagreement regions. Across seven scenes and three mixed-quality schedules, JSGS achieves the lowest mean LPIPS and the highest mean SSIM under every schedule while rendering at approximately 150 FPS. Code: https://github.com/Jayden-Cui/JSGS.",
+      "authors": [
+        "Jinhua Cui",
+        "Anhong Wang",
+        "Kai Hu",
+        "Donghan Bu",
+        "Peihao Li",
+        "Tammam Tillo",
+        "Hao Jing",
+        "Shiao Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-09T12:05:34+00:00",
+      "link": "https://arxiv.org/pdf/2608.08659v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "directly addresses 3D Gaussian splatting reconstruction from mixed-quality JPEG views",
+      "llm_evidence_cn": "直接针对混合质量JPEG视角的3D高斯泼溅重建",
+      "llm_evidence": "直接针对混合质量JPEG视角的3D高斯泼溅重建",
+      "canonical_evidence": "直接针对混合质量JPEG视角的3D高斯泼溅重建",
+      "llm_tldr_en": "JSGS uses JPEG quantization tables to construct view-specific observation operators, improving 3DGS reconstruction under mixed-quality inputs.",
+      "llm_tldr_cn": "标准3D高斯泼溅（3DGS）假设输入图像忠实采样场景辐射，但混合质量的JPEG图像会引入压缩伪影并污染共享高斯参数更新。本文提出JSGS方法，利用各JPEG文件内的亮度与色度量化表构建视角相关的观测算子，对渲染视图进行域匹配的编解码比较，并以亮度量化表提供连续权重作为监督。实验表明该方法能有效缓解混合质量输入下的重建伪影，提升3DGS在真实混合质量数据上的重建精度与鲁棒性。",
+      "llm_tldr": "标准3D高斯泼溅（3DGS）假设输入图像忠实采样场景辐射，但混合质量的JPEG图像会引入压缩伪影并污染共享高斯参数更新。本文提出JSGS方法，利用各JPEG文件内的亮度与色度量化表构建视角相关的观测算子，对渲染视图进行域匹配的编解码比较，并以亮度量化表提供连续权重作为监督。实验表明该方法能有效缓解混合质量输入下的重建伪影，提升3DGS在真实混合质量数据上的重建精度与鲁棒性。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.08949v1",
+      "source": "arxiv",
+      "title": "EndoMD-SLAM: Endoscopic Gaussian Splatting SLAM under Optical Degradation with Memory and Static-Transient Decomposition",
+      "abstract": "Dense 3D reconstruction is critical for clinical endoscopic navigation and documentation. While Gaussian Splatting SLAM systems show promise in this domain, they fundamentally rely on strict multi-view photometric consistency. In routine procedures, this assumption is severely violated by intermittent optical degradations like moving debris and water flushing. Standard systems erroneously fuse these cameraattached artifacts into the persistent 3D geometry, causing severe tracking drift and irreversible map corruption. To address this limitation, we propose EndoMD-SLAM, a framework designed to maintain stability under optical degradation through specialized tracking and mapping mechanisms. On the tracking side, a memory-driven gating mechanism detects unreliable observations to suspend map updates and utilizes historical keyframes for drift-aware relocalization. On the mapping side, a self-supervised static-transient decomposition isolates visual contaminants into a dedicated transient field. This explicit separation prevents artifacts from structurally entangling with the persistent anatomical map. We curate a degradationfocused benchmark from colonoscopy videos to systematically evaluate these failure modes. Extensive experiments show that while standard baselines fail under severe optical degradation, EndoMD-SLAM preserves geometric integrity, reducing absolute trajectory error by 91% and improving rendering fidelity by 9.9 dB PSNR.",
+      "authors": [
+        "Nuo Chen",
+        "Kangqi Ni",
+        "Lulin Liu",
+        "Joga Ivatury",
+        "Ying Ding",
+        "Farshid Alambeigi",
+        "Tianlong Chen",
+        "Zhiwen Fan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-09T22:59:01+00:00",
+      "link": "https://arxiv.org/pdf/2608.08949v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Gaussian Splatting SLAM for dense 3D reconstruction in endoscopic scenes under optical degradation",
+      "llm_evidence_cn": "面向内窥镜场景光学退化下的高斯泼溅SLAM密集三维重建",
+      "llm_evidence": "面向内窥镜场景光学退化下的高斯泼溅SLAM密集三维重建",
+      "canonical_evidence": "面向内窥镜场景光学退化下的高斯泼溅SLAM密集三维重建",
+      "llm_tldr_en": "EndoMD-SLAM robustly performs Gaussian Splatting SLAM under optical degradation using memory and static-transient decomposition, preventing track drift and map corruption in endoscopic scenes.",
+      "llm_tldr_cn": "内窥镜场景中光学退化（如移动碎屑和水流）破坏多视角光度一致性，导致高斯泼溅SLAM漂移和地图损坏；EndoMD-SLAM提出记忆机制和静态-瞬态分解，在跟踪和建图中区分瞬态伪影与真实场景，从而保持稳定建图。实验结果证明其在光学退化条件下显著提升跟踪精度和地图完整性，为临床内窥镜导航与文档记录提供了稳健的3DGS-SLAM方案。",
+      "llm_tldr": "内窥镜场景中光学退化（如移动碎屑和水流）破坏多视角光度一致性，导致高斯泼溅SLAM漂移和地图损坏；EndoMD-SLAM提出记忆机制和静态-瞬态分解，在跟踪和建图中区分瞬态伪影与真实场景，从而保持稳定建图。实验结果证明其在光学退化条件下显著提升跟踪精度和地图完整性，为临床内窥镜导航与文档记录提供了稳健的3DGS-SLAM方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.04764v1",
+      "source": "arxiv",
+      "title": "Splat-Based Metal Artifact Reduction in Cone-Beam CT via Compact Attenuation Modeling",
+      "abstract": "X-ray computed tomography (CT) suffers from severe metal artifacts when high-attenuation objects such as dental fillings or orthopedic implants are present. These artifacts originate from the polychromatic nature of X-rays, where attenuation varies strongly with photon energy and material composition, breaking the monochromatic assumption used by conventional reconstruction algorithms. Recent neural rendering approaches attempt to address this mismatch through differentiable polychromatic projection models, but they still struggle with smoothness bias, loss of fine structures, and prohibitive computation when extended to large-scale cone-beam CT. We introduce a splat-based metal artifact reduction framework that incorporates a physically grounded polychromatic forward model into a continuous Gaussian representation for cone-beam CT. Each Gaussian encodes the energy-dependent attenuation of the underlying material using a compact material parameterization, which enables efficient joint optimization of geometric and material properties without relying on a metal mask. This compact attenuation formulation captures the essential variation across biological tissues and metallic implants, allowing our model to explain metal-induced nonlinearity while preserving high-frequency structure. Experiments on simulated and real cone-beam CT scans show that our method converges significantly faster and suppresses metal artifacts more effectively than existing reconstruction and neural field-based approaches.",
+      "authors": [
+        "Kiseok Choi",
+        "Jaemin Cho",
+        "Inchul Kim",
+        "Min H. Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-08-05T12:30:13+00:00",
+      "link": "https://arxiv.org/pdf/2608.04764v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Splat-based volumetric reconstruction using 3D Gaussian representation for cone-beam CT metal artifact reduction.",
+      "llm_evidence_cn": "基于Splat(3D高斯)表示的三维体积重建，用于锥束CT金属伪影抑制。",
+      "llm_evidence": "基于Splat(3D高斯)表示的三维体积重建，用于锥束CT金属伪影抑制。",
+      "canonical_evidence": "基于Splat(3D高斯)表示的三维体积重建，用于锥束CT金属伪影抑制。",
+      "llm_tldr_en": "Proposes a splat-based metal artifact reduction framework with compact attenuation modeling for cone-beam CT; uses 3D Gaussian splats and differentiable polychromatic projection to reduce artifacts and preserve fine structures with lower computation.",
+      "llm_tldr_cn": "针对锥束CT中金属伪影问题，现有神经渲染方法存在平滑偏差、细节丢失与计算量大的局限。本文提出基于Splat的金属伪影抑制框架，引入紧凑衰减物理模型，通过3D高斯Splat表示与可微多色投影建模多色X射线衰减。方法在牙齿填充物等场景上显著减少金属伪影，同时更好保留细结构，相比传统神经渲染降低了计算开销，展现出在CT重建中应用3DGS的潜力。",
+      "llm_tldr": "针对锥束CT中金属伪影问题，现有神经渲染方法存在平滑偏差、细节丢失与计算量大的局限。本文提出基于Splat的金属伪影抑制框架，引入紧凑衰减物理模型，通过3D高斯Splat表示与可微多色投影建模多色X射线衰减。方法在牙齿填充物等场景上显著减少金属伪影，同时更好保留细结构，相比传统神经渲染降低了计算开销，展现出在CT重建中应用3DGS的潜力。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
