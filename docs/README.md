@@ -6,38 +6,46 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-11
-- 运行时间：2026-08-11 21:08:33 UTC
+- 最新运行日期：2026-08-12
+- 运行时间：2026-08-12 21:11:52 UTC
 - 运行状态：成功
-- 本次总论文数：6
-- 精读区：5
-- 速读区：1
+- 本次总论文数：8
+- 精读区：6
+- 速读区：2
 
 ### 今日简报（AI）
-今日精读5篇、速读1篇，核心聚焦3D高斯泼溅的前沿突破。最值得关注的是9.0分的FlexSplat（无需点云对应）与ERF-GS（重建快速运动）；速读可留意CT金属伪影减少应用。建议优先精读这两篇高分论文，再顺带扫读速读项。
-- 详情：[/202608/11/README](/202608/11/README)
+今日精读6篇、速读2篇，核心聚焦3D高斯泼溅（3DGS）的稀疏视图与模糊输入重建。  
+最值得关注的是两篇9.0分工作：TRACE-GS用轨迹蒸馏+几何条件恢复稀疏视图3DGS，CasDeblurGS则从两张模糊图实现多视图一致的3DGS重建。  
+下一步建议：若对3D重建感兴趣，可优先精读这两篇高分论文，并留意其开源代码与后续延展。
+- 详情：[/202608/12/README](/202608/12/README)
 
 ### 精读区论文标签
-1. [FlexSplat: Flexible Feed-Forward 3D Gaussian Splatting without Point Cloud Correspondence](/202608/11/2608.07937v1-flexsplat-flexible-feed-forward-3d-gaussian-splatting-without-point-cloud-correspondence)  
+1. [TRACE-GS: On-Policy Trajectory Distillation with Privileged Geometric Conditioning for Sparse-View 3DGS Restoration](/202608/12/2608.10286v1-trace-gs-on-policy-trajectory-distillation-with-privileged-geometric-conditioning-for-sparse-view-3dgs-restoration)  
    标签：评分：9.0/10、query:dgs-recon
-   evidence：无需位姿对应的先馈式3D高斯泼溅重建
-2. [ERF-GS: Reconstructing Fast Motion from Disjoint Event-RGB Viewpoints](/202608/11/2608.08531v1-erf-gs-reconstructing-fast-motion-from-disjoint-event-rgb-viewpoints)  
+   evidence：提出TRACE-GS，一种面向稀疏视角3D高斯泼溅修复的在线轨迹蒸馏框架。
+2. [CasDeblurGS: Cascaded 2D-to-3D Multi-View Consistency for 3D Gaussian Splatting from Two Blurry Images](/202608/12/2608.10345v1-casdeblurgs-cascaded-2d-to-3d-multi-view-consistency-for-3d-gaussian-splatting-from-two-blurry-images)  
    标签：评分：9.0/10、query:dgs-recon
-   evidence：事件-RGB融合的3D高斯泼溅动态场景重建
-3. [EvTrajGS: Accurate and Efficient 3D Gaussian Splatting from Unposed Event Streams](/202608/11/2608.08585v1-evtrajgs-accurate-and-efficient-3d-gaussian-splatting-from-unposed-event-streams)  
+   evidence：仅用两幅模糊图像实现3D高斯溅射重建，并通过级联2D到3D一致性
+3. [Gaussian Sculpting: End-to-End Controllable Surface Reconstruction via Field Optimization](/202608/12/2608.10602v1-gaussian-sculpting-end-to-end-controllable-surface-reconstruction-via-field-optimization)  
    标签：评分：9.0/10、query:dgs-recon
-   evidence：基于3D高斯泼溅的三维重建
-4. [JSGS: JPEG State-Guided Supervision for 3D Gaussian Splatting from Mixed-Quality Views](/202608/11/2608.08659v1-jsgs-jpeg-state-guided-supervision-for-3d-gaussian-splatting-from-mixed-quality-views)  
+   evidence：基于3D高斯溅射的端到端表面重建
+4. [Visual Geometry Foundation-Aware Gaussians for Single-Frame Surround-View Driving Reconstruction](/202608/12/2608.10682v1-visual-geometry-foundation-aware-gaussians-for-single-frame-surround-view-driving-reconstruction)  
    标签：评分：9.0/10、query:dgs-recon
-   evidence：直接针对混合质量JPEG视角的3D高斯泼溅重建
-5. [EndoMD-SLAM: Endoscopic Gaussian Splatting SLAM under Optical Degradation with Memory and Static-Transient Decomposition](/202608/11/2608.08949v1-endomd-slam-endoscopic-gaussian-splatting-slam-under-optical-degradation-with-memory-and-static-transient-decomposition)  
+   evidence：提出一种基于视觉几何先验的3D高斯泼溅框架，用于环视驾驶场景重建。
+5. [Compact Feed-Forward 3D Gaussians via Saliency-Guided Primitive Merging](/202608/12/2608.10712v1-compact-feed-forward-3d-gaussians-via-saliency-guided-primitive-merging)  
    标签：评分：9.0/10、query:dgs-recon
-   evidence：面向内窥镜场景光学退化下的高斯泼溅SLAM密集三维重建
+   evidence：使用3D高斯溅射的三维重建，压缩前馈高斯原语
+6. [Learning Gaussian Structure: Intervention-Guided Density Control for Feed-Forward Driving Reconstruction](/202608/12/2608.11077v1-learning-gaussian-structure-intervention-guided-density-control-for-feed-forward-driving-reconstruction)  
+   标签：评分：8.0/10、query:dgs-recon
+   evidence：基于干预引导密度控制的前馈高斯泼溅驾驶场景重建。
 
 ### 速读区论文标签
-1. [Splat-Based Metal Artifact Reduction in Cone-Beam CT via Compact Attenuation Modeling](/202608/11/2608.04764v1-splat-based-metal-artifact-reduction-in-cone-beam-ct-via-compact-attenuation-modeling)  
+1. [Near-sensor Computing for Rapid Visuotactile Perception](/202608/12/2608.05725v1-near-sensor-computing-for-rapid-visuotactile-perception)  
    标签：评分：6.0/10、query:dgs-recon
-   evidence：基于Splat(3D高斯)表示的三维体积重建，用于锥束CT金属伪影抑制。
+   evidence：面向三维重建的硬件加速器，近传感器流水线实现低延迟深度重建
+2. [Adaptive Matrix Multiplication for Dynamic Shapes on Ascend NPUs](/202608/12/2608.10803v1-adaptive-matrix-multiplication-for-dynamic-shapes-on-ascend-npus)  
+   标签：评分：6.0/10、query:dgs-recon
+   evidence：提出Ascend NPU上动态形状的矩阵乘法自适应优化框架，可迁移至3DGS加速
 
 
 <div class="dpr-home-promo-card">

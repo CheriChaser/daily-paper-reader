@@ -1,0 +1,333 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-12T21:06:36.895762+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2608.10286v1",
+      "source": "arxiv",
+      "title": "TRACE-GS: On-Policy Trajectory Distillation with Privileged Geometric Conditioning for Sparse-View 3DGS Restoration",
+      "abstract": "We present TRACE-GS, an on-policy trajectory distillation framework that leverages privileged geometric conditioning at training time, thereby adapting a diffusion prior to sparse-view 3D Gaussian Splatting (3DGS) restoration. Rather than pursuing increasingly sophisticated restoration architectures, we identify a more fundamental limitation shared by existing diffusion-based approaches: supervision at independently noised states does not cover those reached during inference. In sparse-view 3DGS, under-constrained geometry biases denoising from the outset, and the resulting deviations compound along the rollout. TRACE-GS instead performs on-policy trajectory distillation: a teacher conditioned on richer geometry from additional training views supplies targets along the sparse-view student's own rollout, aligning denoising directions and cross-view responses at each visited state. This training-only geometry places TRACE-GS in the learning using privileged information (LUPI) setting. At deployment, only the sparse-view student is retained, and its restored renderings serve as pseudo-observations for 3DGS refinement. To the best of our knowledge, TRACE-GS is the first to derive on-policy supervision from privileged geometry for sparse-view 3DGS restoration, achieving consistent gains and strong generalization across datasets and sparse-view settings.",
+      "authors": [
+        "Linlian Jiang",
+        "Yuchen Xi",
+        "Sadman Rakib Pinon",
+        "Ruigang Yang",
+        "Yang Wang",
+        "Xinxin Zuo"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-10T22:43:06+00:00",
+      "link": "https://arxiv.org/pdf/2608.10286v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Presents TRACE-GS, an on-policy trajectory distillation framework for sparse-view 3D Gaussian Splatting restoration.",
+      "llm_evidence_cn": "提出TRACE-GS，一种面向稀疏视角3D高斯泼溅修复的在线轨迹蒸馏框架。",
+      "llm_evidence": "提出TRACE-GS，一种面向稀疏视角3D高斯泼溅修复的在线轨迹蒸馏框架。",
+      "canonical_evidence": "提出TRACE-GS，一种面向稀疏视角3D高斯泼溅修复的在线轨迹蒸馏框架。",
+      "llm_tldr_en": "TRACE-GS improves sparse-view 3DGS restoration via on-policy trajectory distillation with privileged geometric conditioning, addressing train-test rollout mismatch in diffusion-based restoration.",
+      "llm_tldr_cn": "针对稀疏视角3D高斯泼溅修复中扩散模型训练与推理噪声状态不匹配的问题，论文提出TRACE-GS，在训练时借助特权几何条件进行在线轨迹蒸馏，使教师模型覆盖推理阶段到达的状态。该方法不追求更复杂的修复网络，而是从训练范式上缓解几何欠约束导致的误差累积，实验显示其在稀疏输入下有效提升3DGS恢复质量，为稀疏重建提供了一种简单有效的训练策略。",
+      "llm_tldr": "针对稀疏视角3D高斯泼溅修复中扩散模型训练与推理噪声状态不匹配的问题，论文提出TRACE-GS，在训练时借助特权几何条件进行在线轨迹蒸馏，使教师模型覆盖推理阶段到达的状态。该方法不追求更复杂的修复网络，而是从训练范式上缓解几何欠约束导致的误差累积，实验显示其在稀疏输入下有效提升3DGS恢复质量，为稀疏重建提供了一种简单有效的训练策略。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.10345v1",
+      "source": "arxiv",
+      "title": "CasDeblurGS: Cascaded 2D-to-3D Multi-View Consistency for 3D Gaussian Splatting from Two Blurry Images",
+      "abstract": "Free-viewpoint 3D scene media is increasingly important for immersive applications, yet practical capture often suffers from severe view sparsity and motion blur. Although neural rendering has advanced sparse-view synthesis, existing blur-aware methods typically require substantial multi-view redundancy, accurate camera poses, or costly per-scene optimization. We address a stringent yet practical setting: reconstructing a coherent 3D scene from only two motion-blurred images with known intrinsics, without input-view poses, auxiliary sharp images, or per-scene test-time optimization. To this end, we propose CasDeblurGS, a cascaded framework that progressively recovers reliable cross-view information from local 2D correspondences to global 3D guidance. Stage 1 constructs locally reliable guidance through occlusion-aware correspondence filtering, while Stage 2 aggregates the intermediate restorations into a provisional pose-free 3D Gaussian representation whose input-view re-renders provide dense global guidance for final restoration. The resulting views enable a more coherent 3D representation and higher-quality novel-view synthesis. Experiments on real-world and synthetic Deblur-NeRF scenes show consistent gains over strong baselines, improving PSNR by 1.19 dB and 2.11 dB, respectively. Progressive ablations, cross-view correspondence visualization, and camera reprojection analysis further demonstrate improvements in both rendering quality and multi-view geometric consistency.",
+      "authors": [
+        "Haeyun Choi",
+        "Minhyuk Jang",
+        "I-Gil Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-11T01:13:21+00:00",
+      "link": "https://arxiv.org/pdf/2608.10345v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D Gaussian Splatting reconstruction from two blurry images with cascaded 2D-to-3D consistency",
+      "llm_evidence_cn": "仅用两幅模糊图像实现3D高斯溅射重建，并通过级联2D到3D一致性",
+      "llm_evidence": "仅用两幅模糊图像实现3D高斯溅射重建，并通过级联2D到3D一致性",
+      "canonical_evidence": "仅用两幅模糊图像实现3D高斯溅射重建，并通过级联2D到3D一致性",
+      "llm_tldr_en": "CasDeblurGS reconstructs a coherent 3D scene from only two motion-blurred images using a cascaded 2D-to-3D consistency framework and 3D Gaussian Splatting.",
+      "llm_tldr_cn": "实际拍摄中常面临视角稀疏与运动模糊，现有模糊感知方法依赖多视图冗余或逐场景优化。CasDeblurGS提出级联框架，在无辅助清晰图像和测试时优化的条件下，仅从两张已知内参的模糊图像重建连贯三维场景。通过逐步恢复可靠的跨视图2D对应并转换为3D一致性，配合3D高斯溅射表示实现高质量重建。该工作显著降低了3D重建对输入数量和位姿的依赖。",
+      "llm_tldr": "实际拍摄中常面临视角稀疏与运动模糊，现有模糊感知方法依赖多视图冗余或逐场景优化。CasDeblurGS提出级联框架，在无辅助清晰图像和测试时优化的条件下，仅从两张已知内参的模糊图像重建连贯三维场景。通过逐步恢复可靠的跨视图2D对应并转换为3D一致性，配合3D高斯溅射表示实现高质量重建。该工作显著降低了3D重建对输入数量和位姿的依赖。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.10602v1",
+      "source": "arxiv",
+      "title": "Gaussian Sculpting: End-to-End Controllable Surface Reconstruction via Field Optimization",
+      "abstract": "3D Gaussian Splatting (3DGS) has recently enabled real-time novel view synthesis with impressive quality. However, it struggles to recover accurate surfaces under limited viewpoints and due to the inherent irregularity of Gaussian primitives. The resulting geometric errors are notoriously difficult to correct manually. To address these issues, we propose Gaussian Sculpting, a fully differentiable end-to-end framework for high-quality surface reconstruction. Our key insight is to anchor Gaussians onto an evolving differentiable surface, allowing them to guide signed distance field (SDF) optimization instead of extracting the surface only during post-processing. To enable stable gradient isolation during joint optimization, we design a bi-level training strategy in which the outer loop optimizes the geometry represented by the SDF, while the inner loop updates the Gaussians with the geometry fixed. We further impose constraints on Gaussian parameters to ensure consistency with the underlying surface, thereby improving both geometric and appearance fidelity during optimization. In addition, we introduce a multi-resolution subdivision scheme based on octree-like partitioning to preserve fine details while reducing memory consumption. Experiments on object-level scenes demonstrate that our method effectively removes redundant surfaces, recovers missing structures caused by limited viewpoints, and achieves strong reconstruction quality even at relatively low resolutions.",
+      "authors": [
+        "Ke Jiaxin",
+        "Juncheng Liu",
+        "Yi Wang",
+        "Zhouhui Lian",
+        "Bin Liu",
+        "Shengfa Wang",
+        "Xiangjia He"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-08-11T07:42:24+00:00",
+      "link": "https://arxiv.org/pdf/2608.10602v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "End-to-end surface reconstruction anchored on 3D Gaussian Splatting",
+      "llm_evidence_cn": "基于3D高斯溅射的端到端表面重建",
+      "llm_evidence": "基于3D高斯溅射的端到端表面重建",
+      "canonical_evidence": "基于3D高斯溅射的端到端表面重建",
+      "llm_tldr_en": "Gaussian Sculpting anchors Gaussians onto an evolving differentiable surface to guide signed distance field optimization, enabling high-quality, controllable surface reconstruction with 3DGS.",
+      "llm_tldr_cn": "3D高斯溅射虽能实时合成新视角，但在视角有限时难以恢复准确表面，且几何误差难以手动修正。Gaussian Sculpting提出将高斯锚定到可微表面上，使高斯引导有符号距离场优化，而不是仅在后处理中提取表面。该端到端可微框架可实现高质量、可控的表面重建，为3DGS几何重建提供了新方案。",
+      "llm_tldr": "3D高斯溅射虽能实时合成新视角，但在视角有限时难以恢复准确表面，且几何误差难以手动修正。Gaussian Sculpting提出将高斯锚定到可微表面上，使高斯引导有符号距离场优化，而不是仅在后处理中提取表面。该端到端可微框架可实现高质量、可控的表面重建，为3DGS几何重建提供了新方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.10682v1",
+      "source": "arxiv",
+      "title": "Visual Geometry Foundation-Aware Gaussians for Single-Frame Surround-View Driving Reconstruction",
+      "abstract": "Single-frame surround-view reconstruction faces severe geometric instability and rendering artifacts due to minimal inter-camera overlap. While existing methods rely on complex decoders or auxiliary cues, they remain bottlenecked by the weak geometric capacity of upstream features. We argue that leveraging pretrained visual geometry priors strengthens upstream representations and alleviates the geometric ambiguity in sparse surround views. To this end, we propose VGGD, a visual geometry foundation-aware 3D Gaussian Splatting framework for feed-forward surround-view driving reconstruction, which shifts geometric modeling to the frontend and adapts foundation priors to the driving camera setting. First, VGGD leverages VGGT to provide transferable multi-view geometric prior tokens. Next, we introduce a Dual-Path Neck to decouple geometry-consistent and appearance-aware representations, improving appearance completion in weakly observed regions. We further apply Scale Warmup to stabilize early geometry learning and suppress scale drift under ego-pose changes. Finally, we use a hybrid pixel--volume Gaussian decoder to produce a renderable 3D Gaussian scene for novel-view synthesis. Experiments on the nuScenes single-frame benchmark show that VGGD achieves the best overall rendering quality among the compared methods and improves relative geometric consistency.",
+      "authors": [
+        "Junhong Lin",
+        "Jinlong Wang",
+        "Xianda Guo",
+        "Yanlun Peng",
+        "Wei Zheng",
+        "Guoqing Liu",
+        "Hanli Wang",
+        "Tiesong Zhao",
+        "Wei Gao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-11T09:04:33+00:00",
+      "link": "https://arxiv.org/pdf/2608.10682v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Proposes a visual geometry foundation-aware 3D Gaussian Splatting framework for surround-view driving reconstruction.",
+      "llm_evidence_cn": "提出一种基于视觉几何先验的3D高斯泼溅框架，用于环视驾驶场景重建。",
+      "llm_evidence": "提出一种基于视觉几何先验的3D高斯泼溅框架，用于环视驾驶场景重建。",
+      "canonical_evidence": "提出一种基于视觉几何先验的3D高斯泼溅框架，用于环视驾驶场景重建。",
+      "llm_tldr_en": "Proposes VGGD, a 3D Gaussian Splatting framework that leverages pretrained visual geometry priors to stabilize single-frame surround-view driving reconstruction, addressing geometric ambiguity with minimal camera overlap.",
+      "llm_tldr_cn": "针对单帧环视重建中相机重叠少导致的重建不稳定与渲染伪影问题，论文提出VGGD框架，将视觉几何基础模型先验引入3D高斯泼溅，把几何建模前移到前端并适配驾驶相机设置，从而缓解稀疏视角下的几何模糊。实验表明该方法能够提升稀疏环视场景的重建质量与几何稳定性，为自动驾驶场景的实时三维重建提供了更可靠的前端方案。",
+      "llm_tldr": "针对单帧环视重建中相机重叠少导致的重建不稳定与渲染伪影问题，论文提出VGGD框架，将视觉几何基础模型先验引入3D高斯泼溅，把几何建模前移到前端并适配驾驶相机设置，从而缓解稀疏视角下的几何模糊。实验表明该方法能够提升稀疏环视场景的重建质量与几何稳定性，为自动驾驶场景的实时三维重建提供了更可靠的前端方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.10712v1",
+      "source": "arxiv",
+      "title": "Compact Feed-Forward 3D Gaussians via Saliency-Guided Primitive Merging",
+      "abstract": "3D scene reconstruction, modeling, and rendering are highly relevant for numerous tasks, and 3D Gaussian splatting has become a standard choice in this context. Its feed-forward variants provide fast reconstruction from sparse input views but often produce per-pixel primitives, leading to highly redundant and thus inefficient representations. We present a structure-aware merging pipeline that takes per-pixel primitives from any feed-forward method and consolidates them into a compact, content-adaptive Gaussian set while largely retaining visual quality at just $\\frac{1}{20}^\\text{th}$ of the Gaussians of a per-pixel method. We group spatially coherent Gaussians of similar appearance into variable-size clusters via adaptive superpixel segmentation guided by a saliency map, which allocates fine segments to textured regions and coarse segments to homogeneous areas. We compress each cluster into a compact latent representation through a learned encoder, then match and consolidate representations across views based on geometric overlap and feature similarity via a learned merger. A level-of-detail decoder then produces the final Gaussians at a controllable resolution, enabling a flexible quality-efficiency trade-off at inference. As a post-processing module, the pipeline is backbone-agnostic, leveraging the strengths of existing feed-forward methods. This leads to better and more robust quality than achieved by previous approaches that target a reduction in primitive count, while providing a highly compact representation, that can be rendered efficiently.",
+      "authors": [
+        "Tim-Felix Fassch",
+        "Jochen Kall",
+        "Cyrill Stachniss"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-11T09:32:08+00:00",
+      "link": "https://arxiv.org/pdf/2608.10712v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D reconstruction using 3D Gaussian splatting; compact merging of feed-forward primitives",
+      "llm_evidence_cn": "使用3D高斯溅射的三维重建，压缩前馈高斯原语",
+      "llm_evidence": "使用3D高斯溅射的三维重建，压缩前馈高斯原语",
+      "canonical_evidence": "使用3D高斯溅射的三维重建，压缩前馈高斯原语",
+      "llm_tldr_en": "This paper tackles redundancy in feed-forward 3D Gaussian splatting, merging per-pixel primitives into compact clusters via superpixel segmentation while retaining visual quality at 1/20 the Gaussians.",
+      "llm_tldr_cn": "前馈三维高斯溅射方法虽能从稀疏视图快速重建三维场景，但逐像素生成的高斯原语冗余度高、表示低效。本文提出一种结构感知的合并流程，利用自适应超像素分割将空间相邻、外观相似的高斯聚为可变大小簇，从而得到紧凑的内容自适应高斯集合。实验表明，在仅保留逐像素方法约1/20高斯数量的情况下仍能大幅保持视觉质量。该工作为三维高斯溅射场景重建提供了更轻量高效的表示，利于后续存储与渲染。",
+      "llm_tldr": "前馈三维高斯溅射方法虽能从稀疏视图快速重建三维场景，但逐像素生成的高斯原语冗余度高、表示低效。本文提出一种结构感知的合并流程，利用自适应超像素分割将空间相邻、外观相似的高斯聚为可变大小簇，从而得到紧凑的内容自适应高斯集合。实验表明，在仅保留逐像素方法约1/20高斯数量的情况下仍能大幅保持视觉质量。该工作为三维高斯溅射场景重建提供了更轻量高效的表示，利于后续存储与渲染。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.11077v1",
+      "source": "arxiv",
+      "title": "Learning Gaussian Structure: Intervention-Guided Density Control for Feed-Forward Driving Reconstruction",
+      "abstract": "Feed-forward Gaussian reconstruction has recently emerged as an efficient approach for driving scene reconstruction. However, prevailing LiDAR-based methods preserve the initial correspondence between observed points and Gaussian primitives, treating the initialized primitive set as the final representation. Unlike optimization-based 3DGS, these methods cannot accumulate gradients during training to determine how the scenes representation should be densified. Meanwhile, the shared sparse backbone only fuses observations from different timestamps implicitly, without explicitly aggregating cross-time evidence for individual primitives. In this paper, we present Learning Gaussian Structure (LGS), a framework that enhances both Gaussian structure and primitive attributes. Our key observation is that changes in local gradient responses induced by a prune or add intervention reveal whether the corresponding structural adjustment benefits reconstruction. Based on this observation, our Gaussian Densify Policy learns a Densify Map comprising Prune and Addition Scores from controlled interventions, and directly adjusts the Gaussian structure during inference. We further develop a compact Cross-Time Point Query that explicitly retrieves and aggregates neighboring features from Gaussian primitives at other timestamps for reliable attribute prediction. Extensive experiments on the Waymo Open Dataset and PandaSet demonstrate that LGS consistently outperforms existing methods.",
+      "authors": [
+        "Hang Li",
+        "Jiahe Li",
+        "Meiying Gu",
+        "Jin Zheng",
+        "Lina Yu",
+        "Xiao Bai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-11T15:38:55+00:00",
+      "link": "https://arxiv.org/pdf/2608.11077v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Feed-forward Gaussian reconstruction for driving scenes with intervention-guided density control.",
+      "llm_evidence_cn": "基于干预引导密度控制的前馈高斯泼溅驾驶场景重建。",
+      "llm_evidence": "基于干预引导密度控制的前馈高斯泼溅驾驶场景重建。",
+      "canonical_evidence": "基于干预引导密度控制的前馈高斯泼溅驾驶场景重建。",
+      "llm_tldr_en": "LGS introduces intervention-guided density control to feed-forward Gaussian reconstruction, allowing gradients to determine densification and explicitly aggregating cross-time evidence, improving driving scene reconstruction.",
+      "llm_tldr_cn": "前馈高斯重建在驾驶场景重建中效率高，但现有基于LiDAR的方法将初始点云视为最终表示，无法在训练中累积梯度进行稠密化，且跨时间信息融合隐式。LGS提出干预引导的密度控制机制，使模型在训练中根据梯度决定原语集的稠密化，并显式聚合单个原语的跨时间证据。实验表明该方法显著提升驾驶场景重建质量，为前馈三维重建提供了新思路。",
+      "llm_tldr": "前馈高斯重建在驾驶场景重建中效率高，但现有基于LiDAR的方法将初始点云视为最终表示，无法在训练中累积梯度进行稠密化，且跨时间信息融合隐式。LGS提出干预引导的密度控制机制，使模型在训练中根据梯度决定原语集的稠密化，并显式聚合单个原语的跨时间证据。实验表明该方法显著提升驾驶场景重建质量，为前馈三维重建提供了新思路。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.05725v1",
+      "source": "arxiv",
+      "title": "Near-sensor Computing for Rapid Visuotactile Perception",
+      "abstract": "Visuotactile sensors reconstruct dense contact geometry from measured surface gradients, but host-based processing increases power consumption and introduces data-transfer delays and variable scheduling latency, limiting the sensing and response speed of robotic systems. To address these limitations, we implement a near-sensor computing framework that includes a spectral Poisson solver as a fully streaming hardware pipeline. The computational core logic has an estimated power consumption of 347 mW and achieves high throughput without data-dependent branching or iterative convergence, thereby providing deterministic latency. Operating at 166 MHz, the pipeline produces the first depth value of each 128x128 frame 35,107 cycles after receiving the first input pixel, corresponding to a fixed latency of 0.211 ms. Across 15 contact geometries, the reconstructed depths differ from a double-precision reference by 0.17 % of the peak contact depth. On-chip decisions based on these reconstructions close a robot protective reflex loop in 28.3 +/- 4.9 ms, compared with 169.9 +/- 27.8 ms for an equivalent host-based loop using the same actuator. These results demonstrate that near-sensor reconstruction can provide accurate, energy-efficient, and deterministic tactile geometry on timescales suitable for rapid robotic contact responses.",
+      "authors": [
+        "Zhengying Zhu",
+        "Ruilin Zhang",
+        "Runze Hu",
+        "Chenxi Xiao"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-08-06T08:08:45+00:00",
+      "link": "https://arxiv.org/pdf/2608.05725v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Hardware accelerator for depth reconstruction; near-sensor streaming pipeline with deterministic low latency",
+      "llm_evidence_cn": "面向三维重建的硬件加速器，近传感器流水线实现低延迟深度重建",
+      "llm_evidence": "面向三维重建的硬件加速器，近传感器流水线实现低延迟深度重建",
+      "canonical_evidence": "面向三维重建的硬件加速器，近传感器流水线实现低延迟深度重建",
+      "llm_tldr_en": "This paper addresses host-side latency in visuotactile depth reconstruction by implementing a fully streaming hardware pipeline with a spectral Poisson solver, yielding deterministic latency and 347 mW at 166 MHz.",
+      "llm_tldr_cn": "视觉触觉传感器需要从表面梯度重建稠密接触几何，但主机端处理带来功耗高和传输延迟。本文提出近传感器计算框架，将谱泊松求解器实现为完全流式硬件流水线，在166MHz下估计功耗347mW，并以确定性延迟输出每帧128x128深度图。该工作展示了将重建算法下沉到传感器附近的硬件加速路径，对实时三维重建加速方案设计具有借鉴意义。",
+      "llm_tldr": "视觉触觉传感器需要从表面梯度重建稠密接触几何，但主机端处理带来功耗高和传输延迟。本文提出近传感器计算框架，将谱泊松求解器实现为完全流式硬件流水线，在166MHz下估计功耗347mW，并以确定性延迟输出每帧128x128深度图。该工作展示了将重建算法下沉到传感器附近的硬件加速路径，对实时三维重建加速方案设计具有借鉴意义。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "hardware accelerator for 3D reconstruction",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.10803v1",
+      "source": "arxiv",
+      "title": "Adaptive Matrix Multiplication for Dynamic Shapes on Ascend NPUs",
+      "abstract": "Matrix Multiplication (MatMul) faces a \"generalization crisis\" driven by highly dynamic tensor shapes. This crisis is particularly acute on Ascend NPUs, where explicitly controlled architectures and strict physical constraints render existing GPU-centric optimizations ineffective. To resolve this, we propose AdaptCore, an adaptive framework for universally high-performance MatMul on Ascend NPUs. AdaptCore systematically decouples operator optimization into spatial tiling and instruction orchestration. It first maps dynamic shapes into a hardware-aware 2D tiling taxonomy to balance on-chip capacity limits and multi-core parallelism. Furthermore, it integrates a composable optimization library with a deterministic analytical performance model. By mathematically evaluating hardware state mutations, AdaptCore proactively selects and caches optimal implementations, enabling O(1) overhead runtime dispatching. Evaluations demonstrate that AdaptCore delivers a remarkable 1.85x mean speedup across 80,000 input shapes, and achieves up to a 1.48x acceleration in representative end-to-end models over the highly-tuned native vendor library (ACLNN).",
+      "authors": [
+        "Yuhang Zhou",
+        "Jiang Peng",
+        "Qianyu Jiang",
+        "Zhibin Wang",
+        "Xinghui Tian",
+        "Jianwei Zhou",
+        "Songxiang Zhu",
+        "Jingyi Zhang",
+        "Junsong Wang",
+        "Chen Tian"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-11T11:22:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.10803v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Presents adaptive MatMul optimization on Ascend NPUs, a hardware-specific performance framework transferable to 3DGS acceleration",
+      "llm_evidence_cn": "提出Ascend NPU上动态形状的矩阵乘法自适应优化框架，可迁移至3DGS加速",
+      "llm_evidence": "提出Ascend NPU上动态形状的矩阵乘法自适应优化框架，可迁移至3DGS加速",
+      "canonical_evidence": "提出Ascend NPU上动态形状的矩阵乘法自适应优化框架，可迁移至3DGS加速",
+      "llm_tldr_en": "Proposes AdaptCore, an adaptive MatMul framework for Ascend NPUs using hardware-aware tiling and analytical performance model, improving throughput for dynamic shapes.",
+      "llm_tldr_cn": "矩阵乘法在动态张量形状下存在泛化问题，GPU上的优化难以直接用于Ascend NPU。论文提出AdaptCore框架，将运算符优化解耦为空间切分和指令编排，通过硬件感知的2D切分分类和可组合优化库，结合解析性能模型实现自适应高效执行。实验显示AdaptCore能适应多种动态形状，并有效提升Ascend NPU上的矩阵乘法性能，为相关硬件加速器设计提供方法。",
+      "llm_tldr": "矩阵乘法在动态张量形状下存在泛化问题，GPU上的优化难以直接用于Ascend NPU。论文提出AdaptCore框架，将运算符优化解耦为空间切分和指令编排，通过硬件感知的2D切分分类和可组合优化库，结合解析性能模型实现自适应高效执行。实验显示AdaptCore能适应多种动态形状，并有效提升Ascend NPU上的矩阵乘法性能，为相关硬件加速器设计提供方法。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "hardware accelerator for 3D reconstruction",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
