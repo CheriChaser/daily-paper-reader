@@ -6,46 +6,32 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-12
-- 运行时间：2026-08-12 21:11:52 UTC
+- 最新运行日期：2026-08-13
+- 运行时间：2026-08-13 20:30:17 UTC
 - 运行状态：成功
-- 本次总论文数：8
-- 精读区：6
-- 速读区：2
+- 本次总论文数：4
+- 精读区：1
+- 速读区：3
 
 ### 今日简报（AI）
-今日精读6篇、速读2篇，核心聚焦3D高斯泼溅（3DGS）的稀疏视图与模糊输入重建。  
-最值得关注的是两篇9.0分工作：TRACE-GS用轨迹蒸馏+几何条件恢复稀疏视图3DGS，CasDeblurGS则从两张模糊图实现多视图一致的3DGS重建。  
-下一步建议：若对3D重建感兴趣，可优先精读这两篇高分论文，并留意其开源代码与后续延展。
-- 详情：[/202608/12/README](/202608/12/README)
+今日精读1篇、速读3篇，聚焦3D高斯泼溅与辐射场新进展。最值得关注《Floating Radiance Networks》（8.0分），其方法在动态辐射场建模上表现亮眼；另三篇工作覆盖语义标签迁移、开放词汇移动操作与相机位姿估计。建议优先跟进高分工作，并留意速读中高斯泼溅与多模态结合的落地趋势。
+- 详情：[/202608/13/README](/202608/13/README)
 
 ### 精读区论文标签
-1. [TRACE-GS: On-Policy Trajectory Distillation with Privileged Geometric Conditioning for Sparse-View 3DGS Restoration](/202608/12/2608.10286v1-trace-gs-on-policy-trajectory-distillation-with-privileged-geometric-conditioning-for-sparse-view-3dgs-restoration)  
-   标签：评分：9.0/10、query:dgs-recon
-   evidence：提出TRACE-GS，一种面向稀疏视角3D高斯泼溅修复的在线轨迹蒸馏框架。
-2. [CasDeblurGS: Cascaded 2D-to-3D Multi-View Consistency for 3D Gaussian Splatting from Two Blurry Images](/202608/12/2608.10345v1-casdeblurgs-cascaded-2d-to-3d-multi-view-consistency-for-3d-gaussian-splatting-from-two-blurry-images)  
-   标签：评分：9.0/10、query:dgs-recon
-   evidence：仅用两幅模糊图像实现3D高斯溅射重建，并通过级联2D到3D一致性
-3. [Gaussian Sculpting: End-to-End Controllable Surface Reconstruction via Field Optimization](/202608/12/2608.10602v1-gaussian-sculpting-end-to-end-controllable-surface-reconstruction-via-field-optimization)  
-   标签：评分：9.0/10、query:dgs-recon
-   evidence：基于3D高斯溅射的端到端表面重建
-4. [Visual Geometry Foundation-Aware Gaussians for Single-Frame Surround-View Driving Reconstruction](/202608/12/2608.10682v1-visual-geometry-foundation-aware-gaussians-for-single-frame-surround-view-driving-reconstruction)  
-   标签：评分：9.0/10、query:dgs-recon
-   evidence：提出一种基于视觉几何先验的3D高斯泼溅框架，用于环视驾驶场景重建。
-5. [Compact Feed-Forward 3D Gaussians via Saliency-Guided Primitive Merging](/202608/12/2608.10712v1-compact-feed-forward-3d-gaussians-via-saliency-guided-primitive-merging)  
-   标签：评分：9.0/10、query:dgs-recon
-   evidence：使用3D高斯溅射的三维重建，压缩前馈高斯原语
-6. [Learning Gaussian Structure: Intervention-Guided Density Control for Feed-Forward Driving Reconstruction](/202608/12/2608.11077v1-learning-gaussian-structure-intervention-guided-density-control-for-feed-forward-driving-reconstruction)  
+1. [Floating Radiance Networks](/202608/13/2608.05920v1-floating-radiance-networks)  
    标签：评分：8.0/10、query:dgs-recon
-   evidence：基于干预引导密度控制的前馈高斯泼溅驾驶场景重建。
+   evidence：基于高斯原语的神经场景表示，与3D高斯泼溅相关
 
 ### 速读区论文标签
-1. [Near-sensor Computing for Rapid Visuotactile Perception](/202608/12/2608.05725v1-near-sensor-computing-for-rapid-visuotactile-perception)  
+1. [CDSeg: A Renderable Gaussian Carrier for Image-to-3D Label Transfer](/202608/13/2608.05482v1-cdseg-a-renderable-gaussian-carrier-for-image-to-3d-label-transfer)  
    标签：评分：6.0/10、query:dgs-recon
-   evidence：面向三维重建的硬件加速器，近传感器流水线实现低延迟深度重建
-2. [Adaptive Matrix Multiplication for Dynamic Shapes on Ascend NPUs](/202608/12/2608.10803v1-adaptive-matrix-multiplication-for-dynamic-shapes-on-ascend-npus)  
+   evidence：利用高斯基元作为可渲染载体实现图像到三维标签传递
+2. [Embodied Multimodal Grounding for Open-Vocabulary Mobile Manipulation via Semantic 3D Gaussian Splatting](/202608/13/2608.10756v1-embodied-multimodal-grounding-for-open-vocabulary-mobile-manipulation-via-semantic-3d-gaussian-splatting)  
    标签：评分：6.0/10、query:dgs-recon
-   evidence：提出Ascend NPU上动态形状的矩阵乘法自适应优化框架，可迁移至3DGS加速
+   evidence：将语义三维高斯泼溅作为具身操作的共享场景表示
+3. [GS-CPE: Unified 6-Degree-of-Freedom Camera Pose Estimation via 3D Gaussian Splatting](/202608/13/2608.10938v1-gs-cpe-unified-6-degree-of-freedom-camera-pose-estimation-via-3d-gaussian-splatting)  
+   标签：评分：6.0/10、query:dgs-recon
+   evidence：利用3D高斯泼溅进行相机位姿估计，是3D重建的组成部分
 
 
 <div class="dpr-home-promo-card">
