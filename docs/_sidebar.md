@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-17 <!--dpr-date:20260817-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/17/2608.14136v1-hico-gs-hierarchical-context-aggregation-and-geometric-consistency-for-octree-gaussian-splatting" data-sidebar-item="{&quot;title&quot;: &quot;HiCo-GS: Hierarchical Context Aggregation and Geometric Consistency for Octree Gaussian Splatting&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.14136v1-hico-gs-hierarchical-context-aggregation-and-geometric-consistency-for-octree-gaussian-splatting&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;通过层级上下文聚合实现八叉树高斯泼溅高保真重建&quot;}">HiCo-GS: Hierarchical Context Aggregation and Geometric Consistency for Octree Gaussian Splatting</a>
   * 2026-08-14 <!--dpr-date:20260814-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/14/2608.12825v1-locusgs-spatially-grounded-tokens-for-feed-forward-3d-gaussian-splatting" data-sidebar-item="{&quot;title&quot;: &quot;LocusGS: Spatially Grounded Tokens for Feed-Forward 3D Gaussian Splatting&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.12825v1-locusgs-spatially-grounded-tokens-for-feed-forward-3d-gaussian-splatting&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;基于空间锚定令牌的前馈3D高斯溅射重建&quot;}">LocusGS: Spatially Grounded Tokens for Feed-Forward 3D Gaussian Splatting</a>

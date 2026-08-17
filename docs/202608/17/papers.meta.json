@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-17",
+  "date": "2026-08-17",
+  "generated_at": "2026-08-17T20:36:36",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/17/2608.14136v1-hico-gs-hierarchical-context-aggregation-and-geometric-consistency-for-octree-gaussian-splatting",
+      "section": "deep",
+      "title_en": "HiCo-GS: Hierarchical Context Aggregation and Geometric Consistency for Octree Gaussian Splatting",
+      "authors": "Wei Zhang, Shengkai Yu, Shiqiang Gong, Qi Zhang, Qiang Li, Qi Wang",
+      "date": "2026-08-14",
+      "pdf": "https://arxiv.org/pdf/2608.14136v1",
+      "score": "9.0",
+      "evidence": "通过层级上下文聚合实现八叉树高斯泼溅高保真重建",
+      "tldr": "基于八叉树的高斯泼溅在大规模城市场景重建中因跨级特征隔离，常导致建筑立面颜色漂移与纹理过平滑。HiCo-GS通过跨级上下文聚合将层级先验以父子自三元组融合，并用深度-法向几何一致性正则抑制漂浮物。在城市数据集Mill19、UrbanScene3D、MatrixCity以及新增中国宝塔数据集上，渲染质量均达最先进水平，且重建几何更干净。为城市级新视角合成提供高保真重建新方案，相关代码和数据集已公开。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Octree-based anchor Gaussian Splatting has emerged as a scalable representation for city-scale novel view synthesis, where multi-level anchors adaptively capture scene content from coarse building structures to fine architectural details. However, we identify a fundamental limitation in existing methods: cross-level feature isolation, where each level's anchor features are optimized independently with no inter-level communication, causing color drift on building facades and over-smoothing in textured regions. We present HiCo-GS, a high-fidelity reconstruction framework with two complementary modules. Cross-Level Context Aggregation (CLCA) enables bidirectional hierarchical prior injection by leveraging the octree's spatial containment structure to aggregate per-level context vectors into parent-self-child triplets, fused via a lightweight MLP with residual connection. Coarse-level structural priors flow down to inform fine-level anchors, while fine-level detail statistics feed back to prevent over-smoothing, at negligible computational overhead. Depth-Normal Geometric Consistency (DNGC) regularization enforces agreement between rendered normals and depth-derived normals through an alpha-weighted consistency loss, complemented by edge-aware smoothness losses with progressive warmup that exploit the strong planar priors ubiquitous in urban geometry to suppress floating artifacts. We further introduce the China-Pagoda dataset comprising 8 ancient Chinese pagodas with over 1,200 images each, featuring dense ornamental carvings, curved multi-layer eaves, and repetitive fine-grained textures. Extensive experiments on Mill19, UrbanScene3D, MatrixCity, and China-Pagoda demonstrate that HiCo-GS achieves state-of-the-art rendering quality and substantially cleaner geometry across real-world and synthetic urban benchmarks.Code: https://github.com/WZ-CS/HiCo-GS.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
