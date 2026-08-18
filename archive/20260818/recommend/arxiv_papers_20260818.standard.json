@@ -1,0 +1,336 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-18T20:44:05.395143+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2608.14713v1",
+      "source": "arxiv",
+      "title": "SpotlessGS: Relightable 3D Gaussian Splatting under Dynamic Illumination for Robotic Perception",
+      "abstract": "Robots operating in dark or poorly lit environments rely on onboard lights, which often produce uneven illumination that degrades downstream perception tasks. Prior approaches based on 2D image enhancement lack reliable supervision and fail to preserve multi-view geometric consistency. To address these limitations, we extend Dark Gaussian Splatting (DarkGS) toward a more accurate and flexible relightable 3D reconstruction framework. First, we eliminate the need for explicit light parameter calibration by jointly optimizing lighting parameters within the Gaussian Splatting framework. Second, we introduce a low-frequency illumination model based on spherical harmonics (SH) to capture spatially varying residual and ambient lighting effects. Third, we incorporate an MLP-based Bidirectional Reflectance Distribution Function (BRDF) to model non-Lambertian reflectance. Experiments on synthetic and real-world datasets demonstrate that our method effectively mitigates illumination artifacts while improving rendering quality and quantitative performance over prior approaches. We further validate its benefits for robotic perception through a downstream task.",
+      "authors": [
+        "Liang Hong",
+        "Jiaxin Wei",
+        "Simon Schaefer",
+        "Stefan Leutenegger",
+        "Jaehyung Jung"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-08-11T17:35:34+00:00",
+      "link": "https://arxiv.org/pdf/2608.14713v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "3D Gaussian Splatting based relightable 3D reconstruction for robots under dynamic illumination",
+      "llm_evidence_cn": "基于3D高斯溅射的动态光照下可重照明三维重建",
+      "llm_evidence": "基于3D高斯溅射的动态光照下可重照明三维重建",
+      "canonical_evidence": "基于3D高斯溅射的动态光照下可重照明三维重建",
+      "llm_tldr_en": "SpotlessGS extends DarkGS to relightable 3D Gaussian Splatting without explicit light calibration, jointly optimizing illumination parameters and using spherical harmonics to model spatially varying light, improving reconstruction for robotic perception under dynamic lighting.",
+      "llm_tldr_cn": "在黑暗环境中工作的机器人依赖机载光源，但光照不均会降低感知质量，且2D图像增强缺乏多视图一致性。该文将Dark Gaussian Splatting扩展为更灵活的可重照明3D重建框架，免去显式光照参数标定，并通过球谐低频照明模型联合优化光照与高斯场景。实验显示该方法能更准确地处理动态光照下的重建与重打光。这项工作对暗环境机器人感知和重打光三维重建有实用价值。",
+      "llm_tldr": "在黑暗环境中工作的机器人依赖机载光源，但光照不均会降低感知质量，且2D图像增强缺乏多视图一致性。该文将Dark Gaussian Splatting扩展为更灵活的可重照明3D重建框架，免去显式光照参数标定，并通过球谐低频照明模型联合优化光照与高斯场景。实验显示该方法能更准确地处理动态光照下的重建与重打光。这项工作对暗环境机器人感知和重打光三维重建有实用价值。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.16042v1",
+      "source": "arxiv",
+      "title": "TR-GS: High-Fidelity Sparse-View CT Volumetric Rendering via t-Distribution Gaussian Splatting and Ray-Confidence Modeling",
+      "abstract": "High-fidelity 3D medical visualization supports applications such as clinical assessment and surgical planning. Sparse-view computed tomography (CT) can reduce projection requirements and associated radiation exposure, but limited observations may introduce structural artifacts and reconstruction uncertainty. Although 3D Gaussian Splatting (3DGS) provides an efficient explicit representation for volumetric rendering, existing CT methods based on standard Gaussian primitives may be sensitive to unreliable observations under sparse-view acquisition. We present TR-GS, a Gaussian-splatting framework for sparse view CT volumetric rendering. TR-GS replaces standard Gaussian primitives with projectable Student's t-distribution primitives and introduces a ray-confidence model that regulates their degrees of freedom according to local ray observability. Confidence-guided 3D wavelet regularization is further used to balance high-frequency detail preservation and noise suppression. This work is licensed under a Creative Commons Attribution 4.0 International License. Experiments on synthetic and real-world datasets show that TR-GS improves over representative baselines in most evaluated settings and remains competitive in the remaining cases. The resulting volumetric representations may support downstream medical multimedia applications, including XR-based visualization and interactive clinical rendering.",
+      "authors": [
+        "Zedong Xiao",
+        "Yiren Wang",
+        "Zhou Liu",
+        "Xiaolin Liu",
+        "Zhangji Lu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-17T03:11:28+00:00",
+      "link": "https://arxiv.org/pdf/2608.16042v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Uses 3D Gaussian splatting for sparse-view CT volumetric reconstruction and rendering",
+      "llm_evidence_cn": "将三维高斯泼溅用于稀疏视图CT体积重建与渲染",
+      "llm_evidence": "将三维高斯泼溅用于稀疏视图CT体积重建与渲染",
+      "canonical_evidence": "将三维高斯泼溅用于稀疏视图CT体积重建与渲染",
+      "llm_tldr_en": "TR-GS adapts 3D Gaussian Splatting with t-distribution primitives and ray-confidence modeling for sparse-view CT, reducing artifacts and uncertainty while achieving high-fidelity volumetric rendering.",
+      "llm_tldr_cn": "稀疏视图CT可在降低辐射剂量的同时带来结构伪影与重建不确定性，而标准高斯泼溅对不可靠观测敏感。本文提出TR-GS框架，用可投影的学生t分布替代标准高斯基元，并结合射线置信度建模来抑制不可靠观测的影响。实验表明该方法在高保真体积渲染和结构保持上优于现有方法。该工作扩展了三维高斯泼溅在医学影像重建与渲染中的应用。",
+      "llm_tldr": "稀疏视图CT可在降低辐射剂量的同时带来结构伪影与重建不确定性，而标准高斯泼溅对不可靠观测敏感。本文提出TR-GS框架，用可投影的学生t分布替代标准高斯基元，并结合射线置信度建模来抑制不可靠观测的影响。实验表明该方法在高保真体积渲染和结构保持上优于现有方法。该工作扩展了三维高斯泼溅在医学影像重建与渲染中的应用。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.16499v1",
+      "source": "arxiv",
+      "title": "OccamView: Object-Conditioned View Selection for Frame-Budgeted Active 3D Gaussian Reconstruction",
+      "abstract": "Active 3D Gaussian reconstruction fundamentally relies on selecting informative next-best views under limited sensing budgets. Existing active 3DGS methods primarily plan viewpoints according to geometric information gain, treating object-induced hidden regions in the same manner as general unexplored space. Under tight frame budgets, such geometry-driven strategies may prioritize global scene coverage while leaving partially observed objects incompletely reconstructed. To address this limitation, we propose OccamView, an object-conditioned view-selection framework for frame-budgeted active 3D Gaussian reconstruction. Rather than predicting unseen object geometry or performing shape completion, OccamView maintains an online object memory from open-vocabulary detections grounded in measured RGB-D observations and represents unresolved local occupancy around detected objects as conservative hidden-region proxies. Candidate viewpoints are then evaluated using an occlusion-aware proxy-coverage score. Furthermore, we introduce a Geo-Floor mechanism that restricts object-conditioned re-ranking to geometrically competitive candidates, allowing object-conditioned cues to guide complementary observations while preserving the geometry-driven exploration behavior of the underlying planner. Experiments on Replica and Matterport3D under a unified frame-budgeted protocol show that OccamView consistently reduces Completion and improves Completion Ratio across five frame budgets, with particularly pronounced gains under limited frame budgets. These results demonstrate that lightweight object-conditioned cues effectively complement geometry-driven active view planning.",
+      "authors": [
+        "Hongbo Gao",
+        "Wei Zhang",
+        "Zeyu Ni",
+        "Dihao Zhu",
+        "Ruifeng Li",
+        "Yunke Wang",
+        "Chang Xu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.CV"
+      ],
+      "published": "2026-08-17T12:38:56+00:00",
+      "link": "https://arxiv.org/pdf/2608.16499v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Active 3D Gaussian reconstruction with object-conditioned view selection",
+      "llm_evidence_cn": "基于目标条件视角选择的主动3D高斯重建",
+      "llm_evidence": "基于目标条件视角选择的主动3D高斯重建",
+      "canonical_evidence": "基于目标条件视角选择的主动3D高斯重建",
+      "llm_tldr_en": "OccamView proposes an object-conditioned view selection framework for active 3D Gaussian reconstruction under tight frame budgets, prioritizing partially observed objects to improve reconstruction integrity.",
+      "llm_tldr_cn": "帧预算受限时，现有主动3DGS按几何信息增益规划视角，容易遗漏部分遮挡物体。OccamView引入目标条件评分，在线选择下一最佳视角以优先重建未完整观测的物体。实验表明，在相同帧预算下该方法显著提升重建完整性。这表明物体级语义先验可有效引导主动3D重建策略。",
+      "llm_tldr": "帧预算受限时，现有主动3DGS按几何信息增益规划视角，容易遗漏部分遮挡物体。OccamView引入目标条件评分，在线选择下一最佳视角以优先重建未完整观测的物体。实验表明，在相同帧预算下该方法显著提升重建完整性。这表明物体级语义先验可有效引导主动3D重建策略。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.14902v1",
+      "source": "arxiv",
+      "title": "Geometry-Aware Online Mapping for 3D Gaussian Splatting SLAM",
+      "abstract": "Recent 3D Gaussian Splatting (3DGS) has enabled efficient photorealistic view synthesis and is rapidly being adopted in simultaneous localization and mapping (SLAM) systems for online mapping. In these systems, a Gaussian map must be expanded and refined incrementally while tracking runs in real time, so initialization and density control directly determine where limited computation and iterations are spent. This contrasts with offline 3DGS reconstruction, where such heuristics can be amortized over long optimization schedules. However, most 3DGS-SLAM pipelines inherit initialization and density-control heuristics from offline reconstruction, which can become brittle under the strict per-keyframe optimization budgets and incremental map growth of online SLAM. In this work, we revisit these heuristics in a decoupled 3DGS-SLAM setting and propose three geometry-aware methods that operate in the mapping thread: transmittance-preserving densification, camera-aware scale initialization from depth and intrinsics, and error-guided densification that focuses new primitives on high-residual regions. Our results show consistent improvements in rendering quality with negligible overhead, highlighting the coupling between photometric residuals and pose uncertainty in online SLAM. We will open-source our code to the community to foster growth and validate reproducibility.",
+      "authors": [
+        "Thai Luu",
+        "Quan Tran",
+        "Hieu Phan",
+        "Tuan Dang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-08-14T21:20:16+00:00",
+      "link": "https://arxiv.org/pdf/2608.14902v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D Gaussian Splatting based SLAM online mapping, adapts reconstruction heuristics",
+      "llm_evidence_cn": "基于3D高斯溅射SLAM的在线建图，调整重建启发式策略",
+      "llm_evidence": "基于3D高斯溅射SLAM的在线建图，调整重建启发式策略",
+      "canonical_evidence": "基于3D高斯溅射SLAM的在线建图，调整重建启发式策略",
+      "llm_tldr_en": "3DGS-SLAM pipelines inherit heuristics from offline reconstruction, which become brittle under online budgets. This paper introduces geometry-aware online mapping that adapts initialization and density control to incremental map growth, improving real-time reconstruction quality.",
+      "llm_tldr_cn": "3D高斯溅射正被用于SLAM系统的在线建图，但多数管道直接继承离线重建的初始化与密度控制，在严格逐关键帧优化预算下容易失效。该文提出几何感知的在线建图方法，针对增量式地图增长调整初始化与密度控制。实验显示该方法能更有效地分配有限计算，提升实时建图的几何质量与稳定性。这项工作对理解3DGS从离线重建到在线SLAM的迁移具有重要意义。",
+      "llm_tldr": "3D高斯溅射正被用于SLAM系统的在线建图，但多数管道直接继承离线重建的初始化与密度控制，在严格逐关键帧优化预算下容易失效。该文提出几何感知的在线建图方法，针对增量式地图增长调整初始化与密度控制。实验显示该方法能更有效地分配有限计算，提升实时建图的几何质量与稳定性。这项工作对理解3DGS从离线重建到在线SLAM的迁移具有重要意义。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.15785v1",
+      "source": "arxiv",
+      "title": "RoofGS: Roofline-Guided End-to-End Acceleration of 3D Gaussian Splatting",
+      "abstract": "3D Gaussian Splatting (3DGS) enables real-time novel-view synthesis but remains limited on GPUs at high resolutions. Through a stage-wise Roofline characterization, we identify two distinct hardware bottlenecks: global memory traffic dominates the front end, whereas instruction throughput limits rasterization. Guided by this analysis, we develop RoofGS, a rendering framework that applies bottleneck-specific optimizations rather than generic kernel acceleration. For the memory-bound front end, we design a resolution-adaptive quantized depth sorting key that compresses each key to 32 bits. For the compute-bound rasterizer, we introduce a range-aware bit-level fast exponential approximation tailored to the bounded exponent range after opacity culling, with a derived per-pixel error bound. These two core techniques are complemented by additional optimizations (kernel fusion, compact attribute storage, culling, dual-pixel evaluation) that additionally reduce memory traffic and improve instruction-level parallelism. Experiments show that RoofGS achieves a 10.1$\\times$ end-to-end speedup over 3DGS at 4K on an RTX 4090, increasing throughput from 61 to 616 FPS, with only a 0.028 dB PSNR loss.",
+      "authors": [
+        "Yang Luo",
+        "Yan Gong",
+        "Yongsheng Gao",
+        "Jie Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-16T15:06:39+00:00",
+      "link": "https://arxiv.org/pdf/2608.15785v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "roofline-guided acceleration of 3D Gaussian splatting rendering",
+      "llm_evidence_cn": "基于Roofline模型的3D高斯溅射端到端加速方法",
+      "llm_evidence": "基于Roofline模型的3D高斯溅射端到端加速方法",
+      "canonical_evidence": "基于Roofline模型的3D高斯溅射端到端加速方法",
+      "llm_tldr_en": "Analyzes hardware bottlenecks of 3DGS with Roofline and applies bottleneck-specific optimizations: 32-bit quantized depth sorting for the memory-bound front end and range-aware exponential approximation for the compute-bound rasterizer.",
+      "llm_tldr_cn": "针对3D高斯溅射在高分辨率GPU渲染时的性能瓶颈，通过分阶段Roofline分析识别出前端显存带宽受限、光栅化指令吞吐受限两种瓶颈。据此提出RoofGS：对前端设计分辨率自适应的32位量化深度排序键，对光栅化阶段引入带范围感知的快速指数近似，从而实现瓶颈专用的端到端加速。实验显示该方法在保持渲染质量的同时显著提升了高分辨率下的帧率，为3DGS系统优化提供了新思路。",
+      "llm_tldr": "针对3D高斯溅射在高分辨率GPU渲染时的性能瓶颈，通过分阶段Roofline分析识别出前端显存带宽受限、光栅化指令吞吐受限两种瓶颈。据此提出RoofGS：对前端设计分辨率自适应的32位量化深度排序键，对光栅化阶段引入带范围感知的快速指数近似，从而实现瓶颈专用的端到端加速。实验显示该方法在保持渲染质量的同时显著提升了高分辨率下的帧率，为3DGS系统优化提供了新思路。",
+      "llm_tags": [
+        "query:dgs-recon:composite"
+      ],
+      "matched_query_tag": "query:dgs-recon:composite",
+      "matched_query_text": "Papers central to 帮我查找基于3dgs的3D重建的论文，以及对这些算法的加速器的论文, especially work that connects or combines: 3D Gaussian splatting reconstruction; hardware accelerator for 3D reconstruction; FPGA implementation of Gaussian splatting; ASIC design for neural rendering; 3D reconstruction using 3D Gaussian splatting; hardware accelerator designs for 3D Gaussian splatting; survey on Gaussian splatting acceleration techniques.",
+      "matched_requirement_id": "req-composite-dgs-recon",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.16863v1",
+      "source": "arxiv",
+      "title": "SplatGuide: Geometric Priors from 3D Gaussians for Pose-Free Novel View Synthesis",
+      "abstract": "Generating photorealistic novel views from unposed images requires both 3D geometric understanding and the ability to synthesize unseen content. A natural strategy combines feed-forward 3DGS reconstruction with multi-view diffusion. Yet prior pipelines extract at most one signal from the reconstruction, either pixel rendering or learned features, while none exploits per-Gaussian visibility for occlusion-aware reference selection. This *information disconnect* leaves renderable geometry, visibility cues, and learned features unused. SplatGuide closes this disconnect by reusing a single 3DGS scene across three complementary roles. Rendered images provide pixel-aligned geometric conditioning. Per-Gaussian source-view indices are rendered into a target-view voting map for occlusion-aware reference selection. Reconstruction tokens supply feature-level guidance via cross-attention. All three signals derive from the same reconstruction forward pass. Across RealEstate10K, DL3DV, Tanks-and-Temples, and Mip-NeRF 360, SplatGuide achieves state-of-the-art pose-free novel view synthesis. On RealEstate10K, with a moderate number of input views, it surpasses the ground-truth-pose baseline.",
+      "authors": [
+        "Yejun Zhang",
+        "Zihan Wang",
+        "Xu Ji",
+        "Yihao Wang",
+        "Yuxin Hou",
+        "Junyuan Fang",
+        "Juho-Matti Kilpeläinen",
+        "Arno Solin",
+        "Hamed Rezazadegan Tavakoli",
+        "Esa Rahtu",
+        "Juho Kannala"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-17T17:45:57+00:00",
+      "link": "https://arxiv.org/pdf/2608.16863v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Uses feed-forward 3DGS reconstruction as geometric priors for pose-free novel view synthesis, directly engaging 3D Gaussian splatting reconstruction.",
+      "llm_evidence_cn": "利用前馈3DGS重建作为几何先验进行无位姿新视角合成，直接涉及3D高斯泼溅重建。",
+      "llm_evidence": "利用前馈3DGS重建作为几何先验进行无位姿新视角合成，直接涉及3D高斯泼溅重建。",
+      "canonical_evidence": "利用前馈3DGS重建作为几何先验进行无位姿新视角合成，直接涉及3D高斯泼溅重建。",
+      "llm_tldr_en": "SplatGuide reuses a single 3DGS scene for rendering, visibility, and features, closing the information disconnect in 3DGS reconstruction pipelines for pose-free novel view synthesis.",
+      "llm_tldr_cn": "针对无位姿图像的新视角合成需要同时具备三维几何理解与合成未见内容能力的问题，现有管线往往只从3DGS重建中提取单一信号，导致几何、可见性与特征信息未被充分利用。SplatGuide通过将单个3DGS场景复用为渲染图像、逐高斯可见性索引与学习特征三种互补角色，弥合了重建与生成之间的信息断连。实验验证了该方法在各种设置下能生成更真实的新视角图像，为3DGS重建信息的综合利用与无位姿渲染提供了新思路。",
+      "llm_tldr": "针对无位姿图像的新视角合成需要同时具备三维几何理解与合成未见内容能力的问题，现有管线往往只从3DGS重建中提取单一信号，导致几何、可见性与特征信息未被充分利用。SplatGuide通过将单个3DGS场景复用为渲染图像、逐高斯可见性索引与学习特征三种互补角色，弥合了重建与生成之间的信息断连。实验验证了该方法在各种设置下能生成更真实的新视角图像，为3DGS重建信息的综合利用与无位姿渲染提供了新思路。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.15024v1",
+      "source": "arxiv",
+      "title": "MotionGS-SLAM: Event-Modulated Gaussian Splatting for Motion-Blur Robust SLAM",
+      "abstract": "Current Vision-based SLAM systems fail catastrophically when motion blur corrupts the visual input, as they attempt the ill-posed inverse problem of recovering sharp content from degraded observations. We present MotionGS-SLAM, which fundamentally reimagines motion blur handling through a paradigm shift: rather than removing blur artifacts, we reformulate the challenge as a well-constrained forward problem that generatively models blur formation within the rendering pipeline. By leveraging event cameras' microsecond temporal resolution and immunity to motion blur, we introduce a novel event-modulated Gaussian kernel that dynamically adapts each Gaussian's rasterization based on precise motion cues. Our dual-modulation mechanism transforms 2D Gaussian projections from isotropic dots into anisotropic, motion-aligned elliptical brush strokes (spatial modulation) while adaptively varying exposure integral sampling density based on local velocity (temporal modulation). This physics-based approach enables joint optimization of intra-exposure camera trajectories and 3D scene geometry through blur-aware photometric and event-based constraints. Extensive experiments demonstrate significant improvements over state-of-the-art methods in trajectory accuracy and map quality under severe high-motion conditions.",
+      "authors": [
+        "Zhiqiang Hu",
+        "Shouren Huang",
+        "Masatoshi Ishikawa"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI",
+        "cs.CV"
+      ],
+      "published": "2026-08-15T04:20:51+00:00",
+      "link": "https://arxiv.org/pdf/2608.15024v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Uses event-modulated Gaussian splatting for robust SLAM mapping/reconstruction",
+      "llm_evidence_cn": "使用事件调制高斯泼溅进行稳健SLAM建图与重建",
+      "llm_evidence": "使用事件调制高斯泼溅进行稳健SLAM建图与重建",
+      "canonical_evidence": "使用事件调制高斯泼溅进行稳健SLAM建图与重建",
+      "llm_tldr_en": "MotionGS-SLAM reformulates motion blur as forward modeling in a Gaussian splatting renderer, using event cameras to modulate Gaussian kernels and achieve blur-robust SLAM.",
+      "llm_tldr_cn": "现有视觉SLAM在运动模糊下容易失效，且通常试图从不清晰图像中恢复清晰内容。该文将模糊形成过程显式建模到高斯泼溅渲染管道中，利用事件相机的高时间分辨率提出事件调制高斯核，动态调整每个高斯的栅格化方式，从而把问题转化为良态的前向生成。实验表明该方法在运动模糊场景下显著提升SLAM定位与建图鲁棒性，展示了事件相机与三维高斯表示结合的价值。",
+      "llm_tldr": "现有视觉SLAM在运动模糊下容易失效，且通常试图从不清晰图像中恢复清晰内容。该文将模糊形成过程显式建模到高斯泼溅渲染管道中，利用事件相机的高时间分辨率提出事件调制高斯核，动态调整每个高斯的栅格化方式，从而把问题转化为良态的前向生成。实验表明该方法在运动模糊场景下显著提升SLAM定位与建图鲁棒性，展示了事件相机与三维高斯表示结合的价值。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.14112v1",
+      "source": "arxiv",
+      "title": "Fixed-Budget Gaussian Volume Encoding with Structure-Aware Allocation",
+      "abstract": "Scientific simulations often produce scalar volumes faster than they can be stored, transferred, and loaded, while in situ reduction must use only a limited share of simulation resources. This work encodes scalar fields as anisotropic Gaussian primitives under a fixed budget. The complete primitive set is allocated analytically from local field structure, including position, orientation, and shape, then refined directly against the scalar field without densification, pruning, or count changes. The selected budget determines encoded storage before refinement and, together with the iteration schedule, provides a controllable refinement-time budget. In a controlled benchmark, truncation-aware field evaluation reduces encoding time by up to 51x; 1.4 million Gaussians encode a billion-voxel volume in at most four minutes on one desktop GPU, with reduced-iteration refinement completing in under one minute. Across five datasets spanning 2.1 million to 1.1 billion evaluated voxels, compression-useful configurations achieve 15.0-38.7 dB PSNR at compression ratios from 2.2x to over 40,000x. Pre-encoding structure statistics characterize fields for which one-shot allocation yields limited gains from additional capacity. Because primitives retain scalar attributes rather than baked appearance, a single compact model serves every subsequent visualization state - supporting post-hoc transfer-function, colormap, lighting, and viewpoint changes without re-encoding.",
+      "authors": [
+        "Michael R. Martin",
+        "Joseph Insley",
+        "Victor A. Mateevitsi",
+        "Silvio Rizzi",
+        "Kwan-Liu Ma"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.CE",
+        "cs.GR",
+        "cs.LG"
+      ],
+      "published": "2026-08-14T09:15:35+00:00",
+      "link": "https://arxiv.org/pdf/2608.14112v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Encodes scalar fields as anisotropic Gaussian primitives with fixed-budget allocation; transferable to Gaussian splatting representation",
+      "llm_evidence_cn": "以各向异性高斯基元编码标量场，固定预算分配策略可迁移至三维高斯泼溅表示",
+      "llm_evidence": "以各向异性高斯基元编码标量场，固定预算分配策略可迁移至三维高斯泼溅表示",
+      "canonical_evidence": "以各向异性高斯基元编码标量场，固定预算分配策略可迁移至三维高斯泼溅表示",
+      "llm_tldr_en": "This work encodes scalar volumes as anisotropic Gaussian primitives under a fixed budget, allocating primitives analytically from local field structure and refining them directly, achieving up to 51x encoding speedup and compact storage.",
+      "llm_tldr_cn": "面向科学仿真数据的高效存储，本文提出固定预算下的高斯体编码方法，依据局部场结构解析地分配各向异性高斯基元，并在不进行增密或剪枝的情况下直接优化基元参数。结合截断感知的场评估，编码速度最高提升51倍，同时以固定预算实现了紧凑的体积表示。该方法体现了高斯基元在高效三维表示中的潜力，对三维重建中的高斯泼溅技术具有借鉴意义。",
+      "llm_tldr": "面向科学仿真数据的高效存储，本文提出固定预算下的高斯体编码方法，依据局部场结构解析地分配各向异性高斯基元，并在不进行增密或剪枝的情况下直接优化基元参数。结合截断感知的场评估，编码速度最高提升51倍，同时以固定预算实现了紧凑的体积表示。该方法体现了高斯基元在高效三维表示中的潜力，对三维重建中的高斯泼溅技术具有借鉴意义。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
