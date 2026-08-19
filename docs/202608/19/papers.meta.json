@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-19",
+  "date": "2026-08-19",
+  "generated_at": "2026-08-19T20:45:31",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/19/2608.15785v1-roofgs-roofline-guided-end-to-end-acceleration-of-3d-gaussian-splatting",
+      "section": "deep",
+      "title_en": "RoofGS: Roofline-Guided End-to-End Acceleration of 3D Gaussian Splatting",
+      "authors": "Yang Luo, Yan Gong, Yongsheng Gao, Jie Zhao",
+      "date": "2026-08-16",
+      "pdf": "https://arxiv.org/pdf/2608.15785v1",
+      "score": "9.0",
+      "evidence": "硬件感知的3D高斯泼溅渲染加速",
+      "tldr": "3D高斯溅射虽能实时合成新视角，但在高分辨率GPU下存在瓶颈。基于分阶段Roofline分析，发现前端受全局内存带宽限制，而光栅化受指令吞吐限制。为此提出RoofGS框架，采用分辨率自适应量化深度排序键将键压缩至32位，并针对不透明剔除后的指数范围设计快速指数近似，辅以内核融合、紧凑属性存储等优化，在RTX 4090上实现4K端到端加速10.1倍，FPS从61提升至616，仅损失0.028 dB PSNR。该工作展示了瓶颈导向优化相较于通用内核加速的有效性。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting (3DGS) enables real-time novel-view synthesis but remains limited on GPUs at high resolutions. Through a stage-wise Roofline characterization, we identify two distinct hardware bottlenecks: global memory traffic dominates the front end, whereas instruction throughput limits rasterization. Guided by this analysis, we develop RoofGS, a rendering framework that applies bottleneck-specific optimizations rather than generic kernel acceleration. For the memory-bound front end, we design a resolution-adaptive quantized depth sorting key that compresses each key to 32 bits. For the compute-bound rasterizer, we introduce a range-aware bit-level fast exponential approximation tailored to the bounded exponent range after opacity culling, with a derived per-pixel error bound. These two core techniques are complemented by additional optimizations (kernel fusion, compact attribute storage, culling, dual-pixel evaluation) that additionally reduce memory traffic and improve instruction-level parallelism. Experiments show that RoofGS achieves a 10.1$\\times$ end-to-end speedup over 3DGS at 4K on an RTX 4090, increasing throughput from 61 to 616 FPS, with only a 0.028 dB PSNR loss.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/19/2608.17535v1-groupforward-building-referable-3d-scenes-via-instance-grouped-feed-forward-gaussian-splatting",
+      "section": "deep",
+      "title_en": "GroupForward: Building Referable 3D Scenes via Instance-Grouped Feed-Forward Gaussian Splatting",
+      "authors": "Qijian Tian, Zimeng Wu, Xuhong Wang, Lizhuang Ma, Xin Tan",
+      "date": "2026-08-18",
+      "pdf": "https://arxiv.org/pdf/2608.17535v1",
+      "score": "9.0",
+      "evidence": "前馈3D高斯溅射用于实例感知的3D场景重建。",
+      "tldr": "同时重建和理解3D场景对具身智能至关重要。现有前馈语义3DGS缺乏显式实例区分，仅支持类别或短语查询，无法完成复杂指代推理。为此，GroupForward通过紧凑实例嵌入将高斯分组为跨视图一致的3D实例，将语义重建从逐点特征渲染转变为实例级聚合与传播。进一步提出RSRF，构建实例分组的3D场景图，检索候选实例并借助视觉语言模型进行结构化推理。在多个基准上，该方法显著提升语义重建与指代分割精度，为3D场景的可指代交互提供新范式。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Simultaneously reconstructing and understanding 3D environments is essential for embodied agents. Toward this goal, feed-forward semantic 3D Gaussian Splatting (3DGS) efficiently constructs semantic scene representations from sparse multi-view observations. However, existing methods lack explicit instance discrimination and mainly support category- or phrase-based semantic queries. To this end, we propose GroupForward, an instance-grouped feed-forward Gaussian splatting model that reconstructs geometry, appearance, instance structure, and semantics from sparse, unposed, and uncalibrated multi-view images. Unlike existing methods that attach high-dimensional semantic features to each Gaussian, GroupForward learns compact instance embeddings that group Gaussians into cross-view consistent 3D instances, reformulating feed-forward semantic 3DGS from per-Gaussian semantic feature rendering to instance-level semantic aggregation and propagation. Building on these instance groups, we further propose a Referential Scene Reasoning Framework (RSRF) for complex 3D referring segmentation. RSRF constructs an instance-grouped 3D scene graph and retrieves candidate instances for a given referring expression. A vision-language model then reasons over structured instance evidence and multi-view observations to identify the referred instance among the candidates. RSRF thereby extends language interaction from simple semantic querying to complex referential scene reasoning. Experiments on semantic reconstruction and referential reasoning demonstrate the effectiveness of our instance-grouped reconstruction and reasoning framework.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/19/2608.15651v1-gaussian-jepa-joint-embedding-predictive-learning-for-3d-gaussian-splats",
+      "section": "quick",
+      "title_en": "Gaussian-JEPA: Joint-Embedding Predictive Learning for 3D Gaussian Splats",
+      "authors": "Bin Ren, Qi Ma, Yue Li, Zongyan Han, Yidi Li, Yuqian Fu, Rao Muhammad Anwer, Theo Gevers, Fahad Shahbaz Khan, Salman Khan",
+      "date": "2026-08-16",
+      "pdf": "https://arxiv.org/pdf/2608.15651v1",
+      "score": "6.0",
+      "evidence": "提出用于3D高斯溅射的联合嵌入预测学习，为下游重建提供通用表征",
+      "tldr": "3D高斯泼溅的固定预算编码器会因观测采样不同导致特征不一致。现有自监督方法多重建被掩蔽的高斯属性，受限于单一采样且需输入空间解码器。Gaussian-JEPA采用联合嵌入预测，从可见上下文化token预测试探性token表示，利用EMA教师生成多尺度目标，并在特征空间提供监督。该方法在重采样、部分观测和形状补全任务上优于重建式预训练，迁移能力更强，表明潜在预测是学习可复用3D高斯表示的有效目标。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting (3DGS) represents 3D content with anisotropic primitives that jointly encode geometry and appearance. Fixed-budget encoders consume sampled observations of Gaussian assets, so the same object may be observed through different primitive realizations. Existing self-supervised methods mainly reconstruct masked Gaussian attributes, tying supervision to one sampled realization and requiring an input-space decoder. Latent prediction offers an alternative, but its application to Gaussian tokens requires targets that accommodate coupled attributes and heterogeneous spatial support. We introduce Gaussian-JEPA, which predicts representations of held-out Gaussian token blocks from visible context. An online encoder processes the context, while a shared exponential-moving-average encoder supplies stop-gradient features for multi-scale targets. Complementary target projections and feature-space grounding provide latent supervision without reconstructing Gaussian attributes. We evaluate the features under Gaussian resampling, partial observations, and renderable shape completion, together with transfer to part segmentation and object classification. Compared with matched reconstruction pretraining, Gaussian-JEPA is more consistent across resampled inputs, retains more instance information under partial observations, and provides stronger frozen features for Gaussian completion. These results support latent prediction as an effective objective for reusable 3D Gaussian representations. Code is on the project page (https://amazingren.github.io/Gaussian-JEPA/).",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/19/2608.17298v1-3d-gaussian-accelerated-ray-tracing-fast-training-through-particle-based-backward-propagation",
+      "section": "quick",
+      "title_en": "3D Gaussian Accelerated Ray Tracing: Fast training through particle-based backward propagation",
+      "authors": "Laurent Vit, Oliver Batchelor, Richard Green",
+      "date": "2026-08-18",
+      "pdf": "https://arxiv.org/pdf/2608.17298v1",
+      "score": "6.0",
+      "evidence": "针对高斯光线追踪的训练加速技术，识别反向传播瓶颈，对硬件加速器设计具有方法学借鉴意义。",
+      "tldr": "三维高斯泼溅光栅化近似限制视图相关排序与反射折射等次级光线效果，光线追踪虽精确但训练缓慢，瓶颈在于像素级反向传播的原子竞争。本文提出三维高斯加速光线追踪框架，将反向传播重组为图元中心，用透视校正屏幕空间边界构造紧凑缓冲与块映射，把散射梯度转为聚集式。在Mip-NeRF 360上获得约三至三点五倍训练加速，并提升质量，使全光线追踪高斯训练达到与光栅化相当速度，兼顾效率与光线追踪优势。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting has made Gaussian primitives a highly efficient representation for real-time novel view synthesis, but its rasterisation-based formulation relies on screen-space approximations that limit accurate view-dependent ordering and the integration of secondary ray effects such as reflections, refractions, and shadows. Gaussian ray tracing addresses these limitations by evaluating explicit ray-primitive intersections, yet it remains costly to train. We observe that the main bottleneck is not ray traversal alone, but the pixel-centric backward propagation, where many threads concurrently accumulate gradients into the same primitive parameters, causing severe atomic contention and thread serialisation.   We present 3DGART, a practical training framework for ray-traced Gaussian rendering. Our key idea is to reorganise backward propagation around primitives rather than pixels. Using conservative perspective-correct screen-space bounds, we build a compact intermediate buffer and a tile-primitive mapping that allows each thread to accumulate the contribution of one primitive over its covered pixels within a tile. This transforms gradient computation from a contention-heavy scatter operation into a structured gather-like process. On Mip-NeRF 360, 3DGART achieves an $\\approx 3-3.5\\times$ raw training speedup over per-pixel baseline and $\\approx4 \\times$ over 3DGRT on Mip-NeRF 360 while improving quality. More importantly, 3DGART makes fully ray-traced Gaussian training practical, reaching runtimes competitive with rasterisation-based pipelines while preserving benefits of ray tracing.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

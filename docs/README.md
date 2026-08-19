@@ -6,44 +6,34 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-18
-- 运行时间：2026-08-18 20:48:51 UTC
+- 最新运行日期：2026-08-19
+- 运行时间：2026-08-19 20:45:27 UTC
 - 运行状态：成功
-- 本次总论文数：8
-- 精读区：6
+- 本次总论文数：4
+- 精读区：2
 - 速读区：2
 
 ### 今日简报（AI）
-今日精读聚焦3D高斯泼溅核心进展，8篇论文中6篇精读、2篇速读。最值关注的是动态光照下的重光照方案《SpotlessGS》与稀疏视角CT渲染《TR-GS》，均获9.0高分。建议优先精读这两篇，再从速读中了解运动模糊SLAM与固定预算编码的补充视角。
-- 详情：[/202608/18/README](/202608/18/README)
+今日共读4篇3D高斯溅射论文，精读2篇高分工作、速读2篇。  
+最值得关注的是9.0分的《RoofGS》端到端加速渲染和《GroupForward》实例分组构建场景。  
+建议优先精读这两篇，把握3DGS在性能优化与结构化表达上的前沿进展。
+- 详情：[/202608/19/README](/202608/19/README)
 
 ### 精读区论文标签
-1. [SpotlessGS: Relightable 3D Gaussian Splatting under Dynamic Illumination for Robotic Perception](/202608/18/2608.14713v1-spotlessgs-relightable-3d-gaussian-splatting-under-dynamic-illumination-for-robotic-perception)  
+1. [RoofGS: Roofline-Guided End-to-End Acceleration of 3D Gaussian Splatting](/202608/19/2608.15785v1-roofgs-roofline-guided-end-to-end-acceleration-of-3d-gaussian-splatting)  
    标签：评分：9.0/10、query:dgs-recon
-   evidence：基于3D高斯溅射的动态光照下可重照明三维重建
-2. [TR-GS: High-Fidelity Sparse-View CT Volumetric Rendering via t-Distribution Gaussian Splatting and Ray-Confidence Modeling](/202608/18/2608.16042v1-tr-gs-high-fidelity-sparse-view-ct-volumetric-rendering-via-t-distribution-gaussian-splatting-and-ray-confidence-modeling)  
+   evidence：硬件感知的3D高斯泼溅渲染加速
+2. [GroupForward: Building Referable 3D Scenes via Instance-Grouped Feed-Forward Gaussian Splatting](/202608/19/2608.17535v1-groupforward-building-referable-3d-scenes-via-instance-grouped-feed-forward-gaussian-splatting)  
    标签：评分：9.0/10、query:dgs-recon
-   evidence：将三维高斯泼溅用于稀疏视图CT体积重建与渲染
-3. [OccamView: Object-Conditioned View Selection for Frame-Budgeted Active 3D Gaussian Reconstruction](/202608/18/2608.16499v1-occamview-object-conditioned-view-selection-for-frame-budgeted-active-3d-gaussian-reconstruction)  
-   标签：评分：9.0/10、query:dgs-recon
-   evidence：基于目标条件视角选择的主动3D高斯重建
-4. [Geometry-Aware Online Mapping for 3D Gaussian Splatting SLAM](/202608/18/2608.14902v1-geometry-aware-online-mapping-for-3d-gaussian-splatting-slam)  
-   标签：评分：8.0/10、query:dgs-recon
-   evidence：基于3D高斯溅射SLAM的在线建图，调整重建启发式策略
-5. [RoofGS: Roofline-Guided End-to-End Acceleration of 3D Gaussian Splatting](/202608/18/2608.15785v1-roofgs-roofline-guided-end-to-end-acceleration-of-3d-gaussian-splatting)  
-   标签：评分：8.0/10、query:dgs-recon
-   evidence：基于Roofline模型的3D高斯溅射端到端加速方法
-6. [SplatGuide: Geometric Priors from 3D Gaussians for Pose-Free Novel View Synthesis](/202608/18/2608.16863v1-splatguide-geometric-priors-from-3d-gaussians-for-pose-free-novel-view-synthesis)  
-   标签：评分：8.0/10、query:dgs-recon
-   evidence：利用前馈3DGS重建作为几何先验进行无位姿新视角合成，直接涉及3D高斯泼溅重建。
+   evidence：前馈3D高斯溅射用于实例感知的3D场景重建。
 
 ### 速读区论文标签
-1. [MotionGS-SLAM: Event-Modulated Gaussian Splatting for Motion-Blur Robust SLAM](/202608/18/2608.15024v1-motiongs-slam-event-modulated-gaussian-splatting-for-motion-blur-robust-slam)  
-   标签：评分：7.0/10、query:dgs-recon
-   evidence：使用事件调制高斯泼溅进行稳健SLAM建图与重建
-2. [Fixed-Budget Gaussian Volume Encoding with Structure-Aware Allocation](/202608/18/2608.14112v1-fixed-budget-gaussian-volume-encoding-with-structure-aware-allocation)  
+1. [Gaussian-JEPA: Joint-Embedding Predictive Learning for 3D Gaussian Splats](/202608/19/2608.15651v1-gaussian-jepa-joint-embedding-predictive-learning-for-3d-gaussian-splats)  
    标签：评分：6.0/10、query:dgs-recon
-   evidence：以各向异性高斯基元编码标量场，固定预算分配策略可迁移至三维高斯泼溅表示
+   evidence：提出用于3D高斯溅射的联合嵌入预测学习，为下游重建提供通用表征
+2. [3D Gaussian Accelerated Ray Tracing: Fast training through particle-based backward propagation](/202608/19/2608.17298v1-3d-gaussian-accelerated-ray-tracing-fast-training-through-particle-based-backward-propagation)  
+   标签：评分：6.0/10、query:dgs-recon
+   evidence：针对高斯光线追踪的训练加速技术，识别反向传播瓶颈，对硬件加速器设计具有方法学借鉴意义。
 
 
 <div class="dpr-home-promo-card">
