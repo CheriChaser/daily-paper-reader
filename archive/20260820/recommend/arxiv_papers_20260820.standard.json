@@ -1,0 +1,404 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-20T20:14:18.715206+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 7,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2608.18413v1",
+      "source": "arxiv",
+      "title": "CoMVS-GS: Collaborative Multi-View Stereo and 3D Gaussian Splatting for Surface Reconstruction",
+      "abstract": "3D Gaussian Splatting enables efficient novel view synthesis, but accurate mesh reconstruction remains difficult in weakly observed and occluded regions, where Gaussian primitives may grow into unstable or geometrically inconsistent structures. We propose CoMVS-GS, a general surface reconstruction framework that combines Multi-View Stereo with Gaussian splatting. CoMVS-GS initializes Gaussian primitives from dense multi-view stereo points with pre-flattened scales and normal-aligned orientations, providing stronger geometric priors than sparse structure-from-motion initialization and reducing ambiguity during early optimization. It further introduces PatchMatch-3DGS Mutual Supervision, where Gaussian-rendered depths and normals initialize PatchMatch refinement, and refined PatchMatch depths supervise Gaussian optimization to improve weakly constrained geometry. For surface extraction, CoMVS-GS replaces truncated signed distance field voxel fusion with a Delaunay graph-cut meshing pipeline, reducing sensitivity to voxel resolution while preserving visibility-consistent surface evidence. Experiments on DTU, GauU-Scene V2, and MatrixCity show that CoMVS-GS remains competitive on object-level reconstruction and improves geometric accuracy and mesh compactness in outdoor scenes while maintaining high rendering quality.",
+      "authors": [
+        "Shihan Chen",
+        "Junjing Zhang",
+        "Qingsong Yan",
+        "Haibing Liu",
+        "Haofan Ren",
+        "Fei Deng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-19T00:46:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.18413v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "3D Gaussian splatting for surface reconstruction with multi-view stereo",
+      "llm_evidence_cn": "结合多视图立体的3DGS表面重建",
+      "llm_evidence": "结合多视图立体的3DGS表面重建",
+      "canonical_evidence": "结合多视图立体的3DGS表面重建",
+      "llm_tldr_en": "CoMVS-GS combines multi-view stereo with 3D Gaussian splatting: dense MVS points initialize Gaussians with pre-flattened scales and normal-aligned orientations, and PatchMatch-3DGS mutual supervision uses rendered depths/normals to improve surface reconstruction under weak observation and occlusions.",
+      "llm_tldr_cn": "3D高斯泼溅在高效新视角合成上表现优异，但在弱观测和遮挡区域进行网格重建时，高斯基元容易生长成不稳定或几何不一致的结构。CoMVS-GS将多视图立体与3DGS结合，用稠密MVS点初始化高斯基元，并赋予预展平尺度和法线对齐方向，为优化提供强几何先验。同时提出的PatchMatch-3DGS互监督利用高斯渲染深度与法线约束重建。实验表明，该方法在弱观测和遮挡区域显著提升表面重建稳定性与精度，为基于3DGS的几何重建提供了有效新思路。",
+      "llm_tldr": "3D高斯泼溅在高效新视角合成上表现优异，但在弱观测和遮挡区域进行网格重建时，高斯基元容易生长成不稳定或几何不一致的结构。CoMVS-GS将多视图立体与3DGS结合，用稠密MVS点初始化高斯基元，并赋予预展平尺度和法线对齐方向，为优化提供强几何先验。同时提出的PatchMatch-3DGS互监督利用高斯渲染深度与法线约束重建。实验表明，该方法在弱观测和遮挡区域显著提升表面重建稳定性与精度，为基于3DGS的几何重建提供了有效新思路。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.16324v1",
+      "source": "arxiv",
+      "title": "LaGSplat: Inferring Physics-Governed Interactive Simulation from Monocular Video Using Latent Lagrangian Gaussian Splatting",
+      "abstract": "We present LaGSplat (Latent Lagrangian Gaussian Splatting), a framework that infers interactive, physics-governed dynamics from one or a few monocular videos. At inference it lets a user push on the filmed object, rigid or deformable, with an external force that was never measured, annotated, or seen during training. This is possible because a low-dimensional latent state $\\mathbf{q} \\in \\mathbb{R}^d$ plays two roles at once: it is the generalised coordinate of a learned dissipative Lagrangian and the conditioning variable of a Gaussian Splatting decoder. The inductive bias of this decoder, whose primitives are explicit points $μ_i(\\mathbf{q})$ that move with the object, is what lets a force $f$ applied in the image pull back into a latent generalised force $J(\\mathbf{q})^\\top f$ and enter the equations of motion, which pixel-space (CNN) or neural-field (NeRF) decoders cannot do. We validate LaGSplat on test cases of increasing difficulty, from rigid to deformable and from autonomous to forced real systems, combining monocular video and sensor measurements. We further demonstrate interactive use: forces of arbitrary magnitude and direction can be applied to the reconstructed object at any time, its response rendered in real time, in 2D or 3D. Assuming a dissipative Euler-Lagrange equation over a few generalised coordinates trades generality for a bounded, plausible response to unseen forces, where an unconstrained predictor diverges.",
+      "authors": [
+        "Louen Pottier"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-08-17T09:29:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.16324v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Gaussian splatting based dynamic scene reconstruction from monocular video",
+      "llm_evidence_cn": "基于高斯溅射的单目视频动态场景重建",
+      "llm_evidence": "基于高斯溅射的单目视频动态场景重建",
+      "canonical_evidence": "基于高斯溅射的单目视频动态场景重建",
+      "llm_tldr_en": "LaGSplat infers interactive physics-governed dynamics from monocular video using a latent Lagrangian state that conditions a Gaussian Splatting decoder, enabling a user to push objects at inference without seen forces; it reconstructs dynamic scenes with Gaussian Splatting from few videos.",
+      "llm_tldr_cn": "从单目视频重建可交互的物理动态场景通常需要外部力标注或复杂物理模拟。LaGSplat提出将低维潜在状态同时用作拉格朗日广义坐标和高斯溅射解码器的条件变量，从而在推理时支持用户施加未见过的外力，推动场景中的刚体或可变形物体。仅需少量视频即可学习动力学模型，无需测量或标注力。这项工作扩展了高斯溅射在动态场景重建与物理交互仿真中的能力。",
+      "llm_tldr": "从单目视频重建可交互的物理动态场景通常需要外部力标注或复杂物理模拟。LaGSplat提出将低维潜在状态同时用作拉格朗日广义坐标和高斯溅射解码器的条件变量，从而在推理时支持用户施加未见过的外力，推动场景中的刚体或可变形物体。仅需少量视频即可学习动力学模型，无需测量或标注力。这项工作扩展了高斯溅射在动态场景重建与物理交互仿真中的能力。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.18285v1",
+      "source": "arxiv",
+      "title": "QuARC-GS: Quantized Anchored Residual Coding for Compact Dynamic Scene Streaming with Gaussian Splatting",
+      "abstract": "3D scene representation techniques such as neural radiance fields (NeRFs) and Gaussian splatting have made substantial progress in novel view synthesis, achieving high-quality renderings from arbitrary view angles. More recently, such techniques have been extended to dynamic 3D scenes; however, achieving sustainable online free-viewpoint video (FVV) streaming remains challenging, especially for longer videos, due to significant storage demands of detailed scene representations and high reconstruction/rendering speed needs. To address these challenges, we propose Quantized Anchored Residual Coding Gaussian Streaming (QuARC-GS), a quantization-aware 4D scene optimization framework for online dynamic scene reconstruction that achieves ultra-high compression while maintaining reconstruction speed and quality. QuARC-GS represents a scene using a single canonical frame and highly compressed per-frame residuals. Specifically, we compress each residual through two complementary strategies targeting motion, appearance, and densification. We introduce quantization-aware anchor deformation, which suppresses insignificant motion updates while preserving meaningful deformations, maintaining reconstruction quality under low-storage streaming. Furthermore, we design a change-gated densification strategy that allocates new Gaussians only in regions exhibiting genuine temporal changes, effectively eliminating redundant appearance updates and reducing storage overhead. Extensive experiments on widely used datasets demonstrate that QuARC-GS enables competitive reconstruction quality and training speed while cutting per-frame storage by up to 11$\\times$ compared to the state-of-the-art.",
+      "authors": [
+        "Vu Trung Nghia Nguyen",
+        "Yuchen Wang",
+        "Kyung Chul Lee",
+        "Kevin C. Zhou"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.CV"
+      ],
+      "published": "2026-08-18T20:06:16+00:00",
+      "link": "https://arxiv.org/pdf/2608.18285v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Gaussian splatting reconstruction and compression for streaming",
+      "llm_evidence_cn": "用于流式传输的高斯溅射重建与压缩",
+      "llm_evidence": "用于流式传输的高斯溅射重建与压缩",
+      "canonical_evidence": "用于流式传输的高斯溅射重建与压缩",
+      "llm_tldr_en": "QuARC-GS presents a quantization-aware 4D scene optimization framework for compact dynamic scene streaming with Gaussian Splatting, addressing storage and speed needs; it enables efficient online free-viewpoint video streaming through quantized anchored residual coding.",
+      "llm_tldr_cn": "动态三维场景的在线自由视角视频流通常需要高重建速度与低存储需求，现有高斯溅射表示在长视频场景下存储开销大且重建速度不足。本文提出量化感知的4D场景优化框架QuARC-GS，利用量化锚定残差编码对高斯溅射参数进行紧凑表示，在压缩存储的同时保持渲染质量。实验结果显示该方法能有效支持长动态视频的高效流式传输，推动了实时自由视角视频的应用。",
+      "llm_tldr": "动态三维场景的在线自由视角视频流通常需要高重建速度与低存储需求，现有高斯溅射表示在长视频场景下存储开销大且重建速度不足。本文提出量化感知的4D场景优化框架QuARC-GS，利用量化锚定残差编码对高斯溅射参数进行紧凑表示，在压缩存储的同时保持渲染质量。实验结果显示该方法能有效支持长动态视频的高效流式传输，推动了实时自由视角视频的应用。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.18388v1",
+      "source": "arxiv",
+      "title": "Depth Anything V4: Dynamic 4D Scene Reconstruction via Riemannian Flow Matching on 4D Gaussian Splatting",
+      "abstract": "We present Depth Anything V4 (DAV4), a framework for dynamic 4D scene reconstruction from monocular video. Our key contribution is the application of Riemannian Flow Matching (RFM) to 4D Gaussian Splatting parameters, defining probability paths directly on non-Euclidean manifolds (scale, rotation, opacity), ensuring all intermediate states are valid. Through controlled experiments, we isolate RFM's contribution from test-time optimization (TTO) and pre-training. A deterministic MLP baseline with the same data, architecture, and TTO achieves F-score 0.762; RFM achieves 0.806 - the +0.044 gain is RFM's isolated contribution. We provide corrected computational cost analysis: pre-training is 360 GPU-hours, amortizing for large-scale deployment (over 10,000 scenes). Uncertainty is quantified via Negative Gaussian Log-Likelihood and Expected Calibration Error. DAV4 outperforms prior Depth Anything models and per-scene 4D-GS on dynamic reconstruction and novel-view synthesis, while using no human-annotated depth labels as training losses.",
+      "authors": [
+        "Jiaming Fan",
+        "Jian Lu",
+        "Jinling Jia",
+        "Chenbin Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-18T23:44:19+00:00",
+      "link": "https://arxiv.org/pdf/2608.18388v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Dynamic 4D scene reconstruction using 4D Gaussian Splatting with Riemannian Flow Matching",
+      "llm_evidence_cn": "使用4D高斯泼溅与黎曼流匹配进行动态4D场景重建",
+      "llm_evidence": "使用4D高斯泼溅与黎曼流匹配进行动态4D场景重建",
+      "canonical_evidence": "使用4D高斯泼溅与黎曼流匹配进行动态4D场景重建",
+      "llm_tldr_en": "Depth Anything V4 applies Riemannian Flow Matching to 4D Gaussian Splatting parameters for dynamic 4D scene reconstruction from monocular video, achieving F-score 0.806 versus 0.762 for a deterministic MLP baseline.",
+      "llm_tldr_cn": "从单目视频重建动态4D场景通常需要对4D高斯基元进行优化，但直接在参数空间插值可能生成非法中间态。本文提出将黎曼流匹配（RFM）作用于4D高斯泼溅参数，在尺度、旋转、不透明度等非欧氏流形上定义概率路径，保证中间状态合法。通过控制变量实验分离RFM、测试时优化与预训练的贡献，RFM使F-score从0.762提升到0.806。该方法展示了在动态场景重建中将生成式流匹配与高斯泼溅结合的良好前景。",
+      "llm_tldr": "从单目视频重建动态4D场景通常需要对4D高斯基元进行优化，但直接在参数空间插值可能生成非法中间态。本文提出将黎曼流匹配（RFM）作用于4D高斯泼溅参数，在尺度、旋转、不透明度等非欧氏流形上定义概率路径，保证中间状态合法。通过控制变量实验分离RFM、测试时优化与预训练的贡献，RFM使F-score从0.762提升到0.806。该方法展示了在动态场景重建中将生成式流匹配与高斯泼溅结合的良好前景。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.17298v1",
+      "source": "arxiv",
+      "title": "3D Gaussian Accelerated Ray Tracing: Fast training through particle-based backward propagation",
+      "abstract": "3D Gaussian Splatting has made Gaussian primitives a highly efficient representation for real-time novel view synthesis, but its rasterisation-based formulation relies on screen-space approximations that limit accurate view-dependent ordering and the integration of secondary ray effects such as reflections, refractions, and shadows. Gaussian ray tracing addresses these limitations by evaluating explicit ray-primitive intersections, yet it remains costly to train. We observe that the main bottleneck is not ray traversal alone, but the pixel-centric backward propagation, where many threads concurrently accumulate gradients into the same primitive parameters, causing severe atomic contention and thread serialisation.   We present 3DGART, a practical training framework for ray-traced Gaussian rendering. Our key idea is to reorganise backward propagation around primitives rather than pixels. Using conservative perspective-correct screen-space bounds, we build a compact intermediate buffer and a tile-primitive mapping that allows each thread to accumulate the contribution of one primitive over its covered pixels within a tile. This transforms gradient computation from a contention-heavy scatter operation into a structured gather-like process. On Mip-NeRF 360, 3DGART achieves an $\\approx 3-3.5\\times$ raw training speedup over per-pixel baseline and $\\approx4 \\times$ over 3DGRT on Mip-NeRF 360 while improving quality. More importantly, 3DGART makes fully ray-traced Gaussian training practical, reaching runtimes competitive with rasterisation-based pipelines while preserving benefits of ray tracing.",
+      "authors": [
+        "Laurent Vit",
+        "Oliver Batchelor",
+        "Richard Green"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR",
+        "cs.CV"
+      ],
+      "published": "2026-08-18T02:50:46+00:00",
+      "link": "https://arxiv.org/pdf/2608.17298v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Accelerates 3D Gaussian ray tracing training via particle-based backward propagation",
+      "llm_evidence_cn": "通过基于粒子的反向传播加速3D高斯光线追踪训练",
+      "llm_evidence": "通过基于粒子的反向传播加速3D高斯光线追踪训练",
+      "canonical_evidence": "通过基于粒子的反向传播加速3D高斯光线追踪训练",
+      "llm_tldr_en": "This paper identifies pixel-centric backward propagation as a key training bottleneck in 3D Gaussian ray tracing and presents a particle-based backward propagation approach that reduces atomic contention and thread serialization to accelerate training.",
+      "llm_tldr_cn": "3D高斯泼溅的栅格化依赖屏幕空间近似，限制了精确视角相关排序与反射等二次效果，而高斯基元光线追踪训练代价高昂。作者发现瓶颈主要是像素中心反传时大量线程并发累积梯度导致的原子竞争与串行化。为此提出基于粒子的反向传播范式，以更高效的方式将梯度分布到各原语参数。该方法在保真度优于栅格化的同时显著提升训练速度，是3DGS加速技术的有力补充。",
+      "llm_tldr": "3D高斯泼溅的栅格化依赖屏幕空间近似，限制了精确视角相关排序与反射等二次效果，而高斯基元光线追踪训练代价高昂。作者发现瓶颈主要是像素中心反传时大量线程并发累积梯度导致的原子竞争与串行化。为此提出基于粒子的反向传播范式，以更高效的方式将梯度分布到各原语参数。该方法在保真度优于栅格化的同时显著提升训练速度，是3DGS加速技术的有力补充。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "survey on Gaussian splatting acceleration techniques",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.19036v1",
+      "source": "arxiv",
+      "title": "USR-Drive: Unified Driving Scene Representation via Joint Denoising of 3D Gaussians and Boxes",
+      "abstract": "Spatial representation learning for autonomous driving aims to map raw visual signals into structured 3D scene representations, where object-centric bounding boxes and rendering-oriented 3D primitives (\\eg, 3D Gaussians) serve as two distinct yet highly complementary levels for scene understanding. Existing methods typically treat dynamic reconstruction and instance-level perception as separate tasks, despite their shared goal of estimating the underlying 3D world state. As a result, dynamic reconstruction is under-constrained while 3D detection lacks geometric grounding. To address this gap, we propose USR-Drive, a unified conditional generative framework that, given only posed multi-view driving videos, jointly recovers dense dynamic geometry and instance-level object layouts within a shared scene representation. Specifically, USR-Drive represents dense Gaussian primitives and sparse 3D bounding boxes as two aligned latent token streams and jointly denoises them with a unified multi-modal diffusion Transformer. Unlike prior paradigms that use boxes as external conditions or predict them with detached modules, USR-Drive treats them as mutually constrained state variables with a Unified Positional Encoding (UPE) that aligns heterogeneous tokens within a shared metric spatiotemporal coordinate. Via such unified representation and generative framework, the two modalities reinforce each other: geometry supplies dense metric evidence for box prediction, while boxes provide instance-level structural priors that help preserve spatial consistency and reduce ambiguity in sequential 3D geometric representation. Our approach successfully delivers state-of-the-art results for both dynamic reconstruction and 3D detection on the nuScenes and VKitti datasets.",
+      "authors": [
+        "Li-Heng Chen",
+        "Haokai Pang",
+        "Chengye Su",
+        "Jiarun Liu",
+        "Qifeng Chen",
+        "Ziqian Ni",
+        "Jianxin Huang",
+        "Shi-Sheng Huang",
+        "Hongbo Fu",
+        "Sheng Yang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-19T15:29:06+00:00",
+      "link": "https://arxiv.org/pdf/2608.19036v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Unified 3D Gaussian reconstruction with joint denoising of Gaussians and boxes from multi-view driving videos",
+      "llm_evidence_cn": "基于多视角驾驶视频联合去噪3D高斯与边界框的统一重建与表示",
+      "llm_evidence": "基于多视角驾驶视频联合去噪3D高斯与边界框的统一重建与表示",
+      "canonical_evidence": "基于多视角驾驶视频联合去噪3D高斯与边界框的统一重建与表示",
+      "llm_tldr_en": "USR-Drive jointly recovers 3D Gaussians and boxes from posed driving videos in one conditional generative framework, unifying reconstruction and perception.",
+      "llm_tldr_cn": "现有驾驶场景方法将动态重建与实例感知分开处理，导致重建约束不足、检测缺乏几何基础。本文提出USR-Drive，仅凭带位姿的多视角驾驶视频，在同一条件生成框架中联合去噪3D高斯与边界框。该方法实现了场景几何与实例结构的统一恢复，在动态重建和3D检测之间建立几何一致性，为自动驾驶场景表示提供了更优方案。",
+      "llm_tldr": "现有驾驶场景方法将动态重建与实例感知分开处理，导致重建约束不足、检测缺乏几何基础。本文提出USR-Drive，仅凭带位姿的多视角驾驶视频，在同一条件生成框架中联合去噪3D高斯与边界框。该方法实现了场景几何与实例结构的统一恢复，在动态重建和3D检测之间建立几何一致性，为自动驾驶场景表示提供了更优方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.19066v1",
+      "source": "arxiv",
+      "title": "GS-VLA: Plug-and-Play Viewpoint Canonicalization for Frozen VLA Policies via Gaussian Splatting",
+      "abstract": "This paper proposes a lightweight, plug-and-play framework that improves robustness to viewpoint shifts in Vision-Language-Action (VLA) policies without policy retraining. To our knowledge, this is the first approach to directly leverage 3D Gaussian-based novel-view synthesis for observation-space adaptation in VLA policies. Current VLA performance relies on the implicit assumption that training and deployment camera configurations are identical. Our experiments show that even a small displacement of the camera mount can reduce the success rate on the LIBERO benchmark from about 90% to about 10% in the worst case. Prior approaches, such as large-scale fine-tuning or generative data augmentation, are computationally expensive and risk catastrophic forgetting. To address this, viewpoint shifts are reformulated as a localized novel-view synthesis problem. Under a Locality assumption, that camera perturbations remain within a small bounded region relative to the workspace, viewpoint normalization reduces to a scene- and policy-independent disocclusion task. Our work implements this idea with a 4M-parameter 3D-Gaussian canonicalizer prepended to a frozen VLA policy. Without modifying policy weights, GS-VLA improves performance across three orthogonal axes: (1) Policy architectures, (2) Unseen task suites, and (3) Perturbation scales. These results show that a lightweight visual module can recover a large fraction of the performance lost under viewpoint shift, without policy retraining.",
+      "authors": [
+        "Yechan Park",
+        "HyunJin Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-08-19T16:08:10+00:00",
+      "link": "https://arxiv.org/pdf/2608.19066v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Leverages 3D Gaussian-based novel-view synthesis for observation-space reconstruction and viewpoint robustness",
+      "llm_evidence_cn": "利用基于3D高斯的新视角合成进行观测空间重建以提升视角鲁棒性",
+      "llm_evidence": "利用基于3D高斯的新视角合成进行观测空间重建以提升视角鲁棒性",
+      "canonical_evidence": "利用基于3D高斯的新视角合成进行观测空间重建以提升视角鲁棒性",
+      "llm_tldr_en": "GS-VLA is a plug-and-play framework that uses 3D Gaussian splatting reconstruction to canonicalize viewpoints for frozen VLA policies, improving robustness under camera shifts.",
+      "llm_tldr_cn": "针对VLA策略对训练与部署相机视角差异极为敏感的问题，提出了GS-VLA即插即用框架，利用3D高斯溅射重建观测场景并合成新视角，使冻结的VLA策略适应不同视角。实验显示，在LIBERO基准上相机位移会导致成功率从约90%降至约10%，而GS-VLA无需重训练即可大幅缓解该退化。它展示了3DGS重建在机器人策略泛化中的价值，并为低成本的视角自适应提供了新方案。",
+      "llm_tldr": "针对VLA策略对训练与部署相机视角差异极为敏感的问题，提出了GS-VLA即插即用框架，利用3D高斯溅射重建观测场景并合成新视角，使冻结的VLA策略适应不同视角。实验显示，在LIBERO基准上相机位移会导致成功率从约90%降至约10%，而GS-VLA无需重训练即可大幅缓解该退化。它展示了3DGS重建在机器人策略泛化中的价值，并为低成本的视角自适应提供了新方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.13159v1",
+      "source": "arxiv",
+      "title": "Splat-based Metal Artifact Reduction in Cone-Beam CT via Polychromatic Modeling",
+      "abstract": "Cone-beam computed tomography (CBCT) enables volumetric reconstruction from X-ray projections, but suffers from severe artifacts--especially beam hardening--when imaging materials with high attenuation such as metals. These artifacts arise from the polychromatic nature of X-rays and are not properly addressed by conventional monochromatic reconstruction algorithms. While recent neural representation-based methods offer improved reconstruction quality, they are computationally expensive and often impractical for deployment. We propose a novel physics-inspired, self-calibrating metal artifact reduction method that efficiently reconstructs 3D CBCT volumes while correcting beam hardening artifacts. Our method integrates a polychromatic X-ray projection model, material-dependent attenuation profiles, and system response modeling into a Gaussian Splatting framework. Unlike prior work, we eliminate the need for manual metal masks or strong prior assumptions, and we optimize both reconstruction parameters and X-ray spectral characteristics jointly during training. We further introduce a high-fidelity synthetic CBCT dataset generation pipeline validated on Monte-Carlo x-ray simulation toolbox and release new datasets with severe metal-induced artifacts to support the community. This is the first splat-based method for reducing beam hardening in CBCT. Extensive experiments on both synthetic and real-world datasets demonstrate that our method outperforms state-of-the-art approaches in artifact suppression and reconstruction accuracy.",
+      "authors": [
+        "Kiseok Choi",
+        "Inchul Kim",
+        "Jaemin Cho",
+        "Hyeongjun Cho",
+        "Min H. Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-08-13T12:25:42+00:00",
+      "link": "https://arxiv.org/pdf/2608.13159v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Splat-based 3D CBCT volume reconstruction with metal artifact reduction",
+      "llm_evidence_cn": "基于泼溅的3D锥形束CT体积重建与金属伪影抑制",
+      "llm_evidence": "基于泼溅的3D锥形束CT体积重建与金属伪影抑制",
+      "canonical_evidence": "基于泼溅的3D锥形束CT体积重建与金属伪影抑制",
+      "llm_tldr_en": "This paper presents a physics-inspired, self-calibrating splat-based method for cone-beam CT that reconstructs 3D volumes while correcting metal artifacts via polychromatic X-ray modeling, avoiding the high cost of neural representations.",
+      "llm_tldr_cn": "锥形束CT重建常受金属射束硬化伪影影响，传统单色重建无法解决，神经表示法又计算昂贵。论文提出一种物理启发的自校准方法，将多色X射线建模与泼溅式重建相结合，在重建3D体积同时抑制金属伪影。该方法避免依赖大量神经网络计算，兼顾重建效率与伪影校正能力，为CT影像中的高质量三维重建提供了新工具。",
+      "llm_tldr": "锥形束CT重建常受金属射束硬化伪影影响，传统单色重建无法解决，神经表示法又计算昂贵。论文提出一种物理启发的自校准方法，将多色X射线建模与泼溅式重建相结合，在重建3D体积同时抑制金属伪影。该方法避免依赖大量神经网络计算，兼顾重建效率与伪影校正能力，为CT影像中的高质量三维重建提供了新工具。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2608.14986v1",
+      "source": "arxiv",
+      "title": "GaussMemory: Task-Driven 3D Gaussian Scene Memory for Long-Horizon Robotic Manipulation",
+      "abstract": "Long-horizon robotic manipulation fundamentally relies on persistent spatial memory. However, existing 3D memory systems function merely as passive recorders: they store observations using fixed, hand-crafted rules, treating every scene element--whether a critical grasp target or an irrelevant background wall--with equal importance. In this paper, we propose a paradigm shift from passive storage to active, task-driven spatial memory. We argue that a robot's memory should not simply record what it sees, but actively learn how to remember--discovering which objects to track precisely, how aggressively to update them, and what to discard, all learned end-to-end without hand-designed rules. Crucially, this active paradigm is realized by unifying memory update and readout as two sides of the same cognitive process, enabling bidirectional flow where task needs shape update strategies and vice versa. To instantiate this vision, we introduce GaussMemory, which leverages 3D Gaussian Splatting as a persistent geometric substrate. On LIBERO, GaussMemory outperforms MemoryVLA on Goal and Long-10; on VLABench, it surpasses $π_0$-FAST by +5.2% (Track 1) and +6.0% (Track 6).",
+      "authors": [
+        "Zhiqiang Hu",
+        "Shouren Huang",
+        "Masatoshi Ishikawa"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-08-15T02:28:59+00:00",
+      "link": "https://arxiv.org/pdf/2608.14986v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Task-driven 3D Gaussian scene memory built with 3D Gaussians for spatial persistence",
+      "llm_evidence_cn": "面向任务驱动的3D高斯场景记忆用于长期空间保持",
+      "llm_evidence": "面向任务驱动的3D高斯场景记忆用于长期空间保持",
+      "canonical_evidence": "面向任务驱动的3D高斯场景记忆用于长期空间保持",
+      "llm_tldr_en": "GaussMemory proposes a task-driven 3D Gaussian scene memory that learns end-to-end which objects to track, update, or discard for long-horizon robotics, shifting from passive recording to active remembering.",
+      "llm_tldr_cn": "长期机器人操作依赖持久空间记忆，但现有3D记忆系统只是被动记录并用固定规则存储场景，无法区分关键目标与背景。该文提出主动、任务驱动的空间记忆，利用3D高斯表示从数据中端到端学习对哪些物体精确跟踪、以何种力度更新以及丢弃什么。这种从被动存储到主动记忆的范式转换，有望提升机器人操作中对三维场景的理解与利用效率。",
+      "llm_tldr": "长期机器人操作依赖持久空间记忆，但现有3D记忆系统只是被动记录并用固定规则存储场景，无法区分关键目标与背景。该文提出主动、任务驱动的空间记忆，利用3D高斯表示从数据中端到端学习对哪些物体精确跟踪、以何种力度更新以及丢弃什么。这种从被动存储到主动记忆的范式转换，有望提升机器人操作中对三维场景的理解与利用效率。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.17988v1",
+      "source": "arxiv",
+      "title": "GS-Voxel: Fitting-Free Structured Latents for Large-Scale 3DGS Generation",
+      "abstract": "Many scalable latent 3D generators operate on structured tensors, whereas pre-optimized 3D Gaussian Splatting (3DGS) reconstructions are unordered, spatially irregular, and vary widely in primitive count. We present GS-Voxel, a fitting-free structured latent framework, and evaluate it for large-scale aerial 3D Gaussian scene generation. GS-Voxel deterministically converts a compatible pre-optimized 3DGS reconstruction into sparse active voxels without additional per-scene optimization, retaining the sub-voxel positions and rendering attributes of the selected primitives. A GS-specific factorized VAE then separately encodes voxel geometry and local Gaussian attributes into sparse 3D latents whose size grows with the number of occupied voxels rather than being limited by a fixed scene-wide primitive count. We train image-conditioned flow models in the GS-Voxel latent space to generate aerial 3DGS scenes. A key application enabled by GS-Voxel is large-area scene generation: overlap-aware tiled inference extends synthesis beyond a single training crop conditioned on satellite-view images. Our results show that GS-Voxel provides structured latents for pre-optimized aerial 3DGS reconstructions, with latent capacity that grows with the number of occupied voxels.",
+      "authors": [
+        "Ming Qian",
+        "Zijian Wang",
+        "Minchao Sun",
+        "Jincheng Xiong",
+        "Hang Zhang",
+        "Mu Xu",
+        "Chi Wang",
+        "Baoquan Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-18T16:33:49+00:00",
+      "link": "https://arxiv.org/pdf/2608.17988v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "structured latent encoding of pre-optimized 3DGS reconstructions",
+      "llm_evidence_cn": "对预优化3DGS重建的结构化潜变量编码",
+      "llm_evidence": "对预优化3DGS重建的结构化潜变量编码",
+      "canonical_evidence": "对预优化3DGS重建的结构化潜变量编码",
+      "llm_tldr_en": "GS-Voxel converts pre-optimized 3DGS reconstructions into sparse active voxels without per-scene fitting, then uses a 3DGS-specific factorized VAE to produce scalable structured latents for large-scale 3D Gaussian scene generation.",
+      "llm_tldr_cn": "大规模3DGS生成通常依赖结构化张量，而现有3DGS重建是无序、不规则的。GS-Voxel提出免拟合的确定性转换，将兼容的3DGS重建转化为稀疏激活体素，无需逐场景优化。再用面向3DGS的因子化VAE分别编码体素几何与局部高斯属性，潜变量规模仅随占用体素数增长，从而实现可扩展的大规模航空3D高斯场景生成。",
+      "llm_tldr": "大规模3DGS生成通常依赖结构化张量，而现有3DGS重建是无序、不规则的。GS-Voxel提出免拟合的确定性转换，将兼容的3DGS重建转化为稀疏激活体素，无需逐场景优化。再用面向3DGS的因子化VAE分别编码体素几何与局部高斯属性，潜变量规模仅随占用体素数增长，从而实现可扩展的大规模航空3D高斯场景生成。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
