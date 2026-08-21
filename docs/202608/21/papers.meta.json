@@ -1,0 +1,54 @@
+{
+  "label": "2026-08-21",
+  "date": "2026-08-21",
+  "generated_at": "2026-08-21T20:46:14",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202608/21/2608.19639v1-s2gs-structured-sparse-gaussian-streaming-for-efficient-free-viewpoint-video-reconstruction-on-edge-iot-devices",
+      "section": "deep",
+      "title_en": "S$^2$GS: Structured Sparse Gaussian Streaming for Efficient Free-Viewpoint Video Reconstruction on Edge-IoT Devices",
+      "authors": "Yiwei Li, Jiannong Cao, Weixun Gao, Rui Cao, Songye Zhu, Yinfeng Cao, Mingjin Zhang",
+      "date": "2026-08-20",
+      "pdf": "https://arxiv.org/pdf/2608.19639v1",
+      "score": "9.0",
+      "evidence": "面向边缘设备的高效自由视点视频重建，使用结构化稀疏高斯流式框架",
+      "tldr": "自由视角视频的流式重建在边缘物联网设备上常因高计算和存储开销而受限。为此，S^2GS提出结构感知的时域稀疏性，利用流式八叉树组织高斯残差，并采用层次特征传播与Gumbel-Sigmoid门控实现可微分的稀疏更新决策。实验表明，与QUEEN相比，该方法在RTX 4090上将每帧优化时间降低59%、存储成本降低85%，在Jetson AGX Orin上实现60+ FPS的渲染吞吐和最低能耗。该工作为资源受限系统提供了高质量、高效率的流式重建方案，显著提升了边缘部署的可行性。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Streaming reconstruction of Free-Viewpoint Videos (FVVs) supports immersive Internet of Things (IoT) services, such as telepresence and digital twin visualization. Existing methods suffer from high per-frame optimization time and large storage footprints, limiting deployment on resource-constrained Edge-IoT devices. To address these challenges, we propose Structured Sparse Gaussian Streaming (S$^2$GS), an FVV reconstruction framework that exploits structure-aware temporal sparsity to selectively update Gaussian residuals, enabling efficient streaming without compromising visual fidelity. In the spatial domain, a streaming octree hierarchically organizes Gaussian residuals, capturing spatial correlations that guide residual updates. In the temporal domain, a structured gating mechanism, comprising hierarchical feature propagation (HFP) and Gumbel-Sigmoid sampling, converts hierarchical dynamic cues into sparse residual update decisions under differentiable optimization. A multi-level discrete scheme is further adopted to provide fine-grained control over residual updates while preserving intricate dynamic details. Extensive experiments across consumer GPUs, industrial edge IoT devices, and a physical telepresence testbed demonstrate that S$^2$GS consistently reduces per-frame optimization time and storage footprint while maintaining competitive visual quality. Compared with QUEEN, S$^2$GS reduces per-frame optimization time by 59% and storage costs by 85% on an RTX 4090 GPU. On the Jetson AGX Orin, S$^2$GS delivers the highest rendering throughput (60+ FPS) and the lowest energy consumption among the evaluated methods, demonstrating its potential for deployment in resource-constrained systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/21/2608.20335v1-4danyone-create-anyone-in-4d-from-a-casual-monocular-video",
+      "section": "deep",
+      "title_en": "4DAnyone: Create Anyone in 4D from a Casual Monocular Video",
+      "authors": "Yudong Jin, Tao Xie, Qihang Zhang, Zehong Shen, Zhen Xu, Yujun Shen, Hujun Bao, Xiaowei Zhou, Yinghao Xu",
+      "date": "2026-08-20",
+      "pdf": "https://arxiv.org/pdf/2608.20335v1",
+      "score": "8.0",
+      "evidence": "使用4D高斯泼溅从单目视频重建4D人体。",
+      "tldr": "从单目视频重建4D人体时，现有视频扩散模型在数十个目标视图下会因注意力上下文受限而失效：参考视图随生成增长呈O(N)膨胀，削弱外观一致性；分组生成又导致结构漂移。提出4DAnyone，用参考上下文打包将参考视图压缩为固定长度混合分辨率上下文，用目标上下文路由在去噪中旋转分组以共享信息，从而生成多视图一致视频并提升为4DGS。在多个数据集上超越现有方法，并具备户外泛化能力。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "We present 4DAnyone, a framework for reconstructing 4D humans from an uncalibrated monocular video by generating reconstruction-grade multiview-consistent videos and lifting them into 4D Gaussian Splatting (4DGS). Existing camera-controlled video diffusion models synthesize plausible novel-view videos but fail to maintain consistency when scaled to the tens of target views required for 4DGS reconstruction. We identify this failure as a bounded-attention-context problem: when target views exceed the capacity of a single DiT forward pass, they must be split into groups, exposing two coupled bottlenecks. On the reference-context side, conditioning on all previously generated views grows as $O(N)$, weakening cross-view appearance guidance. On the target-context side, disjoint groups cannot directly exchange information, causing global structural drift. 4DAnyone addresses both bottlenecks with two complementary designs: Reference Context Packing (RCP) compresses growing reference views into a fixed-length mixed-resolution context with $O(1)$ reference-context complexity, while Target Context Routing (TCR) rotates target-view groupings during denoising to share context across groups at high-noise steps and stabilize details at low-noise steps. We further build the MVGameHuman dataset using our in-house game engine and combine it with light-stage and in-the-wild video datasets for training. Experiments on DNA-Rendering and DyMVHumans show that 4DAnyone outperforms prior methods in both novel-view video quality and downstream 4DGS reconstruction, with robust in-the-wild generalization. See our project page for video results and source code: https://4danyone.github.io.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/21/2608.20000v1-point-based-3d-reconstruction-from-sparse-views-under-known-illumination",
+      "section": "quick",
+      "title_en": "Point-Based 3D Reconstruction from Sparse Views under Known Illumination",
+      "authors": "Magnus Kaufmann Gjerde, Joakim Bruslund Haurum, Jeppe Revall Frisvad, Markus Worchel, J. Andreas Bærentzen, Thomas B. Moeslund",
+      "date": "2026-08-20",
+      "pdf": "https://arxiv.org/pdf/2608.20000v1",
+      "score": "7.0",
+      "evidence": "稀疏视角点基3D重建，与高斯溅射重建紧密相关",
+      "tldr": "稀疏视图3D重建常依赖隐式表面或密集点表示，但需要大量原语。我们提出基于不透明beta surfels的可微点渲染，通过显式伴随光传输公式提供几何与外观梯度，使物理光照约束重建。在5个合成物体10视角下，平均对称Chamfer距离最低，比最强点基线降28.5%，仅用267个surfels。表明紧凑beta surfels结合传输优化可高效恢复表面，无需数以万计的原语。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Sparse view 3D reconstruction is commonly addressed with neural implicit surfaces or dense point-based representations such as Gaussian splatting. Surface-aware splatting methods improve extracted geometry through oriented primitives and regularization, while RadiosityGS incorporates differentiable light transport through a radiosity inspired finite-element surfel formulation. We propose a differentiable point rendering method based on opacity-bearing beta surfels. An opacity explicit adjoint light transport formulation provides gradients for surfel geometry and appearance parameters, allowing physically based light transport to constrain reconstruction.   Across five synthetic objects reconstructed from ten posed views, our method achieves the lowest mean symmetric Chamfer distance among the evaluated baselines and reduces mean Chamfer distance by 28.5% relative to the strongest point-based baseline while using only 267 surfels on average, approximately ~161 fewer primitives. Directional Chamfer results further show improved accuracy and competitive completion relative to related point-based methods. These results show that, in the controlled direct illumination setting, compact beta surfels combined with transport-based optimization can recover surfaces without relying on the tens to hundreds of thousands of primitives used by the evaluated baselines.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
