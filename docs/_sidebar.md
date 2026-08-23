@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-23 <!--dpr-date:20260823-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/23/2608.17682v1-differentiable-voronoi-ray-tracing-beyond-rasterization-speeds" data-sidebar-item="{&quot;title&quot;: &quot;Differentiable Voronoi Ray Tracing Beyond Rasterization Speeds&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.17682v1-differentiable-voronoi-ray-tracing-beyond-rasterization-speeds&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;联合设计场景表示与GPU执行，实现超越栅格化速度的可微分光线追踪&quot;}">Differentiable Voronoi Ray Tracing Beyond Rasterization Speeds</a>
   * 2026-08-21 <!--dpr-date:20260821-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/21/2608.19639v1-s2gs-structured-sparse-gaussian-streaming-for-efficient-free-viewpoint-video-reconstruction-on-edge-iot-devices" data-sidebar-item="{&quot;title&quot;: &quot;S$^2$GS: Structured Sparse Gaussian Streaming for Efficient Free-Viewpoint Video Reconstruction on Edge-IoT Devices&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.19639v1-s2gs-structured-sparse-gaussian-streaming-for-efficient-free-viewpoint-video-reconstruction-on-edge-iot-devices&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;面向边缘设备的高效自由视点视频重建，使用结构化稀疏高斯流式框架&quot;}">S$^2$GS: Structured Sparse Gaussian Streaming for Efficient Free-Viewpoint Video Reconstruction on Edge-IoT Devices</a>
