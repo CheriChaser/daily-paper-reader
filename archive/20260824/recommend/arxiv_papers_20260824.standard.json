@@ -1,0 +1,98 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-24T20:23:10.692715+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.20687v1",
+      "source": "arxiv",
+      "title": "TopoSurfel: Closing the Loop between Gaussian Surfels and Meshes for Surface Reconstruction",
+      "abstract": "3D Gaussian Splatting has achieved remarkable success in novel view synthesis. However, extracting high-fidelity surfaces directly from 3DGS remains challenging due to its discrete and unstructured nature. Existing 3DGS-based reconstruction methods typically rely on multi-view geometric consistency or local constraints. Without an explicit structured geometric prior during optimization, these methods often struggle to resolve structural ambiguities, leading to artifacts and floaters, particularly in textureless or occluded regions. To address this limitation, we propose TopoSurfel, a novel framework that closes the loop between Gaussian surfels and continuous meshes. Unlike recent methods that incorporate mesh extraction into the differentiable pipeline by introducing auxiliary neural networks or extra per-Gaussian parameters, we dynamically extract a continuous proxy mesh via a non-trainable differentiable iso-surfacing process. Leveraging this differentiable connection, we introduce a mesh-guided surfel evolution strategy, including normal alignment and geometry-aware density control, to effectively suppress floaters and fill surface holes. Furthermore, to address the initialization challenges in large-scale environments, we propose a spatially aware hybrid re-initialization strategy that ensures robust reconstruction across complex scenes. Extensive experiments demonstrate that TopoSurfel achieves competitive geometric reconstruction accuracy while maintaining high-quality mesh-based novel view synthesis. The code for our method is available at https://github.com/Fan-Treasure/TopoSurfel.",
+      "authors": [
+        "Chuanjin Fan",
+        "Wenjie Chang",
+        "Bohao Liao",
+        "Yujia Chen",
+        "Wenfei Yang",
+        "Tianzhu Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-08-21T02:49:48+00:00",
+      "link": "https://arxiv.org/pdf/2608.20687v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Surface reconstruction from 3D Gaussian splatting by closing the loop between Gaussian surfels and continuous meshes",
+      "llm_evidence_cn": "通过在高斯面元与连续网格之间闭环实现基于3D高斯泼溅的表面重建",
+      "llm_evidence": "通过在高斯面元与连续网格之间闭环实现基于3D高斯泼溅的表面重建",
+      "canonical_evidence": "通过在高斯面元与连续网格之间闭环实现基于3D高斯泼溅的表面重建",
+      "llm_tldr_en": "TopoSurfel closes the loop between Gaussian surfels and continuous meshes, using an explicit structured geometric prior to resolve structural ambiguities and reduce artifacts and floaters in 3DGS-based surface reconstruction, especially in textureless or occluded regions.",
+      "llm_tldr_cn": "3D高斯泼溅在视图合成中表现出色，但其离散非结构化特性使直接提取高保真表面颇具挑战，在无纹理或遮挡区域容易出现伪影和浮游物。TopoSurfel提出在高斯面元与连续网格之间闭环优化的框架，引入显式结构化几何先验以解决结构歧义。该先验在优化中持续引导表面几何，与依赖多视图一致性或局部约束的方法形成对比。实验表明，该方法显著减少了伪影和浮游物，提升了表面重建的质量与鲁棒性。",
+      "llm_tldr": "3D高斯泼溅在视图合成中表现出色，但其离散非结构化特性使直接提取高保真表面颇具挑战，在无纹理或遮挡区域容易出现伪影和浮游物。TopoSurfel提出在高斯面元与连续网格之间闭环优化的框架，引入显式结构化几何先验以解决结构歧义。该先验在优化中持续引导表面几何，与依赖多视图一致性或局部约束的方法形成对比。实验表明，该方法显著减少了伪影和浮游物，提升了表面重建的质量与鲁棒性。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.20602v1",
+      "source": "arxiv",
+      "title": "Sparse Light Field Sampling Improves Casual 3D and 4D Reconstruction",
+      "abstract": "Many consumer smartphones, stereo cameras, and light field cameras record multiple synchronized viewpoints in a single exposure event. However, novel view synthesis pipelines commonly use only a monocular stream and rely on camera motion or learned priors to obtain angular coverage. In this paper, we ask: why do we use only one viewpoint? We analyze sensor-limited multi-view, where one sensor trades off spatial and angular resolution, and exposure-limited multi-view, where multiple sensors on one commodity device observe each event simultaneously. We introduce a new dataset incorporating three types of commodity multi-view cameras, and evaluate sparse-view 3DGS and 4DGS baselines measuring reconstruction quality as a function of number of exposures and angle between extreme views. Our results demonstrate that using multiple cameras, even with a low baseline, significantly improves reconstruction quality in single-shot, few-shot, and casual video settings. In addition, under a fixed sensor budget, angular sampling improves reconstruction when exposures are scarce despite lower spatial resolution. The gains are most pronounced for single-shot and dynamic scenes, where a stationary monocular camera lacks the angular diversity to recover scene geometry and motion.",
+      "authors": [
+        "Shamus Li",
+        "Ruiming Cao",
+        "Laura Waller",
+        "Kristina Monakhova",
+        "Sara Fridovich-Keil"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.CV"
+      ],
+      "published": "2026-08-20T22:47:42+00:00",
+      "link": "https://arxiv.org/pdf/2608.20602v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Sparse light field sampling evaluated with 3DGS/4DGS reconstruction baselines",
+      "llm_evidence_cn": "用稀疏光场采样提升基于三维高斯泼溅（3DGS/4DGS）的三维重建质量",
+      "llm_evidence": "用稀疏光场采样提升基于三维高斯泼溅（3DGS/4DGS）的三维重建质量",
+      "canonical_evidence": "用稀疏光场采样提升基于三维高斯泼溅（3DGS/4DGS）的三维重建质量",
+      "llm_tldr_en": "Casual devices capture multiple synchronized views per exposure, yet novel view pipelines usually use only one. The paper analyzes multi-view acquisition and introduces a dataset, showing sparse-view 3DGS/4DGS reconstruction quality improves with multi-view sampling under fewer exposures.",
+      "llm_tldr_cn": "许多消费级手机、立体相机和光场相机在单次曝光中能记录多个同步视角，但常见的新视角合成流程只用单目流，浪费了角度覆盖信息。本文分析传感器受限与曝光受限两类多视角采集，构建包含三类消费级多视角相机的新数据集，并评估稀疏视角三维高斯泼溅（3DGS）与4DGS基线。结果表明利用多视角同步采样可在更少曝光次数下显著改善三维与四维重建质量，为日常场景的3D重建提供了实用指导。",
+      "llm_tldr": "许多消费级手机、立体相机和光场相机在单次曝光中能记录多个同步视角，但常见的新视角合成流程只用单目流，浪费了角度覆盖信息。本文分析传感器受限与曝光受限两类多视角采集，构建包含三类消费级多视角相机的新数据集，并评估稀疏视角三维高斯泼溅（3DGS）与4DGS基线。结果表明利用多视角同步采样可在更少曝光次数下显著改善三维与四维重建质量，为日常场景的3D重建提供了实用指导。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

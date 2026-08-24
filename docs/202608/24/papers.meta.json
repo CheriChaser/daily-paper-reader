@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-24",
+  "date": "2026-08-24",
+  "generated_at": "2026-08-24T20:27:21",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/24/2608.20687v1-toposurfel-closing-the-loop-between-gaussian-surfels-and-meshes-for-surface-reconstruction",
+      "section": "deep",
+      "title_en": "TopoSurfel: Closing the Loop between Gaussian Surfels and Meshes for Surface Reconstruction",
+      "authors": "Chuanjin Fan, Wenjie Chang, Bohao Liao, Yujia Chen, Wenfei Yang, Tianzhu Zhang",
+      "date": "2026-08-21",
+      "pdf": "https://arxiv.org/pdf/2608.20687v1",
+      "score": "9.0",
+      "evidence": "通过在高斯面元与连续网格之间闭环实现基于3D高斯泼溅的表面重建",
+      "tldr": "3DGS虽在新视角合成上表现出色，但离散结构难以直接提取高保真表面，现有方法因缺乏显式结构化先验，在无纹理或遮挡区域易产生伪影和漂浮物。为此提出TopoSurfel，通过非可训练可微等值面提取代理网格，与高斯surfel形成闭环，并借助网格引导的法线对齐与几何感知密度控制抑制漂浮物、填补孔洞。同时引入空间感知混合重初始化策略应对复杂场景。实验表明该方法在几何重建精度与基于网格的新视角合成上均取得竞争性结果，为3DGS表面重建提供了新的结构化先验范式。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting has achieved remarkable success in novel view synthesis. However, extracting high-fidelity surfaces directly from 3DGS remains challenging due to its discrete and unstructured nature. Existing 3DGS-based reconstruction methods typically rely on multi-view geometric consistency or local constraints. Without an explicit structured geometric prior during optimization, these methods often struggle to resolve structural ambiguities, leading to artifacts and floaters, particularly in textureless or occluded regions. To address this limitation, we propose TopoSurfel, a novel framework that closes the loop between Gaussian surfels and continuous meshes. Unlike recent methods that incorporate mesh extraction into the differentiable pipeline by introducing auxiliary neural networks or extra per-Gaussian parameters, we dynamically extract a continuous proxy mesh via a non-trainable differentiable iso-surfacing process. Leveraging this differentiable connection, we introduce a mesh-guided surfel evolution strategy, including normal alignment and geometry-aware density control, to effectively suppress floaters and fill surface holes. Furthermore, to address the initialization challenges in large-scale environments, we propose a spatially aware hybrid re-initialization strategy that ensures robust reconstruction across complex scenes. Extensive experiments demonstrate that TopoSurfel achieves competitive geometric reconstruction accuracy while maintaining high-quality mesh-based novel view synthesis. The code for our method is available at https://github.com/Fan-Treasure/TopoSurfel.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/24/2608.20602v1-sparse-light-field-sampling-improves-casual-3d-and-4d-reconstruction",
+      "section": "quick",
+      "title_en": "Sparse Light Field Sampling Improves Casual 3D and 4D Reconstruction",
+      "authors": "Shamus Li, Ruiming Cao, Laura Waller, Kristina Monakhova, Sara Fridovich-Keil",
+      "date": "2026-08-20",
+      "pdf": "https://arxiv.org/pdf/2608.20602v1",
+      "score": "7.0",
+      "evidence": "用稀疏光场采样提升基于三维高斯泼溅（3DGS/4DGS）的三维重建质量",
+      "tldr": "现有新视角合成通常仅使用单目视频流，忽略了消费级设备的多相机同步采集能力。本文系统分析了两类多视角设定：传感器受限与曝光受限，并构建了包含三种消费级多相机的数据集。通过评估稀疏视角3DGS和4DGS，发现即便基线很小，多相机也能显著提升单次、少次及视频场景的重建质量。在固定传感器预算下，角度采样比空间分辨率更关键，尤其对单次和动态场景。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Many consumer smartphones, stereo cameras, and light field cameras record multiple synchronized viewpoints in a single exposure event. However, novel view synthesis pipelines commonly use only a monocular stream and rely on camera motion or learned priors to obtain angular coverage. In this paper, we ask: why do we use only one viewpoint? We analyze sensor-limited multi-view, where one sensor trades off spatial and angular resolution, and exposure-limited multi-view, where multiple sensors on one commodity device observe each event simultaneously. We introduce a new dataset incorporating three types of commodity multi-view cameras, and evaluate sparse-view 3DGS and 4DGS baselines measuring reconstruction quality as a function of number of exposures and angle between extreme views. Our results demonstrate that using multiple cameras, even with a low baseline, significantly improves reconstruction quality in single-shot, few-shot, and casual video settings. In addition, under a fixed sensor budget, angular sampling improves reconstruction when exposures are scarce despite lower spatial resolution. The gains are most pronounced for single-shot and dynamic scenes, where a stationary monocular camera lacks the angular diversity to recover scene geometry and motion.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
