@@ -1,0 +1,553 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-25T20:12:26.870713+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 11,
+    "deep_cap": 6,
+    "deep_selected": 10,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2608.21685v1",
+      "source": "arxiv",
+      "title": "In-Situ Reconstruction of the International Space Station Using 3D Gaussian Splatting and Astrobee",
+      "abstract": "This article presents a novel 3D reconstruction and mapping of the interior of the International Space Station (ISS) using 3D Gaussian Splatting (3DGS). Using existing grayscale images from the Astrobee free-flying robot dataset, we construct a full 3D splat of the ISS' Kibō or Japanese Experiment Module (JEM). 3DGS has in recent years shown promise in providing novel view synthesis of scenes captured from many images or videos, this article applies this approach to human spaceflight systems. We compare our 3DGS architecture to existing methods such as Nerfacto and TensoRF and show that reconstruction improves the state-of-the-art in both scene quality and rendering speed. We show that with as little as 500 in-situ images, a high-fidelity map can be constructed using Astrobee's Navigation Camera (NavCam) during free-flight in the JEM. These reconstructions could enable free-flyers to rapidly create and update interior maps for intra-vehicular habitats like the ISS.",
+      "authors": [
+        "Hudson Kim",
+        "Ryan Soussan",
+        "Brian Coltin",
+        "Jordan Kam"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-08-21T23:20:16+00:00",
+      "link": "https://arxiv.org/pdf/2608.21685v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "in-situ 3D reconstruction using 3D Gaussian splatting",
+      "llm_evidence_cn": "使用三维高斯溅射进行在轨三维重建",
+      "llm_evidence": "使用三维高斯溅射进行在轨三维重建",
+      "canonical_evidence": "使用三维高斯溅射进行在轨三维重建",
+      "llm_tldr_en": "This article reconstructs the ISS interior with 3D Gaussian Splatting using Astrobee grayscale images, achieving better scene quality and rendering speed than Nerfacto and TensoRF with only 500 images.",
+      "llm_tldr_cn": "针对空间站内部三维重建需求，利用Astrobee机器人已有的灰度图像，将三维高斯溅射应用于国际空间站日本实验舱的在轨重建。与Nerfacto和TensoRF相比，该方法在场景质量和渲染速度上均达到更优效果，仅需约500张图像即可获得完整三维溅射场景。",
+      "llm_tldr": "针对空间站内部三维重建需求，利用Astrobee机器人已有的灰度图像，将三维高斯溅射应用于国际空间站日本实验舱的在轨重建。与Nerfacto和TensoRF相比，该方法在场景质量和渲染速度上均达到更优效果，仅需约500张图像即可获得完整三维溅射场景。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.21828v1",
+      "source": "arxiv",
+      "title": "Towards Alias-Free 4D Gaussian Representations with Motion-Aware Filtering",
+      "abstract": "Novel-view synthesis of dynamic scenes, crucial for AR/VR applications, remains a challenging problem. Recent methods adapt representations like 3D Gaussian Splatting (3DGS) and Neural Radiance Fields (NeRF) for dynamic scenes by incorporating time as the fourth dimension (4D representations). These 4D representations still suffer from aliasing artifacts, especially when generating novel views from divergent viewpoints (zoom-in/zoom-out operations). While using 3D smoothing filters like those proposed in Mip-Splatting might seem like a possible solution, they fail to account for local motion and also exhibit aliasing. To address this, we propose a motion-aware 3D smoothing filter specifically designed for 4D representations. Our approach adapts the filter strength based on local motion information, effectively mitigating aliasing without compromising rendering quality. This is achieved by estimating the joint density function of time and focal-to-depth ratio using a non-parametric estimation method. During inference, we sample from this joint distribution to determine the appropriate smoothing filter. This flexible strategy can be integrated with various 4D representations. Our evaluations on standard datasets demonstrate superior performance compared to state-of-the-art methods.",
+      "authors": [
+        "Ankit Dhiman",
+        "Kunal A Kathare",
+        "Pranav Vignesh",
+        "Lokesh R Boregowda",
+        "Venkatesh Babu Radhakrishnan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-22T07:55:38+00:00",
+      "link": "https://arxiv.org/pdf/2608.21828v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Motion-aware smoothing filter for 4D Gaussian splatting in dynamic scene reconstruction",
+      "llm_evidence_cn": "面向动态场景的4D高斯溅射表示，改进重建质量",
+      "llm_evidence": "面向动态场景的4D高斯溅射表示，改进重建质量",
+      "canonical_evidence": "面向动态场景的4D高斯溅射表示，改进重建质量",
+      "llm_tldr_en": "Proposes motion-aware 3D smoothing filters for 4D Gaussian splatting (4DGS) that account for local motion and reduce aliasing artifacts in dynamic novel-view synthesis, particularly for zoom-in and zoom-out views.",
+      "llm_tldr_cn": "动态场景的新视角合成对AR/VR至关重要，但4D高斯溅射在缩放视角下易产生混叠伪影。现有Mip-Splatting滤波未考虑局部运动而不适用。本文提出运动感知的3D平滑滤波器，针对4D表示动态调整，有效减少缩放时的混叠，提升动态场景重建的视觉质量。",
+      "llm_tldr": "动态场景的新视角合成对AR/VR至关重要，但4D高斯溅射在缩放视角下易产生混叠伪影。现有Mip-Splatting滤波未考虑局部运动而不适用。本文提出运动感知的3D平滑滤波器，针对4D表示动态调整，有效减少缩放时的混叠，提升动态场景重建的视觉质量。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.21849v1",
+      "source": "arxiv",
+      "title": "GaussVid: Sparse-View Gaussian Splatting with 3D-Aware Video Diffusion Priors",
+      "abstract": "3D Gaussian Splatting (3DGS) has achieved remarkable success in novel view synthesis; however, reconstructions under sparse views often exhibit noticeable artifacts. While recent video diffusion models provide strong spatio-temporal priors for 3DGS restoration, directly fine-tuning them for restoration is suboptimal, as they lack awareness of the underlying multi-camera geometry, resulting in multi-view inconsistencies. In this work, we propose a novel 3D-aware video restoration framework designed to enhance the quality of sparse 3DGS reconstruction. Specifically, we construct a large-scale 3DGS video dataset to enable specialized fine-tuning. To bridge the gap between 2D video generation and 3D multi-view constraints, we introduce a camera-conditioned geometric prior. By using the first and last frames as boundary anchors and encoding the corresponding camera relationships, we explicitly inject spatial structure into the video generation pipeline. This boundary-anchored, camera-aware prior guides the network toward geometrically grounded restoration that remains coherent across viewpoints. Extensive experiments show that, among video-prior restoration methods, our approach attains the best pixel- and structure-level fidelity (PSNR/SSIM) and improves multi-view consistency, while remaining competitive in perceptual quality (LPIPS).",
+      "authors": [
+        "Xinhui Liu",
+        "Can Wang",
+        "Wei Jiang",
+        "Wei Wang",
+        "Dong Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-22T08:47:29+00:00",
+      "link": "https://arxiv.org/pdf/2608.21849v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Sparse-view 3DGS reconstruction enhanced by 3D-aware video diffusion priors",
+      "llm_evidence_cn": "用3D感知视频扩散先验增强稀疏视角3DGS重建",
+      "llm_evidence": "用3D感知视频扩散先验增强稀疏视角3DGS重建",
+      "canonical_evidence": "用3D感知视频扩散先验增强稀疏视角3DGS重建",
+      "llm_tldr_en": "GaussVid constructs a large-scale 3DGS video dataset and fine-tunes a 3D-aware video diffusion model as prior to restore multi-view consistent sparse-view 3DGS reconstructions.",
+      "llm_tldr_cn": "3DGS在新视角合成上很成功，但稀疏视角重建常有伪影。直接将视频扩散模型微调用于恢复缺乏多相机几何感知，会造成多视角不一致。本文提出GaussVid，构造大规模3DGS视频数据集进行专用微调，并引入相机条件机制让视频先验感知三维多视角约束，从而修复稀疏视角3DGS重建。实验表明该方法能有效减少伪影并保持多视角一致性。这项工作为3DGS稀疏重建的生成式后处理提供了新思路。",
+      "llm_tldr": "3DGS在新视角合成上很成功，但稀疏视角重建常有伪影。直接将视频扩散模型微调用于恢复缺乏多相机几何感知，会造成多视角不一致。本文提出GaussVid，构造大规模3DGS视频数据集进行专用微调，并引入相机条件机制让视频先验感知三维多视角约束，从而修复稀疏视角3DGS重建。实验表明该方法能有效减少伪影并保持多视角一致性。这项工作为3DGS稀疏重建的生成式后处理提供了新思路。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22102v1",
+      "source": "arxiv",
+      "title": "Learning Implicit Constitutive Laws for Dynamic 3D Gaussian Splatting from Monocular Videos",
+      "abstract": "We present GCA (Gaussian Constitutive Alignment), a framework for learning implicit constitutive laws from monocular dynamic video of deformable objects represented by 3D Gaussians. Given a static multi-view scan for geometric initialization, our method learns intrinsic physical dynamics solely from a single fixed-viewpoint video of the moving object. Existing implicit methods often suffer from local minima under noisy supervision and lack physical interpretability, while explicit approaches rely on predefined constitutive equations, limiting generalizability and becoming unstable in monocular settings. To address these challenges, our framework unifies LoRA-based adaptation with two key alignment modules. First, we propose Rank-based Depth-Geometric Anchors (RDGA) to establish robust geometric constraints from monocular dynamic observations via scale-invariant rank-based depth alignment, reducing the reliance on unreliable pixel-level color supervision. Second, a Constitutive Prior Regularizer (CPR) integrates classical constitutive models as soft differentiable priors, regularizing the optimization while preserving the flexibility of implicit modeling---even when the actual material is absent from the hypotheses. Extensive experiments on synthetic, real-to-sim, and real-world datasets demonstrate that GCA outperforms existing methods, achieving 48% lower Chamfer Distance than the strongest baseline on synthetic benchmarks while remaining robust under monocular supervision.",
+      "authors": [
+        "Xiaoyang Liu",
+        "Kai Han"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-08-22T20:47:17+00:00",
+      "link": "https://arxiv.org/pdf/2608.22102v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Learning implicit constitutive laws for deformable objects represented by 3D Gaussian splatting",
+      "llm_evidence_cn": "为3D高斯泼溅表示的变形物体学习隐式本构规律",
+      "llm_evidence": "为3D高斯泼溅表示的变形物体学习隐式本构规律",
+      "canonical_evidence": "为3D高斯泼溅表示的变形物体学习隐式本构规律",
+      "llm_tldr_en": "GCA learns implicit physical constitutive laws from monocular videos for deformable 3D Gaussian objects, unifying LoRA-based adaptation and rank-based alignment.",
+      "llm_tldr_cn": "从单目视频学习可变形物体的物理动力学对3DGS表示具有挑战,现有隐式方法易陷入局部最优且缺乏可解释性。GCA提出基于LoRA的适配和两个对齐模块,从单视点视频中学习隐式本构定律。该方法在静物多视角扫描初始化基础上,仅用固定视点视频即可稳定重建动态3D高斯物体。",
+      "llm_tldr": "从单目视频学习可变形物体的物理动力学对3DGS表示具有挑战,现有隐式方法易陷入局部最优且缺乏可解释性。GCA提出基于LoRA的适配和两个对齐模块,从单视点视频中学习隐式本构定律。该方法在静物多视角扫描初始化基础上,仅用固定视点视频即可稳定重建动态3D高斯物体。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22344v1",
+      "source": "arxiv",
+      "title": "Fast and Compact 3D Gaussian Splatting with Polarized Opacity Prior",
+      "abstract": "3D Gaussian Splatting (3DGS) achieves state-of-the-art rendering quality at real-time speeds but suffers from \"model bloat\" - a large number of redundant, low-opacity Gaussians that inflate memory usage and training costs. This inefficiency stems from the standard \"densify-then-prune\" paradigm, which expands the model aggressively before relying on pruning to achieve compactness. To mitigate this problem, we present an efficient training framework that builds an intrinsically compact representation, replacing the conventional densify-then-prune cycle. Our method leverages a synergistic design: an L2 reconstruction loss to provide error-proportional gradients that stabilize optimization, and a novel Polarized Opacity Prior (POP) to actively manage the Gaussian population. POP steers informative primitives toward full opacity and uninformative ones toward transparency, enabling natural pruning and accelerating rendering through Early Ray Termination. Experiments on three public datasets demonstrate that our approach consistently achieves accelerated 3DGS training with significantly fewer Gaussians while maintaining comparable visual reconstruction quality. These results show that the proposed framework provides a simple and effective path toward fast and inherently compact 3DGS training.",
+      "authors": [
+        "Zi-Ming Wang",
+        "Kai-Wen Duan",
+        "Kowei Huang",
+        "Akihiro Sugimoto",
+        "Shang-Hong Lai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-23T10:21:30+00:00",
+      "link": "https://arxiv.org/pdf/2608.22344v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Efficient training framework for compact 3D Gaussian splatting reconstruction",
+      "llm_evidence_cn": "面向紧凑三维高斯泼溅重建的高效训练框架",
+      "llm_evidence": "面向紧凑三维高斯泼溅重建的高效训练框架",
+      "canonical_evidence": "面向紧凑三维高斯泼溅重建的高效训练框架",
+      "llm_tldr_en": "Presents an efficient training framework for 3DGS that replaces densify-then-prune with an intrinsically compact representation using polarized opacity prior and L2 reconstruction loss.",
+      "llm_tldr_cn": "针对三维高斯泼溅模型臃肿、内存与训练成本高的问题，提出基于极化不透明度先验的高效训练框架，取代传统的先密集化再剪枝的流程。使用L2重建损失稳定优化，并主动管理高斯分布，在保持渲染质量的同时获得更紧凑的模型。",
+      "llm_tldr": "针对三维高斯泼溅模型臃肿、内存与训练成本高的问题，提出基于极化不透明度先验的高效训练框架，取代传统的先密集化再剪枝的流程。使用L2重建损失稳定优化，并主动管理高斯分布，在保持渲染质量的同时获得更紧凑的模型。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22740v1",
+      "source": "arxiv",
+      "title": "Seeing the Unseen: Semantic-in-Gaussian for Sparse-View 3D Generalization",
+      "abstract": "Generalizable 3D Gaussian Splatting (G-3DGS) has emerged as a promising approach for novel view synthesis undersparse-view settings. However, existing frameworks remain restricted by pixel-aligned Gaussian estimation, whichstruggles in partially observed or occluded regions and often leads to incomplete surfaces or structural collapse. Toaddress these challenges, we propose SeeU (Seeing the Unseen), a novel G-3DGS framework. We frame its core design asSemantic-in-Gaussian: semantic-conditioned refinement in Gaussian space. Specifically, we introduce a Cross-viewEntropy-Aware (CEA) module that aggregates multi-view semantic and geometric cues into compact embeddings. Theseembeddings guide the Conditional Gaussian Transformer, which applies residual updates to coarse Gaussians, helpingrecover under-constrained regions of partially observed structures while preserving surface consistency. Comprehensiveexperiments on multiple benchmarks demonstrate that SeeU consistently improves rendering quality and structuralcompleteness while retaining efficient feed-forward inference. Especially under challenging extrapolation settings,SeeU achieves an average improvement of 2.44 dB in PSNR compared to recent SOTA G-3DGS methods.",
+      "authors": [
+        "Zeyang Bai",
+        "Yunpeng Wang",
+        "Yunbiao Wang",
+        "Jun Xiao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-24T02:58:24+00:00",
+      "link": "https://arxiv.org/pdf/2608.22740v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Generalizable 3D Gaussian Splatting for sparse-view 3D reconstruction",
+      "llm_evidence_cn": "面向稀疏视角三维重建的通用三维高斯泼溅方法",
+      "llm_evidence": "面向稀疏视角三维重建的通用三维高斯泼溅方法",
+      "canonical_evidence": "面向稀疏视角三维重建的通用三维高斯泼溅方法",
+      "llm_tldr_en": "Proposes SeeU, a generalizable 3D Gaussian Splatting framework with semantic-conditioned refinement and cross-view entropy-aware module for robust sparse-view 3D reconstruction.",
+      "llm_tldr_cn": "现有可泛化的三维高斯泼溅框架在稀疏视角下受像素对齐估计限制，常在遮挡或部分观测区域导致结构不完整。为此提出SeeU框架，将语义条件化细化引入高斯空间，并设计跨视角熵感知模块聚合多视角语义与几何线索。实验表明该框架在稀疏视角三维重建与视角合成任务上能恢复更完整的结构和细节，提升泛化能力。",
+      "llm_tldr": "现有可泛化的三维高斯泼溅框架在稀疏视角下受像素对齐估计限制，常在遮挡或部分观测区域导致结构不完整。为此提出SeeU框架，将语义条件化细化引入高斯空间，并设计跨视角熵感知模块聚合多视角语义与几何线索。实验表明该框架在稀疏视角三维重建与视角合成任务上能恢复更完整的结构和细节，提升泛化能力。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22773v1",
+      "source": "arxiv",
+      "title": "LagrangeGS: Non-Conservative Lagrangian System on Dynamic 3D Gaussian Splatting",
+      "abstract": "Dynamic 3D Gaussian Splatting (3DGS) achieves photorealistic reconstruction of time-varying scenes, and recent physics-aware extensions improve extrapolation by explicitly predicting velocity fields. However, these extensions merely fit vector fields to visual deformations without satisfying Lagrangian mechanics, leading to three major issues: (i) physically inconsistent trajectories, (ii) lack of time-reversibility, and (iii) geometric collapse during long-term extrapolation. In this paper, we propose LagrangeGS, which formulates dynamic 3DGS as a non-conservative Lagrangian system. While this Lagrangian formulation fundamentally solves (i), a direct application of general LNNs to dynamic 3DGS requires a large velocity-Hessian inversion for millions of Gaussian particles. To overcome this computational bottleneck, we approximate the velocity-Hessian as an identity matrix, decoupling particle dynamics for computational tractability. For (ii), we restrict the non-conservative forces to be explicitly time independent, enabling consistent backward integration. Finally, to address (iii), we introduce local rigid alignment that regularizes particle trajectories. Extensive evaluations on dynamic scene benchmarks demonstrate that LagrangeGS enables stable long-term extrapolation, consistent time reversal, and counterfactual physics-based editing without retraining.",
+      "authors": [
+        "Shogo Sato",
+        "Takuhiro Kaneko",
+        "Shoichiro Takeda",
+        "Tomoyasu Shimada",
+        "Riku Inoue",
+        "Kazuhiko Murasaki",
+        "Ryuichi Tanida"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-24T03:51:21+00:00",
+      "link": "https://arxiv.org/pdf/2608.22773v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Presents LagrangeGS for dynamic 3D Gaussian splatting reconstruction using a Lagrangian formulation.",
+      "llm_evidence_cn": "提出LagrangeGS，用拉格朗日系统进行动态3D高斯溅射重建。",
+      "llm_evidence": "提出LagrangeGS，用拉格朗日系统进行动态3D高斯溅射重建。",
+      "canonical_evidence": "提出LagrangeGS，用拉格朗日系统进行动态3D高斯溅射重建。",
+      "llm_tldr_en": "Proposes LagrangeGS, a dynamic 3D Gaussian splatting method that enforces Lagrangian mechanics to produce physically consistent trajectories and prevent geometric collapse during long-term extrapolation.",
+      "llm_tldr_cn": "动态3D高斯溅射重建通常仅拟合视觉变形，缺乏物理一致性，导致轨迹不合理和长时间外推时几何塌陷。为此提出LagrangeGS，将动态3DGS建模为非保守拉格朗日系统，从根本上解决轨迹一致性问题，同时避免大规模速度-海森矩阵求逆的昂贵计算。实验表明该方法在时间可逆性和长期外推稳定性上优于现有物理感知扩展，为动态场景重建提供了更可靠的物理约束框架。",
+      "llm_tldr": "动态3D高斯溅射重建通常仅拟合视觉变形，缺乏物理一致性，导致轨迹不合理和长时间外推时几何塌陷。为此提出LagrangeGS，将动态3DGS建模为非保守拉格朗日系统，从根本上解决轨迹一致性问题，同时避免大规模速度-海森矩阵求逆的昂贵计算。实验表明该方法在时间可逆性和长期外推稳定性上优于现有物理感知扩展，为动态场景重建提供了更可靠的物理约束框架。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22888v1",
+      "source": "arxiv",
+      "title": "NemoSplat: Feed-Forward 4D Gaussian Splatting for Media-Aware Underwater Reconstruction",
+      "abstract": "Reconstructing photorealistic scenes in unconstrained underwater environments remains challenging due to severe media-induced light scattering and unpredictable dynamic objects. Recent feed-forward visual foundation models have demonstrated remarkable capabilities in generalized novel view synthesis and tracking. However, when directly applied to aquatic videos, optical attenuation and motion interference fatally corrupt their feature aggregation, leading to severe tracking and reconstruction failures. To overcome these limitations, we present NemoSplat, the first feed-forward 4D Gaussian Splatting framework tailored for media-aware dynamic reconstruction directly from uncalibrated marine videos. Beyond providing robust estimations of camera poses and dense scene depth, we devise a Promptable Dynamic Disentangler that utilizes a confidence-aware fusion strategy of learned dynamic probabilities and optional semantic text priors, effectively isolating massive transient entities. Furthermore, to counteract visual degradation, a Media-Aware Gaussian Predictor is formulated to jointly estimate intrinsic 3D Gaussian attributes alongside physical media parameters, rendering pristine scene appearance in a single forward pass. Additionally, we introduce a large-scale underwater dataset with massive dynamic elements to facilitate training and evaluation. Extensive experiments on our dataset demonstrate that NemoSplat achieves state-of-the-art tracking accuracy and high-fidelity rendering.",
+      "authors": [
+        "Xiaopeng Guo",
+        "Wai Chung Tse",
+        "Yipeng Zhu",
+        "Hanwen Zhang",
+        "Huajian Huang",
+        "Sai-Kit Yeung"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-24T07:20:51+00:00",
+      "link": "https://arxiv.org/pdf/2608.22888v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Feed-forward 4D Gaussian splatting for underwater scene reconstruction",
+      "llm_evidence_cn": "前馈4D高斯泼溅用于水下场景重建",
+      "llm_evidence": "前馈4D高斯泼溅用于水下场景重建",
+      "canonical_evidence": "前馈4D高斯泼溅用于水下场景重建",
+      "llm_tldr_en": "NemoSplat adapts feed-forward 4D Gaussian splatting to uncalibrated underwater videos with media-aware modules for robust dynamic reconstruction.",
+      "llm_tldr_cn": "水下场景的光学衰减和动态物体干扰常导致通用视觉基础模型重建与跟踪失败。NemoSplat提出第一个面向水下介质的 前馈4D高斯泼溅框架,直接从无标定海洋视频进行动态重建。它引入介质感知模块以应对光学衰减和运动干扰,提升跟踪与重建的鲁棒性。该方法为水下自由视角重建提供了新的专用方案。",
+      "llm_tldr": "水下场景的光学衰减和动态物体干扰常导致通用视觉基础模型重建与跟踪失败。NemoSplat提出第一个面向水下介质的 前馈4D高斯泼溅框架,直接从无标定海洋视频进行动态重建。它引入介质感知模块以应对光学衰减和运动干扰,提升跟踪与重建的鲁棒性。该方法为水下自由视角重建提供了新的专用方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.22906v1",
+      "source": "arxiv",
+      "title": "AquaFlow: A Monocular Gaussian Splatting SLAM for Underwater Streaming Reconstruction",
+      "abstract": "Recent monocular 3D Gaussian Splatting (3DGS) streaming reconstruction methods have achieved impressive performance by balancing reconstruction quality and efficiency. However, extending these frameworks to underwater scenes remains challenging due to severe visual degradation, such as light attenuation and scattering, which degrades camera pose tracking and distorts scene geometry. To address these challenges, we propose AquaFlow, a monocular Gaussian Splatting streaming reconstruction framework for efficient and high-fidelity underwater reconstruction. Specifically, AquaFlow fine-tunes a 3D vision foundation model on large-scale underwater data for robust pose and pointmap estimation, and introduces a medium-guided incremental Gaussian initialization strategy for streaming mapping. Furthermore, we develop a streaming-compatible hybrid scene representation that integrates structured, distance-conditioned neural Gaussians with a physics-inspired optical model to compensate for underwater image formation effects, enabling accurate scene reconstruction. We evaluate AquaFlow on a comprehensive dataset of 62 diverse underwater trajectories, collected from both public benchmarks and in-the-wild web videos across various scales. Extensive experiments demonstrate that AquaFlow achieves state-of-the-art tracking and rendering performance, reducing average localization error by 13.2% and improving PSNR by 4.74 dB compared to WaterSplat-SLAM.",
+      "authors": [
+        "Yingxiang Xu",
+        "Kerui Ren",
+        "Wenqi Guo",
+        "Changjian Jiang",
+        "Tao Lu",
+        "Linning Xu",
+        "Mulin Yu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-24T07:39:07+00:00",
+      "link": "https://arxiv.org/pdf/2608.22906v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Monocular 3D Gaussian Splatting streaming reconstruction for underwater scenes",
+      "llm_evidence_cn": "单目高斯溅射水下流式三维重建",
+      "llm_evidence": "单目高斯溅射水下流式三维重建",
+      "canonical_evidence": "单目高斯溅射水下流式三维重建",
+      "llm_tldr_en": "AquaFlow proposes a monocular 3DGS streaming reconstruction framework for underwater scenes, fine-tuning a 3D vision foundation model on underwater data and using medium-guided incremental Gaussians for robust pose and geometry.",
+      "llm_tldr_cn": "现有单目3D高斯溅射流式重建方法在陆地场景效果良好，但水下光照衰减和散射导致位姿跟踪退化与几何畸变。为此提出AquaFlow，通过在水下大数据上微调3D视觉基础模型获得鲁棒位姿与点图估计，并引入介质引导的增量高斯策略。实验结果表明该方法能在水下场景中实现高效、高保真的流式重建。这项工作将3DGS流式重建拓展到了水下环境，为机器人感知和海洋应用提供了新方案。",
+      "llm_tldr": "现有单目3D高斯溅射流式重建方法在陆地场景效果良好，但水下光照衰减和散射导致位姿跟踪退化与几何畸变。为此提出AquaFlow，通过在水下大数据上微调3D视觉基础模型获得鲁棒位姿与点图估计，并引入介质引导的增量高斯策略。实验结果表明该方法能在水下场景中实现高效、高保真的流式重建。这项工作将3DGS流式重建拓展到了水下环境，为机器人感知和海洋应用提供了新方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.23206v1",
+      "source": "arxiv",
+      "title": "Learning Spherical Occupancy Profiles for Multi-View 3D Reconstruction and Generation",
+      "abstract": "We study spherical occupancy profiles-the ray-wise occupancy probability profiles P(r) = T(r) o(r) distilled from multi-view 3D Gaussian reconstructions-as a unified intermediate representation for both discriminative and generative 3D reconstruction from images. On a 999-object subset of Google Scanned Objects with 48 turntable views each, we train (i) a discriminative per-ray decoder that injects global view-averaged and ray-specific image evidence into a FiLM-conditioned profile head, reaching median soft depth error 0.035 (normalized) on an independent 90-object test split, and (ii) a generative pipeline built on a profile VAE and a latent diffusion model, which supports unconditional sampling that matches the reconstruction manifold and image-conditioned multi-solution reconstruction whose per-object solution spread is quantifiable and tunable via classifier-free guidance. We further analyze the morphology of predicted profiles: post-hoc power sharpening and a learned sharpening target both recover ground-truth profile width without degrading depth, exposing a monotonic width-peak frontier in the L1-per-ray loss family and motivating a principled redefinition of morphology gates. Real-photo validation on two DTU scenes confirms the pipeline transfers to non-synthetic input. Our results suggest that ray-wise occupancy profiles offer a compact, learned, and uncertainty-aware interface between multi-view reconstruction and generative priors.",
+      "authors": [
+        "YiHsuan Tsai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-24T12:56:39+00:00",
+      "link": "https://arxiv.org/pdf/2608.23206v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Multi-view 3D reconstruction using profiles distilled from 3D Gaussian reconstructions",
+      "llm_evidence_cn": "利用从三维高斯重建中蒸馏的轮廓进行多视图三维重建",
+      "llm_evidence": "利用从三维高斯重建中蒸馏的轮廓进行多视图三维重建",
+      "canonical_evidence": "利用从三维高斯重建中蒸馏的轮廓进行多视图三维重建",
+      "llm_tldr_en": "Studies spherical occupancy profiles distilled from multi-view 3D Gaussian reconstructions as a unified representation for discriminative and generative 3D reconstruction.",
+      "llm_tldr_cn": "提出射线级占用概率轮廓作为统一中间表示，其从多视图三维高斯重建中蒸馏得到，用于判别式与生成式三维重建。判别式解码器达到较低的归一化软深度误差，生成式流程则支持与重建流形匹配的无条件采样，展示了该表示在重建与生成中的潜力。",
+      "llm_tldr": "提出射线级占用概率轮廓作为统一中间表示，其从多视图三维高斯重建中蒸馏得到，用于判别式与生成式三维重建。判别式解码器达到较低的归一化软深度误差，生成式流程则支持与重建流形匹配的无条件采样，展示了该表示在重建与生成中的潜力。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.22465v1",
+      "source": "arxiv",
+      "title": "M$^3$ISR: A Multi-Modal Multi-View Benchmark for 3D/4D Gaussian Splatting and Feedforward Compression",
+      "abstract": "High-fidelity free-viewpoint video (FVV) and interactive rendering increasingly rely on explicit Gaussian representations, yet practical deployment remains constrained by representation size, dynamic updates, and computational cost. Existing multi-view video benchmarks provide valuable real-captured content, but they make it difficult to isolate the effects of controlled camera geometry, representation efficiency, and temporal redundancy. We introduce M$^3$ISR, a controlled synthetic benchmark for 3D and 4D Gaussian Splatting (3DGS/4DGS). The benchmark contains 25 scenes from five indoor and outdoor scene groups, two camera/motion configurations, six synchronized 1080p views, and dense ground-truth annotations including RGB, camera parameters, depth, semantic and instance segmentation, and static--dynamic masks. The shared-center camera design intentionally isolates angular view variation and enables controlled evaluation of novel-view synthesis and representation efficiency. We organize M$^3$ISR into five complementary tracks covering 3DGS synthesis, 4DGS synthesis, 4DGS streaming, 3DGS compression, and 4DGS compression. Representative baseline results show small differences in static reconstruction quality but substantial differences in representation storage, while the evaluated streaming methods exhibit substantially higher reported training or reconstruction cost than the corresponding offline dynamic reconstruction baselines. We further define feedforward compression tasks for 3DGS and 4DGS and provide reference rate--distortion formulations and preliminary baseline evaluations. The benchmark is intended as a controlled and complementary testbed for systematic study of Gaussian-based FVV reconstruction, compression, and streaming.",
+      "authors": [
+        "Xinhui Liu",
+        "Lei Liu",
+        "Zhenghao Chen",
+        "Lebin Zhou",
+        "Wei Wang",
+        "Wei Jiang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-23T15:44:39+00:00",
+      "link": "https://arxiv.org/pdf/2608.22465v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "benchmark for 3D/4D Gaussian splatting reconstruction and compression",
+      "llm_evidence_cn": "面向3D/4D高斯溅射重建与压缩的基准",
+      "llm_evidence": "面向3D/4D高斯溅射重建与压缩的基准",
+      "canonical_evidence": "面向3D/4D高斯溅射重建与压缩的基准",
+      "llm_tldr_en": "M3ISR is a controlled synthetic benchmark for 3D/4D Gaussian Splatting and feedforward compression, with 25 scenes and dense ground truth to isolate camera geometry, representation efficiency, and temporal redundancy.",
+      "llm_tldr_cn": "高保真自由视角视频依赖高斯表示，但实际部署受表示体积、动态更新和计算成本制约。为此提出M^3ISR，一个受控合成基准，包含25个室内外场景、两种相机配置和六路同步1080p视角，并带稠密真值。该基准支持3DGS/4DGS重建质量与前馈压缩的规范化评测，便于隔离相机几何、表示效率和时域冗余的影响。",
+      "llm_tldr": "高保真自由视角视频依赖高斯表示，但实际部署受表示体积、动态更新和计算成本制约。为此提出M^3ISR，一个受控合成基准，包含25个室内外场景、两种相机配置和六路同步1080p视角，并带稠密真值。该基准支持3DGS/4DGS重建质量与前馈压缩的规范化评测，便于隔离相机几何、表示效率和时域冗余的影响。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2608.21657v1",
+      "source": "arxiv",
+      "title": "Model Compression and Hardware-Aware Acceleration for Deep Learning on FPGAs: A Co-Design Taxonomy and Comparative Analysis",
+      "abstract": "Deploying deep neural networks on Field-Programmable Gate Arrays (FPGAs) requires joint reasoning about model compression and hardware acceleration, however the most comprehensive existing cross-platform treatment of this space, Deng et al.~\\cite{deng2020model}, compared compression techniques against CPU, GPU, FPGA, and ASIC targets at the level of broad, qualitative trade-offs, and not specific FPGA resource consequences. This survey instead restricted the scope to FPGAs alone and organized 25 compression-hardware co-design case studies (2015--2026) into a five-category taxonomy defined by which FPGA resources each strategy primarily reshapes: DSP-eliminating, DSP-repurposing/mixed-precision, sparsity-exploiting, memory-hierarchy-driven, and toolchain/deployment-level. Normalizing these case studies along a common set of dimensions (compression ratio, accuracy change, throughput, energy efficiency, and DSP/LUT/BRAM utilization) surfaces a central, quantitative finding; of the 25 reviewed works, only \\emph{one} reported a compression ratio and accuracy change measured against a single common baseline, and only \\emph{two} reported energy efficiency normalized against a common GPU baseline, exposing a field-wide characterization gap that no individual toolchain (FINN, HLS4ML, Vitis AI, or DNNWeaver) resolves on its own. Building on this taxonomy and meta-analysis, we formalize six open challenges: toolchain fragmentation, accuracy--efficiency characterization, automated mixed-precision optimization, sparse computation reliability, persistent memory bottlenecks, and FPGA-based training. Each is paired with a concrete next step grounded in extending an existing, cited technique, not a general call for future work.",
+      "authors": [
+        "Peter Forcha",
+        "H. Kajekusumadhar",
+        "Mbua Peter",
+        "Muhammed Kawser",
+        "Audrey Cyriell Mo",
+        "Christophe Bobda"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-08-21T22:01:16+00:00",
+      "link": "https://arxiv.org/pdf/2608.21657v1",
+      "tags": [
+        "keyword:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "FPGA model compression and hardware-aware acceleration co-design survey",
+      "llm_evidence_cn": "FPGA上模型压缩与硬件感知加速的协同设计综述",
+      "llm_evidence": "FPGA上模型压缩与硬件感知加速的协同设计综述",
+      "canonical_evidence": "FPGA上模型压缩与硬件感知加速的协同设计综述",
+      "llm_tldr_en": "This survey organizes 25 FPGA model-compression and hardware co-design case studies into a taxonomy based on which FPGA resources each strategy reshapes, offering comparative insight but not targeting 3DGS.",
+      "llm_tldr_cn": "针对FPGA上部署深度神经网络需要协同考虑模型压缩与硬件加速的问题，这篇综述将2015至2026年的25个压缩-硬件协同设计案例按FPGA资源重塑方式（如DSP消除、DSP复用/混合精度、稀疏化）分为五类。它提供了面向FPGA的协同设计分类与比较分析，为硬件感知加速提供参考，但并非专门的3DGS加速综述。",
+      "llm_tldr": "针对FPGA上部署深度神经网络需要协同考虑模型压缩与硬件加速的问题，这篇综述将2015至2026年的25个压缩-硬件协同设计案例按FPGA资源重塑方式（如DSP消除、DSP复用/混合精度、稀疏化）分为五类。它提供了面向FPGA的协同设计分类与比较分析，为硬件感知加速提供参考，但并非专门的3DGS加速综述。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "FPGA implementation of Gaussian splatting",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.23133v1",
+      "source": "arxiv",
+      "title": "SACHA: Semantic-Aware Compression for 3D Gaussian Head Avatars",
+      "abstract": "Animatable 3D Gaussian head avatars offer high-fidelity and flexible facial rendering, but typically require substantial storage and transmission costs for numerous Gaussian primitives. Existing Gaussian head avatar methods overlook the visual saliency of different head semantic regions for more appropriate Gaussian primitive allocation, as well as the efficient compression of trained head avatar sequences. To tackle this obstacle, we propose SACHA, a dynamic head avatar compression framework that leverages both semantic-aware density control and appearance-motion decomposition to achieve compact representation and high-quality novel-view rendering of head avatar sequences. Specifically, the semantic-aware density control guides the adaptive allocation of Gaussian primitives across different head regions with region-adaptive densification and pruning. In addition, the appearance-motion decomposed compression further reduces the temporal redundancy of the avatar sequence by transmitting only head-prior parameters for avatar movements. Together, these designs enable a compact representation for efficient transmission of dynamic Gaussian head avatars while preserving visual fidelity. Experiments demonstrate that SACHA achieves a superior rate-distortion performance over existing Gaussian head avatar representation and compression methods while maintaining high-quality novel-view and novel-expression rendering.",
+      "authors": [
+        "Zihan Zhang",
+        "Shanzhi Yin",
+        "Xinju Wu",
+        "Bolin Chen",
+        "Ru-Ling Liao",
+        "Jie Chen",
+        "Shiqi Wang",
+        "Yan Ye"
+      ],
+      "primary_category": "cs.MM",
+      "categories": [
+        "cs.MM"
+      ],
+      "published": "2026-08-24T11:39:25+00:00",
+      "link": "https://arxiv.org/pdf/2608.23133v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D Gaussian head avatar compression, related to 3DGS reconstruction",
+      "llm_evidence_cn": "三维高斯头部虚拟人压缩，与三维高斯溅射重建相关",
+      "llm_evidence": "三维高斯头部虚拟人压缩，与三维高斯溅射重建相关",
+      "canonical_evidence": "三维高斯头部虚拟人压缩，与三维高斯溅射重建相关",
+      "llm_tldr_en": "SACHA compresses 3D Gaussian head avatars via semantic-aware density control and appearance-motion decomposition, cutting storage while preserving high-quality novel-view rendering.",
+      "llm_tldr_cn": "可驱动的三维高斯头部虚拟人虽能提供高保真面部渲染，但大量高斯原语带来巨大的存储与传输开销。SACHA提出语义感知密度控制与外观-运动分解相结合的压缩框架，使高斯原语分配更符合头部语义区域显著性，并对动态虚拟人序列实现紧凑表示。在保持高质量新视角渲染的同时显著降低存储成本。",
+      "llm_tldr": "可驱动的三维高斯头部虚拟人虽能提供高保真面部渲染，但大量高斯原语带来巨大的存储与传输开销。SACHA提出语义感知密度控制与外观-运动分解相结合的压缩框架，使高斯原语分配更符合头部语义区域显著性，并对动态虚拟人序列实现紧凑表示。在保持高质量新视角渲染的同时显著降低存储成本。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.23549v1",
+      "source": "arxiv",
+      "title": "FixAnything: 3D-Consistent Rendering Refinement via Video Generative Priors",
+      "abstract": "Rendering views using 3D scene representations such as Gaussian Splatting (3DGS), Neural Radiance Fields (NeRF), meshes, or even point clouds produces artifacts when input views are sparse or target views lie far from the input. Recent work mitigates these artifacts using diffusion-based generative priors, but is specialized to individual representations and require custom architectures or extensive retraining. We present FixAnything, a single model for fixing a wide range of rendering artifacts. It does so by repurposing a pretrained video generative model, leveraging its implicit multi-view priors with only minimal modification and lightweight finetuning. Our key insight is that even noisily-rendered sequences preserve camera motion and coarse scene structure, allowing cleanup to be formulated as video-to-video translation. To control what scene structure should be preserved, we introduce a binary mask denoting the clean pixels, enabling the model to anchor its output to high-quality inputs (e.g. training views) while refining the rest. To encourage FixAnything to produce 3D-consistent renderings that support downstream reconstruction, we use camera pose accuracy (recovered via structure-from-motion) as a reward signal for direct preference optimization (DPO). Across four distinct 3D representations, FixAnything consistently improves rendering quality with lightweight finetuning, demonstrating that a single generalist video prior can replace multiple specialist refinement pipelines. The simplicity of the framework enables immediate adoption of stronger future video models without architectural redesign.",
+      "authors": [
+        "Khiem Vuong",
+        "Deva Ramanan",
+        "Srinivasa Narasimhan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-24T17:51:33+00:00",
+      "link": "https://arxiv.org/pdf/2608.23549v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D-consistent rendering refinement for 3DGS and other 3D representations",
+      "llm_evidence_cn": "面向3DGS等三维表示的渲染伪影修复",
+      "llm_evidence": "面向3DGS等三维表示的渲染伪影修复",
+      "canonical_evidence": "面向3DGS等三维表示的渲染伪影修复",
+      "llm_tldr_en": "FixAnything repurposes a pretrained video generative model to fix rendering artifacts across 3DGS, NeRF, meshes, and point clouds with minimal finetuning, improving sparse-view rendering quality.",
+      "llm_tldr_cn": "3DGS、NeRF、网格和点云等三维表示在稀疏输入或远视角渲染时会产生明显伪影，已有方法往往针对单一表示定制。本文提出FixAnything，通过轻量微调复用预训练视频生成模型，利用其隐式多视角先验统一修复多种表示的渲染伪影。实验表明该方法只需少量修改即可改善稀疏视角渲染质量。这为三维表示的质量提升提供了一种通用后处理方案，尤其对3DGS重建管线的输出增强有实际价值。",
+      "llm_tldr": "3DGS、NeRF、网格和点云等三维表示在稀疏输入或远视角渲染时会产生明显伪影，已有方法往往针对单一表示定制。本文提出FixAnything，通过轻量微调复用预训练视频生成模型，利用其隐式多视角先验统一修复多种表示的渲染伪影。实验表明该方法只需少量修改即可改善稀疏视角渲染质量。这为三维表示的质量提升提供了一种通用后处理方案，尤其对3DGS重建管线的输出增强有实际价值。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
