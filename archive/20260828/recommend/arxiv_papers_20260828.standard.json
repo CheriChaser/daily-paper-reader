@@ -1,0 +1,208 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-28T02:54:01.874667+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.26868v1",
+      "source": "arxiv",
+      "title": "CGS-SLAM: Collaborative Gaussian Splatting based SLAM for Multi-Agent Reconstruction",
+      "abstract": "Recent advances in SLAM have leveraged 3DGS for photorealistic reconstruction and novel view synthesis. However, most methods rely on RGB-D input, which is unavailable on consumer-grade smartphones, and few integrate 3DGS within a collaborative framework. Therefore, we present CGS-SLAM, a hybrid decentralized/centralized system enabling multi-agent 3DGS SLAM using only RGB and inertial data. Each agent performs local tracking with inertial data as a motion prior and reconstructs a scaled map using a metric monocular depth estimator (Depth Pro). Keyframe encodings are shared among agents, enabling dynamic keyframing in regions of spatial overlaps with other agents, enhancing submap alignment. Afterwards, a central server aligns submaps using VGGT as a view alignment model. This bidirectional communication keeps communication cost low during mapping and global reconstruction in difficult GNSS-denied environments. Experiments on multiple datasets demonstrate competitive tracking performance, improved rendering quality over state-of-the-art methods, and accurate submap alignment.",
+      "authors": [
+        "Jean-Daniel de Ambrogi",
+        "Aladine Chetouani",
+        "Vincent Nguyen",
+        "Aurélien Chateigner"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-08-27T09:31:18+00:00",
+      "link": "https://arxiv.org/pdf/2608.26868v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Collaborative multi-agent 3DGS SLAM for reconstruction",
+      "llm_evidence_cn": "多智能体协作的3DGS SLAM重建",
+      "llm_evidence": "多智能体协作的3DGS SLAM重建",
+      "canonical_evidence": "多智能体协作的3DGS SLAM重建",
+      "llm_tldr_en": "CGS-SLAM enables collaborative multi-agent 3DGS SLAM using only RGB and inertial data, with local tracking, metric monocular depth estimation, and central submap alignment.",
+      "llm_tldr_cn": "基于3DGS的SLAM可实现照片级重建和新视角合成，但多数方法依赖RGB-D输入并缺少协作框架。CGS-SLAM提出混合去中心化/中心化的多智能体3DGS SLAM，仅使用RGB和惯性数据：每个智能体以惯性先验进行局部跟踪，并用单目深度估计器重建尺度一致的地图，共享关键帧编码以增强子地图对齐，最后由中心服务器对齐子地图。该工作为消费级设备上的协作式3D重建提供了新方案。",
+      "llm_tldr": "基于3DGS的SLAM可实现照片级重建和新视角合成，但多数方法依赖RGB-D输入并缺少协作框架。CGS-SLAM提出混合去中心化/中心化的多智能体3DGS SLAM，仅使用RGB和惯性数据：每个智能体以惯性先验进行局部跟踪，并用单目深度估计器重建尺度一致的地图，共享关键帧编码以增强子地图对齐，最后由中心服务器对齐子地图。该工作为消费级设备上的协作式3D重建提供了新方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.26951v1",
+      "source": "arxiv",
+      "title": "Per-View Gaussian Predictions Enable Training-Free Distractor Filtering in Feed-Forward 3DGS",
+      "abstract": "Feed-forward 3D Gaussian Splatting reconstructs an explicit Gaussian representation from multiple input images in one network execution, making 3D reconstruction increasingly accessible for casual captures. However, such captures frequently contain transient objects that appear in only a subset of the views. Such content can be encoded into the per-view Gaussians associated with the inputs that observe it and remain in the combined representation despite being observed by no other input. As a result, it may produce blurred, duplicated, or floating artifacts in novel views. We introduce a training-free filtering procedure that exploits this per-view prediction structure. For each input, we exclude its associated Gaussians and render the same camera using the remaining representation, revealing content that is inconsistent with the other inputs. Feature similarity forms candidate regions, and rendering-based verification retains only candidates whose removal reduces reconstruction error in the other input views. The procedure operates on a single frozen prediction without retraining or scene-specific optimization. Across three reconstruction models and two distractor benchmarks, it consistently improves novel-view quality with varying numbers of input views. On clean scenes, evaluations across four models show that the original reconstructions are largely preserved.",
+      "authors": [
+        "Kangmin Seo",
+        "Jae-Pil Heo"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-08-27T10:52:28+00:00",
+      "link": "https://arxiv.org/pdf/2608.26951v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Training-free distractor filtering in feed-forward 3D Gaussian splatting reconstruction",
+      "llm_evidence_cn": "前馈3D高斯溅射重建中的免训练干扰物过滤，直接针对3DGS重建质量提升",
+      "llm_evidence": "前馈3D高斯溅射重建中的免训练干扰物过滤，直接针对3DGS重建质量提升",
+      "canonical_evidence": "前馈3D高斯溅射重建中的免训练干扰物过滤，直接针对3DGS重建质量提升",
+      "llm_tldr_en": "This paper presents a training-free filtering procedure for feed-forward 3DGS reconstruction that excludes per-view Gaussians associated with transient objects, reducing artifacts and improving novel view synthesis quality.",
+      "llm_tldr_cn": "前馈3D高斯溅射重建可以从多张输入图像一次生成显式高斯表示，但暂态物体会残留在组合表示中并造成伪影。本文提出免训练的逐视图过滤方法：对每个输入视图剔除与其关联的高斯并重新渲染，从而消除重复、模糊和漂浮伪影。实验证明该方法在不重新训练网络的情况下有效提升新视角合成质量。该工作直接改进3DGS重建流程，契合用户对3DGS重建论文的需求。",
+      "llm_tldr": "前馈3D高斯溅射重建可以从多张输入图像一次生成显式高斯表示，但暂态物体会残留在组合表示中并造成伪影。本文提出免训练的逐视图过滤方法：对每个输入视图剔除与其关联的高斯并重新渲染，从而消除重复、模糊和漂浮伪影。实验证明该方法在不重新训练网络的情况下有效提升新视角合成质量。该工作直接改进3DGS重建流程，契合用户对3DGS重建论文的需求。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.25483v1",
+      "source": "arxiv",
+      "title": "Gaussian Splatting Underwater: A Controlled Cross-Regime Study",
+      "abstract": "The underwater environment is challenging for 3D reconstruction, because particles suspended in the water scatter and diffuse light, turbidity varies, absorption depends on wavelength, and illumination is rarely uniform. Methods based on Gaussian splatting have generally been developed for conditions that allow good image quality, and have primarily been tested on relatively shallow water. This paper examines how well Gaussian splatting performs across publicly available underwater datasets representing different degrees of turbidity, loss of illumination, and colour attenuation, together with an industrial survey. Five systems with public code are run under one protocol, with shared poses, initialisation, budget, and evaluator, to establish their relative advantages, disadvantages, and limitations. What these methods can do turns out to depend more on the setup than on the architecture. Water clarity binds upstream of rendering, since structure-from-motion registers 99.5 \\% of frames in clear water and 0.0 \\% at 12 NTU. Illumination geometry decides whether a medium model helps at all: under an artificial light that moves with the camera, medium-blind splatting beats both medium-aware systems. On the survey the benchmark's photometric leader comes last, beaten on geometry by a restoration pre-pass in front of vanilla 3DGS---and none of it is visible in the scores the field reports. Scene builds, per-run configurations, and evaluation code are released at https://github.com/olayasturias/uw3dgs",
+      "authors": [
+        "Olaya Álvarez-Tuñón",
+        "Stella Graßhof"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-26T07:53:12+00:00",
+      "link": "https://arxiv.org/pdf/2608.25483v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Benchmarks Gaussian splatting reconstruction across underwater turbidity and illumination regimes",
+      "llm_evidence_cn": "在多种水下浑浊度与光照条件下对高斯泼溅重建进行基准测试",
+      "llm_evidence": "在多种水下浑浊度与光照条件下对高斯泼溅重建进行基准测试",
+      "canonical_evidence": "在多种水下浑浊度与光照条件下对高斯泼溅重建进行基准测试",
+      "llm_tldr_en": "Examines how well Gaussian splatting methods perform for 3D reconstruction across underwater datasets with varying turbidity, illumination, and colour attenuation, under a unified protocol.",
+      "llm_tldr_cn": "水下环境因散射、浑浊度和光照不均给3D重建带来挑战，而高斯泼溅方法多针对良好成像条件设计。本文在一套统一协议下，用共享姿态、初始化和评估器测试五个公开系统，在多个不同浑浊度与照明的公开数据集及工业场景上评估其表现。结果显示不同方法性能差异明显，揭示了高斯泼溅在水下跨环境中的适用范围与瓶颈，为该方向改进提供了基准参考。",
+      "llm_tldr": "水下环境因散射、浑浊度和光照不均给3D重建带来挑战，而高斯泼溅方法多针对良好成像条件设计。本文在一套统一协议下，用共享姿态、初始化和评估器测试五个公开系统，在多个不同浑浊度与照明的公开数据集及工业场景上评估其表现。结果显示不同方法性能差异明显，揭示了高斯泼溅在水下跨环境中的适用范围与瓶颈，为该方向改进提供了基准参考。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.26948v1",
+      "source": "arxiv",
+      "title": "KISS-GS: 3D Gaussian Splatting Compression Kept Simple",
+      "abstract": "Scene reconstruction with 3D Gaussian Splatting (3DGS) has become common, however deployment remains painful as the uncompressed file sizes can be massive. Current 3DGS compression systems combine multiple strategies for file size reduction, which can obscure where gains come from and limit component reuse across training pipelines. To make the gains more transparent, we propose KISS-GS, a modular compression pipeline named after the principle of keeping things simple, designed to decouple compression entirely from training.   Given a 3DGS scene reconstructed with vanilla 3DGS, we are able to reduce it through compaction by 15.7x using a combination of state-of-the-art pruning schemes. Then we encode it into an image-based format designed for simple, ubiquitous decoding. With the SOG-XT format, we propose a novel extension to Self-Organizing Gaussians with two main contributions: (i) Self-organizing 2D Codebooks and (ii) Parallel Representative Assignment Smoothing (PRAS), which leverages the symmetry of quaternion and scale parameterizations to produce 2D attribute grids more amenable to encoding.   This encoding reduces scene size by 6.6x. We show that optional encoding-aware fine-tuning yields a further 2.2x. Across standard 3DGS benchmarks, our simple and modular approach thus achieves a total of 85x to 319x reductions in the size of the scene over uncompressed vanilla 3DGS, setting new benchmarks for real-world scenes and surpassing tightly integrated methods in rate-distortion. Decoding relies solely on web-native image formats, and the modular design makes each stage easy to combine with future advances in reconstruction and compaction.   Code and project page: https://fraunhoferhhi.github.io/KISS-GS/",
+      "authors": [
+        "Wieland Morgenstern",
+        "Friedrich Elias Branschke",
+        "Florian Fleischmann",
+        "Adrian Szatmari",
+        "Paul Schlack",
+        "Florian Barthel",
+        "Peter Eisert",
+        "Anna Hilsmann"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-27T10:49:42+00:00",
+      "link": "https://arxiv.org/pdf/2608.26948v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D Gaussian Splatting compression for efficient deployment",
+      "llm_evidence_cn": "面向高效部署的3D高斯泼溅压缩",
+      "llm_evidence": "面向高效部署的3D高斯泼溅压缩",
+      "canonical_evidence": "面向高效部署的3D高斯泼溅压缩",
+      "llm_tldr_en": "KISS-GS proposes a simple modular compression pipeline for 3DGS, decoupling compaction from training and reducing file size by 15.7x while maintaining easy decoding.",
+      "llm_tldr_cn": "3DGS场景重建已很普遍，但未压缩文件体积过大导致部署困难。KISS-GS主张保持简单，提出一种与训练完全解耦的模块化压缩管线：在普通3DGS场景基础上经修剪方法实现15.7倍压缩，再编码为面向简单通用解码的镜像格式。该工作让3DGS压缩的收益透明化，并促进组件在不同训练流程中的复用。这为3DGS重建成果的高效存储与部署提供了实用方案。",
+      "llm_tldr": "3DGS场景重建已很普遍，但未压缩文件体积过大导致部署困难。KISS-GS主张保持简单，提出一种与训练完全解耦的模块化压缩管线：在普通3DGS场景基础上经修剪方法实现15.7倍压缩，再编码为面向简单通用解码的镜像格式。该工作让3DGS压缩的收益透明化，并促进组件在不同训练流程中的复用。这为3DGS重建成果的高效存储与部署提供了实用方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.26383v1",
+      "source": "arxiv",
+      "title": "Cross-Platform Benchmark of Neural 3D Reconstruction for Autonomous Laboratory Robots",
+      "abstract": "Autonomous robots performing laboratory tasks depend on 3D reconstruction pipelines that can turn raw camera streams into actionable object representations within the latency budget of a physical control loop. Neural 3D reconstruction methods have demonstrated high-quality view synthesis, but their real-time viability across the compute platforms on which laboratory robots actually run remains poorly characterized. In this work, we present a systematic compute-platform benchmark of neural 3D reconstruction methods, evaluating NeRF and 3D Gaussian Splatting training and rendering on GPU-enabled computing devices ranging from single-board computers to server-class nodes, and place Meta's SAM3D single-image reconstruction on the same axes to quantify its latency and fidelity gap relative to per-scene optimization. Our results show that Gaussian Splatting yields higher rendering quality than NeRF at greater GPU cost, and that onboard compute is insufficient for full per-scene optimization at interactive rates. Our preliminary assessment on SAM3D indicates that it delivers plausible object geometry within seconds, but with detail mismatches that can compromise downstream manipulation. Together, these findings motivate tiered pipelines in which lightweight feed-forward reconstruction sustains the real-time perception-and-tracking loop for laboratory robots, while heavier neural reconstruction is scheduled selectively on suitable compute.",
+      "authors": [
+        "Yongho Kim",
+        "Mengjiao Han",
+        "Victor Mateevitsi",
+        "Silvio Rizzi",
+        "Michael E. Papka",
+        "Nicola Ferrier"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-08-26T20:16:02+00:00",
+      "link": "https://arxiv.org/pdf/2608.26383v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Systematic cross-platform benchmark of neural 3D reconstruction on GPU devices",
+      "llm_evidence_cn": "对GPU设备上的神经3D重建进行系统跨平台基准测试",
+      "llm_evidence": "对GPU设备上的神经3D重建进行系统跨平台基准测试",
+      "canonical_evidence": "对GPU设备上的神经3D重建进行系统跨平台基准测试",
+      "llm_tldr_en": "Benchmarks NeRF and 3D Gaussian Splatting training and rendering across GPU platforms from single-board computers to servers, assessing real-time viability for laboratory robots.",
+      "llm_tldr_cn": "自主实验室机器人需要快速3D重建，但神经重建方法在真实计算平台上的实时性尚不清楚。论文系统地在从单板计算机到服务器节点的GPU设备上评测NeRF和3DGS的训练与渲染，并对比SAM3D单图重建。结果显示不同平台的计算能力对重建延迟影响显著，为硬件选型和加速器设计提供参考基准。",
+      "llm_tldr": "自主实验室机器人需要快速3D重建，但神经重建方法在真实计算平台上的实时性尚不清楚。论文系统地在从单板计算机到服务器节点的GPU设备上评测NeRF和3DGS的训练与渲染，并对比SAM3D单图重建。结果显示不同平台的计算能力对重建延迟影响显著，为硬件选型和加速器设计提供参考基准。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "hardware accelerator for 3D reconstruction",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
