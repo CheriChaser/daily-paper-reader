@@ -1,15 +1,15 @@
 {
   "mode": "standard",
-  "generated_at": "2026-08-29T03:18:58.869292+00:00",
+  "generated_at": "2026-08-29T22:33:14.683188+00:00",
   "stats": {
     "mode": "standard",
     "tag_count": 1,
-    "deep_divecandidates": 3,
+    "deep_divecandidates": 1,
     "deep_cap": 6,
-    "deep_selected": 3,
-    "quick_candidates": 1,
+    "deep_selected": 1,
+    "quick_candidates": 3,
     "quick_skim_target": 11,
-    "quick_selected": 1
+    "quick_selected": 3
   },
   "deep_dive": [
     {
@@ -40,92 +40,14 @@
         "keyword:dgs-recon",
         "query:dgs-recon"
       ],
-      "llm_score": 9.0,
-      "llm_evidence_en": "Uses 3D Gaussian reconstruction/prediction for world modeling",
-      "llm_evidence_cn": "利用3D高斯重建与预测进行世界建模",
-      "llm_evidence": "利用3D高斯重建与预测进行世界建模",
-      "canonical_evidence": "利用3D高斯重建与预测进行世界建模",
-      "llm_tldr_en": "To address missing metric 3D supervision and high deployment cost in VLA models, GaussianDream++ inserts a compact world state module around 3D Gaussian reconstruction/prediction, enabling efficient 3D world modeling for robotic manipulation.",
-      "llm_tldr_cn": "现有视觉-语言-动作策略在动作模仿目标下难以获取度量3D结构监督，而预测未来动力学的方法通常部署成本高。GaussianDream通过在训练时进行当前3D高斯重建和未来高斯预测，为策略提供有效的3D监督，但其稠密前缀模块携带了状态、动力学和动作条件信息，开销较大。本文提出GaussianDream++紧凑且策略内在的扩展，插入轻量世界状态模块，在保持3D结构化监督能力的同时降低部署代价，面向语言条件机器人操作实现高效3D高斯世界建模。",
-      "llm_tldr": "现有视觉-语言-动作策略在动作模仿目标下难以获取度量3D结构监督，而预测未来动力学的方法通常部署成本高。GaussianDream通过在训练时进行当前3D高斯重建和未来高斯预测，为策略提供有效的3D监督，但其稠密前缀模块携带了状态、动力学和动作条件信息，开销较大。本文提出GaussianDream++紧凑且策略内在的扩展，插入轻量世界状态模块，在保持3D结构化监督能力的同时降低部署代价，面向语言条件机器人操作实现高效3D高斯世界建模。",
-      "llm_tags": [
-        "query:dgs-recon"
-      ],
-      "matched_query_tag": "query:dgs-recon",
-      "matched_query_text": "3D Gaussian splatting reconstruction",
-      "matched_requirement_id": "req-1",
-      "selection_source": "fresh_fetch"
-    },
-    {
-      "id": "2608.25956v1",
-      "source": "arxiv",
-      "title": "4DGS-WAM: Bridging Past and Future with an Object-Centric World Action Model based on 4D Gaussian Splatting",
-      "abstract": "Current world action models (WAMs) typically operate on 2D visual data. These models can achieve exceptional visual quality, but they lack explicit spatial structure for individual objects and repeatedly process redundant background content. Although point clouds can represent the world in 3D space, they can be difficult to align and accumulate across viewpoints. In this paper, we leverage an explicit 4D Gaussian Splatting (4DGS) representation that separately models dynamic objects and the static background of a scene. For dynamic objects, we use a policy model to predict future actor actions and a world model to predict transformations of their observed Gaussian splats. The static background need not be regenerated for future states, as much of it has already been observed in past frames. This forms an object-centric world action model, which we name 4DGS-WAM. It lifts 2D observations into a persistent 4D representation so that previously observed static content can be reused during future prediction. Future-state extrapolation can then focus on modeling the evolution of dynamic objects. Experiments on KITTI-MOT evaluate short-horizon prediction and past reconstruction.",
-      "authors": [
-        "Yueen Ma",
-        "Zenglin Xu",
-        "Irwin King"
-      ],
-      "primary_category": "cs.CV",
-      "categories": [
-        "cs.CV"
-      ],
-      "published": "2026-08-26T16:16:57+00:00",
-      "link": "https://arxiv.org/pdf/2608.25956v1",
-      "tags": [
-        "keyword:dgs-recon",
-        "query:dgs-recon"
-      ],
       "llm_score": 8.0,
-      "llm_evidence_en": "Explicit 4D Gaussian Splatting representation for object-centric world modeling",
-      "llm_evidence_cn": "使用显式4D高斯溅射表示进行对象中心世界建模",
-      "llm_evidence": "使用显式4D高斯溅射表示进行对象中心世界建模",
-      "canonical_evidence": "使用显式4D高斯溅射表示进行对象中心世界建模",
-      "llm_tldr_en": "4DGS-WAM models dynamic objects and static background separately with 4D Gaussian Splatting, predicting future object Gaussian transforms from a policy and world model while avoiding background regeneration, enabling object-centric world modeling.",
-      "llm_tldr_cn": "当前世界动作模型大多基于2D视觉数据，虽视觉效果较好，但缺乏对单个对象的显式空间结构，并会反复处理冗余背景；点云虽能表示3D空间，却难以跨视角对齐和累积。本文提出4DGS-WAM，采用显式4D高斯溅射表示，将动态对象与静态背景分开建模：用策略模型预测未来动作，用世界模型预测对象高斯溅射的变换，背景无需重新生成。该方法在保持视觉质量的同时显著提升对象级空间结构建模效率，为世界模型提供新的对象中心范式。",
-      "llm_tldr": "当前世界动作模型大多基于2D视觉数据，虽视觉效果较好，但缺乏对单个对象的显式空间结构，并会反复处理冗余背景；点云虽能表示3D空间，却难以跨视角对齐和累积。本文提出4DGS-WAM，采用显式4D高斯溅射表示，将动态对象与静态背景分开建模：用策略模型预测未来动作，用世界模型预测对象高斯溅射的变换，背景无需重新生成。该方法在保持视觉质量的同时显著提升对象级空间结构建模效率，为世界模型提供新的对象中心范式。",
-      "llm_tags": [
-        "query:dgs-recon"
-      ],
-      "matched_query_tag": "query:dgs-recon",
-      "matched_query_text": "3D Gaussian splatting reconstruction",
-      "matched_requirement_id": "req-1",
-      "selection_source": "fresh_fetch"
-    },
-    {
-      "id": "2608.27301v1",
-      "source": "arxiv",
-      "title": "Comparative Evaluation of 3D Reconstruction Methods for Immersive Visualization of Laboratory Objects",
-      "abstract": "In this study, we examined whether current 3D reconstruction methods can support the creation of realistic holographic representations of laboratory objects for educational use. In this regard, we compared four approaches: photogrammetry, a neural radiance field (NeRF)-based method, Gaussian splatting, and LiDAR. These methods were used to generate holographic models of common laboratory items and their fidelity was evaluated by graduate students. Participants assessed the models for shape, color, texture, and visual defects using a repeated-measures design. Across objects, the NeRF-based method produced the most consistently high-fidelity representations, particularly for transparent, reflective, or low-texture items that were difficult to capture with other approaches. Shape and color were generally reproduced more successfully than texture, suggesting that some visual properties remain more challenging to represent accurately in educational holograms. Beyond identifying the strengths and limitations of each reconstruction method, the study demonstrates a practical workflow for creating immersive learning objects that may support pre-laboratory preparation, spatial reasoning, and student engagement in AR/MR-based educational environments. These findings offer design-relevant insights for educators and researchers developing immersive digital learning experiences.",
-      "authors": [
-        "Brian De La Cruz",
-        "Aaron Y. Zhao",
-        "Maitrey Gramopadhye",
-        "Sawyer J. Lazar",
-        "Xianming Tan",
-        "Daniel Szafir",
-        "David S. Lawrence"
-      ],
-      "primary_category": "cs.GR",
-      "categories": [
-        "cs.GR",
-        "cs.CV",
-        "cs.HC"
-      ],
-      "published": "2026-08-27T16:05:33+00:00",
-      "link": "https://arxiv.org/pdf/2608.27301v1",
-      "tags": [
-        "keyword:dgs-recon",
-        "query:dgs-recon"
-      ],
-      "llm_score": 8.0,
-      "llm_evidence_en": "Comparative evaluation of Gaussian splatting for 3D reconstruction",
-      "llm_evidence_cn": "对高斯泼溅三维重建的比较评估",
-      "llm_evidence": "对高斯泼溅三维重建的比较评估",
-      "canonical_evidence": "对高斯泼溅三维重建的比较评估",
-      "llm_tldr_en": "A comparative study of photogrammetry, NeRF, Gaussian splatting, and LiDAR for holographic reconstruction of laboratory objects, evaluating shape, color, texture, and defects with graduate student ratings.",
-      "llm_tldr_cn": "该研究针对实验室物体的全息重建需求，系统比较了摄影测量、NeRF、高斯泼溅与LiDAR四种三维重建方法。研究生在形状、颜色、纹理和视觉缺陷等维度上进行评估，结果显示NeRF方法对透明、反射或低纹理物体最稳定，而高斯泼溅在轻量化和速度上具有潜力。此外，研究还指出了不同方法在特定物体材质上的适配性，为算法选择提供了实证依据。该评估为教学可视化选择重建方案提供参考。",
-      "llm_tldr": "该研究针对实验室物体的全息重建需求，系统比较了摄影测量、NeRF、高斯泼溅与LiDAR四种三维重建方法。研究生在形状、颜色、纹理和视觉缺陷等维度上进行评估，结果显示NeRF方法对透明、反射或低纹理物体最稳定，而高斯泼溅在轻量化和速度上具有潜力。此外，研究还指出了不同方法在特定物体材质上的适配性，为算法选择提供了实证依据。该评估为教学可视化选择重建方案提供参考。",
+      "llm_evidence_en": "3D Gaussian world modeling and reconstruction for robotic manipulation",
+      "llm_evidence_cn": "面向机器人操作的三维高斯世界建模与重建",
+      "llm_evidence": "面向机器人操作的三维高斯世界建模与重建",
+      "canonical_evidence": "面向机器人操作的三维高斯世界建模与重建",
+      "llm_tldr_en": "GaussianDream++ extends VLA policies with efficient 3D Gaussian world modeling, using current reconstruction and future prediction as 3D supervision while reducing deployment cost for robotic manipulation.",
+      "llm_tldr_cn": "该论文针对视觉-语言-动作策略在三维结构和短期物理演化上监督不足的问题，提出了紧凑的policy-native三维高斯世界模型扩展。其核心是在训练时同时进行当前三维高斯重建和未来状态预测，从而用三维监督增强策略学习。相比之前的GaussianDream，新方法降低了部署成本并提升了建模质量，展示了三维高斯重建在机器人操作中的实用价值。",
+      "llm_tldr": "该论文针对视觉-语言-动作策略在三维结构和短期物理演化上监督不足的问题，提出了紧凑的policy-native三维高斯世界模型扩展。其核心是在训练时同时进行当前三维高斯重建和未来状态预测，从而用三维监督增强策略学习。相比之前的GaussianDream，新方法降低了部署成本并提升了建模质量，展示了三维高斯重建在机器人操作中的实用价值。",
       "llm_tags": [
         "query:dgs-recon"
       ],
@@ -136,6 +58,50 @@
     }
   ],
   "quick_skim": [
+    {
+      "id": "2608.27365v1",
+      "source": "arxiv",
+      "title": "KnockGS:interaction-Grounded Calibrationof Physical Gaussian Representations",
+      "abstract": "Physics-integrated 3D Gaussian representations now allow reconstructed deformable objects to be simulated and rendered under explicit material models. Existing pipelines, however, assume that material parameters are known or manually specified, limiting their applicability when these parameters must be inferred from observed object dynamics. We propose KnockGS, an interaction-response PhysicalGS framework that estimates the elasticity and density scales of a 3D Gaussian object from its dynamics under a known applied force. Rather than treating physical simulation only as a forward process, we turn the force-induced response into a calibration signal: temporal response features are xtracted from the observed dynamics, the two material scales are estimated from those features, and the estimate is then frozen and written back into the same simulator so that it can be tested on an interaction it was never fitted to.We evaluate the framework on both parameter recovery and response-level fidelity. The estimated scales are compared against hidden ground truth, and the re-simulated object is measured against the target using 3D particle trajectories, response-curve statistics, and rendered-frame quality. Across five held-out material targets, our method recovers the scales substantially more accurately than response retrieval, global regression, or a fixed default material, and the frozen estimate remains predictive under interactions that differ in direction and in magnitude. Interaction response therefore carries enough information to calibrate material scales in physically grounded 3D Gaussian representations.Our study is a first step toward interactive PhysicalGS systems that calibrate a Gaussian asset whose rendered appearance and simulated response are consistent.",
+      "authors": [
+        "Chenchen Ge",
+        "Hanwen Shen",
+        "Bowen Jing",
+        "Jiyuan Cai",
+        "Xiaofeng Wang",
+        "Hongsen Lei",
+        "Weitao Zhou",
+        "Dandan Zhang",
+        "Haibao Yu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-08-27T17:03:38+00:00",
+      "link": "https://arxiv.org/pdf/2608.27365v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Physical 3D Gaussian reconstruction and material calibration",
+      "llm_evidence_cn": "物理三维高斯重建与材料参数标定",
+      "llm_evidence": "物理三维高斯重建与材料参数标定",
+      "canonical_evidence": "物理三维高斯重建与材料参数标定",
+      "llm_tldr_en": "KnockGS calibrates material parameters of physical 3D Gaussians from observed dynamics under known forces, converting force response into a calibration signal for elasticity and density estimation.",
+      "llm_tldr_cn": "该论文解决物理三维高斯表示中材料参数需手动指定或先验已知的问题，提出KnockGS框架。它把外力引起的动态响应作为标定信号，从观测动力学中估计弹性与密度标度。通过时序响应特征和物理模拟的相互作用，实现了从动态重建到材料参数推断的自动化，拓展了物理高斯表示在可变形物体仿真和渲染中的应用。",
+      "llm_tldr": "该论文解决物理三维高斯表示中材料参数需手动指定或先验已知的问题，提出KnockGS框架。它把外力引起的动态响应作为标定信号，从观测动力学中估计弹性与密度标度。通过时序响应特征和物理模拟的相互作用，实现了从动态重建到材料参数推断的自动化，拓展了物理高斯表示在可变形物体仿真和渲染中的应用。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
     {
       "id": "2608.23943v1",
       "source": "arxiv",
@@ -166,19 +132,61 @@
         "query:dgs-recon"
       ],
       "llm_score": 6.0,
-      "llm_evidence_en": "Proposes a Gaussian-based 3D representation (voxelized multimodal Gaussian cloud) for image-to-3D generation, methodologically bridge to 3DGS reconstruction",
-      "llm_evidence_cn": "提出基于高斯原语的3D表示用于单图生成3D资产，与3DGS方法具有方法论关联",
-      "llm_evidence": "提出基于高斯原语的3D表示用于单图生成3D资产，与3DGS方法具有方法论关联",
-      "canonical_evidence": "提出基于高斯原语的3D表示用于单图生成3D资产，与3DGS方法具有方法论关联",
-      "llm_tldr_en": "Luce introduces a voxelized multimodal Gaussian cloud with PBR materials and a latent transformer for single-image 3D asset generation, enabling relighting and standard pipeline integration.",
-      "llm_tldr_cn": "针对单图生成高质量3D资产的需求，本文提出Luce表示：将几何与物理渲染材质统一在体素化多模态高斯云中，并训练变分自编码器压缩到材质感知潜空间，再由整流流Transformer从单张生成。该方法支持重打光并兼容标准渲染流水线，为基于高斯的3D生成提供新方案。",
-      "llm_tldr": "针对单图生成高质量3D资产的需求，本文提出Luce表示：将几何与物理渲染材质统一在体素化多模态高斯云中，并训练变分自编码器压缩到材质感知潜空间，再由整流流Transformer从单张生成。该方法支持重打光并兼容标准渲染流水线，为基于高斯的3D生成提供新方案。",
+      "llm_evidence_en": "Gaussian-based 3D representation for relightable 3D asset generation from a single image",
+      "llm_evidence_cn": "基于高斯的三维表示用于可重光照三维资产生成",
+      "llm_evidence": "基于高斯的三维表示用于可重光照三维资产生成",
+      "canonical_evidence": "基于高斯的三维表示用于可重光照三维资产生成",
+      "llm_tldr_en": "Luce proposes a voxelized multimodal Gaussian cloud representation that unifies geometry and physically based rendering materials. A VAE compresses this into a material-aware latent space, and a rectified-flow transformer generates the latent from a single image, enabling high-fidelity relightable 3D asset generation.",
+      "llm_tldr_cn": "高质量图像到3D生成需要同时表达几何与材质。Luce提出体素化多模态高斯云表示，将几何和PBR材质统一到专用高斯基元中，并用变分自编码器压缩为材质感知潜空间，再由修正流Transformer从单张图像生成。该方法支持可重光照和标准渲染管线集成，实现了高保真的3D资产生成，展示了高斯表示在生成任务中的扩展能力。",
+      "llm_tldr": "高质量图像到3D生成需要同时表达几何与材质。Luce提出体素化多模态高斯云表示，将几何和PBR材质统一到专用高斯基元中，并用变分自编码器压缩为材质感知潜空间，再由修正流Transformer从单张图像生成。该方法支持可重光照和标准渲染管线集成，实现了高保真的3D资产生成，展示了高斯表示在生成任务中的扩展能力。",
       "llm_tags": [
         "query:dgs-recon"
       ],
       "matched_query_tag": "query:dgs-recon",
-      "matched_query_text": "3D Gaussian splatting reconstruction",
-      "matched_requirement_id": "req-1",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2608.26656v1",
+      "source": "arxiv",
+      "title": "CoGeo-GS: Concept-Driven and Geometry-Aware Multi-Object Removal in 3D Scenes",
+      "abstract": "Multi-object removal in 3D scenes is challenging due to severe occlusions, semantic entanglement, and the difficulty of maintaining geometric and multi-view consistency. Existing 3D Gaussian Splatting (3DGS) methods perform well for single-object editing but scale poorly to multi-object scenarios, often requiring repetitive optimization and yielding unstable geometry in removed regions. We propose CoGeo-GS, a concept-driven framework for controllable multi-object removal in 3D scenes. CoGeo-GS assigns concept-aware semantic tags to Gaussians, enabling flexible object selection and reducing interference between foreground objects and background structures within a single optimization stage. To recover plausible geometry, we introduce a geometry-aware completion pipeline that combines monocular depth priors with diffusion-based refinement and boundary-aligned blending. A geometry-regularized refinement strategy further stabilizes reconstruction and preserves multi-view consistency. Experiments demonstrate that CoGeo-GS outperforms existing methods in visual quality and reconstruction fidelity.",
+      "authors": [
+        "Yuanxiang Ni",
+        "Xianliang Huang",
+        "Chenhang Ma",
+        "Chen Xiao",
+        "Yuewen Ma",
+        "Ruxin Wang",
+        "Hao Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-08-27T06:11:36+00:00",
+      "link": "https://arxiv.org/pdf/2608.26656v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "3D Gaussian Splatting framework for multi-object removal with geometry awareness",
+      "llm_evidence_cn": "面向多物体移除的几何感知3D高斯泼溅框架",
+      "llm_evidence": "面向多物体移除的几何感知3D高斯泼溅框架",
+      "canonical_evidence": "面向多物体移除的几何感知3D高斯泼溅框架",
+      "llm_tldr_en": "CoGeo-GS addresses multi-object removal in 3DGS scenes by assigning concept-aware semantic tags to Gaussians and introducing a geometry-aware loss, enabling stable and controllable removal of multiple objects in a single optimization stage while maintaining geometric consistency.",
+      "llm_tldr_cn": "多物体移除在3D场景中易受遮挡和语义纠缠影响，现有3DGS方法难以稳定处理多个物体。CoGeo-GS为高斯分配概念感知语义标签，从而在单阶段优化中灵活选择并隔离前景与背景，同时引入几何感知约束恢复被移除区域的合理几何。实验证明该方法在多物体移除中保持了几何和多视角一致性，提升了3DGS场景编辑的鲁棒性。",
+      "llm_tldr": "多物体移除在3D场景中易受遮挡和语义纠缠影响，现有3DGS方法难以稳定处理多个物体。CoGeo-GS为高斯分配概念感知语义标签，从而在单阶段优化中灵活选择并隔离前景与背景，同时引入几何感知约束恢复被移除区域的合理几何。实验证明该方法在多物体移除中保持了几何和多视角一致性，提升了3DGS场景编辑的鲁棒性。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
       "selection_source": "fresh_fetch",
       "quick_tier": "6"
     }
