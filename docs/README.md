@@ -6,37 +6,32 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-28
-- 运行时间：2026-08-28 02:59:19 UTC
+- 最新运行日期：2026-08-29
+- 运行时间：2026-08-29 03:23:17 UTC
 - 运行状态：成功
-- 本次总论文数：5
-- 精读区：4
+- 本次总论文数：4
+- 精读区：3
 - 速读区：1
 
 ### 今日简报（AI）
-今日精读4篇、速读1篇，聚焦多智能体高斯溅射SLAM与无需训练的干扰物过滤新方法。  
-最值得关注的是CGS-SLAM（9.0）实现多智能体协作重建，以及Per-View Gaussian预测（9.0）在无需训练时即可过滤动态干扰。  
-建议优先精读这两篇高分论文，并可用跨平台基准（7.0）评估神经3D重建在机器人场景中的落地表现。
-- 详情：[/202608/28/README](/202608/28/README)
+今日精读聚焦高斯世界模型：4篇论文中3篇精读，最高分9.0的《GaussianDream++》瞄准机器人操作的高效3D建模。最值得关注的是将4D高斯拓展到对象中心动作预测（8.0分），以及可重光照高斯生成（6.0分）的辅助方向。下一步建议优先复现9.0分工作，并关注4D时序建模与重光照的交叉应用。
+- 详情：[/202608/29/README](/202608/29/README)
 
 ### 精读区论文标签
-1. [CGS-SLAM: Collaborative Gaussian Splatting based SLAM for Multi-Agent Reconstruction](/202608/28/2608.26868v1-cgs-slam-collaborative-gaussian-splatting-based-slam-for-multi-agent-reconstruction)  
+1. [GaussianDream++: Efficient 3D Gaussian World Modeling for Robotic Manipulation](/202608/29/2608.25659v1-gaussiandream-efficient-3d-gaussian-world-modeling-for-robotic-manipulation)  
    标签：评分：9.0/10、query:dgs-recon
-   evidence：多智能体协作的3DGS SLAM重建
-2. [Per-View Gaussian Predictions Enable Training-Free Distractor Filtering in Feed-Forward 3DGS](/202608/28/2608.26951v1-per-view-gaussian-predictions-enable-training-free-distractor-filtering-in-feed-forward-3dgs)  
-   标签：评分：9.0/10、query:dgs-recon
-   evidence：前馈3D高斯溅射重建中的免训练干扰物过滤，直接针对3DGS重建质量提升
-3. [Gaussian Splatting Underwater: A Controlled Cross-Regime Study](/202608/28/2608.25483v1-gaussian-splatting-underwater-a-controlled-cross-regime-study)  
+   evidence：利用3D高斯重建与预测进行世界建模
+2. [4DGS-WAM: Bridging Past and Future with an Object-Centric World Action Model based on 4D Gaussian Splatting](/202608/29/2608.25956v1-4dgs-wam-bridging-past-and-future-with-an-object-centric-world-action-model-based-on-4d-gaussian-splatting)  
    标签：评分：8.0/10、query:dgs-recon
-   evidence：在多种水下浑浊度与光照条件下对高斯泼溅重建进行基准测试
-4. [KISS-GS: 3D Gaussian Splatting Compression Kept Simple](/202608/28/2608.26948v1-kiss-gs-3d-gaussian-splatting-compression-kept-simple)  
+   evidence：使用显式4D高斯溅射表示进行对象中心世界建模
+3. [Comparative Evaluation of 3D Reconstruction Methods for Immersive Visualization of Laboratory Objects](/202608/29/2608.27301v1-comparative-evaluation-of-3d-reconstruction-methods-for-immersive-visualization-of-laboratory-objects)  
    标签：评分：8.0/10、query:dgs-recon
-   evidence：面向高效部署的3D高斯泼溅压缩
+   evidence：对高斯泼溅三维重建的比较评估
 
 ### 速读区论文标签
-1. [Cross-Platform Benchmark of Neural 3D Reconstruction for Autonomous Laboratory Robots](/202608/28/2608.26383v1-cross-platform-benchmark-of-neural-3d-reconstruction-for-autonomous-laboratory-robots)  
-   标签：评分：7.0/10、query:dgs-recon
-   evidence：对GPU设备上的神经3D重建进行系统跨平台基准测试
+1. [Luce: Relightable Gaussians for 3D Asset Generation](/202608/29/2608.23943v1-luce-relightable-gaussians-for-3d-asset-generation)  
+   标签：评分：6.0/10、query:dgs-recon
+   evidence：提出基于高斯原语的3D表示用于单图生成3D资产，与3DGS方法具有方法论关联
 
 
 <div class="dpr-home-promo-card">
