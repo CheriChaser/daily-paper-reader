@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-30",
+  "date": "2026-08-30",
+  "generated_at": "2026-08-30T22:47:39",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/30/2608.25472v1-pags-autofocusing-photoacoustic-tomography-via-speed-of-sound-adaptive-gaussian-splatting",
+      "section": "quick",
+      "title_en": "PAGS: Autofocusing Photoacoustic Tomography via Speed-of-Sound-Adaptive Gaussian Splatting",
+      "authors": "Jiarui Ge, Jintao Ma, Bangxu Fan, Jinyan Zhang, Xiaokang Yang, Shuai Na, Xiaoyun Yuan",
+      "date": "2026-08-26",
+      "pdf": "https://arxiv.org/pdf/2608.25472v1",
+      "score": "7.0",
+      "evidence": "将高斯泼溅应用于三维断层成像重建",
+      "tldr": "光声计算层析成像（PACT）受未知声速（SoS）异质性的影响，导致重建图像散焦。现有方法需校准声学先验或优化稠密物理介质模型，三维扩展困难。本文提出PAGS，用稀疏高斯光声源表示初始压力场，并以球形谐波探针参数化各向异性路径平均声速（ASoS）场，实现无校准盲自动对焦。解析高斯声学投影高效映射源到传感器信号，闭环优化联合更新源参数和ASoS场。实验表明，在异质介质中重建清晰度提升，对稀疏视角采样稳健，且计算高效。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Photoacoustic computed tomography (PACT) combines optical absorption contrast with acoustic detection for high-resolution deep-tissue imaging. A persistent challenge is that unknown speed-of-sound (SoS) heterogeneity changes acoustic time-of-flight, causing defocusing artifacts when reconstruction assumes a uniform SoS. Existing SoS-adaptive methods either rely on calibrated acoustic priors or optimize dense physical medium models, which becomes expensive and difficult to scale in 3D. We propose PAGS, a differentiable framework for blind autofocusing PACT via speed-of-sound-adaptive Gaussian splatting. PAGS represents the initial pressure field with sparse Gaussian photoacoustic (PA) sources and replaces explicit medium recovery with a compact anisotropic path-averaged SoS (ASoS) field parameterized by spherical harmonic probes. This latent propagation field directly controls source-to-transducer arrival-time alignment, while an analytic Gaussian acoustic projection maps the source representation to transducer signals efficiently. The resulting closed-loop signal-domain optimization jointly updates the Gaussian PA source parameters and the ASoS field from measured data, without calibrated SoS priors. Experiments on simulated and physical phantom data demonstrate improved reconstruction sharpness under heterogeneous acoustic media, robustness to sparse-view sampling, and computational benefits from the analytic Gaussian projection.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

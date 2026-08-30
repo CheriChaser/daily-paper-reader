@@ -1,0 +1,59 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-30T22:46:54.834269+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.25472v1",
+      "source": "arxiv",
+      "title": "PAGS: Autofocusing Photoacoustic Tomography via Speed-of-Sound-Adaptive Gaussian Splatting",
+      "abstract": "Photoacoustic computed tomography (PACT) combines optical absorption contrast with acoustic detection for high-resolution deep-tissue imaging. A persistent challenge is that unknown speed-of-sound (SoS) heterogeneity changes acoustic time-of-flight, causing defocusing artifacts when reconstruction assumes a uniform SoS. Existing SoS-adaptive methods either rely on calibrated acoustic priors or optimize dense physical medium models, which becomes expensive and difficult to scale in 3D. We propose PAGS, a differentiable framework for blind autofocusing PACT via speed-of-sound-adaptive Gaussian splatting. PAGS represents the initial pressure field with sparse Gaussian photoacoustic (PA) sources and replaces explicit medium recovery with a compact anisotropic path-averaged SoS (ASoS) field parameterized by spherical harmonic probes. This latent propagation field directly controls source-to-transducer arrival-time alignment, while an analytic Gaussian acoustic projection maps the source representation to transducer signals efficiently. The resulting closed-loop signal-domain optimization jointly updates the Gaussian PA source parameters and the ASoS field from measured data, without calibrated SoS priors. Experiments on simulated and physical phantom data demonstrate improved reconstruction sharpness under heterogeneous acoustic media, robustness to sparse-view sampling, and computational benefits from the analytic Gaussian projection.",
+      "authors": [
+        "Jiarui Ge",
+        "Jintao Ma",
+        "Bangxu Fan",
+        "Jinyan Zhang",
+        "Xiaokang Yang",
+        "Shuai Na",
+        "Xiaoyun Yuan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "physics.med-ph"
+      ],
+      "published": "2026-08-26T07:44:48+00:00",
+      "link": "https://arxiv.org/pdf/2608.25472v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Applies Gaussian splatting to 3D tomographic reconstruction",
+      "llm_evidence_cn": "将高斯泼溅应用于三维断层成像重建",
+      "llm_evidence": "将高斯泼溅应用于三维断层成像重建",
+      "canonical_evidence": "将高斯泼溅应用于三维断层成像重建",
+      "llm_tldr_en": "PAGS adapts Gaussian splatting to photoacoustic tomography, representing the initial pressure field with sparse Gaussian sources and replacing explicit medium recovery with speed-of-sound-adaptive differentiable rendering, achieving blind autofocusing and 3D reconstruction.",
+      "llm_tldr_cn": "针对光声断层成像中未知声速异质性造成离焦伪影、现有适应方法难以扩展到三维的问题，本文提出PAGS，利用稀疏高斯光声源表示初始压力场，并通过声速自适应的高斯泼溅可微渲染实现盲自动聚焦。该方法无需显式恢复声速介质，能够以较低成本获得高质量的三维重建结果，展示了高斯泼溅在计算成像中的新应用。",
+      "llm_tldr": "针对光声断层成像中未知声速异质性造成离焦伪影、现有适应方法难以扩展到三维的问题，本文提出PAGS，利用稀疏高斯光声源表示初始压力场，并通过声速自适应的高斯泼溅可微渲染实现盲自动聚焦。该方法无需显式恢复声速介质，能够以较低成本获得高质量的三维重建结果，展示了高斯泼溅在计算成像中的新应用。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

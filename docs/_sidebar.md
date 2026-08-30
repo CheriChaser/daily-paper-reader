@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-30 <!--dpr-date:20260830-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/30/2608.25472v1-pags-autofocusing-photoacoustic-tomography-via-speed-of-sound-adaptive-gaussian-splatting" data-sidebar-item="{&quot;title&quot;: &quot;PAGS: Autofocusing Photoacoustic Tomography via Speed-of-Sound-Adaptive Gaussian Splatting&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.25472v1-pags-autofocusing-photoacoustic-tomography-via-speed-of-sound-adaptive-gaussian-splatting&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;将高斯泼溅应用于三维断层成像重建&quot;}">PAGS: Autofocusing Photoacoustic Tomography via Speed-of-Sound-Adaptive Gaussian Splatting</a>
   * 2026-08-29 <!--dpr-date:20260829-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/29/2608.25659v1-gaussiandream-efficient-3d-gaussian-world-modeling-for-robotic-manipulation" data-sidebar-item="{&quot;title&quot;: &quot;GaussianDream++: Efficient 3D Gaussian World Modeling for Robotic Manipulation&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.25659v1-gaussiandream-efficient-3d-gaussian-world-modeling-for-robotic-manipulation&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;面向机器人操作的三维高斯世界建模与重建&quot;}">GaussianDream++: Efficient 3D Gaussian World Modeling for Robotic Manipulation</a>
