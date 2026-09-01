@@ -6,26 +6,34 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-30
-- 运行时间：2026-08-30 22:47:35 UTC
+- 最新运行日期：2026-08-31
+- 运行时间：2026-09-01 00:15:08 UTC
 - 运行状态：成功
-- 本次总论文数：1
-- 精读区：0
+- 本次总论文数：4
+- 精读区：3
 - 速读区：1
 
 ### 今日简报（AI）
-今日速读1篇论文，聚焦光声断层成像的自动聚焦方法。  
-亮点是《PAGS》通过声速自适应高斯溅射实现自动对焦，评分7.0，值得留意。  
-下一步可精读该文，或关注光声成像与高斯溅射结合的新思路。
-- 详情：[/202608/30/README](/202608/30/README)
+今日精读3篇、速读1篇，聚焦3D场景重建与水下图像增强。
+最值得关注的是《WilLaGS》（9.0分）野外鲁棒高斯泼溅与《ABCD》（8.0分）低显存辐射场训练。
+普通读者可优先了解“野外3D重建如何抗遮挡”及“显存受限下的高效训练”两个方向。
+- 详情：[/202608/31/README](/202608/31/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [WilLaGS: Latent-Conditional 3D Appearance Fields for Robust Gaussian Splatting In-the-Wild](/202608/31/2608.28240v1-willags-latent-conditional-3d-appearance-fields-for-robust-gaussian-splatting-in-the-wild)  
+   标签：评分：9.0/10、query:dgs-recon
+   evidence：面向非受控场景的鲁棒3D高斯泼溅重建
+2. [ABCD: Alpha-Composited Block Coordinate Descent: Constant-VRAM Training for Large Radiance Fields](/202608/31/2608.27735v1-abcd-alpha-composited-block-coordinate-descent-constant-vram-training-for-large-radiance-fields)  
+   标签：评分：8.0/10、query:dgs-recon
+   evidence：针对3D高斯溅射训练提出恒定显存优化的块坐标下降框架
+3. [Non-Uniform Quantisation for 3DGS Compression](/202608/31/2608.28272v1-non-uniform-quantisation-for-3dgs-compression)  
+   标签：评分：8.0/10、query:dgs-recon
+   evidence：基于非均匀量化的3D高斯泼溅压缩
 
 ### 速读区论文标签
-1. [PAGS: Autofocusing Photoacoustic Tomography via Speed-of-Sound-Adaptive Gaussian Splatting](/202608/30/2608.25472v1-pags-autofocusing-photoacoustic-tomography-via-speed-of-sound-adaptive-gaussian-splatting)  
+1. [3D-USE: From Image-Level to Scene-Level Underwater Enhancement](/202608/31/2608.28020v1-3d-use-from-image-level-to-scene-level-underwater-enhancement)  
    标签：评分：7.0/10、query:dgs-recon
-   evidence：将高斯泼溅应用于三维断层成像重建
+   evidence：利用介质感知高斯场景表示进行与3D重建相关的场景级水下增强
 
 
 <div class="dpr-home-promo-card">

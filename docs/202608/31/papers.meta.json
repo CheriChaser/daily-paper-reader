@@ -1,0 +1,69 @@
+{
+  "label": "2026-08-31",
+  "date": "2026-08-31",
+  "generated_at": "2026-09-01T00:15:14",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202608/31/2608.28240v1-willags-latent-conditional-3d-appearance-fields-for-robust-gaussian-splatting-in-the-wild",
+      "section": "deep",
+      "title_en": "WilLaGS: Latent-Conditional 3D Appearance Fields for Robust Gaussian Splatting In-the-Wild",
+      "authors": "Yuhao Bai, Qianqiu Tan, Lilong Chen, Huanhuan Lv, Lijun Chen",
+      "date": "2026-08-28",
+      "pdf": "https://arxiv.org/pdf/2608.28240v1",
+      "score": "9.0",
+      "evidence": "面向非受控场景的鲁棒3D高斯泼溅重建",
+      "tldr": "现有3D高斯泼溅在野外场景中难以应对剧烈外观变化和瞬态物体，多视图一致性被破坏。WilLaGS提出生成式外观模型，利用β-VAE学习全局外观连续流形，基于潜在码构建3D神经外观场生成动态Tri-Plane特征，编码空间变化光照。同时设计教师-学生EMA自监督感知掩蔽机制，稳定识别不一致区域以抑制伪影。在多个数据集上达到SOTA重建质量与新颖视图合成，同时保持实时渲染效率，为鲁棒三维场景重建提供统一方案。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting (3DGS) delivers real-time and high-fidelity rendering but remains challenged by unconstrained in-the-wild scenes, where drastic appearance variations and transient objects violate multi-view consistency. Existing methods are fundamentally limited by independent and discrete embeddings that struggle to capture continuous environmental changes or model spatially-varying local illumination. To address these limitations, we propose \\textbf{WilLaGS}, a unified framework for robust 3D scene reconstruction and generative appearance synthesis under unconstrained settings. Specifically, we introduce a generative appearance model where a $β$-VAE learns a structured and continuous manifold of global appearance. Conditioned on the latent code, we construct a 3D neural appearance field that generates dynamic Tri-Plane features to encode spatially-varying local illumination effects. Furthermore, to suppress transient artifacts, we present a self-supervised perceptual masking mechanism that leverages a Teacher-Student (EMA) architecture to derive a stable scene consensus, robustly identifying inconsistent regions via perceptual discrepancies. Extensive experiments on multiple datasets demonstrate that \\textbf{WilLaGS} achieves state-of-the-art performance in reconstruction quality and novel view appearance synthesis, while maintaining real-time rendering efficiency.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/31/2608.27735v1-abcd-alpha-composited-block-coordinate-descent-constant-vram-training-for-large-radiance-fields",
+      "section": "deep",
+      "title_en": "ABCD: Alpha-Composited Block Coordinate Descent: Constant-VRAM Training for Large Radiance Fields",
+      "authors": "Ka Heng Shiu, Kartic Subr",
+      "date": "2026-08-27",
+      "pdf": "https://arxiv.org/pdf/2608.27735v1",
+      "score": "8.0",
+      "evidence": "针对3D高斯溅射训练提出恒定显存优化的块坐标下降框架",
+      "tldr": "辐射场训练受限于显存，尤其是大场景。ABCD通过块坐标下降将场景分成空间块，每次仅更新一个块，并利用alpha混合的结合律将其他块预渲染成前后景图像。这样峰值显存与总场景规模无关，固定分辨率下为常量。实验表明质量接近3DGS，PSNR下降小于5%，而消融合成则下降40%，为显存受限设备训练大场景提供了有效方案。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "We present ABCD (Alpha-Composited Block Coordinate Descent), an out-of-core training framework for alpha-composited radiance fields, instantiated here for 3D Gaussian Splatting. Our method reformulates training as block coordinate descent over spatial partitions: only one block of parameters is active at a time, while all others are frozen. By exploiting the associativity of alpha blending, these inactive regions can be pre-rendered and collapsed into foreground and background RGBA images.   As a result, for fixed partition size and image resolution, peak VRAM becomes O(1) with respect to total scene extent, rather than growing with full scene size. This enables GPUs with limited memory to train scenes that would otherwise not fit in core. In experiments, our method closely preserves the reconstruction quality of 3DGS, with less than 5% PSNR degradation, while ABCD with compositing ablated suffers roughly 40% degradation.   Our code can be found at https://github.com/shiukaheng/abcd",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/31/2608.28272v1-non-uniform-quantisation-for-3dgs-compression",
+      "section": "deep",
+      "title_en": "Non-Uniform Quantisation for 3DGS Compression",
+      "authors": "Bert Van hauwermeiren, Patrice Rondao Alface, Adrian Munteanu",
+      "date": "2026-08-28",
+      "pdf": "https://arxiv.org/pdf/2608.28272v1",
+      "score": "8.0",
+      "evidence": "基于非均匀量化的3D高斯泼溅压缩",
+      "tldr": "3D高斯溅射（3DGS）在新视角合成中表现出色，但高位率需求制约了其存储与传输。本文提出一种专门用于3DGS的非均匀量化方案，通过重要性加权量化来适应数据分布，并借助重要性加权合并消除体素化后的冗余信息。在多个基准数据集上的实验表明，该方法取得了最优的压缩性能，同时与任意点云表示兼容。该工作已作为正式提案提交至MPEG 3DGS压缩标准化活动，有助于推动3DGS生态的互操作性。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "3D Gaussian Splatting (3DGS) has emerged as a powerful technique for novel view synthesis, yet its high bitrate requirements pose significant challenges for storage and transmission. To enable practical applications and ensure interoperability within the 3DGS ecosystem, standardised compression formats are essential. In this paper, we propose a novel non-uniform quantisation scheme specifically tailored for 3DGS models. Our approach adapts to the underlying data distribution by applying importance-weighted quantisation and eliminating post-voxelisation redundancy through importance weighted merging. Extensive evaluations on benchmark datasets demonstrate that our method achieves state-of-the-art compression performance. Furthermore, the proposed scheme is compatible with any point-cloud-based representation and is intended as a formal contribution to the upcoming MPEG 3DGS compression standardisation activities.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/31/2608.28020v1-3d-use-from-image-level-to-scene-level-underwater-enhancement",
+      "section": "quick",
+      "title_en": "3D-USE: From Image-Level to Scene-Level Underwater Enhancement",
+      "authors": "Jieyu Yuan, Yuanlin Zhang, Jihong Li, Chunle Guo, Huimin Lu, Chongyi Li",
+      "date": "2026-08-28",
+      "pdf": "https://arxiv.org/pdf/2608.28020v1",
+      "score": "7.0",
+      "evidence": "利用介质感知高斯场景表示进行与3D重建相关的场景级水下增强",
+      "tldr": "水下3D重建会保留颜色偏移和可见度损失，物理反演难以恢复准确外观。为此提出3D-USE框架，将场景级增强定义为学习可持续增强的3D表示。先用MediumRBF分解介质与物体，再用ATC将2D增强知识迁移为场景级目标，由U-BAF实现。真实场景实验显示增强后交叉视图一致且保真，无需2D模型即可渲染增强新视图。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Underwater 3D reconstruction faithfully reproduces the color shifts and visibility loss of captured views, while physical inversion may leave estimation errors in the recovered scene appearance. We formulate Underwater Scene-level Enhancement (USE) as learning a persistent, visibility-enhanced 3D scene representation from degraded multi-view underwater observations, enabling consistent enhanced rendering. Realizing USE requires both a reliable scene representation for enhancement and a consistent enhancement target without paired enhanced 3D data. Therefore, we present 3D-USE, a two-stage framework. First, the Medium Radial Basis Anchor Representation (MediumRBF) establishes a medium-aware Gaussian scene by representing water effects with shared radial-basis anchors and explicitly decomposing object and medium contributions. Based on this fixed scene representation, Appearance Transition Consensus (ATC) transfers paired 2D underwater image enhancement (UIE) knowledge into scene-global and Gaussian-local targets, avoiding direct supervision from inconsistent enhanced views. An Underwater Bilateral Appearance Field (U-BAF) then realizes these targets in Gaussian radiance and medium appearance. The scene directly renders enhanced novel views without a 2D UIE model at inference. Experiments on real underwater scenes show improved visibility and cross-view consistency while preserving reconstruction quality.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

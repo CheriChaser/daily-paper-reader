@@ -1,0 +1,168 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-01T00:11:50.776529+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2608.28240v1",
+      "source": "arxiv",
+      "title": "WilLaGS: Latent-Conditional 3D Appearance Fields for Robust Gaussian Splatting In-the-Wild",
+      "abstract": "3D Gaussian Splatting (3DGS) delivers real-time and high-fidelity rendering but remains challenged by unconstrained in-the-wild scenes, where drastic appearance variations and transient objects violate multi-view consistency. Existing methods are fundamentally limited by independent and discrete embeddings that struggle to capture continuous environmental changes or model spatially-varying local illumination. To address these limitations, we propose \\textbf{WilLaGS}, a unified framework for robust 3D scene reconstruction and generative appearance synthesis under unconstrained settings. Specifically, we introduce a generative appearance model where a $β$-VAE learns a structured and continuous manifold of global appearance. Conditioned on the latent code, we construct a 3D neural appearance field that generates dynamic Tri-Plane features to encode spatially-varying local illumination effects. Furthermore, to suppress transient artifacts, we present a self-supervised perceptual masking mechanism that leverages a Teacher-Student (EMA) architecture to derive a stable scene consensus, robustly identifying inconsistent regions via perceptual discrepancies. Extensive experiments on multiple datasets demonstrate that \\textbf{WilLaGS} achieves state-of-the-art performance in reconstruction quality and novel view appearance synthesis, while maintaining real-time rendering efficiency.",
+      "authors": [
+        "Yuhao Bai",
+        "Qianqiu Tan",
+        "Lilong Chen",
+        "Huanhuan Lv",
+        "Lijun Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-28T11:55:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.28240v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Robust 3D scene reconstruction with Gaussian splatting for in-the-wild scenes",
+      "llm_evidence_cn": "面向非受控场景的鲁棒3D高斯泼溅重建",
+      "llm_evidence": "面向非受控场景的鲁棒3D高斯泼溅重建",
+      "canonical_evidence": "面向非受控场景的鲁棒3D高斯泼溅重建",
+      "llm_tldr_en": "WilLaGS introduces a latent-conditional appearance model based on beta-VAE for robust in-the-wild 3DGS reconstruction, improving handling of continuous lighting changes and transient objects.",
+      "llm_tldr_cn": "非受控室外场景中光照变化与瞬态物体会破坏多视图一致性，现有3DGS方法使用独立离散嵌入难以刻画连续外观变化。为此提出WilLaGS统一框架，通过β-VAE学习全局外观的连续流形，并结合生成式外观模型实现鲁棒的3D场景重建与外观合成。在多种野外场景上的实验表明，该方法能更好地建模时空变化的光照与局部环境，有效提升重建质量与生成能力，为3DGS在真实世界大规模场景中的应用奠定基础。",
+      "llm_tldr": "非受控室外场景中光照变化与瞬态物体会破坏多视图一致性，现有3DGS方法使用独立离散嵌入难以刻画连续外观变化。为此提出WilLaGS统一框架，通过β-VAE学习全局外观的连续流形，并结合生成式外观模型实现鲁棒的3D场景重建与外观合成。在多种野外场景上的实验表明，该方法能更好地建模时空变化的光照与局部环境，有效提升重建质量与生成能力，为3DGS在真实世界大规模场景中的应用奠定基础。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.27735v1",
+      "source": "arxiv",
+      "title": "ABCD: Alpha-Composited Block Coordinate Descent: Constant-VRAM Training for Large Radiance Fields",
+      "abstract": "We present ABCD (Alpha-Composited Block Coordinate Descent), an out-of-core training framework for alpha-composited radiance fields, instantiated here for 3D Gaussian Splatting. Our method reformulates training as block coordinate descent over spatial partitions: only one block of parameters is active at a time, while all others are frozen. By exploiting the associativity of alpha blending, these inactive regions can be pre-rendered and collapsed into foreground and background RGBA images.   As a result, for fixed partition size and image resolution, peak VRAM becomes O(1) with respect to total scene extent, rather than growing with full scene size. This enables GPUs with limited memory to train scenes that would otherwise not fit in core. In experiments, our method closely preserves the reconstruction quality of 3DGS, with less than 5% PSNR degradation, while ABCD with compositing ablated suffers roughly 40% degradation.   Our code can be found at https://github.com/shiukaheng/abcd",
+      "authors": [
+        "Ka Heng Shiu",
+        "Kartic Subr"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.GR"
+      ],
+      "published": "2026-08-27T21:51:16+00:00",
+      "link": "https://arxiv.org/pdf/2608.27735v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Constant-VRAM training framework instantiated for 3D Gaussian Splatting via block coordinate descent",
+      "llm_evidence_cn": "针对3D高斯溅射训练提出恒定显存优化的块坐标下降框架",
+      "llm_evidence": "针对3D高斯溅射训练提出恒定显存优化的块坐标下降框架",
+      "canonical_evidence": "针对3D高斯溅射训练提出恒定显存优化的块坐标下降框架",
+      "llm_tldr_en": "Presents ABCD, an out-of-core training framework for 3D Gaussian Splatting that uses alpha-composited block coordinate descent to achieve constant VRAM usage independent of scene extent, enabling large scenes to train on memory-limited GPUs.",
+      "llm_tldr_cn": "针对3D高斯溅射大规模场景训练显存不足的问题，提出了ABCD框架。该方法将训练重构为块坐标下降，一次只激活一个参数块，利用alpha混合的结合性预渲染非活动区域，使峰值显存与场景规模无关。实验表明在有限显存GPU上也能训练大规模场景。该工作为3D高斯溅射重建的内存效率提供了重要改进。",
+      "llm_tldr": "针对3D高斯溅射大规模场景训练显存不足的问题，提出了ABCD框架。该方法将训练重构为块坐标下降，一次只激活一个参数块，利用alpha混合的结合性预渲染非活动区域，使峰值显存与场景规模无关。实验表明在有限显存GPU上也能训练大规模场景。该工作为3D高斯溅射重建的内存效率提供了重要改进。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2608.28272v1",
+      "source": "arxiv",
+      "title": "Non-Uniform Quantisation for 3DGS Compression",
+      "abstract": "3D Gaussian Splatting (3DGS) has emerged as a powerful technique for novel view synthesis, yet its high bitrate requirements pose significant challenges for storage and transmission. To enable practical applications and ensure interoperability within the 3DGS ecosystem, standardised compression formats are essential. In this paper, we propose a novel non-uniform quantisation scheme specifically tailored for 3DGS models. Our approach adapts to the underlying data distribution by applying importance-weighted quantisation and eliminating post-voxelisation redundancy through importance weighted merging. Extensive evaluations on benchmark datasets demonstrate that our method achieves state-of-the-art compression performance. Furthermore, the proposed scheme is compatible with any point-cloud-based representation and is intended as a formal contribution to the upcoming MPEG 3DGS compression standardisation activities.",
+      "authors": [
+        "Bert Van hauwermeiren",
+        "Patrice Rondao Alface",
+        "Adrian Munteanu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-28T12:35:51+00:00",
+      "link": "https://arxiv.org/pdf/2608.28272v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D Gaussian splatting compression via non-uniform quantisation",
+      "llm_evidence_cn": "基于非均匀量化的3D高斯泼溅压缩",
+      "llm_evidence": "基于非均匀量化的3D高斯泼溅压缩",
+      "canonical_evidence": "基于非均匀量化的3D高斯泼溅压缩",
+      "llm_tldr_en": "Proposes a non-uniform quantisation scheme tailored to 3DGS, using importance-weighted quantisation and merging to achieve state-of-the-art compression with compatibility to any base 3DGS method.",
+      "llm_tldr_cn": "3D高斯泼溅在提供高质量新视角渲染的同时，高比特率成为存储与传输的瓶颈，且缺乏标准化压缩格式。本文提出一种专为3DGS设计的非均匀量化方案，依据数据分布进行重要性加权量化，并通过重要性加权合并消除体素化后冗余。在多个基准数据集上的实验表明，该方法达到了当前最优的压缩性能，同时可与任意基础3DGS方法兼容，为3DGS生态的实用化提供了关键支撑。",
+      "llm_tldr": "3D高斯泼溅在提供高质量新视角渲染的同时，高比特率成为存储与传输的瓶颈，且缺乏标准化压缩格式。本文提出一种专为3DGS设计的非均匀量化方案，依据数据分布进行重要性加权量化，并通过重要性加权合并消除体素化后冗余。在多个基准数据集上的实验表明，该方法达到了当前最优的压缩性能，同时可与任意基础3DGS方法兼容，为3DGS生态的实用化提供了关键支撑。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2608.28020v1",
+      "source": "arxiv",
+      "title": "3D-USE: From Image-Level to Scene-Level Underwater Enhancement",
+      "abstract": "Underwater 3D reconstruction faithfully reproduces the color shifts and visibility loss of captured views, while physical inversion may leave estimation errors in the recovered scene appearance. We formulate Underwater Scene-level Enhancement (USE) as learning a persistent, visibility-enhanced 3D scene representation from degraded multi-view underwater observations, enabling consistent enhanced rendering. Realizing USE requires both a reliable scene representation for enhancement and a consistent enhancement target without paired enhanced 3D data. Therefore, we present 3D-USE, a two-stage framework. First, the Medium Radial Basis Anchor Representation (MediumRBF) establishes a medium-aware Gaussian scene by representing water effects with shared radial-basis anchors and explicitly decomposing object and medium contributions. Based on this fixed scene representation, Appearance Transition Consensus (ATC) transfers paired 2D underwater image enhancement (UIE) knowledge into scene-global and Gaussian-local targets, avoiding direct supervision from inconsistent enhanced views. An Underwater Bilateral Appearance Field (U-BAF) then realizes these targets in Gaussian radiance and medium appearance. The scene directly renders enhanced novel views without a 2D UIE model at inference. Experiments on real underwater scenes show improved visibility and cross-view consistency while preserving reconstruction quality.",
+      "authors": [
+        "Jieyu Yuan",
+        "Yuanlin Zhang",
+        "Jihong Li",
+        "Chunle Guo",
+        "Huimin Lu",
+        "Chongyi Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-08-28T07:34:13+00:00",
+      "link": "https://arxiv.org/pdf/2608.28020v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Uses a medium-aware Gaussian scene representation for scene-level underwater enhancement tied to 3D reconstruction",
+      "llm_evidence_cn": "利用介质感知高斯场景表示进行与3D重建相关的场景级水下增强",
+      "llm_evidence": "利用介质感知高斯场景表示进行与3D重建相关的场景级水下增强",
+      "canonical_evidence": "利用介质感知高斯场景表示进行与3D重建相关的场景级水下增强",
+      "llm_tldr_en": "3D-USE learns a persistent, visibility-enhanced 3D scene representation from degraded multi-view underwater observations using a medium-aware Gaussian scene, enabling consistent enhanced rendering without paired enhanced 3D data. The two-stage method first constructs MediumRBF and then performs enhancement.",
+      "llm_tldr_cn": "水下3D重建通常忠实再现颜色偏移与能见度损失，而物理反演会留下场景外观的估计误差。为突破图像级增强的局限，作者提出场景级水下增强（USE），目标是学习一种持续的、能见度增强的3D场景表示。本文采用两阶段框架，首先用介质感知的径向基高斯场景（MediumRBF）表示水效应，再通过共享径向基实现一致的增强渲染。实验表明，在没有成对增强3D数据的前提下，该方法成功实现了从图像级到场景级的增强效果，并提高了渲染一致性。这项研究将3D高斯表示引入水下场景增强，为水下3D重建与增强提供了新的视角。",
+      "llm_tldr": "水下3D重建通常忠实再现颜色偏移与能见度损失，而物理反演会留下场景外观的估计误差。为突破图像级增强的局限，作者提出场景级水下增强（USE），目标是学习一种持续的、能见度增强的3D场景表示。本文采用两阶段框架，首先用介质感知的径向基高斯场景（MediumRBF）表示水效应，再通过共享径向基实现一致的增强渲染。实验表明，在没有成对增强3D数据的前提下，该方法成功实现了从图像级到场景级的增强效果，并提高了渲染一致性。这项研究将3D高斯表示引入水下场景增强，为水下3D重建与增强提供了新的视角。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
