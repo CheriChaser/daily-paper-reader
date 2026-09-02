@@ -1,0 +1,130 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-02T22:09:28.420528+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2608.30054v1",
+      "source": "arxiv",
+      "title": "When 3D Gaussian Splatting Recovers Real Surfaces",
+      "abstract": "When does 3D Gaussian Splatting (3DGS) recover the true scene surface rather than just overfitting view-dependent appearance? We answer this by developing a mathematical framework based on a first-hit rendering abstraction that cleanly isolates geometry from appearance. We prove that geometric misalignment forcefully converts spatial textures into high-frequency angular signals via parallax. This establishes a strict identifiability window: if angular capacity is bounded, surface-consistent solutions are mathematically preferred; if unrestricted, the same images can be perfectly explained by an incorrect, opaque billboard geometry. Experiments on synthetic stress tests confirm this prediction, showing billboard failures emerge precisely at high angular capacities. Conversely, in the real-world datasets we evaluate under standard capture protocols, reconstructions remain surface-consistent even at high SH degrees, which is consistent with the prediction that rich spatial texture can push billboard solutions outside the tested angular-capacity range.",
+      "authors": [
+        "Songhe Wang",
+        "David Johnathan Miller"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CV"
+      ],
+      "published": "2026-08-30T21:30:26+00:00",
+      "link": "https://arxiv.org/pdf/2608.30054v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Theoretical analysis of when 3D Gaussian Splatting recovers real scene surfaces; directly relevant to 3DGS reconstruction geometry",
+      "llm_evidence_cn": "从数学上分析3D高斯泼溅何时恢复真实场景表面，直接关系3DGS重建几何准确性",
+      "llm_evidence": "从数学上分析3D高斯泼溅何时恢复真实场景表面，直接关系3DGS重建几何准确性",
+      "canonical_evidence": "从数学上分析3D高斯泼溅何时恢复真实场景表面，直接关系3DGS重建几何准确性",
+      "llm_tldr_en": "Using a first-hit rendering abstraction, this theory paper proves that bounded angular capacity favors surface-consistent 3DGS solutions, while unrestricted capacity can admit wrong opaque billboard geometry.",
+      "llm_tldr_cn": "3DGS既能生成高质量渲染，也可能以错误billboard几何完美解释同一组图像。作者建立首击渲染抽象，把几何与外观分离，证明几何错位会把空间纹理通过视差转化为高频角信号，由此限定严格的可辨识窗口：角容量有界时表面一致解在数学上更优，无界时错误billboard可复现相同图像。合成压力实验验证了这一预测。该理论为判断3DGS何时恢复真实表面提供了依据，对三维重建研究有直接指导价值。",
+      "llm_tldr": "3DGS既能生成高质量渲染，也可能以错误billboard几何完美解释同一组图像。作者建立首击渲染抽象，把几何与外观分离，证明几何错位会把空间纹理通过视差转化为高频角信号，由此限定严格的可辨识窗口：角容量有界时表面一致解在数学上更优，无界时错误billboard可复现相同图像。合成压力实验验证了这一预测。该理论为判断3DGS何时恢复真实表面提供了依据，对三维重建研究有直接指导价值。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.00994v1",
+      "source": "arxiv",
+      "title": "EvoGS: Modeling Deformation Evolution for Dynamic Gaussian Splatting",
+      "abstract": "Recent extensions of 3D Gaussian Splatting (3DGS) enable real-time novel view synthesis in dynamic scenes by learning time-conditioned Gaussian deformations. However, existing MLP-based methods typically estimate deformations independently at each timestamp, making them less robust to large or abrupt motions. To address this issue, we propose \\textbf{EvoGS}, a 3DGS-based dynamic reconstruction framework that models Gaussian deformation as a temporal evolution process. EvoGS maintains persistent deformation states for each Gaussian, extrapolates future states from historical deformation states, and corrects the predictions with MLP-derived observations. The correction is adaptively weighted using a temporal residual memory and evolution statistics such as deformation velocity and trajectory deviation. To further improve reconstruction quality, EvoGS introduces deformation-aware densification. Clone and split operations are performed along corrected deformation directions, while an uncertainty-aware strategy suppresses densification for Gaussians with unstable deformation histories. Experiments show that EvoGS improves dynamic novel view synthesis quality and achieves competitive performance across benchmarks.",
+      "authors": [
+        "Wei Dong",
+        "Shahram Shirani",
+        "Jun Chen",
+        "Han Zhou"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-09-01T09:45:12+00:00",
+      "link": "https://arxiv.org/pdf/2609.00994v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Dynamic 3DGS reconstruction by modeling deformation as a temporal evolution process.",
+      "llm_evidence_cn": "将高斯形变建模为时间演化过程的动态3DGS重建",
+      "llm_evidence": "将高斯形变建模为时间演化过程的动态3DGS重建",
+      "canonical_evidence": "将高斯形变建模为时间演化过程的动态3DGS重建",
+      "llm_tldr_en": "EvoGS models Gaussian deformation as a temporal evolution process for dynamic 3D Gaussian Splatting, predicting future states from history and adaptively correcting with MLP observations.",
+      "llm_tldr_cn": "动态三维高斯泼溅通过学习时间条件的形变来实时合成新视角，但现有MLP方法通常在每个时间戳独立估计形变，对大运动或突变不够鲁棒。该文提出EvoGS，将高斯形变建模为时间演化过程：为每个高斯维护持久形变状态，从历史状态外推未来状态，并利用MLP观测做自适应加权修正。修正权重由时间残差记忆和演化统计共同决定。该框架使动态3DGS重建在大幅或剧烈运动下更加稳定。",
+      "llm_tldr": "动态三维高斯泼溅通过学习时间条件的形变来实时合成新视角，但现有MLP方法通常在每个时间戳独立估计形变，对大运动或突变不够鲁棒。该文提出EvoGS，将高斯形变建模为时间演化过程：为每个高斯维护持久形变状态，从历史状态外推未来状态，并利用MLP观测做自适应加权修正。修正权重由时间残差记忆和演化统计共同决定。该框架使动态3DGS重建在大幅或剧烈运动下更加稳定。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.01516v1",
+      "source": "arxiv",
+      "title": "DualDiff3D: Dual Structure-Appearance Diffusion Priors for Reliability-Enhanced 3D Gaussian Splatting",
+      "abstract": "While 3D Gaussian Splatting (3DGS) has revolutionized 3D reconstruction and novel-view synthesis, scenarios with limited input views often lead to poor reconstruction quality and artifacts in rendered novel views. Recent efforts attempt to utilize powerful diffusion priors, yet they typically process rendered and reference views concatenated along an additional dimension in a single network. These methods overlook an inherent nature that different views should maintain appearance similarity but differ in structure due to view shifts, leading to blur caused by conflicts between the two properties. In this paper, we propose DualDiff, a novel pipeline that leverages dual diffusion priors with a Structure-Appearance Attention (SAA) module to introduce reference guidance for refining low-quality novel views rendered from flawed 3D representations. Specifically, we retain one diffusion branch to focus on extracting structural information from the low-quality novel views, while introducing another branch to ensure appearance consistency with reference views. Furthermore, we present a 3D reconstruction framework named DualDiff3D, which integrates a reliability-enhanced Render-Refine-Optimize (RRO) loop to progressively and robustly incorporate the refined novel views, yielding more accurate 3DGS. Extensive experiments demonstrate that our approach outperforms state-of-the-art methods even in the inference-only setting, with further performance gains achievable through training. Our code and pre-trained weights are available at https://github.com/Akaneqwq/DualDiff3D.",
+      "authors": [
+        "Qian Wang",
+        "Yu Wang",
+        "Weiqi Li",
+        "Xinhua Cheng",
+        "Xiandong Meng",
+        "Ronggang Wang",
+        "Jian Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-09-01T16:45:53+00:00",
+      "link": "https://arxiv.org/pdf/2609.01516v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "improves 3DGS reconstruction quality under limited views using dual diffusion priors",
+      "llm_evidence_cn": "利用结构-外观双扩散先验提升稀疏视角下的3DGS重建质量",
+      "llm_evidence": "利用结构-外观双扩散先验提升稀疏视角下的3DGS重建质量",
+      "canonical_evidence": "利用结构-外观双扩散先验提升稀疏视角下的3DGS重建质量",
+      "llm_tldr_en": "DualDiff3D addresses poor 3DGS reconstruction from sparse views by introducing separate structure and appearance diffusion priors with a Structure-Appearance Attention mechanism, reducing view-conflict blur and rendering artifacts.",
+      "llm_tldr_cn": "针对3DGS在输入视图稀疏时重建质量差、渲染新视角易出现伪影的问题，本文指出现有方法将渲染视图与参考视图简单拼接会因结构外观冲突产生模糊，并提出DualDiff3D，利用结构-外观注意力机制和双扩散先验分别约束重建的结构与外观。实验表明该方法在有限视图设置下能有效提升重建可靠性和渲染清晰度，为扩散先验增强的3DGS重建提供了更合理的设计。",
+      "llm_tldr": "针对3DGS在输入视图稀疏时重建质量差、渲染新视角易出现伪影的问题，本文指出现有方法将渲染视图与参考视图简单拼接会因结构外观冲突产生模糊，并提出DualDiff3D，利用结构-外观注意力机制和双扩散先验分别约束重建的结构与外观。实验表明该方法在有限视图设置下能有效提升重建可靠性和渲染清晰度，为扩散先验增强的3DGS重建提供了更合理的设计。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}
