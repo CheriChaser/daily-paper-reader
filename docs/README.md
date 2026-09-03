@@ -6,32 +6,29 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-09-02
-- 运行时间：2026-09-02 22:12:17 UTC
+- 最新运行日期：2026-09-03
+- 运行时间：2026-09-03 23:01:16 UTC
 - 运行状态：成功
 - 本次总论文数：3
-- 精读区：3
-- 速读区：0
+- 精读区：2
+- 速读区：1
 
 ### 今日简报（AI）
-今日精读两篇3D高斯泼溅（3DGS）论文，分别聚焦于表面重建与动态变形演化建模。  
-最值得关注的是《When 3D Gaussian Splatting Recovers Real Surfaces》，说明3DGS有望准确还原真实几何表面；《EvoGS》则展示了动态场景中变形建模的新思路。  
-建议普通读者重点了解3DGS在表面精度和动态泛化上的进展，以判断其未来替代传统重建方法的潜力。
-- 详情：[/202609/02/README](/202609/02/README)
+今日聚焦三维高斯泼溅（3DGS）前沿：精读2篇覆盖VR端侧城市级部署与大规模非结构化视角生成，速读1篇关注动态场景存储优化。最值得关注的是Atlas（10分）实现算法-硬件协同设计，解决VR中城市级3DGS实时渲染瓶颈；InceptionGS（9分）则在稀疏视角下借生成式引导提升重建质量。建议普通读者优先了解Atlas提出的端侧协同方案，可直观感受3DGS在VR设备上“跑起来”的关键思路。
+- 详情：[/202609/03/README](/202609/03/README)
 
 ### 精读区论文标签
-1. [When 3D Gaussian Splatting Recovers Real Surfaces](/202609/02/2608.30054v1-when-3d-gaussian-splatting-recovers-real-surfaces)  
-   标签：评分：8.0/10、query:dgs-recon
-   evidence：从数学上分析3D高斯泼溅何时恢复真实场景表面，直接关系3DGS重建几何准确性
-2. [EvoGS: Modeling Deformation Evolution for Dynamic Gaussian Splatting](/202609/02/2609.00994v1-evogs-modeling-deformation-evolution-for-dynamic-gaussian-splatting)  
-   标签：评分：8.0/10、query:dgs-recon
-   evidence：将高斯形变建模为时间演化过程的动态3DGS重建
-3. [DualDiff3D: Dual Structure-Appearance Diffusion Priors for Reliability-Enhanced 3D Gaussian Splatting](/202609/02/2609.01516v1-dualdiff3d-dual-structure-appearance-diffusion-priors-for-reliability-enhanced-3d-gaussian-splatting)  
-   标签：评分：8.0/10、query:dgs-recon
-   evidence：利用结构-外观双扩散先验提升稀疏视角下的3DGS重建质量
+1. [Atlas: Algorithm-Hardware Co-Design for On-Device City-Scale 3D Gaussian Splatting in VR](/202609/03/2609.02352v1-atlas-algorithm-hardware-co-design-for-on-device-city-scale-3d-gaussian-splatting-in-vr)  
+   标签：评分：10.0/10、query:dgs-recon
+   evidence：面向移动VR设备城市级3DGS渲染的算法-硬件协同设计
+2. [InceptionGS: Generative Bootstrapping for Large-Scale Gaussian Splatting under Unstructured View Sampling](/202609/03/2609.02747v1-inceptiongs-generative-bootstrapping-for-large-scale-gaussian-splatting-under-unstructured-view-sampling)  
+   标签：评分：9.0/10、query:dgs-recon
+   evidence：非结构化视角下大规模3DGS重建，采用生成式自举补全观测缺失区域
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [CC-4DGS: Computational Deformation and Point-Cloud Compression for Storage-Efficient Dynamic Gaussian Splatting](/202609/03/2609.02184v1-cc-4dgs-computational-deformation-and-point-cloud-compression-for-storage-efficient-dynamic-gaussian-splatting)  
+   标签：评分：7.0/10、query:dgs-recon
+   evidence：面向动态3D高斯泼溅的高效压缩与计算形变方法，属于3DGS重建技术链条
 
 
 <div class="dpr-home-promo-card">

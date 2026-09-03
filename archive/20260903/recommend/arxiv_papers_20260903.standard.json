@@ -1,0 +1,135 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-03T22:57:59.541296+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2609.02352v1",
+      "source": "arxiv",
+      "title": "Atlas: Algorithm-Hardware Co-Design for On-Device City-Scale 3D Gaussian Splatting in VR",
+      "abstract": "3D Gaussian splatting (3DGS) has drawn significant attention in the architectural community recently. However, enabling city scale 3DGS on mobile VR devices remains challenging, as the memory requirement of large scale scenes far exceeds the memory capacity of today's mobile GPUs. This paper presents Atlas, an on device city scale 3DGS rendering framework that enables scalable rendering without runtime Internet access. The key insight is that although the full 3DGS model is massive, each frame only requires a small subset of Gaussians under the current pose and level of detail requirement. Based on this insight, Atlas introduces a hierarchical memory offloading mechanism that dynamically loads only necessary Gaussian data into device memory. To further improve performance, Atlas proposes temporal aware LoD search and stereo rasterization to avoid redundant computation in VR. We further show that our technique can be integrated with existing 3DGS accelerators with negligible hardware overhead. Overall, Atlas achieves 18.5x speedup over the GPU baseline and 3.9x speedup over the state of the art 3DGS accelerators, with 92.4% energy savings.",
+      "authors": [
+        "He Zhu",
+        "Zheng Liu",
+        "Xingyang Li",
+        "Anbang Wu",
+        "Zihan Liu",
+        "Ruyang Li",
+        "Hui Wei",
+        "Yaqian Zhao",
+        "Jingwen Leng",
+        "Minyi Guo",
+        "Yu Feng"
+      ],
+      "primary_category": "cs.AR",
+      "categories": [
+        "cs.AR"
+      ],
+      "published": "2026-09-02T09:25:00+00:00",
+      "link": "https://arxiv.org/pdf/2609.02352v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Algorithm-hardware co-design for city-scale 3D Gaussian splatting on mobile VR devices",
+      "llm_evidence_cn": "面向移动VR设备城市级3DGS渲染的算法-硬件协同设计",
+      "llm_evidence": "面向移动VR设备城市级3DGS渲染的算法-硬件协同设计",
+      "canonical_evidence": "面向移动VR设备城市级3DGS渲染的算法-硬件协同设计",
+      "llm_tldr_en": "Atlas is an algorithm-hardware co-design for on-device city-scale 3DGS rendering in VR. Its hierarchical memory offloading loads only frame-needed Gaussians dynamically, enabling scalable rendering within mobile memory constraints.",
+      "llm_tldr_cn": "城市规模3DGS模型带来极高内存需求，远超当前移动GPU的容量，导致在移动VR设备上无法进行可扩展的离屏渲染。Atlas观察到每一帧实际只依赖当前位姿与细节层级所需的一小部分高斯数据，因此提出分层内存卸载机制，动态仅将必要的高斯数据载入设备，无需运行时联网。该框架在保证渲染质量的同时大幅降低了设备内存压力，实现对城市级场景的移动端可扩展渲染，展现出算法-硬件协同优化在未来终端神经渲染中的关键价值。",
+      "llm_tldr": "城市规模3DGS模型带来极高内存需求，远超当前移动GPU的容量，导致在移动VR设备上无法进行可扩展的离屏渲染。Atlas观察到每一帧实际只依赖当前位姿与细节层级所需的一小部分高斯数据，因此提出分层内存卸载机制，动态仅将必要的高斯数据载入设备，无需运行时联网。该框架在保证渲染质量的同时大幅降低了设备内存压力，实现对城市级场景的移动端可扩展渲染，展现出算法-硬件协同优化在未来终端神经渲染中的关键价值。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "hardware accelerator designs for 3D Gaussian splatting",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.02747v1",
+      "source": "arxiv",
+      "title": "InceptionGS: Generative Bootstrapping for Large-Scale Gaussian Splatting under Unstructured View Sampling",
+      "abstract": "Achieving truly immersive large-scale scene digitization necessitates consistent and visually pleasing rendering across all possible viewing perspectives. However, collecting multi-view images covering every fine detail of a large-scale scene is prohibitive due to scene complexity, capture cost, negligence, or accessibility constraints. As a result, the sampled views tend to be highly unstructured -- the majority of the scene is well covered yet certain regions inevitably lack sufficient observations. Existing reconstruction based methods are vulnerable to view scarcity while generation based approaches suffer from generalization, controllability, and 3D consistency issues. To address this challenge, we propose InceptionGS, which bootstraps Gaussian splatting by subtly balancing reconstruction and generation. Starting from an initial Gaussian splatting, InceptionGS reasonably rethinks and repairs problematic regions caused by view scarcity while preserving the quality elsewhere, by softly incorporating scene- and view-adaptive generative priors. Extensive experiments on real-world large-scale scenes demonstrate the superiority and broad applicability of our approach in handling unstructured imagery and boosting high-fidelity Gaussian splatting. Please refer to the supplementary video for better visual demonstrations.",
+      "authors": [
+        "Tianheng Lu",
+        "Guangyu Wang",
+        "Ruqi Huang",
+        "Lu Fang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-09-02T15:48:15+00:00",
+      "link": "https://arxiv.org/pdf/2609.02747v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Large-scale 3D Gaussian splatting reconstruction with generative bootstrapping under unstructured view sampling",
+      "llm_evidence_cn": "非结构化视角下大规模3DGS重建，采用生成式自举补全观测缺失区域",
+      "llm_evidence": "非结构化视角下大规模3DGS重建，采用生成式自举补全观测缺失区域",
+      "canonical_evidence": "非结构化视角下大规模3DGS重建，采用生成式自举补全观测缺失区域",
+      "llm_tldr_en": "Improves large-scale 3DGS reconstruction when views are unstructured. InceptionGS bootstraps under-observed areas with generative priors, strengthening 3D consistency and rendering quality.",
+      "llm_tldr_cn": "大规模场景的完整视角采集成本极高，导致视角高度非结构化、部分区域缺少观测，重建方法易受视角稀疏影响，生成方法又难以兼顾三维一致性与可控性。InceptionGS提出生成式自举策略，在3DGS优化过程中用生成先验为未观测区域补充内容引导，从而在保持三维一致性的同时补全缺失区域。实验表明该方法能显著改善大规模非结构化视角场景的渲染质量与一致性，为沉浸式大场景数字化提供了重建与生成模型融合的新途径。",
+      "llm_tldr": "大规模场景的完整视角采集成本极高，导致视角高度非结构化、部分区域缺少观测，重建方法易受视角稀疏影响，生成方法又难以兼顾三维一致性与可控性。InceptionGS提出生成式自举策略，在3DGS优化过程中用生成先验为未观测区域补充内容引导，从而在保持三维一致性的同时补全缺失区域。实验表明该方法能显著改善大规模非结构化视角场景的渲染质量与一致性，为沉浸式大场景数字化提供了重建与生成模型融合的新途径。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.02184v1",
+      "source": "arxiv",
+      "title": "CC-4DGS: Computational Deformation and Point-Cloud Compression for Storage-Efficient Dynamic Gaussian Splatting",
+      "abstract": "Dynamic four-dimensional (4D) Gaussian Splatting has emerged as a powerful explicit representation for high-quality view synthesis, yet existing methods still require tens to hundreds of megabytes per scene due to their heavy reliance on large multi-resolution hash tables and high-dimensional Gaussian attributes. This paper presents CC-4DGS, a storage-efficient and scalable framework that rethinks both deformation modeling and canonical attribute storage. First, we introduce a computational deformation field (CDF) that replaces large multi-resolution learnable hash tables with deterministic dense hash encoding and compact neural decoders, enabling on-the-fly synthesis of deformation features while reducing deformation storage to only 1--3 MB per scene. Second, we propose a compression of canonical point-cloud attributes (CCA) pipeline that compresses high-dimensional spherical harmonic appearance terms and auxiliary Gaussian attributes via conditional autoencoding, selective quantization, and residual codebooks, achieving 3--5$\\times$ point-cloud reduction with negligible quality loss. Together, these components yield a unified representation that preserves real-time rendering performance while reducing total storage to 20--30 MB. Extensive experiments across the N3DV and Technicolor Light Field datasets demonstrate that CC-4DGS achieves reconstruction accuracy comparable to state-of-the-art methods such as Swift4D, while offering significantly improved storage efficiency and favorable runtime-memory trade-offs.",
+      "authors": [
+        "Kyungdae Park",
+        "Chae Eun Rhee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-09-02T06:47:19+00:00",
+      "link": "https://arxiv.org/pdf/2609.02184v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Storage-efficient dynamic 3D Gaussian Splatting representation directly related to 3DGS reconstruction methods",
+      "llm_evidence_cn": "面向动态3D高斯泼溅的高效压缩与计算形变方法，属于3DGS重建技术链条",
+      "llm_evidence": "面向动态3D高斯泼溅的高效压缩与计算形变方法，属于3DGS重建技术链条",
+      "canonical_evidence": "面向动态3D高斯泼溅的高效压缩与计算形变方法，属于3DGS重建技术链条",
+      "llm_tldr_en": "Existing dynamic 4D Gaussian Splatting scenes consume tens to hundreds of MB. CC-4DGS introduces a computational deformation field and point-cloud compression to replace large hash tables, yielding storage-efficient dynamic Gaussian scenes with maintained view-synthesis quality.",
+      "llm_tldr_cn": "动态4D高斯泼溅虽是高质量的视图合成表示，但每个场景需要数十至上百MB存储，主要开销来自大型多分辨率哈希表和高维高斯属性。为此，CC-4DGS提出计算形变场CDF，以确定性密集哈希编码加紧凑神经网络解码替代可学习多分辨率哈希，并结合点云压缩来精简规范属性。该方法在降低存储需求的同时保持动态场景渲染质量，为4DGS的部署与加速提供了更紧凑的表示基础。",
+      "llm_tldr": "动态4D高斯泼溅虽是高质量的视图合成表示，但每个场景需要数十至上百MB存储，主要开销来自大型多分辨率哈希表和高维高斯属性。为此，CC-4DGS提出计算形变场CDF，以确定性密集哈希编码加紧凑神经网络解码替代可学习多分辨率哈希，并结合点云压缩来精简规范属性。该方法在降低存储需求的同时保持动态场景渲染质量，为4DGS的部署与加速提供了更紧凑的表示基础。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
