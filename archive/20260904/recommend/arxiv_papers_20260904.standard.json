@@ -1,0 +1,251 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-04T22:20:54.108065+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2609.03304v1",
+      "source": "arxiv",
+      "title": "AnyGS2Mesh: Feed-Forward Mesh Reconstruction from 3D Gaussian Splatting with Arbitrary-Resolution Views",
+      "abstract": "Existing 3D mesh reconstruction methods from Gaussian scene representations predominantly rely on iterative optimization, resulting in slow inference and limited scalability to high-resolution inputs. In this paper, we present AnyGS2Mesh, the first feed-forward framework for directly reconstructing 3D meshes from 3D Gaussian Splatting representations with support for arbitrary input image resolutions. Our approach incorporates a Gaussian-Guided Transformer architecture that exploits explicit 3D geometric priors for efficient mesh generation. We introduce three key components: (1) a Gaussian-Guided Spatial Reasoning Transformer represents Gaussian primitives as structured 3D tokens and jointly reasons over Gaussian and image features; (2) a Streaming and Patchwise Geometry Encoder processes native-resolution views sequentially and aggregates information across variable-length view sets; (3) a Scale-Aligned Hybrid Depth Refiner uses a PatchFusion-style encoder--decoder to fuse RGB-conditioned predicted depth with Gaussian-rendered metric depth, combining fine local structures with globally consistent metric scale. The refined depth maps are integrated through TSDF fusion, followed by Marching Cubes for deterministic mesh extraction. Extensive experiments show that AnyGS2Mesh achieves state-of-the-art reconstruction quality while significantly reducing inference time compared with optimization-based baselines, enabling near-real-time, high-quality mesh reconstruction. Our results demonstrate the potential of combining Gaussian representations and feed-forward Transformer architectures for scalable 3D geometry reconstruction. The code will be made publicly available upon acceptance.",
+      "authors": [
+        "Yuxuan Song",
+        "Fan Gao",
+        "Yibo Zhao",
+        "Jiarui Wen",
+        "Youcheng Cai",
+        "Ligang Liu"
+      ],
+      "primary_category": "cs.CG",
+      "categories": [
+        "cs.CG"
+      ],
+      "published": "2026-09-03T02:53:45+00:00",
+      "link": "https://arxiv.org/pdf/2609.03304v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Feed-forward 3D mesh reconstruction directly from 3D Gaussian splatting representations",
+      "llm_evidence_cn": "直接从三维高斯溅射表示进行前馈网格重建",
+      "llm_evidence": "直接从三维高斯溅射表示进行前馈网格重建",
+      "canonical_evidence": "直接从三维高斯溅射表示进行前馈网格重建",
+      "llm_tldr_en": "AnyGS2Mesh is a feed-forward transformer framework that directly reconstructs 3D meshes from 3D Gaussian splatting at arbitrary input resolutions, avoiding slow iterative optimization.",
+      "llm_tldr_cn": "现有从高斯场景表示重建网格的方法多依赖迭代优化，推理慢且难以扩展到高分辨率。AnyGS2Mesh提出首个前馈网格重建框架，直接从3DGS中重建网格并支持任意输入分辨率。其高斯引导Transformer将高斯原语视为结构化3D token并与图像特征联合推理，利用显式3D几何先验高效生成网格。实验表明该方法在保持高分辨率扩展性的同时加速了重建过程。该工作为从3DGS表征到高质量网格的高效转换提供了直接方案。",
+      "llm_tldr": "现有从高斯场景表示重建网格的方法多依赖迭代优化，推理慢且难以扩展到高分辨率。AnyGS2Mesh提出首个前馈网格重建框架，直接从3DGS中重建网格并支持任意输入分辨率。其高斯引导Transformer将高斯原语视为结构化3D token并与图像特征联合推理，利用显式3D几何先验高效生成网格。实验表明该方法在保持高分辨率扩展性的同时加速了重建过程。该工作为从3DGS表征到高质量网格的高效转换提供了直接方案。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.03447v1",
+      "source": "arxiv",
+      "title": "STARS-GS: Structure-Aware Regularized Gaussian Splatting for Large-Scale Aerial Surface Reconstruction",
+      "abstract": "Large-scale 3D surface reconstruction from aerial imagery is fundamental to geospatial mapping and urban modeling. Recent advances in 3D Gaussian Splatting (3DGS) have demonstrated considerable potential for this task. However, existing methods still face three major challenges in large and complex scenes: scene partitioning may split continuous scene elements across independently optimized sub-regions; geometric constraints mainly focus on the attributes of individual Gaussians while overlooking their local organization; and uniform regularization struggles to accommodate heterogeneous geometric structures. To address these issues, we propose STARS-GS, a structure-aware 3DGS framework for large-scale surface reconstruction. First, we introduce a structure-aware scene partitioning strategy that better preserves continuous scene structures during partitioning and reduces cross-region geometric inconsistencies and stitching artifacts through boundary refinement. Second, we develop neighborhood-aware Gaussian organization that extends geometric constraints from individual primitives to their neighborhood organization, encouraging Gaussians to better conform to local surface geometry. Third, we introduce adaptive surface regularization that adjusts the regularization strength according to local geometric characteristics, promoting geometric consistency in structured regions while preserving plausible variations in unstructured regions. Extensive experiments on large-scale aerial photogrammetry benchmarks demonstrate that STARS-GS consistently outperforms the evaluated Gaussian-based methods in surface reconstruction. It increases the average F1-score from 0.640 for the second-best method to 0.698, corresponding to a relative improvement of approximately 9.1\\%, demonstrating effective improvements in geometric accuracy and surface completeness.",
+      "authors": [
+        "Bocheng Li",
+        "Wenjuan Zhang",
+        "Jie Pan. Dongxu Han",
+        "Xuesong Ma",
+        "Yiling Yao",
+        "Yaning Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-09-03T07:03:10+00:00",
+      "link": "https://arxiv.org/pdf/2609.03447v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Large-scale aerial surface reconstruction using 3DGS",
+      "llm_evidence_cn": "基于3DGS的大规模航空地表重建",
+      "llm_evidence": "基于3DGS的大规模航空地表重建",
+      "canonical_evidence": "基于3DGS的大规模航空地表重建",
+      "llm_tldr_en": "Presents a structure-aware 3D Gaussian Splatting framework with local-organization geometry constraints and adaptive regularization for large-scale aerial surface reconstruction.",
+      "llm_tldr_cn": "面向航空影像的大规模三维地表重建对地理空间测绘至关重要，但现有3DGS方法在复杂大场景中会遇到场景划分割裂、约束忽略局部组织及正则化不匹配等问题。STARS-GS提出结构感知的高斯泼溅框架，引入针对局部组织的几何约束与自适应结构正则化，使重建结果更符合连续地表结构。实验显示该方法在大规模航拍重建上有效抑制分区伪影并提升几何精度，推动了3DGS在测绘和城市建模中的应用。",
+      "llm_tldr": "面向航空影像的大规模三维地表重建对地理空间测绘至关重要，但现有3DGS方法在复杂大场景中会遇到场景划分割裂、约束忽略局部组织及正则化不匹配等问题。STARS-GS提出结构感知的高斯泼溅框架，引入针对局部组织的几何约束与自适应结构正则化，使重建结果更符合连续地表结构。实验显示该方法在大规模航拍重建上有效抑制分区伪影并提升几何精度，推动了3DGS在测绘和城市建模中的应用。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.03534v1",
+      "source": "arxiv",
+      "title": "TruncGradGS: Improved 3D Gaussian Splatting via Truncated Gradient Updates",
+      "abstract": "3D Gaussian Splatting has become a de facto scene representation for novel view synthesis, yet robustly learning 3D Gaussian primitives from visual input remains challenging. Standard optimization relies on gradient-based updates, but a common issue is the gradient vanishing phenomenon: a pixel far from a Gaussian primitive often has diminishing gradient magnitudes to influence primitive attributes, resulting in suboptimal scene reconstruction. In this paper, we propose a method to address gradient vanishing with a piecewise truncated gradient formulation that improves the optimization stability and robustness to initializations. We show that our method consistently improves 3D Gaussian Splatting with random and COLMAP initializations while being generalizable across static and dynamic Gaussian Splatting. As a by-product, we also examine the limitations of current benchmarks for dynamic scenes, and introduce a novel dataset for benchmarking dynamic Gaussian Splatting using synthetic 3D scenes. We demonstrate the effectiveness of our method in both static and dynamic settings for the public benchmarks and our proposed dataset.",
+      "authors": [
+        "Theo Morales",
+        "Nhat-Quynh Le-Pham",
+        "Robin Atkins",
+        "Binh-Son Hua"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.GR"
+      ],
+      "published": "2026-09-03T08:34:27+00:00",
+      "link": "https://arxiv.org/pdf/2609.03534v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Improved 3D Gaussian Splatting optimization for scene reconstruction",
+      "llm_evidence_cn": "改进3D高斯泼溅优化以提升场景重建质量",
+      "llm_evidence": "改进3D高斯泼溅优化以提升场景重建质量",
+      "canonical_evidence": "改进3D高斯泼溅优化以提升场景重建质量",
+      "llm_tldr_en": "Addresses gradient vanishing in 3DGS reconstruction with a piecewise truncated gradient formulation, consistently improving optimization robustness and reconstruction quality.",
+      "llm_tldr_cn": "三维高斯泼溅优化中常出现梯度消失，导致远离像素的高斯原语难以获得有效更新，影响场景重建质量。TruncGradGS提出分段截断梯度公式缓解该现象，使三维高斯原语在随机初始化和COLMAP初始化下都能被稳定优化。实验表明该方法一致提升重建与新视角合成性能，且额外开销小，为3DGS训练提供了一种通用且鲁棒的优化改进方法。",
+      "llm_tldr": "三维高斯泼溅优化中常出现梯度消失，导致远离像素的高斯原语难以获得有效更新，影响场景重建质量。TruncGradGS提出分段截断梯度公式缓解该现象，使三维高斯原语在随机初始化和COLMAP初始化下都能被稳定优化。实验表明该方法一致提升重建与新视角合成性能，且额外开销小，为3DGS训练提供了一种通用且鲁棒的优化改进方法。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D reconstruction using 3D Gaussian splatting",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2609.03334v1",
+      "source": "arxiv",
+      "title": "Laplacian Frequency Hierarchies for Efficient 3D Gaussian Splatting Training",
+      "abstract": "A key bottleneck in 3D Gaussian Splatting training is the continual growth of Gaussian primitives, which increases optimization cost and slows convergence, especially at high resolutions. We propose Laplacian Frequency Hierarchies, a simple yet efficient 3DGS scheme that combines Laplacian image decomposition with coarse-to-fine, frequency-staged training. After fitting lower-frequency structure, we archive the corresponding Gaussian field so that subsequent fields can optimize higher-frequency residuals without carrying the full primitive burden, and we compose the rendered components in the image domain via a Laplacian-style reconstruction at inference time. This design reduces the number of active Gaussians during training, thereby lowering optimization overhead and accelerating training. The proposed scheme is plug-and-play and orthogonal to prior 3DGS accelerations: it can be directly combined with strong backbones such as Taming-3DGS and FastGS to improve training speed with competitive reconstruction quality. It achieves average speedups of 1.73x and 1.21x at 1K setting, and 1.74x and 1.33x at 4K setting on Taming-3DGS and FastGS, with larger gains on more challenging scenes and increasingly pronounced benefits at higher resolutions.",
+      "authors": [
+        "Yixiong Yang",
+        "Sisheng Zhang",
+        "Qingsong Yan",
+        "Shaohuai Shi",
+        "Qiang Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-09-03T03:46:49+00:00",
+      "link": "https://arxiv.org/pdf/2609.03334v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Laplacian frequency hierarchies reduce active 3DGS Gaussians during training, directly speeding Gaussian splatting reconstruction.",
+      "llm_evidence_cn": "通过频率分阶段训练压缩活跃3DGS高斯数量，直接作用于高斯溅射重建优化",
+      "llm_evidence": "通过频率分阶段训练压缩活跃3DGS高斯数量，直接作用于高斯溅射重建优化",
+      "canonical_evidence": "通过频率分阶段训练压缩活跃3DGS高斯数量，直接作用于高斯溅射重建优化",
+      "llm_tldr_en": "Tackles 3DGS training bottleneck caused by growing Gaussian primitives by archiving low-frequency fitted Gaussian fields and training frequency-staged higher-frequency residuals, lowering active Gaussians and optimization cost.",
+      "llm_tldr_cn": "三维高斯溅射训练受高斯基元持续增长制约，高分辨率下优化成本高、收敛慢。论文提出拉普拉斯频率层次方法，将拉普拉斯图像分解与由粗到细的频率分阶段训练结合：拟合低频结构后归档对应高斯场，再让后续场优化高频残差，推理时在图像域用拉普拉斯方式合成。该方案减少训练期活跃高斯数量，降低优化开销并提升收敛效率，为高效高分辨率三维高斯溅射重建提供了通用训练机制。",
+      "llm_tldr": "三维高斯溅射训练受高斯基元持续增长制约，高分辨率下优化成本高、收敛慢。论文提出拉普拉斯频率层次方法，将拉普拉斯图像分解与由粗到细的频率分阶段训练结合：拟合低频结构后归档对应高斯场，再让后续场优化高频残差，推理时在图像域用拉普拉斯方式合成。该方案减少训练期活跃高斯数量，降低优化开销并提升收敛效率，为高效高分辨率三维高斯溅射重建提供了通用训练机制。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2609.03613v1",
+      "source": "arxiv",
+      "title": "TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization",
+      "abstract": "Real-time 3D Gaussian Splatting (3DGS) achieves high rendering quality, but standard rasterization still traverses a globally sorted tile stream that creates long per-tile ranges and heavy geometry-attribute traffic. We present TileGS, a tile-local reorganization of Gaussian splatting. TileGS turns each long tile range into a sequence of shorter depth-local ranges, rasterizes those ranges in front-to-back order, and applies selective repair where coarse ordering is insufficient to match baseline compositing. Across a 9-scene benchmark on desktop and laptop Ada GPUs, our default No-GW (No Geometry-Write) variant delivers a mean 1.44x raster-kernel speedup on RTX 4090 and mean end-to-end frame speedups of 1.069x on RTX 4090 and 1.094x on RTX 1000 Ada over gsplat--a widely used optimized open-source 3DGS implementation--while matching the gsplat output up to numerical noise (|Delta PSNR| < 0.001 dB, |Delta SSIM| < 0.001, |Delta LPIPS| < 0.001). Full-suite RTX 4090 Nsight Compute profiling reveals TileGS is faster despite lower SM throughput, lower active-warp occupancy, and higher DRAM traffic, while total SASS thread instructions fall by 1.26x. Source-attributed profiling confirms that geometry attributes dominate the remaining memory pressure (85.8% of total raster traffic and 88.6% of excess sectors). Together, these counters support the interpretation that TileGS improves raster performance by reducing effective raster traversal work, rather than by reducing byte volume, improving coalescing, increasing occupancy, or directly reducing measured warp divergence.",
+      "authors": [
+        "Wei Tan",
+        "Matias Turkulainen",
+        "Lauri Ilola",
+        "Hamed Rezazadegan Tavakoli",
+        "Juho Kannala"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR"
+      ],
+      "published": "2026-09-03T09:59:32+00:00",
+      "link": "https://arxiv.org/pdf/2609.03613v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Tile-local depth binning accelerates 3DGS rasterization, central to Gaussian splatting acceleration theme",
+      "llm_evidence_cn": "面向3DGS光栅化的瓦片局部深度分箱加速，契合高斯溅射加速主题",
+      "llm_evidence": "面向3DGS光栅化的瓦片局部深度分箱加速，契合高斯溅射加速主题",
+      "canonical_evidence": "面向3DGS光栅化的瓦片局部深度分箱加速，契合高斯溅射加速主题",
+      "llm_tldr_en": "TileGS reorganizes Gaussian splatting rasterization into shorter tile-local depth ranges, achieving 1.44x raster-kernel and 1.07 to 1.09x end-to-end frame speedups on Ada GPUs.",
+      "llm_tldr_cn": "标准3DGS光栅化依赖全局排序的瓦片流，造成长瓦片范围与高频几何属性访问。TileGS提出瓦片局部重组，将长瓦片范围切分为较短深度局部范围，并从前向后光栅化，必要时执行选择性修复。在9场景Ada GPU基准上，默认无几何写回变体使光栅内核平均提速1.44倍，端到端帧速度提升约1.07至1.09倍。该工作为3DGS实时渲染与后续加速器设计提供了有效的软件优化基础。",
+      "llm_tldr": "标准3DGS光栅化依赖全局排序的瓦片流，造成长瓦片范围与高频几何属性访问。TileGS提出瓦片局部重组，将长瓦片范围切分为较短深度局部范围，并从前向后光栅化，必要时执行选择性修复。在9场景Ada GPU基准上，默认无几何写回变体使光栅内核平均提速1.44倍，端到端帧速度提升约1.07至1.09倍。该工作为3DGS实时渲染与后续加速器设计提供了有效的软件优化基础。",
+      "llm_tags": [
+        "query:dgs-recon:composite"
+      ],
+      "matched_query_tag": "query:dgs-recon:composite",
+      "matched_query_text": "Papers central to 帮我查找基于3dgs的3D重建的论文，以及对这些算法的加速器的论文, especially work that connects or combines: 3D Gaussian splatting reconstruction; hardware accelerator for 3D reconstruction; FPGA implementation of Gaussian splatting; ASIC design for neural rendering; 3D reconstruction using 3D Gaussian splatting; hardware accelerator designs for 3D Gaussian splatting; survey on Gaussian splatting acceleration techniques.",
+      "matched_requirement_id": "req-composite-dgs-recon",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2609.03657v1",
+      "source": "arxiv",
+      "title": "Rethinking 3D Noise: Learning 3D-Aware Video Priors via Optimization-Free Morphological Perturbations",
+      "abstract": "3D scene representations like NeRF and 3D Gaussian Splatting (3DGS) suffer severe artifacts in sparse-view settings. Recent generative 3D artifact fixers attempt to address this, but rely on paired corrupted and clean renders requiring costly, per-scene reconstructions across varying view configurations. While 2D image augmentations act as instant regularizers, no explicit equivalents exist for 3D representations to preserve spatial consistency across views, an essential property for 3D-aware training. We propose 3D Morphological Perturbations as an optimization-free regularizer that preserves spatial consistency. Leveraging explicit 3DGS, we treat each Gaussian as a fundamental building block - analogous to a 2D pixel - and apply perturbations across its morphological parameter space via scale, rotation, and pruning. Our method eliminates per-scene 3DGS optimization loops from dataset curation while enabling models to learn stronger geometric priors than sparse-view baselines in diagnostic ablations conducted on a lightweight video diffusion sandbox. Scaled to a 14B-parameter video model via ControlNet, our approach maintains visual fidelity while reducing mean depth error by 12.5% over state-of-the-art image-to-image 3D artifact refiners, ultimately boosting downstream robotics policy success rates by up to 8.0% across 3 of 4 manipulation tasks.",
+      "authors": [
+        "Onat Şahin",
+        "Mohammad Altillawi",
+        "George Eskandar",
+        "Carlos Carbone",
+        "Ziyuan Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-09-03T10:54:49+00:00",
+      "link": "https://arxiv.org/pdf/2609.03657v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Optimization-free 3D morphological perturbations act as a regularizer to reduce sparse-view artifacts in 3DGS reconstruction",
+      "llm_evidence_cn": "免优化三维形态学扰动作为正则器，缓解3DGS稀疏视角重建伪影",
+      "llm_evidence": "免优化三维形态学扰动作为正则器，缓解3DGS稀疏视角重建伪影",
+      "canonical_evidence": "免优化三维形态学扰动作为正则器，缓解3DGS稀疏视角重建伪影",
+      "llm_tldr_en": "Proposes optimization-free 3D morphological perturbations that regularize explicit 3DGS representations while preserving spatial consistency, reducing sparse-view artifacts without costly paired renderings.",
+      "llm_tldr_cn": "NeRF与3DGS在稀疏视角设置下会产生严重伪影，现有生成式修复器依赖成对损坏和干净渲染，重建代价高。该工作提出免优化的三维形态学扰动作为正则器，在不破坏空间一致性的前提下增强3D表示训练。通过把每个3D高斯视为类似二维像素的基础单元，该方法可改善显式3DGS的稀疏视角质量并避免逐场景配对重建。它为3DGS/NeRF的稀疏视角训练提供了一种低成本通用正则化思路。",
+      "llm_tldr": "NeRF与3DGS在稀疏视角设置下会产生严重伪影，现有生成式修复器依赖成对损坏和干净渲染，重建代价高。该工作提出免优化的三维形态学扰动作为正则器，在不破坏空间一致性的前提下增强3D表示训练。通过把每个3D高斯视为类似二维像素的基础单元，该方法可改善显式3DGS的稀疏视角质量并避免逐场景配对重建。它为3DGS/NeRF的稀疏视角训练提供了一种低成本通用正则化思路。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
