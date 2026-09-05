@@ -1,0 +1,39 @@
+{
+  "label": "2026-09-05",
+  "date": "2026-09-05",
+  "generated_at": "2026-09-05T22:08:39",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202609/05/2608.29184v1-ghostsplat-input-triggered-backdoors-for-multi-view-consistent-3d-content-manipulation-in-feed-forward-gaussian-splatting",
+      "section": "quick",
+      "title_en": "GhostSplat: Input-Triggered Backdoors for Multi-View-Consistent 3D Content Manipulation in Feed-Forward Gaussian Splatting",
+      "authors": "Yudong Gao, Zongjian Ding, Linghan Chen, Yajing Chen, Yu Xinglin, Jiale Liu, Shan Huang, Mingjun Cheng",
+      "date": "2026-08-29",
+      "pdf": "https://arxiv.org/pdf/2608.29184v1",
+      "score": "6.0",
+      "evidence": "前馈式3D高斯泼溅场景重建与后门攻击",
+      "tldr": "前馈3DGS共享预训练权重面临投毒攻击，现有后门仅修改单场景无法植入持久行为。GhostSplat在输入添加低幅触发图案，使生成器在未见场景输出攻击者选择的3D锚定重投影载荷，实现多视角一致。在三种架构两个数据集上最高ASR达100%且零误报，并抵御JPEG等扰动。此攻击表明仅凭一致性投影的防御不够，需额外干预。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Feed-forward 3D Gaussian Splatting (3DGS) reconstructs a 3D scene from sparse images in one forward pass. Its shared pretrained weights also expose a supply-chain attack surface. Existing Neural Radiance Field and 3DGS backdoors modify individual scenes and activate at selected viewpoints; they do not install persistent behavior in shared generator weights. We introduce GhostSplat, an input-triggered backdoor that installs such behavior in feed-forward 3DGS. A low-amplitude pattern added to the input images causes the poisoned generator to render an attacker-chosen payload on unseen victim scenes. Anchoring the payload to a 3D point and reprojecting it into each target view makes the payload multi-view consistent. Exact projection onto the generator's representation-specific consistency set leaves a realized payload unchanged because the output already belongs to that set. The GhostSplat training framework succeeds across three architectures (MVSplat, pixelSplat, DepthSplat) and two datasets (RealEstate10K, ACID). Its strongest evaluated injection and deletion settings reach 96% and 100% ASR, respectively, with zero observed false positives while surviving JPEG, blur, and resampling. Defenses that use only that exact projection are therefore insufficient; effective mitigation requires information or intervention beyond same-set consistency projection.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/05/2609.03613v1-tilegs-tile-local-depth-binning-for-gaussian-splatting-rasterization",
+      "section": "quick",
+      "title_en": "TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization",
+      "authors": "Wei Tan, Matias Turkulainen, Lauri Ilola, Hamed Rezazadegan Tavakoli, Juho Kannala",
+      "date": "2026-09-03",
+      "pdf": "https://arxiv.org/pdf/2609.03613v1",
+      "score": "6.0",
+      "evidence": "面向3D高斯溅射光栅化的算法级优化，非硬件加速器设计，但贴近加速主题",
+      "tldr": "3D高斯泼溅渲染中，标准光栅化需遍历全局排序的瓦片流，导致每瓦片区间过长且几何属性访存繁重。TileGS提出瓦片局部重组，将长区间拆为深度局部短区间并前向排序，辅以选择性修复以匹配合成质量。在9场景基准上，默认无几何写变体较gsplat平均提升1.44倍光栅核速度，端到端加速达1.07-1.09倍，且输出差异可忽略（PSNR/SSIM/LPIPS差异均小于0.001）。剖析表明加速源于减少有效遍历工作，而非降低字节量或提高占用率。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Real-time 3D Gaussian Splatting (3DGS) achieves high rendering quality, but standard rasterization still traverses a globally sorted tile stream that creates long per-tile ranges and heavy geometry-attribute traffic. We present TileGS, a tile-local reorganization of Gaussian splatting. TileGS turns each long tile range into a sequence of shorter depth-local ranges, rasterizes those ranges in front-to-back order, and applies selective repair where coarse ordering is insufficient to match baseline compositing. Across a 9-scene benchmark on desktop and laptop Ada GPUs, our default No-GW (No Geometry-Write) variant delivers a mean 1.44x raster-kernel speedup on RTX 4090 and mean end-to-end frame speedups of 1.069x on RTX 4090 and 1.094x on RTX 1000 Ada over gsplat--a widely used optimized open-source 3DGS implementation--while matching the gsplat output up to numerical noise (|Delta PSNR| < 0.001 dB, |Delta SSIM| < 0.001, |Delta LPIPS| < 0.001). Full-suite RTX 4090 Nsight Compute profiling reveals TileGS is faster despite lower SM throughput, lower active-warp occupancy, and higher DRAM traffic, while total SASS thread instructions fall by 1.26x. Source-attributed profiling confirms that geometry attributes dominate the remaining memory pressure (85.8% of total raster traffic and 88.6% of excess sectors). Together, these counters support the interpretation that TileGS improves raster performance by reducing effective raster traversal work, rather than by reducing byte volume, improving coalescing, increasing occupancy, or directly reducing measured warp divergence.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

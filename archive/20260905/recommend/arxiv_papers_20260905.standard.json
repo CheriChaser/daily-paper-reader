@@ -1,0 +1,98 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-05T22:07:17.253223+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.29184v1",
+      "source": "arxiv",
+      "title": "GhostSplat: Input-Triggered Backdoors for Multi-View-Consistent 3D Content Manipulation in Feed-Forward Gaussian Splatting",
+      "abstract": "Feed-forward 3D Gaussian Splatting (3DGS) reconstructs a 3D scene from sparse images in one forward pass. Its shared pretrained weights also expose a supply-chain attack surface. Existing Neural Radiance Field and 3DGS backdoors modify individual scenes and activate at selected viewpoints; they do not install persistent behavior in shared generator weights. We introduce GhostSplat, an input-triggered backdoor that installs such behavior in feed-forward 3DGS. A low-amplitude pattern added to the input images causes the poisoned generator to render an attacker-chosen payload on unseen victim scenes. Anchoring the payload to a 3D point and reprojecting it into each target view makes the payload multi-view consistent. Exact projection onto the generator's representation-specific consistency set leaves a realized payload unchanged because the output already belongs to that set. The GhostSplat training framework succeeds across three architectures (MVSplat, pixelSplat, DepthSplat) and two datasets (RealEstate10K, ACID). Its strongest evaluated injection and deletion settings reach 96% and 100% ASR, respectively, with zero observed false positives while surviving JPEG, blur, and resampling. Defenses that use only that exact projection are therefore insufficient; effective mitigation requires information or intervention beyond same-set consistency projection.",
+      "authors": [
+        "Yudong Gao",
+        "Zongjian Ding",
+        "Linghan Chen",
+        "Yajing Chen",
+        "Yu Xinglin",
+        "Jiale Liu",
+        "Shan Huang",
+        "Mingjun Cheng"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-08-29T10:27:53+00:00",
+      "link": "https://arxiv.org/pdf/2608.29184v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Feed-forward 3D Gaussian splatting scene reconstruction with backdoor attack",
+      "llm_evidence_cn": "前馈式3D高斯泼溅场景重建与后门攻击",
+      "llm_evidence": "前馈式3D高斯泼溅场景重建与后门攻击",
+      "canonical_evidence": "前馈式3D高斯泼溅场景重建与后门攻击",
+      "llm_tldr_en": "GhostSplat installs an input-triggered backdoor in feed-forward Gaussian splatting weights, causing multi-view-consistent attacker-chosen payloads across unseen scenes, revealing supply-chain vulnerabilities.",
+      "llm_tldr_cn": "前馈式3D高斯泼溅方法能以单次前向从稀疏图像重构三维场景，其共享预训练权重存在供应链后门风险。已有的NeRF和3DGS后门只改写单个场景并在特定视角触发，无法在生成器权值中植入可跨场景激活的行为。GhostSplat首次实现输入触发的生成器级后门：在输入图像上叠加低幅模式，使被投毒的前馈高斯重建器对未见被害人场景渲染攻击者指定内容；同时将内容锚定到3D点并重投影到每个视角，确保多视角一致性。实验表明该后门可推广到全新场景并保持视觉隐蔽性，暴露了前馈式3DGS重建在鲁棒性上的重要漏洞。",
+      "llm_tldr": "前馈式3D高斯泼溅方法能以单次前向从稀疏图像重构三维场景，其共享预训练权重存在供应链后门风险。已有的NeRF和3DGS后门只改写单个场景并在特定视角触发，无法在生成器权值中植入可跨场景激活的行为。GhostSplat首次实现输入触发的生成器级后门：在输入图像上叠加低幅模式，使被投毒的前馈高斯重建器对未见被害人场景渲染攻击者指定内容；同时将内容锚定到3D点并重投影到每个视角，确保多视角一致性。实验表明该后门可推广到全新场景并保持视觉隐蔽性，暴露了前馈式3DGS重建在鲁棒性上的重要漏洞。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.03613v1",
+      "source": "arxiv",
+      "title": "TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization",
+      "abstract": "Real-time 3D Gaussian Splatting (3DGS) achieves high rendering quality, but standard rasterization still traverses a globally sorted tile stream that creates long per-tile ranges and heavy geometry-attribute traffic. We present TileGS, a tile-local reorganization of Gaussian splatting. TileGS turns each long tile range into a sequence of shorter depth-local ranges, rasterizes those ranges in front-to-back order, and applies selective repair where coarse ordering is insufficient to match baseline compositing. Across a 9-scene benchmark on desktop and laptop Ada GPUs, our default No-GW (No Geometry-Write) variant delivers a mean 1.44x raster-kernel speedup on RTX 4090 and mean end-to-end frame speedups of 1.069x on RTX 4090 and 1.094x on RTX 1000 Ada over gsplat--a widely used optimized open-source 3DGS implementation--while matching the gsplat output up to numerical noise (|Delta PSNR| < 0.001 dB, |Delta SSIM| < 0.001, |Delta LPIPS| < 0.001). Full-suite RTX 4090 Nsight Compute profiling reveals TileGS is faster despite lower SM throughput, lower active-warp occupancy, and higher DRAM traffic, while total SASS thread instructions fall by 1.26x. Source-attributed profiling confirms that geometry attributes dominate the remaining memory pressure (85.8% of total raster traffic and 88.6% of excess sectors). Together, these counters support the interpretation that TileGS improves raster performance by reducing effective raster traversal work, rather than by reducing byte volume, improving coalescing, increasing occupancy, or directly reducing measured warp divergence.",
+      "authors": [
+        "Wei Tan",
+        "Matias Turkulainen",
+        "Lauri Ilola",
+        "Hamed Rezazadegan Tavakoli",
+        "Juho Kannala"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR"
+      ],
+      "published": "2026-09-03T09:59:32+00:00",
+      "link": "https://arxiv.org/pdf/2609.03613v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Algorithm-level acceleration of 3D Gaussian splatting rasterization rather than a hardware design",
+      "llm_evidence_cn": "面向3D高斯溅射光栅化的算法级优化，非硬件加速器设计，但贴近加速主题",
+      "llm_evidence": "面向3D高斯溅射光栅化的算法级优化，非硬件加速器设计，但贴近加速主题",
+      "canonical_evidence": "面向3D高斯溅射光栅化的算法级优化，非硬件加速器设计，但贴近加速主题",
+      "llm_tldr_en": "TileGS restructures 3DGS rasterization into shorter tile-local depth ranges with selective repair, reducing per-tile geometry traffic and giving meaningful raster-kernel speedups on Ada graphics hardware.",
+      "llm_tldr_cn": "标准3DGS光栅化使用全局排序的图块流，导致长图块区间和大量几何属性访存。TileGS把每个长图块范围拆成多个较短的深度局部范围，按前到后顺序光栅化，并对粗排序不足处做选择性修复。在桌面和笔记本电脑的Ada架构GPU上，该方法相对原光栅化内核平均获得约1.44倍加速，整体帧率也得到提升。这为3DGS渲染加速提供了不依赖专用硬件的软件优化路径。",
+      "llm_tldr": "标准3DGS光栅化使用全局排序的图块流，导致长图块区间和大量几何属性访存。TileGS把每个长图块范围拆成多个较短的深度局部范围，按前到后顺序光栅化，并对粗排序不足处做选择性修复。在桌面和笔记本电脑的Ada架构GPU上，该方法相对原光栅化内核平均获得约1.44倍加速，整体帧率也得到提升。这为3DGS渲染加速提供了不依赖专用硬件的软件优化路径。",
+      "llm_tags": [
+        "query:dgs-recon:composite"
+      ],
+      "matched_query_tag": "query:dgs-recon:composite",
+      "matched_query_text": "Papers central to 帮我查找基于3dgs的3D重建的论文，以及对这些算法的加速器的论文, especially work that connects or combines: 3D Gaussian splatting reconstruction; hardware accelerator for 3D reconstruction; FPGA implementation of Gaussian splatting; ASIC design for neural rendering; 3D reconstruction using 3D Gaussian splatting; hardware accelerator designs for 3D Gaussian splatting; survey on Gaussian splatting acceleration techniques.",
+      "matched_requirement_id": "req-composite-dgs-recon",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
