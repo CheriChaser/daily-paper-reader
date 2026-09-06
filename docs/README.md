@@ -6,29 +6,28 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-09-05
-- 运行时间：2026-09-05 22:08:35 UTC
+- 最新运行日期：2026-09-06
+- 运行时间：2026-09-06 21:21:15 UTC
 - 运行状态：成功
-- 本次总论文数：2
+- 本次总论文数：1
 - 精读区：0
-- 速读区：2
+- 速读区：1
 
 ### 今日简报（AI）
-今日速读2篇，聚焦3D内容安全与高斯泼溅渲染技术，暂无精读深度分析。  
-最值得关注的两大方向：多视一致3D内容的后门攻击风险，以及Tile局部深度分箱加速光栅化的优化策略。  
-建议优先精读GhostSplat，了解输入触发的3D操控隐患，再顺藤摸瓜掌握TileGS的性能技巧。
-- 详情：[/202609/05/README](/202609/05/README)
+今日仅速读 1 篇论文，聚焦高斯泼溅光栅化的优化实现。
+
+最值得关注的是《TileGS》提出的 Tile-Local Depth Binning 方法，评分 7.0/10，值得一读。
+
+若想快速入门，可优先理解其分块深度排序策略，再对比现有渲染管线效率。
+- 详情：[/202609/06/README](/202609/06/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [GhostSplat: Input-Triggered Backdoors for Multi-View-Consistent 3D Content Manipulation in Feed-Forward Gaussian Splatting](/202609/05/2608.29184v1-ghostsplat-input-triggered-backdoors-for-multi-view-consistent-3d-content-manipulation-in-feed-forward-gaussian-splatting)  
-   标签：评分：6.0/10、query:dgs-recon
-   evidence：前馈式3D高斯泼溅场景重建与后门攻击
-2. [TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization](/202609/05/2609.03613v1-tilegs-tile-local-depth-binning-for-gaussian-splatting-rasterization)  
-   标签：评分：6.0/10、query:dgs-recon
-   evidence：面向3D高斯溅射光栅化的算法级优化，非硬件加速器设计，但贴近加速主题
+1. [TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization](/202609/06/2609.03613v1-tilegs-tile-local-depth-binning-for-gaussian-splatting-rasterization)  
+   标签：评分：7.0/10、query:dgs-recon
+   evidence：提出面向3D高斯溅射光栅化的图块局部深度分箱加速方法，在GPU上提升渲染速度，符合3DGS加速相关主题而非硬件或综述。
 
 
 <div class="dpr-home-promo-card">

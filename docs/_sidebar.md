@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-06 <!--dpr-date:20260906-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/06/2609.03613v1-tilegs-tile-local-depth-binning-for-gaussian-splatting-rasterization" data-sidebar-item="{&quot;title&quot;: &quot;TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.03613v1-tilegs-tile-local-depth-binning-for-gaussian-splatting-rasterization&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;提出面向3D高斯溅射光栅化的图块局部深度分箱加速方法，在GPU上提升渲染速度，符合3DGS加速相关主题而非硬件或综述。&quot;}">TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization</a>
   * 2026-09-05 <!--dpr-date:20260905-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/05/2608.29184v1-ghostsplat-input-triggered-backdoors-for-multi-view-consistent-3d-content-manipulation-in-feed-forward-gaussian-splatting" data-sidebar-item="{&quot;title&quot;: &quot;GhostSplat: Input-Triggered Backdoors for Multi-View-Consistent 3D Content Manipulation in Feed-Forward Gaussian Splatting&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.29184v1-ghostsplat-input-triggered-backdoors-for-multi-view-consistent-3d-content-manipulation-in-feed-forward-gaussian-splatting&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;前馈式3D高斯泼溅场景重建与后门攻击&quot;}">GhostSplat: Input-Triggered Backdoors for Multi-View-Consistent 3D Content Manipulation in Feed-Forward Gaussian Splatting</a>
