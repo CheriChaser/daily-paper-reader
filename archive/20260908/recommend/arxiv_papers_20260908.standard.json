@@ -1,0 +1,56 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-08T22:13:51.884779+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.03613v1",
+      "source": "arxiv",
+      "title": "TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization",
+      "abstract": "Real-time 3D Gaussian Splatting (3DGS) achieves high rendering quality, but standard rasterization still traverses a globally sorted tile stream that creates long per-tile ranges and heavy geometry-attribute traffic. We present TileGS, a tile-local reorganization of Gaussian splatting. TileGS turns each long tile range into a sequence of shorter depth-local ranges, rasterizes those ranges in front-to-back order, and applies selective repair where coarse ordering is insufficient to match baseline compositing. Across a 9-scene benchmark on desktop and laptop Ada GPUs, our default No-GW (No Geometry-Write) variant delivers a mean 1.44x raster-kernel speedup on RTX 4090 and mean end-to-end frame speedups of 1.069x on RTX 4090 and 1.094x on RTX 1000 Ada over gsplat--a widely used optimized open-source 3DGS implementation--while matching the gsplat output up to numerical noise (|Delta PSNR| < 0.001 dB, |Delta SSIM| < 0.001, |Delta LPIPS| < 0.001). Full-suite RTX 4090 Nsight Compute profiling reveals TileGS is faster despite lower SM throughput, lower active-warp occupancy, and higher DRAM traffic, while total SASS thread instructions fall by 1.26x. Source-attributed profiling confirms that geometry attributes dominate the remaining memory pressure (85.8% of total raster traffic and 88.6% of excess sectors). Together, these counters support the interpretation that TileGS improves raster performance by reducing effective raster traversal work, rather than by reducing byte volume, improving coalescing, increasing occupancy, or directly reducing measured warp divergence.",
+      "authors": [
+        "Wei Tan",
+        "Matias Turkulainen",
+        "Lauri Ilola",
+        "Hamed Rezazadegan Tavakoli",
+        "Juho Kannala"
+      ],
+      "primary_category": "cs.GR",
+      "categories": [
+        "cs.GR"
+      ],
+      "published": "2026-09-03T09:59:32+00:00",
+      "link": "https://arxiv.org/pdf/2609.03613v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Concrete Gaussian splatting rasterization acceleration technique relevant to acceleration survey topic, not a survey itself",
+      "llm_evidence_cn": "具体的高斯泼溅光栅化加速技术，与加速综述主题相关但并非综述",
+      "llm_evidence": "具体的高斯泼溅光栅化加速技术，与加速综述主题相关但并非综述",
+      "canonical_evidence": "具体的高斯泼溅光栅化加速技术，与加速综述主题相关但并非综述",
+      "llm_tldr_en": "TileGS reorganizes Gaussian splatting rasterization into tile-local depth bins, yielding faster raster kernels and end-to-end frame rates on Ada GPUs.",
+      "llm_tldr_cn": "3DGS虽然支持实时高质量渲染，但标准光栅化仍遍历全局排序的块流，形成长块范围和重几何属性流量。作者提出TileGS，把每个tile的长范围划分为多个短深度局部范围，并以前后顺序光栅化且按需修复，在Ada GPU上平均获得1.44倍光栅核心加速，端到端帧率提升约1.07-1.09倍。该工作属于3DGS软件光栅化加速技术，可为后续FPGA/ASIC加速器设计提供数据流与排序参考，但本身不是硬件实现。",
+      "llm_tldr": "3DGS虽然支持实时高质量渲染，但标准光栅化仍遍历全局排序的块流，形成长块范围和重几何属性流量。作者提出TileGS，把每个tile的长范围划分为多个短深度局部范围，并以前后顺序光栅化且按需修复，在Ada GPU上平均获得1.44倍光栅核心加速，端到端帧率提升约1.07-1.09倍。该工作属于3DGS软件光栅化加速技术，可为后续FPGA/ASIC加速器设计提供数据流与排序参考，但本身不是硬件实现。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "survey on Gaussian splatting acceleration techniques",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

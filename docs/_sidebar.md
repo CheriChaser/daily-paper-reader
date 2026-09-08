@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-08 <!--dpr-date:20260908-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/08/2609.03613v1-tilegs-tile-local-depth-binning-for-gaussian-splatting-rasterization" data-sidebar-item="{&quot;title&quot;: &quot;TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.03613v1-tilegs-tile-local-depth-binning-for-gaussian-splatting-rasterization&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;具体的高斯泼溅光栅化加速技术，与加速综述主题相关但并非综述&quot;}">TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization</a>
   * 2026-09-07 <!--dpr-date:20260907-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/07/2609.03613v1-tilegs-tile-local-depth-binning-for-gaussian-splatting-rasterization" data-sidebar-item="{&quot;title&quot;: &quot;TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.03613v1-tilegs-tile-local-depth-binning-for-gaussian-splatting-rasterization&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;通过瓦片局部深度分箱加速3DGS光栅化并降低几何属性访存，契合高斯溅射加速与加速器设计主题&quot;}">TileGS: Tile-Local Depth Binning for Gaussian Splatting Rasterization</a>
