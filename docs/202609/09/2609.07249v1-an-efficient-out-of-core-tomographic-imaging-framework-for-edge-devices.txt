@@ -1,0 +1,936 @@
+Title: An Efficient Out-of-Core Tomographic Imaging Framework for Edge Devices
+
+URL Source: https://arxiv.org/pdf/2609.07249v1
+
+Published Time: Wed, 09 Sep 2026 02:04:20 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+> 1
+
+# An Efficient Out-of-Core Tomographic Imaging Framework for Edge Devices 
+
+Xuetao Chen ∗, Cong Ma ∗, Xiangyu Meng †, Du Wu †, Zhengyang Bai, Tao Luo, Zhaorui Zhang, Emmanuel Jeannot, Edgar Josafat Martinez Noriega, Xun Wang, Peng Chen, Amelie Chi Zhou, Mohamed Wahib 
+
+Abstract —Computed Tomography (CT) is an essential 3D imaging technology widely used in medical diagnostics and scientific research. However, performing CT imaging on edge devices is challenging due to limitations in computational power, memory capacity, and energy budget. This paper presents an efficient CT reconstruction framework, called edgeFBP , de-signed for Nvidia Jetson System-on-Chip (SoC) devices. edgeFBP 
+
+adopts an end-to-end pipeline design for efficient out-of-core image reconstruction under tight power and memory constraints. 
+
+edgeFBP utilizes a mixed-precision strategy leveraging half-precision Tensor Cores(TCs) to accelerate the bottleneck back-projection(BP) kernel. edgeFBP achieves a 1.83 × speedup over the widely used RTK library on Jetson Nano and a 2.56 × speedup on Jetson AGX. Under a strict 25-Watt power budget, edgeFBP 
+
+on Jetson Nano achieves up to 5 ∼48 × higher energy efficiency than an Nvidia DGX A100, enabling datacenter-scale imaging on constrained edge devices. 
+
+Index Terms —Computed Tomography, image reconstruction, Nvidia Jetson, GPU, System-on-Chip. 
+
+I. I NTRODUCTION 
+
+Computed Tomography (CT) [1]–[4] is a vital 3D imag-ing technique widely used in medical diagnostics, industrial inspection, and scientific research, targeting different objects and applications. By acquiring multiple X-ray projections from different angles, the Filtered Back-Projection (FBP) im-age reconstruction algorithm generates cross-sectional images 
+
+> ∗
+
+Co-first authors. †Co-corresponding authors. This work was supported by the National Key Research and Devel-opment Program (2025YFB4507000), the National Natural Science Foun-dation of China (Grant Nos. 61972416, 62272479), Taishan Scholarship (tstp20240506, tsqn202408087), Natural Science Foundation of Shandong Province (ZR2022LZH009), National Research Foundation, Singapore (NRF), and the Ministry of Digital Development and Information (MDDI) under the AI Visiting Professorship (Award No. AIVP-2025-005). Xuetao Chen and Amelie Chi Zhou are with Hong Kong Baptist University, Kowloon, Hong Kong, China (email: {csxtchen, amelieczhou }@comp.hkbu.edu.hk). Cong Ma is with the Hokkaido University, Sapporo, Japan, 060-0814. (email:cong.ma.m1@elms.hokudai.ac.jp). Xiangyu Meng and Xun Wang are with the College of Computer Science and Technology, China University of Petroleum (East China), Qingdao, China, 266580 (email:x meng0420@163.com, wangsyun@upc.edu.cn). Du Wu, Zhengyang Bai, Peng Chen, and Mohamed Wahib are with the RIKEN Center for Computational Science, Kobe, Japan, 650-0047 (email: {du.wu, zhengyang.bai, peng.chen, mohamed.attia }@riken.jp) Tao Luo is with the A*STAR Institute of Advanced Intelligence and Com-puting (A*STAR IAIC), Singapore, 138632 (email:luo tao@a-star.edu.sg). Zhaorui Zhang is with the Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong, China (email:zhaorui.zhang@polyu.edu.hk) Edgar Josafat Martinez Noriega is with the National Institute of Ad-vanced Industrial Science and Technology (AIST), Tsukuba, Japan, 305-8560 (email:edgar.martineznoriega@aist.go.jp) Emmanuel Jeannot is with the Inria, Univ. Bordeaux, LaBRI,Talence, France, 33405 (email:emmanuel.jeannot@inria.fr) 
+
+TABLE I: Motivation of using Jetson series for CT imaging, emphasizing their power efficiency, integrated SoC design, and balanced performance. TC refers to Tensor Cores.                                                                   
+
+> Jetson Series AGX Orin Orin NX Orin Nano A100 H100
+> Module Type 64GB Industrial 32GB 16GB 8GB Super 8GB 4GB --GPU Tensor Cores 64 56 32 32 16 512 528 CUDA Cores 2048 1792 1024 1024 512 8192 16896 Perf. (TFLOPS) FP16 w/ TC 43 39 27 19 19 17 17 8.5 312 989.4 FP32 w/o TC 5.3 4.8 3.8 2.4 2.4 2.1 2.1 1.04 19.5 66.9 CPU Arm v8.2 Cores 12 866--Memory (GB) 64 64 32 16 8480 80
+> Power (Watt) 15 ∼60 15 ∼75 15 ∼40 10 ∼15 ∼25 ∼40 7∼15 ∼25 400 700
+
+of scanned objects. High-quality CT reconstruction requires intensive computations involving a large number of matrix operations and memory-intensive processing of projection data. Traditionally, these workloads have been handled by various types of accelerators, including ASICs [5], multi-core CPUs [6], SIMD-optimized DSPs [7], [8], high-end GPUs [9]– [11], and distributed systems [12]–[14]. However, the growing need for real-time and portable imaging solutions has created a demand for efficient CT reconstruction on edge devices, which operate under strict constraints in computational power, memory capacity, and energy efficiency. There is a strong motivation to optimize the FBP algorithm for System-on-Chip (SoC) edge devices, such as Nvidia Jetson series, to leverage their power efficiency and computational capability, as summarized in Table I. While high-end discrete GPUs have long been the standard for image reconstruc-tion [15], [16], their substantial power and space requirements are unsuitable for modern portable and embedded CT systems. Recent trends toward compact and mobile micro-CT de-vices [17]–[19] demand solutions that are both energy-efficient and cost-effective. For instance, typical micro-CT systems operate within a 450-watt power budget [20], [21], making it impractical to integrate power-hungry GPUs, such as Nvidia’s A100 or H100. In contrast, Jetson modules offer integrated GPU acceleration with significantly lower power consumption and smaller form factors, enabling efficient on-device recon-struction. Specifically, these SoC edge devices simplify system integration by consolidating compute, memory, and I/O into a single compact platform. These features make Jetson platforms attractive for deploying image reconstruction applications in real-world CT systems. Image reconstruction on resource-constrained edge de-vices, such as Jetson modules, faces several key challenges. The commonly used FBP algorithm involves two compute-intensive kernels: filtering and back-projection (BP), which impose high demands on computation and memory resources, and are inherently limited on Jetson platforms in Table I. arXiv:2609.07249v1 [cs.DC] 7 Sep 2026 2
+
+Optimizing these kernels requires effective use of the Jetson heterogeneous architecture, including CPUs, GPUs, and spe-cialized matrix engines (namely Tensor Cores), which requires algorithmic adaptations to fully exploit this architecture. More-over, high-resolution reconstruction (i.e. 2048 3) drastically increases memory usage, exceeding the available on-device memory. It is essential to design a computing pipeline that supports efficient out-of-core processing. We propose an efficient FBP framework, called edgeFBP ,for out-of-core image reconstruction on Jetson. edgeFBP 
+
+leverages the heterogeneous computing capabilities of the CUDA platform to optimize FBP imaging computations. We utilize the highly optimized cuFFT vendor library to accelerate the filtering computation, which is critical to overall FBP throughput. We design a novel BP algorithm that reformulates the computationally intensive coordinate projection computa-tions into matrix operations suitable for execution on Tensor Cores (TCs). Specifically, we perform matrix multiplications using FP16 arithmetic while recovering single-precision ac-curacy through mixed-precision computation. As shown in Tab I, TCs acceleration enables power-constrained edge de-vices to deliver significant performance improvement. Since the compute-intensive BP stage is often the primary perfor-mance bottleneck in FBP, TCs are essential for optimizing BP and pushing the performance limits of edgeFBP on Jetson devices. To support high-resolution 3D image reconstruction, we adopt an out-of-core approach by splitting projections (input) and volumes (output) into smaller blocks to fit the limited memory capacity of Jetson modules, and design a pipeline scheduling strategy to overlap I/O operations with FBP computation. Evaluations on Jetson modules demonstrate the power and computational efficiency of edgeFBP with the out-of-core image reconstruction capability. Roofline and throughput com-parisons show that edgeFBP on Jetson Orin Nano outper-forms RTK by an average of 1.83 × and approaches the computational limits of the device, while achieving a 2.56 ×
+
+throughput improvement on Jetson AGX Orin. In terms of energy efficiency, under a strict 25 W power budget, edgeFBP achieves up to 5 ∼48 × higher energy efficiency than an Nvidia DGX system (8 ×A100 server), highlighting the effectiveness of hardware-aware optimization for CT reconstruction on power-constrained edge devices. The contributions of this paper are summarized as follows:  
+
+> •
+
+This work is the first to perform CT image reconstruction on the Jetson series, a SoC platform typically used for robotics and machine learning. This work paves the way for enabling an unprecedented data center-grade 2048 3+resolution CT on micro-CT devices, within minutes.  
+
+> •
+
+We propose an end-to-end image reconstruction framework for Jetson platforms, leveraging their heterogeneous archi-tecture to enable efficient out-of-core reconstruction within the memory constraints of edge devices.  
+
+> •
+
+We develop a novel back-projection algorithm that lever-ages TCs with FP16 mixed-precision computation, adopted for efficient coordinate computation while maintaining image quality requirements. X-ray 
+
+> source
+
+Pr
+
+> V-axis
+> Vy
+> Vz
+
+Z-axis  
+
+> Rotat e P ntimes
+
+Fig. 1: Geometry of the Cone-beam Computed Tomography (CBCT) imaging system. CBCT consists of a micro-focus X-ray source and a flat-panel detector (or X-ray sensor) with Pr
+
+rows and Pc columns of sensing elements.  
+
+> •
+
+We present a performance evaluation to demonstrate both computational and power efficiency, as well as the capa-bility for out-of-core image reconstruction. II. B ACKGROUND & R ELATED WORK 
+
+This section introduces the background of Cone-beam Com-puted Tomography (CBCT), the Filtered Backprojection (FBP) reconstruction algorithm, and related work. 
+
+A. Cone-beam Computed Tomography (CBCT) 
+
+As illustrated in Fig. 1, the system includes a micro-focus X-ray tube as the source and a flat-panel detector (or X-ray sensor). The distance from the X-ray source to the rotation axis (Z-axis) is denoted as Lso , and the distance from the source to the detector is Lsd . The detector contains Pr rows and Pc columns of sensing elements (pixels). Its U-axis is aligned with the system’s X-axis, and its V-axis is aligned with the Z-axis. The reconstructed 3D volume is defined by 
+
+Vx, Vy , and Vz voxels along the X, Y, and Z directions, respectively. These volume elements, referred to as voxels, denote the reconstructed 3D image. The 3×4 projection matrix 
+
+Mψ is formed by multiplying the following matrices:                                           
+
+> Mψ=
+> 
+> Lsd
+> λc
+> 0Pc−12+ωc00Lsd
+> λr
+> Pr−12+ωr0000Lsd
+> 
+> cos( ψ)−sin( ψ) 0 ωcor
+> 00−10sin( ψ)cos( ψ)0Lso
+> 0001
+> 
+> λx00 1−λxVx
+> 20λy0λyVy
+> 200λz
+> λzVz
+> 20001
+> 
+
+Mψ is essentially used to map the spatial position of each voxel onto the 2D plane of the X-ray sensor. 
+
+B. FBP Image Reconstruction for CBCT 
+
+This section briefly presents the 3D image reconstruction for CBCT by the FBP algorithm as presented in [22]. 
+
+a) Filtering: The filtering applies a one-dimensional Ramp filter [23] to each row of pixels in the 2D projection. The filtering computation can be written as:        
+
+> Q(u, v ) =
+> 
+> Lsd /
+> q
+> D(u, v )2+L2
+> sd ·P(u, v )
+> 
+> ∗R(u)(1)
+
+where D(u, v )2 = (∆ u (u − Pc/2)) 2 + (∆ v (v − Pr /2)) 2, ∗
+
+denotes convolution, and R(u) indicates the ramp filter [24]. 3
+
+TABLE II: Definitions of the geometric parameters in the CBCT imaging system.                            
+
+> Symbol Description Unit
+> PnThe number of views —
+> Pc, P rColumns, rows of a projection in U-, V-axis pixel
+> Vx, V y, V zThe number of voxels in X-, Y-, Z-axis voxel
+> ψRotation radian (step is 2π/P n)rad
+> MψA projection matrix of size 3 ×4 at radian ψ—
+> λc, λ rPixel pitch at U- and V-axis mm/pixel
+> λx, λ y, λ zVoxel pitch at X-, Y-, and Z-axis mm/voxel
+> ωc, ω r, ω cor Offset of Detector at U- and V-axis mm/pixel
+> Lsd Distance from source to detector mm
+> Lso Distance from source to object (Z-axis) mm
+
+To perform the filtering in the frequency domain, a convolution is performed using the Fast Fourier Transform (FFT) [25], which significantly reduces the filtering complexity. 
+
+b) Back Projection: Alg. 1 illustrates the 3D cone-shaped back-projection implementation used in the RTK library [26]. The input includes the filtered projection images Q, with dimensions Pn×Pr ×Pc, and the corresponding projection matrices M, of size Pn×4×3. Each projection matrix is defined as M [s] = Mψ , where s∈[0 , P n) and the projection angle is calculated as ψ = 360 ·t/P n for a full circular scan. The back-projection process follows the standard projection model: for each voxel at position [i, j, k ], the 3D coordinate is projected into 2D detector space using the matrix-vector multiplica-tion Mψ · [i, j, k, 1] T , yielding projected coordinates [x, y, z ]T
+
+(Alg. 1, line 6). The x and y coordinates are then normalized by dividing by z. The projection image is sampled at sub-pixel coordinates (x, y ) using bilinear interpolation, implemented by the interp2 function (lines 9–14). The interpolated value is weighted by 1/z 2 and accumulated into the output volume at 
+
+I[k][ j][ i], with the z value accounting for geometric scaling in the cone-beam geometry. The interp2 function performs bilinear interpolation by computing weighted sums of four neighboring pixel values [27], based on the sub-pixel offsets 
+
+(εu, ε v ). As the algorithm iterates over all projections and all voxels in BP, its computational complexity is O(N 4).
+
+C. Related work 
+
+CT image reconstruction is computationally intensive, with existing approaches primarily optimizing computations on discrete accelerators, clusters, and supercomputers rather than edge devices. The Reconstruction Toolkit (RTK) [26], provides standard implementations of FBP on both CPU and GPU platforms. Extending RTK to distributed architectures has also been investigated. Palenstijn et al. [15] developed a distributed SIRT implementation for GPU clusters, while Cui et al. [28] proposed DMLEM for multi-GPU systems. Bicer et al. [10], [29], [30] and Xiao et al. [12], [31] scale large-scale CT reconstruction with iterative solvers on supercomputers. Mean-while, frameworks like TIGRE [32] offer efficient GPU-based implementations of iterative methods, such as MLEM [33] and SIRT [34]. However, these solutions are often limited to small-volume reconstructions due to constraints in hardware memory capacity. While some systems [16], [35] employ cache-aware optimizations for out-of-core reconstruction, they 
+
+Algorithm 1: Back-projection algorithm for CBCT. in-terp2 function is used for interpolation [27]. 
+
+Input: Q[Pn][ Pr][ Pc] is filtered projection, M[Pn] is pro-jection matrix (as details in Mψ ). 
+
+Output: I[Vz ][ Vy ][ Vx] is output volume data.  
+
+> 1
+
+I ← 0 ▷ initialize output, a 3D volume  
+
+> 2
+
+for each t ← 0 to Pn do  
+
+> 3
+
+for each k ← 0 to Vz do  
+
+> 4
+
+for each j ← 0 to Vy do  
+
+> 5
+
+for each i ← 0 to Vx do  
+
+> 6
+
+[x, y, z ]T ← M[t] · [i, j, k, 1] T ▷ Projection  
+
+> 7
+
+[x, y ] ← [x, y ] · 1/z  
+
+> 8
+
+I[k][ j][ i]←I[k][ j][ i] + interp 2( Q[t], x, y )/z 2 
+
+> 9
+
+Function interp2( J, x, y ) 
+
+> 10
+
+[su, s v ]←[⌊x⌋ , ⌊y⌋] ▷ floor operation  
+
+> 11
+
+[εu, ε v ]←[x − su, y − sv ] ▷ sub-pixel position  
+
+> 12
+
+α←J[sv ][ su]·(1 − εu) + J[sv ][ su + 1] ·εu ▷ interp  
+
+> 13
+
+β←J[sv + 1][ su]·(1 − εu) + J[sv + 1][ su + 1] ·εu▷ interp  
+
+> 14
+
+return α·(1 − εv ) + β·εv ▷ interp do not provide advanced Tensor Core support or fine-grained memory management for SoC GPU devices. Jetson platforms are widely used in applications that require high performance within strict power and memory constraints. Their small form factor integrated CPU and GPU make them well-suited for various tasks such as Deep Learning-based object recognition [36], SLAM [37], and medical image pro-cessing [38]. These emerging architectures require dedicated designs to optimize memory usage and power efficiency. Matsubara et al. [39] reduced power by 49% and latency by 89% using BottleFit. Bouwmeester et al. [40] enabled real-time optical flow for nano-drones using NanoFlowNet. Bakhtiarnia et al. [41] demonstrated dynamic split computing for variable bandwidth. Han et al. further extend the capability of Jetson platforms toward large-model workloads like AWQ, which enables activation-aware quantization for efficient on-device LLM inference in extremely resource-constrained en-vironments [42]. These studies demonstrate Jetson can handle real-time processing in embedded and portable systems with limited computing resources. Despite these advances, the majority of prior work targets high-end computing platforms, which are not suitable for modern embedded or portable CT systems due to power and memory constraints. As CT applications increasingly demand high-resolution outputs within compact, low-power systems, memory capacity becomes a major bottleneck. To address this challenge, volume decomposition and out-of-core strategies have been proposed [16], [32], but few frameworks support high-resolution reconstruction on edge devices. 
+
+edgeFBP introduces a full-stack design and optimization for Nvidia Jetson modules. This work is the first to perform CT image reconstruction on the Jetson series, a SoC platform typically used for robotics and machine learning, achieving efficient and scalable reconstruction, enabling high-resolution reconstruction for portable CT devices. 4(a) Splitting Projections for out-of-core FBP imaging. Input (projections): 𝐀 𝐀 × 𝐀 𝐀 × 𝐀 𝐀 
+
+(b) GPU-optimized FBP Engine. 
+
+## = Result Spliting 
+
+> high low
+> Input Projections Filtered Projections
+
+AMΨ
+
+> Tensor Cores
+
+...                 
+
+> Thread/Block Configuration
+> Packing
+> Arithmetic Intensity: 𝐀·𝐀 𝐀 ·1𝐀+1
+> 𝐀 𝐀
+> 𝐀 𝐀 𝐀
+> Input Batch Input Projection
+> P𝐀
+> P𝐀
+> LD F𝐀 𝐀 LD F𝐀+1 𝐀
+> ST 𝐀 𝐀
+> Calc. F𝐀 𝐀 Calc. F𝐀+1 𝐀
+> LD F𝐀 𝐀 LD F𝐀+1 𝐀
+> ST 𝐀 𝐀
+> Calc. F𝐀 𝐀 Calc. F𝐀+1 𝐀
+> Register
+> CuFFT Filtering
+> Memory Access Optimization Tensor Core Accelerated BP
+> Model-guided End-to-end Optimization
+
+Output (volume): 𝐀 𝐀 × 𝐀 𝐀 × 𝐀 𝐀 
+
+(c) Pipelined sub-volumes Aggregation. 
+
+> 𝐀 1
+> 𝐀 0𝐀 𝐀 𝐀 −1
+> 𝐀 𝐀
+> 𝐀 𝐀+1
+> ……
+
+Input (projections): 𝐀 𝐀 × 𝐀 𝐀 × 𝐀 𝐀 
+
+> Overlapped area
+
+𝐀 𝐀 
+
+𝐀 𝐀 
+
+𝐀 𝐀 
+
+# …… 
+
+Required by 𝐀 𝐀 
+
+Required by 𝐀 𝐀 +1  
+
+> Dynamic Parameter Tuning Efficient I/O-compute Overlapping
+
+Fig. 2: Overview of edgeFBP . As a highly optimized end-to-end pipeline for out-of-core CT imaging on edge devices, the workflow (a) partitions the projections into smaller batches for out-of-core processing, and (b) reconstructs each batch independently using an optimized FBP engine with GPU memory access optimization and TCs-accelerated computation. Then the framework (c) aggregates the sub-volumes (e.g., V0, V1, etc.) to construct the final 3D volume in a pipelined fashion. III. P ROPOSED IMAGING FRAMEWORK : E D G E FBP 
+
+Overview of the proposed edgeFBP . We propose 
+
+edgeFBP , an efficient out-of-core image reconstruction framework designed for resource-constrained edge devices. Fig. 2 presents an overview of edgeFBP . edgeFBP co-designs data management, execution scheduling, and GPU kernels to address both memory and compute limitations. Specifically, it partitions projection and volume data to en-able out-of-core image reconstruction, employs a throughput-oriented pipeline that overlaps storage I/O with computation, optimizes GPU memory-access patterns to improve data local-ity, and leverages TCs to accelerate the BP kernel, substantially reducing end-to-end imaging time. 
+
+A. Out-of-core Projection & Volume Partition Design 
+
+Due to limited memory on edge devices, it is infeasible to load all projection data and compute the entire output volume at once, making out-of-core processing essential. As shown in Fig. 3, we introduce a dynamic two-level batching out-of-core computational strategy. In this optimization strategy, the outer batching operates along the axial depth ( Vz ), guided by a balance between I/O and computation. This approach naturally matches the slice-wise structure of the reconstructed volume and reduces the memory footprint of both the input projections and the volume. The inner batching is dynamically applied along Pn as a complementary mechanism, which helps reduce the memory footprint when loading projections but does not reduce the volume memory footprint. Hence, through these two-level batchings, we achieve out-of-core FBP execution. However, the outer batching produces larger projection data overlap, which introduces additional I/O overhead. As shown in Fig. 3a, the i-th outer batch Ei requires more detector rows ( Pr ) for reconstruction and causes greater projection data overlap with the adjacent batch Ei+1 . Based on this observation, we design an efficient performance model-guided pipeline optimization to mitigate redundant I/O overhead. X-ray Sensor Overlapped Area 
+
+Z-axis 
+
+> i
+
+E 𝐀 𝐀−1 
+
+𝐀 𝐀 
+
+𝐀 𝐀+1 
+
+> 1i
+
+E
+
+> YZX
+
+X-ray Source 
+
+(a) E splitting. X-ray Source 
+
+𝐀 𝐀 𝐀 𝐀 𝐀  
+
+> XYZ
+> Rotation Center X-ray Sensor Voxels
+
+(b) F splitting. 
+
+Fig. 3: Our projection and volume partitioning design for out-of-core FBP reconstruction in edgeFBP . A dynamic two-level batching strategy is introduced. (a) Outer batch E is parti-tioned along Vz . (b) Inner batch F is dynamically partitioned along Pn according to the available memory capacity. 
+
+B. End-to-end Pipeline Optimization 
+
+This section presents the end-to-end pipeline optimization in edgeFBP . As shown in Fig. 4, we design a unified pipeline strategy for out-of-core FBP execution, leveraging 
+
+cudaStream and cudaEvent . We adopt double buffering for the input projection data, enabling overlap of data load-ing and computation across batches. For the output volume, only a single buffer is maintained, as the data is written to storage immediately after computation. All CUDA kernels are launched asynchronously, with three key data dependencies: (1) The input projection must be loaded before computation, (2) The output volume must be computed before being written back to storage, and (3) Computation must occur after the previous volume data is written back to storage. To that end, the pipeline overlaps storing the output of the current batch 
+
+Ei with loading the next batch Ei+1 input. Within each outer batch, the computation of batch F ij is overlapped with the data loading of the subsequent inner batch F ij+1 .5Compute Load Store 3.1 s ……… ……… ……… 3.1 s 3.1 s          
+
+> 15.9 s
+> Time (s)
+> Compute Load Store 3.1 s ………
+> 14.7 s
+> Time (s)
+> 3.1 s 3.1 s 3.1 s
+> ………
+> (a) Pipeline optimization without overlapping I/O and computation. (b) Pipeline optimization with overlapping I/O and computation.
+> 0.3 s 0.2 s 0.2 s 0.3 s0.2 s 0.2 s0.2 s 0.4 s 0.4 s 0.4 s 0.4 s 0.4 s
+
+Fig. 4: End-to-end pipeline optimization. We adopt a double buffering approach using CUDA streams to hide the I/O over-head. This figure shows the pipeline timeline for Tomo 30 [45] dataset ( 512 3 output volume) on Jetson Nano. Load and Store 
+
+indicate I/O, loading projections from storage and storing 3D volumes, respectively, while Compute denotes filtering and BP. The variation in load time (0.2–0.3 s) is attributed to changes in the projection batch size. Pipeline overlap reduced runtime by 7.6%, lowering runtime from 15.9 s to 14.7 s. 
+
+C. Model-guided I/O Optimization 
+
+After converting FBP to out-of-core execution and applying our pipeline model, we can observe that the load, computation, and store operations involved in each batch vary and can overlap. Consequently, both the batch size and the scheduling order of batches are pivotal factors that determine the overall performance of the edgeFBP framework. 
+
+1) Arithmetic Intensity Analysis: We conduct an Arithmetic Intensity (AI) analysis [43], [44] for Ei. The numerator rep-resents the total number of floating-point operations (FLOPs) and the denominator reflects the amount of data movement in bytes, as shown below:           
+
+> AI = (α·Pc·log (Pc)·∆·Ei·Pn)FFT + ( β·ΩEi·Vy·Vx·Pn)BP
+> (∆ Ei·Pc·Pn)Load + (Ω Ei·Vy·Vx)Store
+> .(2)
+
+Here, α and β are constants representing the computational cost of the FFT (more details in Section IV-A) and back-projection operations, respectively. ∆Ei denotes the number of projection rows ( Pr ) involved, as determined by the overlaps in Fig. 3, ΩEi denotes the corresponding volume of batch Ei.Since the FFT accounts for only a minor portion of the overall runtime, we consider only the FLOPs contributed by the BP stage. Therefore, AI may be written as       
+
+> AI =β·Pn/(ζ+ 1) ,(3)
+
+where ζ = ΩEi·Vy ·Vx 
+
+> ∆Ei·Pc·Pn
+
+. It compares the volume size to the total projection size. The value of ζ determines whether the workload is I/O bound or compute bound , and consequently guides vendor optimization. Although the batch size of Ei also affects the AI (i.e., larger batch sizes leading to higher AI), it is not the primary determining factor but serves as a tuning parameter to adjust the performance defined by ζ.
+
+2) Batch Size Optimization: The selection of batch size is performed in two stages: (1) Determining whether the CT workload is compute-bounded or I/O-bounded, which guides the selection of the outer batch size of Ei. (2) Once the outer batch size is determined, the inner batch size of F ij is selected based on the memory constraints of the edge device. To illustrate this process, we discuss two scenarios in CT imaging: in the typical CBCT scenarios [22], [46], the input and output Outer Batch Overlapped area Inner Batch Access order Pn
+
+Pr
+
+> 31
+
+F 32F 33F 34F
+
+> 23
+
+F 22F 21F
+
+> 11
+
+F 12F
+
+> 41
+
+F 42F
+
+> 51
+
+F52F
+
+> 53
+
+F
+
+> 61
+
+F 62F 63F 64F
+
+> i
+
+E
+
+> ij
+
+F
+
+Fig. 5: Two S-shaped reorder path algorithm for the Pn×Pr
+
+input projections to enhance data locality. Two S-shaped traversals spread outward from the center, starting with little overlap that gradually increases. sizes are comparable ( ζ ≈ 1). According to Equation 2, this leads to a relatively low AI, and the workload is consistently I/O-bounded. In such cases, maximizing AI becomes the pri-mary objective. Therefore, selecting a larger Ei is preferred to reduce data movement per FLOP. In contrast, micro-CT [17]– [19] scenarios generate massive output volumes from small projection inputs ( ζ ≫ 1), resulting in a compute-bound workload where the bottleneck shifts to the back-projection (BP) stage. Under this condition, although a smaller Ei causes additional I/O loading, it does not degrade overall performance due to the overlap enabled by our pipeline design. On the contrary, a smaller Ei improves data locality, which in turn better supports the Runtime Kernels optimizations described in Section IV. After Ei is determined, the F ij is in turn constrained to the hardware memory limit M em , as expressed by the following inequality:                
+
+> 2
+> ↑
+> double buffer
+> ·∆Ei·Fij·Pc·16
+> ↑
+> FFT complex
+> + Ω Ei·Vx·Vy·4
+> ↑
+> float
+> < M em (4)
+
+According to the geometry shown in Fig. 3, ∆Ei becomes smaller near the center and larger toward the periphery. This indicates that, under the condition of Equation 4, the corre-sponding F ij increases as Ei approaches the center, resulting in reduced overlap near the projection center and allowing larger inner batch sizes. 
+
+3) Loop Reordering for Enhanced Data Locality: As shown in Fig. 5, two S-shaped traversal paths are adopted, starting from the center and progressing outward in both directions. With the S-shaped traversal, data reuse occurs between ad-jacent outer batches Ei and Ei+1 . In contrast, if each inner batch F ij always starts from projection angle zero, such reuse cannot be achieved. The decision to traverse outward from the center is motivated by pipeline overlap considerations. In-deed, regions near the center are compute-bound with smaller 
+
+Ei, while peripheral regions are I/O-bound with larger Ei.As described in Section III-B, the implementation of the pipeline relies on double buffering. When processing from larger to smaller outer batches, the memory usage may exceed Equation 4. Meanwhile, the pipeline enables overlapping the next Ei+1 loading with the current Eistoring. By proceeding 60% 25% 50% 75% 100% 1 2 3 4 5 6 7 8 9 1011121314 Batch Number of Projections Compute Mem_Access Overhead        
+
+> (a) 512 3output volume. 0% 25% 50% 75% 100%
+> 1 2 3 4 5 6 7 8 9 1011121314
+> Batch Number of Projections
+> Compute Mem_Access Overhead (b) 1024 3output volume.
+
+Fig. 6: Computation breakdown of the BP kernel in RTK for Tomo 29 reconstruction with resolution of (a) 512 3 and (b) 1024 3. Compute means the compute occupancy. Mem-ory Access means memory occupancy. Overhead means with thread assignment and other control operations. outward from the center, the pipeline effectively exploits this overlap, improving overall performance. IV. GPU-OPTIMIZED FBP K ERNELS 
+
+This section details the design of the Runtime Kernels in our edgeFBP , which addresses two critical bottlenecks in the back-projection process: (1) Memory access at those coordi-nates , and (2) Computation of projection coordinates for each voxel. In the baseline RTK [26] implementation, these two bottlenecks dominate the runtime, as shown in Fig. 6. From the perspective of GPU global memory access, each voxel at every projection angle requires a coordinate computation followed by a GPU global memory access. This results in a fixed ratio between computation and memory access. However, the varying ratios shown in Fig. 6 arise from differences in the data locality of GPU global memory accesses across cases. We reduce and rearrange memory accesses, then we accelerate coordinate computation using TCs. 
+
+A. cuFFT-Accelerated Filtering Computation 
+
+The filtering stage described in Equation 1 and Fig. 2 applies a sharpening operation to each projection before back-projection. It forms an essential component of our GPU-optimized FBP Kernels. To reduce computational cost, we apply the Convolution Theorem [47] and perform the fil-tering in the frequency domain, where convolution becomes an element-wise multiplication. This is implemented using Nvidia’s cuFFT library [48], which provides highly optimized FFT primitives available for Jetson-based GPU architectures. Unlike discrete GPUs such as the A100, Jetson devices em-ploy a unified memory architecture in which the CPU and CUDA cores share the same physical memory. This removes PCIe transfer overhead, making memory bandwidth a critical resource. An efficient FFT-based filtering pipeline is essential to minimize memory traffic and sustain high throughput. 
+
+B. Optimizing GPU Memory Access Pattern for BP 
+
+Efficient memory access is essential for achieving high throughput in the reconstruction process. In this section, we categorize and optimize the memory access patterns into the following types, with the overarching goal of minimizing U-axis    
+
+> V-axis
+> V-axis Angle (rad) U-axis
+> ...
+> Angle (rad) V-axis Angle (rad) U-axis CUDA Block
+> (a) (1,1,1) Block Trajectory
+> ...
+> Angle (rad) U-axis
+> 256 Threads Angle (rad) U-axis (1,1,256)
+> Angle (rad) U-axis
+> (1,1,1)
+> (b) (16,16,1) Block Trajectory (c) (1,1, 256 ) Block Trajectory
+> Voxel Block
+> ...
+> Voxel Block Voxel Block
+> CUDA Block CUDA Block (16,16,1) Single Thread 256 Threads
+> ... ... ... ...
+
+Fig. 7: Projection footprints for different voxel aggregation patterns. (a) Single voxel with a minimal footprint. (b) 
+
+16 ×16 ×1 in-plane footprint expanding across the detector. (c) 1×1×256 through-plane footprint expanding along the projection angle. expensive global memory transactions: (1) Global Memory: 
+
+Data accessed for the first time, which must be fetched from global memory; (2) L1 Cache: Data accessed for the first time but already present in the L1 cache due to prior cache line placement; (3) Shared Memory: Data explicitly written to shared memory in advance and accessed from there. We mitigate the cost of global memory accesses by improving data locality and reuse via on-chip caches and shared memory. 
+
+1) GPU Memory Optimization Principles: Both the L1 cache and shared memory are on-chip resources that are private to each GPU Streaming Multiprocessor (SM). This means data is not shared across SMs or kernel launches, and inter-kernel data reuse is not possible (before the Hopper architecture). As a result, each kernel execution incurs at least one mandatory global memory fetch per access. Moreover, the CUDA warp stalls an instruction until all threads complete it. Consequently, if any thread accesses global memory, the entire warp suffers the memory latency, making intra-block data reuse critical. This makes data reuse within a block especially important for achieving high performance. 
+
+2) Optimal CUDA Thread/Block Configuration: As shown in Fig. 7a, computing a single voxel requires accessing its corresponding projection, which offers no data reuse and min-imal data locality. Data reuse only emerges when computing multiple voxels within a thread block. We fix the voxel block size to 256 and compare two configurations: (16 , 16 , 1) and 
+
+(1 , 1, 256) , as shown in Fig. 7b and 7c. The data reuse occurs only along the XY-axes with irregular data locality, while the regular data locality is observed along the Z-axis. According to the Algorithm 2 (line 5-7), we map (tx, ty, tz ) voxels onto 
+
+(tx, ty, 1) thread block, using a loop of length tz along the Z-axis within each thread to exploit data locality. 
+
+3) Lightweight Runtime Packing for Data Locality: We perform projection data packing before back-projection to improve data locality. To avoid introducing an additional preprocessing kernel, we fuse the packing operation with the write-back stage of the Filtering kernel, so that filtered projections are directly stored in the layout required by the back-projection stage. This design minimizes redundant global memory traffic and keeps the packing overhead to a minimum. As shown in Fig. 8, the original projection data are stored in 7bc 
+
+> bn
+> Pr
+> (a)Mem Acess without Packing
+> Array sequence
+> Pn
+> PcData
+> Input
+> (b)Mem Acess with Packing
+> Cn
+> Array sequence Input
+> Cc
+> Pr
+> Data Pack
+
+... 
+
+Fig. 8: Lightweight runtime packing to improve data locality. (a) Original memory access pattern, where data are stored as 
+
+Pn → Pr → Pc. (b) Packed memory access pattern. The data are reorganized as Cn → Cc → bc → bn → Pr :
+
+Cc and bc form cache-friendly column groups, bn groups eight projections for TCs computation, and the innermost 
+
+Pr dimension enables contiguous access and more effective prefetching during interpolation. the order P n→P r→P c, where P n, P r, and P c denote the projection, row, and column dimensions, respectively. We reorganize it into a packed format Cn→Cc→bc→bn→Pr .The outermost dimension Cn is preserved from the original layout to keep low packing costs. The dimensions Cc and bc
+
+divide the Pc into smaller and cache-friendly groups to better match the memory access behavior of the (tx, ty, 1) thread block along the XY-plane. The bn dimension is fixed to 8 (Section IV-C2), aligning with TCs requirements to enable eight coordinate computations to be processed concurrently. Compared with the original layout, this packed format enables more effective prefetching along P r, improving memory lo-cality during back-projection. The length of P r is associated with the outer batch Ei, which is determined by the CBCT configuration in Section III-C2. 
+
+4) Shared Memory Cache Optimization: In image recon-struction, the range of computed coordinate indices is known and bounded, which allows us to design a more efficient caching strategy. We implement a shared memory cache, removing the need for a hash table or other associative lookup structures. When a data element is fetched from global memory, we update the cache tag and fetch the data to the corresponding shared memory cache line. Then the thread can check the cache tag and retrieve the data directly from shared memory, effectively replacing an expensive global memory access with two low-latency shared memory operations. 
+
+C. Optimizing BP Computation using TCs 
+
+We optimize the BP bottleneck (Fig. 6) via MMA-mapped 
+
+Mψ · [i, j, k, 1] T , with accuracy by decomposition and scal-ing. Nvidia provides a TC programming interface through MMA (matrix-multiply-accumulate) PTX instructions, e.g., 
+
+mma.sync , which execute fused A×B+C operations on small per-warp matrix tiles, enabling efficient mixed-precision com-putation [49], [50] for theoretically 8 × speedup over CUDA 
+
+Algorithm 2: BP algorithm integrates optimized memory-access patterns and Tensor Core acceleration. 
+
+Input: Q[Pn][ Pr ][ Pc], M[Pn][3][4] , Lsd ▷ as in Table II 
+
+Output: I[Vz ][ Vy ][ Vx]. ▷ as in Table II  
+
+> 1
+
+block(tx, ty, 1) ▷ optimal thread Block in Sec. IV-B2  
+
+> 2
+
+grid( Vx 
+
+> block.x
+
+, Vy 
+
+> block.y
+
+, Vz 
+
+> block.z
+
+) ▷ optimal thread Grid in Sec. IV-B2  
+
+> 3
+
+KernelLaunch <<< block, grid >>> (src, dst, M)  
+
+> 4
+
+global Function KernelLaunch(src, dst, M) :  
+
+> 5
+
+i = blockIdx.x · blockDim.x + threadIdx.x ▷ i index in Alg. 1  
+
+> 6
+
+j = blockIdx.y · blockDim.y + threadIdx.y ▷ j index in Alg. 1  
+
+> 7
+
+kk = blockIdx.z · blockDim.z · tz ▷ base k index in Alg. 1  
+
+> 8
+
+for each t ← 0 to Pn / 8 - 1 do  
+
+> 9
+
+for each k ← kk to kk + bz do  
+
+> 10
+
+register A[2][2][2] , B [2][4][2] , C [2][8][4]  
+
+> 11
+
+FP32toFP16 (M, Bhigh , Blow ) ▷ as in Listing 1  
+
+> 12
+
+B[0] , B [1] ← Bhigh , B low  
+
+> 13
+
+for m ← 0 to 1 do  
+
+> 14
+
+for n ← 0 to 3 do 
+
+/* TC MMA.m16n8k8 in Fig. 9 */  
+
+> 15
+
+MMA (A[0][ m][ i], B [0][ n][ i], C [0][4 · m + n][ i])  
+
+> 16
+
+MMA (A[0][ m][ i], B [1][ n][ i], C [1][4 · m + n][ i])  
+
+> 17
+
+MMA (A[1][ m][ i], B [0][ n][ i], C [1][4 · m + n][ i])  
+
+> 18
+
+for p ← 0 to 7 do  
+
+> 19
+
+ˆz ← C[i][4 · ⌊ p/ 4⌋][ p%4]  
+
+> 20
+
+x ← C[i][4 · ⌊ p/ 4⌋ + 1][ p%4] · ˆz · Lsd ▷ line 7 of Alg. 1  
+
+> 21
+
+y ← C[i][4 · ⌊ p/ 4⌋ + 2][ p%4] · ˆz · Lsd ▷ line 7 of Alg. 1  
+
+> 22
+
+I[k][ j][ i]←I[k][ j][ i] + interp 2( Q[t], x, y )/z 2
+
+cores (Tab I). This advanced architecture can bring the op-portunity to accelerate the major bottleneck (i.e., projection coordinate computation) in the GPU-optimized FBP Runtime Kernels. However, achieving high performance requires care-ful control of data layout and numerical stability. 
+
+1) MMA Primitive for BP Computation: We first minimize the computational workload in our implementation before leveraging TCs. In back-projection, the coordinate computa-tion involves mapping each voxel’s 3D coordinates onto the 2D projection plane. As shown in the geometric analysis in Section IV-B2, when the XY-axes of the voxel are fixed, its horizontal coordinate on the projection plane remains constant. Therefore, as presented in Algorithm 2 line (5-7), each thread in a (tx, ty, 1) block can reuse the same XY-plane coordinate computation across all tz iterations along the Z-axis, thereby decreasing arithmetic cost. To utilize TCs, our implementation directly invokes MMA PTX instructions [49], [50]. This low-level approach enables fine-grained control, preserving the logic structure of the original CUDA implementation and facilitating a seamless transition to TCs acceleration. 
+
+2) Optimizing BP Computation with FP16 TCs: Although the TCs promise significant speedups, three obstacles arise when applying them to coordinate computation: (1) Data lay-out. FP16 TCs impose strict requirements on fragment layout, such as m8n8k4 and m16n8k8 ; (1) Precision. The TCs operate in FP16 format (1-bit sign, 5-bit exponent, 10-bit mantissa), which requires redesigning the matrices to decompose FP32 numbers into components suitable for processing. (3) Dynamic range. The dynamic range of FP16 is narrower than that of FP32, making potential overflow errors during computation. In our case, the coordinate computation K-dimension is 8MΨ(1-8) 
+
+Reordering 
+
+> 910 11
+> 12
+> 567
+> 8
+> 123
+> 4
+
+Matrix B 
+
+B! B" B#  
+
+> ···(1-8) ···(1-8) ···(1-8)
+
+## B! B!"#!$%"& "
+
+# B'()$%"& "
+
+Decomposition       
+
+> Source Value ijk1
+> 16
+> ijk1
+> 8
+
+# A
+
+> Thread 2 6 10 14 Thread 0 4 8 12 Thread 19 23 27 31
+
+## ... 
+
+## 1 23
+
+# C
+
+> V
+
+MMA.m16n8k8 
+
+> 910 11
+> 12
+> 88
+> 910 11
+> 12
+
+## B"!#"$%!& !
+
+## B'()$%!& !
+
+FP32 FP16 FP16 
+
+> B!
+
+= +  
+
+> Main Residual
+> B"!#"$%!& !B'()$%!& !
+
+Fig. 9: Optimizing coordinate calculation in BP kernel (Alg. 1, lines 6–7) using FP16 TCs with the m16n8k8 MMA in-struction. (1) Columns 1–3 of each Mψ(1 -8) group are first reorganized into three 4 × 8 blocks B0,1,2. (2) We devised an efficient FP32-to-FP16 decomposition strategy to split each FP32 Bi into two 4×8 FP16 high-bit and low-bit sub-matrices i.e., Bihigh −bit and Bilow −bit . (3) The FP16 mma.m16n8k8 instruction is launched to accelerate the multiplication with projection matrix A and each Bi
+
+> high/low-bit
+
+.Listing 1: FP32-to-FP16 decomposition function in edgeFBP .This approach split a single FP32 value into two FP16 compo-nents to maintain the precision used in Alg. 2. 
+
+1 #define FP32toFP16 (in, high, low) \
+
+2 asm __volatile__ ( \
+
+3 ".reg.b16 h_val;" ".reg.b32 f_hi, f_lo;"\ 
+
+4 "cvt.rn.f16.f32 h_val, %2;" \
+
+5 "cvt.f32.f16 f_hi, h_val;" \
+
+6 "sub.f32 f_lo, %2, f_hi;" \
+
+7 "mov.b32 %0, f_hi;" "mov.b32 %1, f_lo;" \
+
+8 : "=r"(high), "=r"(low) : "f"(in)); 
+
+originally fixed at k = 4, which limits the effective use of MMA instructions. The m8n8k4 and m16n8k8 layouts represent different TCs fragment layouts, each with varying levels of hardware support and performance characteristics. The m8n8k4 layout was the earliest format supported by first generation TCs and remains available on Ampere GPUs. TABLE III: Datasets used for evaluation.                                       
+
+> Name Pn Pc Pr λc (λr )Lsd Lso βωc ωr ωcor
+> Bumblebee 3142 2000 2000 0.2 672.5 39.8 16.9 001.03 Tomo 27 1800 1335 2004 0.025 250.0 100.0 2.5 25 0.25 0Tomo 28 26 Tomo 29 27 0.2 Tomo 30 720 445 668 0.075 350.0 250.0 1.4 -10 0.2 0
+> (a) Shepp-logan [4] result. (b) Tomo 30 [45] result.
+
+Fig. 10: Reconstruction results of edgeFBP for the Shepp-Logan and Tomo 30 datasets at a resolution of 2048 3.However, it cannot utilize the theoretical peak performance on Ampere, due to its suboptimal scheduling on modern warp-level execution units. In contrast, m16n8k8 is the default layout used by mma.sync instructions workloads internally optimized for Ampere architecture, aligning with warp-level fragment sizes for higher instruction-level parallelism and minimal pipeline stalls. To leverage the m16n8k8 layouts while maintaining accu-racy, we decompose the projection matrices into high-order and low-order components, as described in Fig. 9. The high-order component corresponds to the FP16 truncation of the original FP32 value, while the low-order component is then computed as the residual difference between the original value and this high-order component, as in Listing 1. In addition to precision concerns, we also address the overflow errors of the FP16 precision. In our design, the projection matrix is scaled by 1/L SD before matrix operations, and the resulting coordinates are rescaled by LSD /z after the matrix operations. This normalization keeps intermediate values within the FP16 range avoiding overflow. V. E VALUATION 
+
+We implemented edgeFBP in Nvidia CUDA and evaluated it on datasets such as the Shepp-Logan phantom [51] and the TomoBank dataset [45] on Nvidia edge platforms. Fig. 10a and Fig. 10b show reconstruction slices for the Shepp-Logan phantom and the Tomo 30 dataset at 2048 3, confirming that 
+
+edgeFBP preserves reconstruction quality. 
+
+A. Datasets and Evaluation Environment 
+
+Datasets. As shown in Table III, we use two real-world datasets using industrial scanners to conduct the evalua-tions: (1) TomoBank dataset with four sub-datasets: bone local (Tomo 27), bone local stone (Tomo 28), candie local (Tomo 29), smiling sample (Tomo 30) [45], and (2) Bumble-bee dataset , which is scanned by a Nikon Metrology HMX 9Tomo_29 (256 3)Tomo_29 (512 3)Tomo_29 (1024 3)Tomo_30 (256 3)Tomo_30 (512 3)Tomo_30 (1024 3)Tomo_29 (256 3)Tomo_29 (512 3)Tomo_29 (1024 3)Tomo_30 (256 3)Tomo_30 (512 3)Tomo_30 (1024 3)0110 100 1K 0.0 0.5 1.0 1.5 2.0 Runtime(s) Speedup edgeFBP(CUDA core) edgeFBP(TC) Speedup Nano AGX 
+
+Fig. 11: Performance evaluation of the TC-accelerated BP kernel on Orin Nano and AGX Orin. The optimized kernel achieves up to 1.53 × and 1.54 × speedup, respectively. Tomo_29 (256 3)Tomo_29 (512 3)Tomo_29 (1024 3)Tomo_30 (256 3)Tomo_30 (512 3)Tomo_30 (1024 3)Tomo_29 (256 3)Tomo_29 (512 3)Tomo_29 (1024 3)Tomo_30 (256 3)Tomo_30 (512 3)Tomo_30 (1024 3)010 100 1K 10K 01234Runtime(s)  OOM Error RTK speedup EdgeFBP OOM Error Speedup Nano AGX 
+
+Fig. 12: Detailed end-to-end performance improvement of 
+
+edgeFBP on Jetson Orin Nano under growing output. ”OOM” = ”Out of Memory”. Compared to the baseline, edgeFBP 
+
+achieves up to 1.83 × and 2.57 × speedup on Jetson Orin Nano and Jetson AGX Orin, respectively. ST 225 micro-CT scanner. The projection parameters were: 
+
+Lsd = 672 .5, Lso = 39 .8, Pc = Pr = 2000 , λc = λr = 0 .2
+
+and Pn = 3142 (projections acquired Pn = 6401 total). For each TomoBank dataset, we evaluate performance by scaling the output volume size from 256 3 up to 3072 3.
+
+Evaluation environment. Our evaluation spans three rep-resentative deployment scenarios: a high-end Nvidia DGX system equipped with 8 ×A100 80GB GPUs, an edge AI module featuring Jetson AGX Orin (64GB); and a Jetson Orin Nano Super (8GB). All platforms are operated on Linux with CUDA 12.2+, sharing a unified software stack compiled with architecture-specific flags: -arch=sm_80 for Ampere (A100) and -arch=sm_87 for Orin architectures. 
+
+Accuracy validation. We conduct a voxel-wise compar-ison RTK [26] to evaluate the reconstruction accuracy of 
+
+edgeFBP . The RMSE remains below 1×10 −4 for all voxels, which is sufficient to meet XCT imaging quality requirements, since XCT projections are typically acquired with 16-bit precision and reconstructed volumes generally require no more than a 16-bit dynamic range when expressed in Hounsfield units [52]. These results demonstrate that edgeFBP can guarantee the reconstruction quality. 
+
+B. Throughput Performance Evaluations 
+
+We conduct end-to-end evaluations to measure the perfor-mance of the edgeFBP on Jetson Nano and AGX. Detailed results are presented in Table IV and Fig. 12, where Full Size 
+
+and the Max Batch in the table denote the maximum memory capacity and the batch capacity of each dataset. Despite the strict power and memory constraints of edge platforms, 1 4 16 64 256 0.1 110 Arithmetic Intensity (Flops/Byte) Perf. (TFLOP/s) L1:1.019T L2:0.218T DRAM:0.099T TC FP16:12.2 TFLOP/s TC TF32:6.0 TFLOP/s 512 3 1024 3edgeFBP RTK 
+
+Fig. 13: Roofline analysis of the BP kernel on Jetson Nano using the Tomo 30 dataset at 512 3 and 1024 3 resolutions. Results are collected using the Nvidia Nsight Compute (NCU) profiler [53]. The optimized BP kernel achieves 1.49 ×–2.15 ×
+
+speedup over the baseline. 
+
+edgeFBP consistently delivers strong performance, achieving speedups of up to 1.83 × on the Jetson Nano and 2.57 × on the Jetson AGX compared to the RTK baseline. Moreover, the proposed optimization allows edgeFBP to handle large-scale reconstruction workloads on the Jetson platform with the SoC chip feature and the limited memory capacity, while the RTK implementation fails due to out-of-memory (OOM) errors for large volumes. These gains demonstrate the effectiveness of our framework-level optimizations as well as the GPU-optimized FBP kernel design, both of which are critical for sustaining high-throughput CT reconstruction on resource-constrained edge devices. We further evaluate the performance of the BP kernel in 
+
+edgeFBP in Fig. 11. The results show that the TCs opti-mized BP kernel achieves speedups of approximately 1.53 ×
+
+and 1.54 × on the Jetson Orin Nano and Jetson AGX Orin platforms, respectively. These results demonstrate that the proposed TC-optimized kernel effectively improves computa-tional efficiency and significantly enhances the throughput of the BP computation. 
+
+C. Roofline Analysis of the BP Kernel 
+
+To evaluate the efficiency of BP kernel, we perform roofline analysis on the Jetson Nano GPU using FP16 TCs (peak: 
+
+12 .2 TFLOPS). As shown in Fig. 13, both edgeFBP and RTK reach arithmetic intensities above the bandwidth ceil-ings, indicating they are largely compute-bound. Moreover, 
+
+edgeFBP attains higher effective throughput than RTK, yield-ing speedups ranging from 1.49 ×-2.15 × across datasets (av-erage 1.83 ×). These results indicate efficient use of TCs and scalable performance with increasing dataset size. 
+
+D. Out-of-core Reconstruction Capability 
+
+Table IV demonstrates the out-of-core capability of 
+
+edgeFBP on Jetson Nano and Jetson AGX when reconstruct-ing 2048 3 and 3072 3 volumes. For example, the memory footprints of 2048 3 and 3072 3 volumes are 32 GB and 108 GB, 10 
+
+TABLE IV: End-to-end performance analysis of edgeFBP on Jetson Nano and Jetson AGX Orin. TLoad is the time required to load all projections; TF ilter is the time for the filtering computation; TBP is the time for our optimized BP kernel; and 
+
+TStore is the time to store the 3D volume. The total time is Tsum = TLoad + TF ilter + TBP + TStore . TedgeFBP denotes the end-to-end runtime of edgeFBP with overlapped I/O and computation, while TRT K denotes end-to-end runtime of the RTK library (baseline). Speedup = TRT K /T edgeFBP . “ ✗” indicates missing results due to out-of-memory in RTK . The representative examples of the pipeline are shown in Fig. 4 and Fig. 15. 
+
+Device Dataset Full Size Max Batch Volume Tload (ms) TF ilter (ms) TBP (ms) TStore (ms) Tsum (ms) TedgeFBP (s) TRT K (s) Speedup ( ×)Jetson Nano  Bumblebee 47GB 2.98GB 256 3 1204469.1 10578.4 393.28 46.43 1215487.21 1531.99 2885.46 1.88 ×
+
+3.15GB 512 3 1250684.2 10976.32 47647.11 31080.02 1340387.65 1621.48 ✗ ✗
+
+Tomo 29 17.9GB 0.25GB 256 3 292194.12 8367.37 10141.27 141.53 310844.29 333.19 582.94 1.75 ×
+
+0.25GB 512 3 293682.69 8353.82 35391.39 825.33 338253.23 342.89 684.24 1.99 ×
+
+2.00GB 1024 3 291725.60 10021.49 196325.42 104217.90 602290.41 618.25 ✗ ✗
+
+2.00GB 2048 3 1453768.77 41125.77 4590432.68 110274.88 6195602.09 5203.03 ✗ ✗
+
+Tomo 30 816MB 0.03GB 256 3 1154.84 711.16 2675.71 153.99 4695.70 4.72 7.02 1.49 ×
+
+0.25GB 512 3 1157.65 713.66 12481.94 854.93 15208.17 15.61 33.57 2.15 ×
+
+0.33GB 1024 3 15682.18 843.24 99328.36 86684.13 202537.91 208.78 370.11 1.77 ×
+
+0.08GB 2048 3 117846.09 2984.37 3167547.96 139673.00 3428051.41 3388.19 ✗ ✗
+
+> Jetson AGX
+
+Tomo 29 17.9GB 0.25GB 256 3 9288.98 3305.36 3831.78 73.51 16499.63 60.77 131.26 2.15 ×
+
+0.25GB 512 3 9363.25 2595.73 14025.70 508.79 26493.47 69.49 160.26 2.31 ×
+
+2.00GB 1024 3 8716.80 2621.70 66576.77 4267.71 82182.37 111.28 ✗ ✗
+
+2.00GB 2048 3 97199.24 11153.79 502615.85 76528.15 687497.03 661.387 ✗ ✗
+
+2.00GB 3072 3 226425.17 16587.02 1936609.82 182062.52 2361684.53 2084.15 ✗ ✗
+
+Tomo 30 816MB 0.03GB 256 3 499.96 334.87 1023.20 83.76 1941.79 2.89 6.15 2.12 ×
+
+0.25GB 512 3 590.42 365.17 4403.05 553.95 5912.59 6.84 24.04 3.51 ×
+
+0.33GB 1024 3 4321.16 351.41 34727.58 4501.57 43901.72 44.24 121.79 2.75 ×
+
+0.33GB 2048 3 57847.05 493.74 364523.91 50203.33 473068.03 430.57 ✗ ✗
+
+0.25GB 3072 3 178005.25 1348.30 1128073.21 155450.02 1462876.78 1104.09 ✗ ✗Tomo_29 (256 3)Tomo_29 (512 3)Tomo_29 (1024 3)Tomo_30 (256 3)Tomo_30 (512 3)Tomo_30 (1024 3)Tomo_29 (256 3)Tomo_29 (512 3)Tomo_29 (1024 3)Tomo_30 (256 3)Tomo_30 (512 3)Tomo_30 (1024 3)010 100 1K 10K 01234Runtime(s)  edgeFBP Speedup-TC Speedup-I/O Speedup-edgeFBP RTK RTK+Partition RTK+Partition+TC Nano AGX Speedup RTK+Partition+TC+I/O OOM Error OOM Error Speedup-Partition 
+
+Fig. 14: Step-wise breakdown evaluation of the optimized FBP implementations on Jetson Nano and AGX. RTK [26] is baseline CUDA implementation, TC denotes the Tensor Core acceleration, and Batch applies model-guided storage I/O optimization. edgeFBP integrates all three optimizations. All speedups are relative to RTK .respectively, which significantly exceed the memory capacity of Nano and AGX according to the specifications in Table I. In these cases, the RTK baseline fails with out-of-memory errors, while edgeFBP successfully completes the reconstruction. In summary, these results denote that the projection and volume partition strategy in Section III-A enables practical out-of-core reconstruction on memory-constrained edge platforms. 
+
+E. Evaluation of the Proposed Optimizations 
+
+As illustrated in the framework design, we mainly pro-pose projection & volume partition (partition), TC-accelerated BP computation (TC), model-guided I/O optimization (I/O), pipeline optimization (edgeFBP), and memory-access pattern optimization. We examine the effect of step-wise optimization through a sequence of experiments in Fig. 14. 
+
+1) Evaluation of the Projection & Volume Partition: After the partition, our framework effectively alleviates the OOM issue for Tomo 29 ( 1024 3) dataset on Jetson Nano and AGX Compute Load Store 1.2 s ……… ……… ……… 1.2 s 1.2 s  
+
+> 5.9 s
+> Time (s)
+> Compute Load Store 1.2 s
+
+………   
+
+> 5.3 s
+> Time (s)
+> 1.2 s 1.2 s 1.2 s
+
+……… 
+
+(a) Pipeline optimization without overlapping I/O and computation. (b) Pipeline optimization with overlapping I/O and computation.       
+
+> 0.1 s 0.1 s 0.1 s 0.1 s0.1 s 0.1 s0.1 s 0.3 s 0.3 s 0.3 s 0.3 s 0.3 s
+
+Fig. 15: Pipeline timeline evaluations on the Tomo 30 dataset (512 3 output) on Jetson AGX. Pipeline overlap reduced run-time by 10.36%, lowering runtime from 5.9 s to 5.3 s. platforms. Meanwhile, it achieves 1.20 × and 2.02 × speedup for the rest datasets on both platforms. These results highlight the effectiveness of the partitioning strategy in enabling out-of-core imaging by addressing OOM issues and facilitating efficient overlap between I/O and computation. 
+
+2) Evaluation of TCs Optimization: Compared to the baseline RTK, using TCs can achieve around 1.40 × and 2.41 × speedup on Jetson Nano and AGX platforms (without Tomo 29 ( 1024 3)). Compared to the Partition approach, using TCs can achieve 1.17 × and 1.22 × on both platforms. Mean-while, the TC-accelerated BP kernel achieves about 1.53 ×
+
+and 1.54 × speedup compared to the CUDA-based BP kernel in edgeFBP . These results denote that the proposed TCs acceleration can significantly enhance the BP throughput. 
+
+3) Evaluation of Model-guided I/O Optimization: After the batched I/O optimization, the framework achieves 1.64 × and 2.45 × speedup on Jetson Nano and AGX compared to the baseline RTK approach. Compared to the Partition approach, the framework achieves 1.37 × and 1.25 × acceleration on both platforms. The above results denote that the proposed batch size optimization can effectively reduce the data movement and improve the data locality. 11 256 3 512 3 1024 3        
+
+> 010 100
+> 22% 27% 22% 37% 34% 46%
+> 256 3512 31024 3
+> 010 100
+> 41% 53% 41% 53% 47% 65%
+> Memory Throughput (%)  w/o Block Configuration w/ Block Configuration
+> Tomo_29 Tomo_30
+
+Fig. 16: performance evaluation of memory-access optimiza-tion in BP kernel on Jetson Nano through optimal CUDA block configuration. The packed GPU memory-access pattern improves performance by 11% and 14% on the Tomo 29 and Tomo 30 datasets, respectively. 
+
+4) Evaluation of Pipeline Optimization: With end-to-end pipeline optimization, edgeFBP achieves speedups of 1.77 ×
+
+on Jetson Nano and 2.57 × on Jetson AGX over the baseline. Compared to the partition-based approach, it delivers addi-tional speedups of 1.47 × and 1.32 ×, respectively. Pipeline timeline analyses on Jetson Nano and AGX (Figs. 4 and 15) show that the proposed optimizations effectively eliminate pipeline bubbles by overlapping I/O and computation, leading to higher pipeline utilization. 
+
+5) Evaluation of Memory-Access Pattern Optimization: We further evaluate the performance of memory-access pattern optimization. Specifically, we select the Jetson Nano plat-form with lower memory bandwidth to compare the memory throughput using Nsight Compute. As shown in Fig. 16, the 
+
+edgeFBP increases 11% and 14% of the memory throughput for Tomo 29 and Tomo 30 datasets. These results denote that the proposed configuration with Z-axis locality (1 , 1, 256) 
+
+consistently outperforms the baseline (16 , 16 , 1) across all datasets and output sizes, guaranteeing the effectiveness of our data locality design. 
+
+F. Power Efficiency Comparison: Jetson vs. DGX 
+
+Fig. 17 compares the energy efficiency of Jetson Nano and Jetson AGX with an Nvidia DGX A100 system equipped with 8×A100 80GB GPUs. To evaluate energy efficiency, we measure and compare power consumption across these platforms. Jetson AGX is significantly more energy efficient than the DGX A100 system, achieving 18 × to 27 × higher efficiency for output sizes from 256 3 to 1024 3. Jetson Nano further improves energy efficiency, achieving 5×∼ 9× on Tomo 29 and up to 48 × on Tomo 30 with 1024 3 output. These results highlight the Jetson series as low-power alter-natives to conventional HPC systems for imaging. Note that we do not directly compare Jetson with discrete GPUs, such as the A100 or lower-end models. Jetson is an integrated SoC platform that integrates the CPU, GPU, memory, and storage in a single device, whereas GPU operates only as an accelerator and requires a separate host system that also consumes power. 
+
+G. Impact of edgeFBP on Real-World Applications 
+
+Jetson devices are compact SoC platforms and are cheaper than datacenter GPU systems. For example, Jetson developer kits typically cost a few hundred to a few thousand USD [54], 256 3 512 3 1024 31K 10K 100K Energy Consumption(J)               
+
+> 3875 4755 7397 8330 8572 15456 55880 76063 83967
+> 256 3512 31024 310 100 1K 10K 100K 1000K
+> 162 372 2552 47612 68562 248976 118 390 5220
+> Tomo_29 Tomo_30 NVIDIA DGX A100 6500W Jetson Nano 25W Jetson AGX 60W
+
+Fig. 17: Comparison of energy consumption across Jet-son Nano, Jetson AGX, and a DGX A100 system (eight Nvidia A100 GPUs), along with the end-to-end evaluation of edgeFBP on the Tomo 29 and Tomo 30 datasets. Jetson AGX Orin and Jetson Nano achieve up to 18 × and 48 × higher energy efficiency than the DGX A100 system, respectively. whereas an Nvidia DGX system with eight A100 GPUs usually exceeds 100,000 USD [55]. As a result, a CT recon-struction system built on Jetson SoCs using edgeFBP can be one to two orders of magnitude cheaper than DGX-based solutions. Beyond cost, edgeFBP enables high-quality CT reconstruction on low-power and compact platforms. Portable and point-of-care scanners often cannot accommodate high-end GPUs, but edgeFBP allows reconstruction to run lo-cally on Jetson modules within a 10 ∼40 W power budget. 
+
+edgeFBP enables large-scale reconstructions when device memory is limited. edgeFBP is also well suited for robotic and mobile imaging systems [56], enabling high-quality, local CT reconstruction on compact, low-power platforms. Since Jetson modules are widely used in such platforms, edgeFBP 
+
+integrates naturally and enables fast on-device 3D recon-struction. By leveraging Tensor Cores through a hardware-aware formulation, edgeFBP achieves high energy efficiency under strict power constraints, making it suitable for portable, embedded, and always-on imaging applications. VI. C ONCLUSION 
+
+We present edgeFBP , an efficient out-of-core CT re-construction framework on Jetson platforms. By combining memory-efficient out-of-core partitioning with Tensor Core-accelerated BP and memory-access optimization, edgeFBP 
+
+enables large-scale 3D reconstruction under the limited mem-ory and power budget of embedded GPUs. Our evaluation shows that edgeFBP outperforms the widely used RTK library by up to 1.83 × on Jetson platforms and achieves up to 
+
+48 × higher energy efficiency compared with DGX-class sys-tems. These results demonstrate the feasibility of high-quality tomographic imaging on edge platforms, enabling portable medical, industrial, and scientific imaging applications. REFERENCES [1] A. C. Kak and M. Slaney, Principles of computerized tomographic imaging . SIAM, 2001. [2] F. Natterer, The mathematics of computerized tomography . SIAM, 2001. [3] W. A. Kalender, Computed tomography: fundamentals, system technol-ogy, image quality, applications . John Wiley & Sons, 2011. [4] L. A. Feldkamp, L. C. Davis, and J. W. Kress, “Practical cone-beam algorithm,” Journal of the Optical Society of America A , vol. 1, no. 6, pp. 612–619, 1984. 12 
+
+[5] M. A. Wu, “Asic applications in computed tomography systems,” in 
+
+Proceedings of the 4th Annual IEEE International ASIC Conference and Exhibit . IEEE, 1991, pp. P1–P3. [6] E. Serrano, G. Bermejo, J. Garcia Blas, and J. Carretero, “High-performance x-ray tomography reconstruction algorithm based on het-erogeneous accelerated computing systems,” in 2014 IEEE International Conference on Cluster Computing (CLUSTER) . IEEE, 2014, pp. 331– 338. [7] J. Treibig, G. Hager, H. G. Hofmann, J. Hornegger, and G. Wellein, “Pushing the limits for medical image reconstruction on recent standard multicore processors,” The International Journal of High Performance Computing Applications , vol. 27, no. 2, pp. 162–177, 2013. [8] J. Hofmann, J. Treibig, G. Hager, and G. Wellein, “Comparing the performance of different x86 simd instruction sets for a medical imaging application on modern multi-and manycore chips,” in Proceedings of the 2014 Workshop on Programming models for SIMD/Vector processing .ACM, 2014, pp. 57–64. [9] P. Chen, M. Wahib, S. Takizawa, R. Takano, and S. Matsuoka, “ifdk: A scalable framework for instant high-resolution image reconstruction,” in The International Conference for High Performance Computing, Networking, Storage, and Analysis (SC ’19) , 2019, pp. 1–14. [10] M. Hidayeto˘ glu, T. Bicer, S. G. de Gonzalo, B. Ren, V. De Andrade, D. Gursoy, R. Kettimuthu, I. T. Foster, and W.-m. W. Hwu, “Petascale xct: 3d image reconstruction with hierarchical communications on multi-gpu nodes,” in Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis , ser. SC ’20. IEEE Press, 2020. [11] M. Hidayetoglu, C. Pearson, I. El Hajj, L. Gurel, W. C. Chew, and W. Hwu, “A fast and massively-parallel inverse solver for multiple-scattering tomographic image reconstruction,” in 2018 IEEE Interna-tional Parallel and Distributed Processing Symposium (IPDPS) , May 2018, pp. 64–74. [12] X. Wang, A. Sabne, P. Sakdhnagool, S. J. Kisner, C. A. Bouman, and S. P. Midkiff, “Massively parallel 3d image reconstruction,” in 
+
+Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis (SC ’17) , 2017, pp. 1–12. [13] X. Wang, A. Tsaris, D. Mukherjee, M. Wahib, P. Chen, M. Oxley, O. Ovchinnikova, and J. Hinkle, “Image gradient decomposition for parallel and memory-efficient ptychographic reconstruction,” in Proceed-ings of the International Conference on High Performance Computing, Networking, Storage and Analysis (SC ’22) , 2022, pp. 1–13. [14] X. Wang, R. D. MacDougall, P. Chen, C. A. Bouman, and S. K. Warfield, “Physics-based iterative reconstruction for dual-source and flying focal spot computed tomography,” Medical Physics , vol. 48, no. 7, pp. 3595– 3613, jul 2021. [15] W. J. Palenstijn, J. B´ edorf, and K. J. Batenburg, “A distributed sirt imple-mentation for the astra toolbox,” in Proceedings of the 12th International Meeting on Fully Three-Dimensional Image Reconstruction in Radiology and Nuclear Medicine , 2015, pp. 166–169. [16] Y. Lu, F. Ino, and K. Hagihara, “Cache-aware gpu optimization for out-of-core cone beam ct reconstruction of high-resolution volumes,” IEICE TRANSACTIONS on Information and Systems , vol. 99, no. 12, pp. 3060– 3071, 2016. [17] D. Clark and C. Badea, “Micro-ct of rodents: state-of-the-art and future perspectives,” Physica medica , vol. 30, no. 6, pp. 619–634, 2014. [18] G. D. Award, “Compact ct (computed tomography) device,” https: //www.g-mark.org/award/describe/45487?locale=en, 2020, [Online; ac-cessed 20-Jan-2021]. [19] X. Ying, N. J. Barlow, and M. H. Feuston, “Micro–computed to-mography and volumetric imaging in developmental toxicology,” in 
+
+Reproductive and Developmental Toxicology . Elsevier, 2017, pp. 1183– 1205. [20] Nikon, “Computed tomography products,” https://industry.nikon.com/ en-gb/products/x-ray-ct/, 2025. [21] Bruker Corporation, “SkyScan 1276 CMOS Edition: High-Resolution In Vivo Desktop Micro-CT,” 2026, accessed: 2026-04-13. [Online]. Available: https://www.bruker.com/en/products-and-solutions/ preclinical-imaging/micro-ct/skyscan-1276.html [22] D. A. Jaffray and J. H. Siewerdsen, “Cone-beam computed tomography with a flat-panel imager: initial performance characterization,” Medical Physics , vol. 27, no. 6, pp. 1311–1323, 2000. [23] A. C. Kak and M. Slaney, Principles of Computerized Tomographic Imaging , ser. IEEE Press Series on Biomedical Engineering. New York: IEEE Press, 1988. [24] G. L. Zeng, “Revisit of the ramp filter,” in 2014 IEEE Nuclear Science Symposium and Medical Imaging Conference (NSS/MIC) . IEEE, 2014, pp. 1–6. [25] E. O. Brigham, The Fast Fourier Transform and Its Applications , ser. Prentice-Hall Signal Processing Series. Englewood Cliffs, NJ: Prentice Hall, 1988, vol. 448. [26] S. Rit, M. V. Oliva, S. Brousmiche, R. Labarbe, D. Sarrut, and G. C. Sharp, “The reconstruction toolkit (rtk), an open-source cone-beam ct reconstruction toolkit based on the insight toolkit (itk),” in Journal of Physics: Conference Series , vol. 489, no. 1. IOP Publishing, 2014, p. 012079. [27] J. C. Russ, “Image processing,” in Computer-assisted microscopy .Springer, 1990, pp. 33–69. [28] J. Cui, G. Pratx, B. Meng, and C. S. Levin, “Distributed mlem: An iterative tomographic image reconstruction algorithm for distributed memory architectures,” IEEE Transactions on Medical Imaging , vol. 32, no. 5, pp. 957–967, 2013. [29] M. Hidayeto˘ glu, T. Bic ¸er, S. G. de Gonzalo, B. Ren, D. G¨ ursoy, R. Kettimuthu, I. T. Foster, and W.-M. W. Hwu, “Memxct: design, optimization, scaling, and reproducibility of x-ray tomography imaging,” 
+
+IEEE Transactions on Parallel and Distributed Systems , vol. 33, no. 9, pp. 2014–2031, 2021. [30] M. Hidayeto˘ glu, T. Bic ¸er, S. G. De Gonzalo, B. Ren, D. G¨ ursoy, R. Ket-timuthu, I. T. Foster, and W.-m. W. Hwu, “Memxct: Memory-centric x-ray ct reconstruction with massive parallelization,” in Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis , 2019, pp. 1–56. [31] X. Wang, V. Sridhar, Z. Ronaghi, R. Thomas, J. Deslippe, D. Parkinson, G. T. Buzzard, S. P. Midkiff, C. A. Bouman, and S. K. Warfield, “Consensus equilibrium framework for super-resolution and extreme-scale ct reconstruction,” in Proceedings of the international conference for high performance computing, networking, storage and analysis .ACM, 2019, pp. 1–23. [32] A. Biguri, R. Lindroos, R. Bryll, H. Towsyfyan, H. Deyhle, I. E. khalil Harrane, R. Boardman, M. Mavrogordato, M. Dosanjh, S. Hancock, and T. Blumensath, “Arbitrarily large tomography with iterative algorithms on multiple gpus using the tigre toolbox,” Journal of Parallel and Distributed Computing , vol. 146, pp. 52 – 63, 2020. [Online]. Available: http://www.sciencedirect.com/science/article/pii/S0743731520303336 [33] L. A. Shepp and Y. Vardi, “Maximum likelihood reconstruction for emission tomography,” IEEE Transactions on Medical Imaging , vol. 1, no. 2, pp. 113–122, 1982. [34] J. Gregor and T. Benson, “Computational analysis and improvement of sirt,” IEEE transactions on medical imaging , vol. 27, no. 7, pp. 918–924, 2008. [35] G. Quintana-Ort´ ı, M. Chillar´ on, V. Vidal, and G. Verd´ u, “High-performance reconstruction of ct medical images by using out-of-core methods in gpu,” Computer Methods and Programs in Biomedicine , vol. 218, p. 106725, 2022. [Online]. Available: https: //www.sciencedirect.com/science/article/pii/S0169260722001110 [36] D. Patel, P. Patel, T. Patel, M. Viradiya, J. Patel, and D. Garg, Real-Time Object Detection and Recognition on Jetson Nano , 03 2025, pp. 349–360. [37] T. Peng, D. Zhang, D. L. N. Hettiarachchi, and J. Loomis, “An evaluation of embedded gpu systems for visual slam algorithms,” 
+
+Electronic Imaging , vol. 32, no. 6, pp. 325–1–325–1, 2020. [Online]. Available: https://library.imaging.org/ei/articles/32/6/art00014? utm source=chatgpt.com [38] T. P. Swaminathan, C. Silver, T. Akilan, and J. Kumar, “Benchmarking deep learning models on nvidia jetson nano for real-time systems: An empirical investigation,” Procedia Computer Science , vol. 260, pp. 906–913, 2025. [Online]. Available: https://www.sciencedirect.com/ science/article/pii/S1877050925010178 [39] Y. Matsubara, D. Callegaro, S. Singh, M. Levorato, and F. Restuccia, “Bottlefit: Learning compressed representations in deep neural networks for effective and efficient split computing,” in 2022 IEEE 23rd Inter-national Symposium on a World of Wireless, Mobile and Multimedia Networks (WoWMoM) , 2022, pp. 337–346. [40] R. J. Bouwmeester, F. Paredes-Vall´ es, and G. C. H. E. de Croon, “Nanoflownet: Real-time dense optical flow on a nano quadcopter,” in 2023 IEEE International Conference on Robotics and Automation (ICRA) , 2023, pp. 1996–2003. [41] A. Bakhtiarnia, N. Miloˇ sevi´ c, Q. Zhang, D. Bajovi´ c, and A. Iosifidis, “Dynamic split computing for efficient deep edge intelligence,” in 
+
+ICASSP 2023 - 2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) , 2023, pp. 1–5. [42] J. Lin, J. Tang, H. Tang, S. Yang, W.-M. Chen, W.-C. Wang, G. Xiao, X. Dang, C. Gan, and S. Han, “Awq: Activation-aware weight quantization for on-device llm compression and acceleration,” in Proceedings of Machine Learning and Systems , P. Gibbons, 13 
+
+G. Pekhimenko, and C. De Sa, Eds., vol. 6, 2024, pp. 87–100. [Online]. Available: https://proceedings.mlsys.org/paper files/paper/ 2024/file/42a452cbafa9dd64e9ba4aa95cc1ef21-Paper-Conference.pdf [43] S. Williams, A. Waterman, and D. Patterson, “Roofline: an insightful visual performance model for multicore architectures,” Communications of the ACM , vol. 52, no. 4, pp. 65–76, 2009. [44] J. L. Hennessy and D. A. Patterson, Computer Architecture: A Quanti-tative Approach , 7th ed. Morgan Kaufmann, 2024. [45] F. De Carlo, D. G¨ ursoy, D. J. Ching, K. J. Batenburg, W. Ludwig, L. Mancini, F. Marone, R. Mokso, D. M. Pelt, J. Sijbers et al. , “To-mobank: a tomographic data repository for computational x-ray science,” 
+
+Measurement Science and Technology , vol. 29, no. 3, p. 034004, 2018. [46] W. C. Scarfe and A. G. Farman, “What is cone-beam ct and how does it work?” Dental Clinics of North America , vol. 52, no. 4, pp. 707–730, 2008. [47] I. I. Hirschman and D. V. Widder, The convolution transform . Courier Corporation, 2012. [48] NVIDIA Corporation, “cufft documentation,” https://developer.nvidia. com/cufft, 2025, cUDA Toolkit Documentation, Accessed: 2025-12-06. [49] NVIDIA Corporation, CUDA Parallel Thread Execution: Contents ,2024, overview of PTX documentation structure and sections; contains navigation to warp-level matrix instructions. [Online]. Available: https://docs.nvidia.com/cuda/parallel-thread-execution/contents.html [50] NVIDIA Corporation, PTX ISA: Warp Level Matrix Multiply-Accumulate Instructions , 2024, describes MMA and WMMA instructions, including mma and mma.sp::ordered_metadata 
+
+for mixed-precision and sparse operations. [Online]. Available: https://docs.nvidia.com/cuda/parallel-thread-execution/index.html [51] L. A. Shepp and B. F. Logan, “The fourier reconstruction of a head section,” IEEE Transactions on Nuclear Science , vol. 21, no. 3, pp. 21– 43, 1974. [52] J. J. Schreiber, P. A. Anderson, H. G. Rosas, A. L. Buchholz, and A. G. Au, “Hounsfield units for assessing bone mineral density and strength: a tool for osteoporosis management,” JBJS , vol. 93, no. 11, pp. 1057– 1063, 2011. [53] K. Iyer and J. Kiel, “Gpu debugging and profiling with nvidia parallel nsight,” Game Development Tools , pp. 303–324, 2016. [54] N. Corporation, “NVIDIA Jetson Developer Kits,” https://developer. nvidia.com/buy-jetson, 2025, accessed: 2025-12-06. [55] N. Corporation, “NVIDIA DGX A100 User Guide,” https://docs.nvidia. com/dgx/dgxa100-user-guide/introduction-to-dgxa100.html, 2024, accessed:2024-07-04. [56] S. E. Salcudean, H. Moradi, D. G. Black, and N. Navab, “Robot-assisted medical imaging: A review,” Proceedings of the IEEE , vol. 110, no. 7, pp. 951–967, 2022. 
+
+Xuetao Chen Xuetao Chen is currently an M.Phil. student in the Department of Computer Science at Hong Kong Baptist University, Hong Kong. She received her B.Sc. degree in Software Engineering from Nankai University, Tianjin, China, in 2024. Her research interests include GPU programming, edge systems and heterogeneous runtime/scheduling. 
+
+Cong Ma Cong Ma is a Ph.D. student at the Gradu-ate School of Information Science and Technology, Hokkaido University, Japan, and a Junior Research Associate at the RIKEN Center for Computational Science (RIKEN R-CCS), Japan. Prior to that, he received his M.E. degree in Computer Technology from the University of Chinese Academy of Sci-ences, China, in 2025, and his B.E. degree in Internet of Things Engineering from Southwest Petroleum University, China, in 2022. His research interests include high-performance computing, parallel com-puting, image processing. 
+
+Xiangyu Meng is a Ph.D. candidate at the College of Computer Science and Technology, China Uni-versity of Petroleum, Qingdao, China. His research interests include bioinformatics, parallel computing, and computational materials science. 
+
+Du Wu Du Wu is a Ph.D. student at the Institute of Science Tokyo (formerly Tokyo Institute of Technol-ogy), Japan, and a Junior Research Associate at the RIKEN Center for Computational Science (R-CCS), Japan. He received his B.E. degree in Computer Sci-ence and Technology from Jilin University, China, in 2020, followed by an M.E. degree in Electronic Science and Technology from the Southern Univer-sity of Science and Technology, China, in 2023. His research interests include high-performance comput-ing, performance portability across CPU and GPU architectures, and the optimization of dense and sparse matrix kernels for large-scale AI workloads. His work has appeared at top-tier venues such as SC, ICS, IPDPS, TPDS, and NeurIPS. 
+
+Zhengyang Bai received his B.E. in Software Engi-neering from East China Normal University in 2015, and Master and Doctor degree of Informatics from Kyoto University in 2019 and 2023. He is currently a postdoctoral researcher at the High Performance Ar-tificial Intelligence System Research Team, RIKEN Center for Computational Science, Japan. His re-search interests include high-performance comput-ing, GPGPU and parallel programming languages. He is a member of IPSJ and ACM. 
+
+Tao Luo Tao Luo (Senior Member, IEEE) re-ceived the B.S. degree from the Harbin Institute of Technology, Harbin, China, in 2010, the M.S. degree from the University of Electronic Science and Technology of China, Chengdu, China, in 2013, and the Ph.D. degree from the School of Computer Science and Engineering, Nanyang Technological University, Singapore, in 2018. He is currently a Senior Research Scientist with the Institute of High Performance Computing, Agency for Science, Tech-nology and Research (A*STAR), Singapore. He was an Associate Editor for the IEEE Transactions on Neural Networks and Learn-ing Systems and is currently an Associate Editor for the IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems. His current research interests include high-performance computing, machine learning, computer architecture, hardware–software co-design, quantum computing, efficient AI, and their applications. 
+
+Zhaorui Zhang Dr. Zhaorui Zhang is a research assistant professor at the Hong Kong Polytechnic University. She received her PhD degree from the University of Hong Kong and her bachelor’s de-gree from Xi’an Jiaotong University. She worked in high-performance computing and AI infrastructure areas, specializing in system performance optimiza-tion across CPUs, GPUs, and FPGAs. Her recent research focuses on optimizing system performance for large-scale AI model training, fine-tuning, check-pointing, and inference, with particular emphasis on model compression and communication reduction. Dr. Zhang has published her work at numerous top-tier conferences and journals in the HPC field, including SC, IPDPS, ICCD, TPDS, IJCAI, and AAAI. 14 
+
+Emmanuel Jeannot Emmanuel Jeannot is a Senior Research Scientist (Directeur de Recherche) at Inria, France. He received his PhD in Computer Science from the ´ Ecole Normale Sup´ erieure of Lyon in 1999 and his Habilitation (HDR) from Universit´ e Henri Poincar´ e, Nancy, in 2007. His research spans over 25 years of contributions to high-performance comput-ing, with a focus on parallel scheduling, topology-aware process placement, online compression, het-erogeneous algorithms, and performance modeling for memory- and communication-bound workloads From 2015 to 2024, Jeannot founded and led the TADaaM Inria research team (20 members). Between 2024 and 2026, he joined DataDirect Networks Japan. During that period he was embedded within the HPAIS team at RIKEN R-CCS, where he developed GPU performance models for AI inference systems and designed a deadline-aware scheduler for large-scale model serving — broadening his expertise toward the intersection of HPC and AI infrastructure. 
+
+Edgar Josafat Martinez-Noriega Edgar Josafat Martinez-Noriega obtained his Doctorate in Com-puter Science from the University of Electro-Communications, Tokyo in 2020. Following this, he has been employed as a Senior Researcher at the Na-tional Institute of Advanced Industrial Science and Technology (AIST), working on the application of synthetic datasets for large-scale deep learning. His research focuses on parallel computing, computer graphics, and deep learning. 
+
+Xun Wang Xun Wang received the Ph.D. from Tsukuba University. She is currently working as a Professor at the College of Computer Science and Technology of China University of Petroleum, Qing-dao, China. Her research interests include bioin-formatics, parallel computing, and computational materials science. 
+
+Peng Chen Peng Chen is a senior scientist at the RIKEN Center for Computational Science (RIKEN-CCS), Japan. Prior to that, he was a researcher at the National Institute of Advanced Industrial Science and Technology (AIST), Japan. He received his B.E. degree in Navigation from Dalian Maritime Univer-sity, China, in 2005, followed by an M.E. degree in Traffic Information Engineering and Control from Shanghai Maritime University, China, in 2007. He earned his Ph.D. from the Tokyo Institute of Tech-nology, Japan, in 2020. His research interests include high-performance computing (HPC), parallel computing, image processing, evolutionary computation, and machine learning. 
+
+Amelie Chi Zhou Amelie Chi Zhou received her PhD degree from Nanyang Technological University, Singapore, in 2016. She is currently an Assistant Professor with the Department of Computer Sci-ence, Hong Kong Baptist University (HKBU). Her research interests lie in high-performance comput-ing, machine learning infrastructure, and memory-efficient computing architectures. She serves as an Associate Editor for IEEE TPDS, JPDC and FGCS. She is the recipient of the IEEE CS TCHPC Early Career Researchers Award. 
+
+Mohamed Wahib Mohamed Wahib is a team prin-cipal (PI) of the “High Performance Artificial Intelli-gence Systems Research Team” at RIKEN Center for Computational Science (R-CCS), Kobe, Japan. Prior to that he worked as a senior scientist at AIST/Toky-oTech Open Innovation Laboratory, Tokyo, Japan. His research interests revolve around the central topic of high-performance programming systems, in the context of HPC and AI. He is actively work-ing on several projects including AI-based science, as well as high-level frameworks for programming traditional scientific applications.
