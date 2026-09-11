@@ -1,0 +1,54 @@
+{
+  "label": "2026-09-11",
+  "date": "2026-09-11",
+  "generated_at": "2026-09-11T21:46:10",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202609/11/2609.11223v1-tri-dehazegs-scene--medium-decoupled-gaussian-splatting-with-transmittance-aware-optimization",
+      "section": "quick",
+      "title_en": "Tri-DehazeGS: Scene--Medium Decoupled Gaussian Splatting with Transmittance-Aware Optimization",
+      "authors": "Kui Jiang, Yang Gu, Jiacheng Liu, Shiyu Liu, Youyu Chen, Hui Liu",
+      "date": "2026-09-10",
+      "pdf": "https://arxiv.org/pdf/2609.11223v1",
+      "score": "7.0",
+      "evidence": "从雾霾图像进行散射感知的高斯泼溅干净三维重建",
+      "tldr": "雾霾多视角图像会衰减场景辐射并引入大气散射，现有散射感知高斯泼溅常把干净辐射与介质变量耦合，且低透射区域监督弱导致远处或浓雾区重建不足。Tri-DehazeGS 用高斯图元表示干净场景，以独立视角共享三平面场建模参与介质，并通过物理散射模型合成雾图；MD-TGC 在冻结介质后补偿被雾抑制的梯度。在真实与合成雾基准上，该方法提升了干净新视角重建质量。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Recovering clean 3D scenes from hazy multi-view images is challenging because haze attenuates scene radiance and introduces atmospheric scattering. Recent scattering-aware Gaussian Splatting methods introduce physical haze models into reconstruction, but they often apply degradation in image space or bind medium-related variables to Gaussian primitives, which can entangle clean scene radiance with atmospheric effects. Moreover, low-transmittance regions provide weakened supervision for Gaussian optimization, causing distant or dense-haze areas to be under-reconstructed. We argue that clean reconstruction under haze requires both scene--medium disentanglement and transmittance-aware optimization rebalancing. To this end, we propose Tri-DehazeGS, a scene--medium decoupled Gaussian Splatting framework. It represents the clean scene with Gaussian primitives, models the participating medium using an independent view-shared tri-plane field, and composes hazy observations through a physical scattering model. We further introduce Medium-Decoupled Transmittance Gradient Compensation (MD-TGC), which compensates haze-suppressed gradients after medium freezing without altering forward rendering. Experiments on real and synthetic haze benchmarks show that Tri-DehazeGS improves clean novel-view reconstruction. Code is available at https://github.com/aptx46/Tri-DehazeGS.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/11/2609.04602v1-navarena-automated-construction-of-goal-oriented-navigation-benchmarks-from-3d-gaussian-splatting-reconstructions",
+      "section": "quick",
+      "title_en": "NavArena: Automated Construction of Goal-Oriented Navigation Benchmarks from 3D Gaussian Splatting Reconstructions",
+      "authors": "Junhui Wang, Wei Yang, Xinyao Li, Ningjing Fan, Yuehao Yin, Xuecheng Chen, Chao Gao",
+      "date": "2026-09-04",
+      "pdf": "https://arxiv.org/pdf/2609.04602v1",
+      "score": "6.0",
+      "evidence": "基于固定3DGS重建构建导航基准",
+      "tldr": "固定3DGS重建虽能渲染逼真新视图，却缺少可通行约束、有效目标与闭环评测协议，难以直接用于目标导向视觉导航。NavArena将冻结3DGS、占据代价地图与开放词汇语义目标结合，自动生成导航任务并统一闭环评估。它在2000多个场景中生成2220万条专家轨迹，并通过空间/语义评测与策略rollout验证表示和协议诊断价值。该工作提供可扩展、可复现的大规模3DGS导航基准及公开工具。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Fixed 3D Gaussian Splatting (3DGS) reconstructions provide realistic novel views but lack the traversability constraints, valid goals, and closed-loop protocols required for navigation evaluation. We introduce NavArena, an automated framework that transforms fixed 3DGS reconstructions into benchmarks for goal-oriented visual navigation. NavArena integrates a frozen 3DGS model for egocentric RGB-D rendering, an occupancy costmap derived from Gaussian density and height statistics for reachability and collision queries, and semantic goal candidates lifted from multi-view open-vocabulary masks. These components support the automatic generation and unified closed-loop evaluation of goal-oriented navigation episodes. Across more than 2{,}000 scenes, NavArena generates 22.2 million expert trajectories. Spatial and semantic evaluations assess the derived navigation representations, while policy rollouts demonstrate the diagnostic value of the unified evaluation protocol. NavArena enables scalable and reproducible navigation evaluation on large-scale 3DGS reconstructions, and all benchmark-generation tools, evaluation protocols, and derived assets will be released publicly.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202609/11/2609.06723v1-adele---adaptive-delaunay-grids-for-high-fidelity-mesh-native-reconstruction",
+      "section": "quick",
+      "title_en": "ADELE - Adaptive Delaunay Grids for High-Fidelity Mesh-Native Reconstruction",
+      "authors": "Johannes Weidenfeller, Shaofei Wang, Philipp Fürnstahl, Siyu Tang",
+      "date": "2026-09-06",
+      "pdf": "https://arxiv.org/pdf/2609.06723v1",
+      "score": "6.0",
+      "evidence": "以NeRF/3DGS为中间表示的高保真网格重建",
+      "tldr": "现有重建方法多依赖NeRF/3DGS中间表示再做网格提取，易产生过平滑表面或三角面数过多的低质网格；已有网格原生优化又受固定分辨率与不稳定优化限制。ADELE提出自适应网格优化框架，将可优化Delaunay四面体网格与多分辨率哈希网格结合，通过点剪枝/插入细化几何，并以体渲染粗启动、网格渲染恢复细节。还引入可微光栅化深度偏移渲染，减少几何伪影。方法在多个物体中心基准上显著优于现有网格优化，并与SOTA NeRF/3DGS方法竞争。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Meshes remain the most practical representation for geometry reasoning and integration into graphics pipelines, yet existing reconstruction methods struggle to produce high-quality meshes. Most state-of-the-art approaches initially learn an intermediate representation (NeRF/3DGS) and treat mesh extraction as a post-processing step, which often leads to oversmoothed surfaces or poor quality meshes with excessive triangle counts.Existing mesh-native optimization methods alleviate some of these issues but suffer from fixed-resolution discretizations and unstable optimization behavior. In this paper, we introduce an adaptive mesh-based optimization framework and a practical mesh rendering technique to address these challenges. Our representation combines an optimizable Delaunay-triangulated tetrahedral grid with a multi-resolution hash grid. The former is refined through point pruning and insertion, while the latter provides latent features for SDF/appearance value predictions. We use volumetric rendering to bootstrap a coarse geometry while leveraging mesh-based rendering for recovering fine-grained details. Additionally, we propose a differentiable, rasterization-based depth-offset rendering formulation, reducing geometric artifacts and improving reconstruction quality. Our method significantly outperforms existing mesh optimization approaches across a variety of object-centric benchmarks while being competitive with state-of-the-art NeRF/3DGS methods.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

@@ -6,38 +6,30 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-09-10
-- 运行时间：2026-09-10 21:20:10 UTC
+- 最新运行日期：2026-09-11
+- 运行时间：2026-09-11 21:46:08 UTC
 - 运行状态：成功
-- 本次总论文数：5
-- 精读区：1
-- 速读区：4
+- 本次总论文数：3
+- 精读区：0
+- 速读区：3
 
 ### 今日简报（AI）
-- 今日共生成 5 篇推荐（精读 1 篇，速读 4 篇）
-- 精读：《Shape-guided Gaussian Splatting for Sparse-View X-ray 3D Reconstruction》（9.0/10）
-- 速读：《CVT-GS: Learning to Simplify 3D Gaussian Splatting with Centroidal Voronoi Tessellation》（7.0/10）, 《LinearMask-GS: Stable-Mask Importance Pruning for Compact 3D Gaussian Splatting》（7.0/10）, 《RoGe: Novel View Synthesis via End-to-End Implicit Reconstruction and Generation》（6.0/10）
-- 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
-- 详情：[/202609/10/README](/202609/10/README)
+今日速读3篇3D重建与高斯泼溅相关论文，最高分为Tri-DehazeGS的7.0分。值得关注的是去雾场景中场景-介质解耦与透射率优化，以及从3DGS重建自动生成导航基准的思路。普通读者可先看Tri-DehazeGS，理解高斯泼溅如何兼顾去雾与几何一致性。
+- 详情：[/202609/11/README](/202609/11/README)
 
 ### 精读区论文标签
-1. [Shape-guided Gaussian Splatting for Sparse-View X-ray 3D Reconstruction](/202609/10/2609.10376v1-shape-guided-gaussian-splatting-for-sparse-view-x-ray-3d-reconstruction)  
-   标签：评分：9.0/10、query:dgs-recon
-   evidence：三维高斯泼溅用于稀疏视角X射线三维重建
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [CVT-GS: Learning to Simplify 3D Gaussian Splatting with Centroidal Voronoi Tessellation](/202609/10/2609.08730v1-cvt-gs-learning-to-simplify-3d-gaussian-splatting-with-centroidal-voronoi-tessellation)  
+1. [Tri-DehazeGS: Scene--Medium Decoupled Gaussian Splatting with Transmittance-Aware Optimization](/202609/11/2609.11223v1-tri-dehazegs-scene--medium-decoupled-gaussian-splatting-with-transmittance-aware-optimization)  
    标签：评分：7.0/10、query:dgs-recon
-   evidence：事后简化压缩已训练3DGS，降低存储与计算开销
-2. [LinearMask-GS: Stable-Mask Importance Pruning for Compact 3D Gaussian Splatting](/202609/10/2609.10095v1-linearmask-gs-stable-mask-importance-pruning-for-compact-3d-gaussian-splatting)  
-   标签：评分：7.0/10、query:dgs-recon
-   evidence：剪枝实现紧凑的3D高斯泼溅
-3. [RoGe: Novel View Synthesis via End-to-End Implicit Reconstruction and Generation](/202609/10/2609.02847v2-roge-novel-view-synthesis-via-end-to-end-implicit-reconstruction-and-generation)  
+   evidence：从雾霾图像进行散射感知的高斯泼溅干净三维重建
+2. [NavArena: Automated Construction of Goal-Oriented Navigation Benchmarks from 3D Gaussian Splatting Reconstructions](/202609/11/2609.04602v1-navarena-automated-construction-of-goal-oriented-navigation-benchmarks-from-3d-gaussian-splatting-reconstructions)  
    标签：评分：6.0/10、query:dgs-recon
-   evidence：使用3D高斯的统一重建与生成
-4. [RouteBridge: Reliability-Routed Bidirectional Distillation Between Neural Radiance Fields and 3D Gaussian Splatting](/202609/10/2609.09606v1-routebridge-reliability-routed-bidirectional-distillation-between-neural-radiance-fields-and-3d-gaussian-splatting)  
+   evidence：基于固定3DGS重建构建导航基准
+3. [ADELE - Adaptive Delaunay Grids for High-Fidelity Mesh-Native Reconstruction](/202609/11/2609.06723v1-adele---adaptive-delaunay-grids-for-high-fidelity-mesh-native-reconstruction)  
    标签：评分：6.0/10、query:dgs-recon
-   evidence：NeRF与3D高斯泼溅的双向蒸馏重建
+   evidence：以NeRF/3DGS为中间表示的高保真网格重建
 
 
 <div class="dpr-home-promo-card">
