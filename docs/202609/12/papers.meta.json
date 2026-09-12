@@ -1,0 +1,24 @@
+{
+  "label": "2026-09-12",
+  "date": "2026-09-12",
+  "generated_at": "2026-09-12T21:53:46",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202609/12/2609.11079v1-ride-relocalization-informed-depth-estimation-with-3d-gaussian-splatting",
+      "section": "quick",
+      "title_en": "RIDE: Relocalization-Informed Depth Estimation with 3D Gaussian Splatting",
+      "authors": "Jiarong Lian, Zhe Xiao, Zhaoyang Zhang, Wei Li, Ruizhi Chen",
+      "date": "2026-09-10",
+      "pdf": "https://arxiv.org/pdf/2609.11079v1",
+      "score": "6.0",
+      "evidence": "利用度量尺度三维高斯泼溅模型进行稠密深度估计",
+      "tldr": "重定位常只用于相机位姿恢复，其像素与3D地图点的对应关系在稠密深度估计中未被充分利用。RIDE面向机器人RGB流，利用带尺度3DGS模型，将PnP-RANSAC内点提供的稀疏度量深度与预训练视频深度先验融合。通过全局/局部深度校正和时间记忆应对不均匀、间歇观测，并在短时观测缺失下维持估计。在公开RGB-D视频训练，无需微调即可提升机器人序列深度精度与时序一致性。",
+      "tags": "query:dgs-recon",
+      "abstract_en": "Render--match--PnP relocalization establishes correspondences between query image pixels and 3D map points for camera pose recovery, but their potential to support dense depth estimation is often overlooked. To exploit this geometric information, we present RIDE, which estimates dense metric depth from a robot's RGB stream. Given a metrically scaled 3D Gaussian Splatting (3DGS) model, RIDE combines sparse metric depth observations derived from PnP-RANSAC inlier correspondences with the geometric prior of a pretrained video-depth model. To handle uneven and intermittent observations, it integrates global and local depth correction with temporal memory, supporting depth estimation through short observation gaps after metric scale initialization. Trained on public RGB-D videos, RIDE is evaluated on robot sequences without fine tuning. Experiments show improved depth accuracy and temporal consistency over scale-only calibration, demonstrating how localization geometry can support both pose recovery and dense robot perception.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

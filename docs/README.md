@@ -6,30 +6,24 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-09-11
-- 运行时间：2026-09-11 21:46:08 UTC
+- 最新运行日期：2026-09-12
+- 运行时间：2026-09-12 21:53:44 UTC
 - 运行状态：成功
-- 本次总论文数：3
+- 本次总论文数：1
 - 精读区：0
-- 速读区：3
+- 速读区：1
 
 ### 今日简报（AI）
-今日速读3篇3D重建与高斯泼溅相关论文，最高分为Tri-DehazeGS的7.0分。值得关注的是去雾场景中场景-介质解耦与透射率优化，以及从3DGS重建自动生成导航基准的思路。普通读者可先看Tri-DehazeGS，理解高斯泼溅如何兼顾去雾与几何一致性。
-- 详情：[/202609/11/README](/202609/11/README)
+今日仅速读1篇，聚焦3D高斯溅射与重定位辅助深度估计的RIDE方法（6.0/10）。值得关注的是它把重定位信息引入深度估计的思路，但分数不高，适合作为相关方向的参考。普通读者可先看摘要和实验结论，判断是否与自身场景相关再决定精读。
+- 详情：[/202609/12/README](/202609/12/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Tri-DehazeGS: Scene--Medium Decoupled Gaussian Splatting with Transmittance-Aware Optimization](/202609/11/2609.11223v1-tri-dehazegs-scene--medium-decoupled-gaussian-splatting-with-transmittance-aware-optimization)  
-   标签：评分：7.0/10、query:dgs-recon
-   evidence：从雾霾图像进行散射感知的高斯泼溅干净三维重建
-2. [NavArena: Automated Construction of Goal-Oriented Navigation Benchmarks from 3D Gaussian Splatting Reconstructions](/202609/11/2609.04602v1-navarena-automated-construction-of-goal-oriented-navigation-benchmarks-from-3d-gaussian-splatting-reconstructions)  
+1. [RIDE: Relocalization-Informed Depth Estimation with 3D Gaussian Splatting](/202609/12/2609.11079v1-ride-relocalization-informed-depth-estimation-with-3d-gaussian-splatting)  
    标签：评分：6.0/10、query:dgs-recon
-   evidence：基于固定3DGS重建构建导航基准
-3. [ADELE - Adaptive Delaunay Grids for High-Fidelity Mesh-Native Reconstruction](/202609/11/2609.06723v1-adele---adaptive-delaunay-grids-for-high-fidelity-mesh-native-reconstruction)  
-   标签：评分：6.0/10、query:dgs-recon
-   evidence：以NeRF/3DGS为中间表示的高保真网格重建
+   evidence：利用度量尺度三维高斯泼溅模型进行稠密深度估计
 
 
 <div class="dpr-home-promo-card">

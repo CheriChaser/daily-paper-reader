@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-09-12 <!--dpr-date:20260912-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/12/2609.11079v1-ride-relocalization-informed-depth-estimation-with-3d-gaussian-splatting" data-sidebar-item="{&quot;title&quot;: &quot;RIDE: Relocalization-Informed Depth Estimation with 3D Gaussian Splatting&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.11079v1-ride-relocalization-informed-depth-estimation-with-3d-gaussian-splatting&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;利用度量尺度三维高斯泼溅模型进行稠密深度估计&quot;}">RIDE: Relocalization-Informed Depth Estimation with 3D Gaussian Splatting</a>
   * 2026-09-11 <!--dpr-date:20260911-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202609/11/2609.11223v1-tri-dehazegs-scene--medium-decoupled-gaussian-splatting-with-transmittance-aware-optimization" data-sidebar-item="{&quot;title&quot;: &quot;Tri-DehazeGS: Scene--Medium Decoupled Gaussian Splatting with Transmittance-Aware Optimization&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2609.11223v1-tri-dehazegs-scene--medium-decoupled-gaussian-splatting-with-transmittance-aware-optimization&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;dgs-recon&quot;}], &quot;evidence&quot;: &quot;从雾霾图像进行散射感知的高斯泼溅干净三维重建&quot;}">Tri-DehazeGS: Scene--Medium Decoupled Gaussian Splatting with Transmittance-Aware Optimization</a>
