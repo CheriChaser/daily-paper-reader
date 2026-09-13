@@ -1,0 +1,98 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-09-13T21:20:44.678871+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2609.10307v1",
+      "source": "arxiv",
+      "title": "View-Structured Conformal Prediction for 3D Gaussian Splatting",
+      "abstract": "3D Gaussian Splatting (3DGS) renders novel views in real time, but an uncertainty heatmap does not certify that a rendered view meets a certain prediction coverage. We treat novel-view synthesis as structured regression and ask that, with probability at least $1-α$, RGB prediction boxes cover at least a $1-β$ fraction of pixels in a new view. We propose View-Structured Conformal Prediction (VSCP). It splits the pre-calibration scale into a spatial shape from the renderer and a transferable view-difficulty factor, which predicts the smallest view-wise multiplier that shape needs. A held-out quantile over views (View-CP) then gives finite-sample validity even when transferring to new scenes. The same factorization makes the analysis exact: a conformity score is the ratio of oracle to predicted view difficulty, and excess width separates into a test-side and a calibration-side term. Across 13 real scenes, pixel-pooled calibration reaches 89.9\\% marginal pixel coverage but only 61.4\\% view-event coverage at a 90\\% target, while View-CP reaches 91.7--92.0\\%. At matched coverage VSCP cuts width by 22.1\\% against a constant scale, and matches a ten-model ensemble's 21.0\\% reduction using only one model per scene and four rather than ten rasterization passes per query. VSCP also improves on the closest single-model baseline, the 3DGS-U field, by 4.7 points ($p=0.0225$). The view predictor transfers from bounded source families to all nine unbounded Mip-NeRF~360 scenes. There the full scale beats the constant scale with 20.7\\% width saving on all nine scenes. It also keeps an 18.3\\% saving under a different densification backbone and runs at 216--280 FPS on an RTX~4090.",
+      "authors": [
+        "Junzheng Chu",
+        "Bin Pan",
+        "Zhenwei Shi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CV"
+      ],
+      "published": "2026-09-09T15:16:52+00:00",
+      "link": "https://arxiv.org/pdf/2609.10307v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Uncertainty quantification for 3D Gaussian Splatting novel-view rendering",
+      "llm_evidence_cn": "面向3D高斯泼溅新视角渲染的不确定性量化",
+      "llm_evidence": "面向3D高斯泼溅新视角渲染的不确定性量化",
+      "canonical_evidence": "面向3D高斯泼溅新视角渲染的不确定性量化",
+      "llm_tldr_en": "VSCP treats novel-view synthesis as structured regression, factorizing the calibration scale into a renderer spatial shape and a transferable view-difficulty factor to give finite-sample coverage guarantees for 3DGS rendered views.",
+      "llm_tldr_cn": "3D高斯泼溅能实时渲染新视角，但其不确定性热图并不能证明渲染视角满足给定的预测覆盖率，缺乏统计保证。作者将新视角合成建模为结构化回归，提出视角结构共形预测VSCP，把预校准尺度分解为来自渲染器的空间形状与可迁移的视角难度因子，并用留出视角分位数给出有限样本有效性。该方法在迁移到新场景时仍能提供有覆盖率保证的RGB预测区间。其贡献是为3DGS渲染引入了可靠的不确定性量化框架。",
+      "llm_tldr": "3D高斯泼溅能实时渲染新视角，但其不确定性热图并不能证明渲染视角满足给定的预测覆盖率，缺乏统计保证。作者将新视角合成建模为结构化回归，提出视角结构共形预测VSCP，把预校准尺度分解为来自渲染器的空间形状与可迁移的视角难度因子，并用留出视角分位数给出有限样本有效性。该方法在迁移到新场景时仍能提供有覆盖率保证的RGB预测区间。其贡献是为3DGS渲染引入了可靠的不确定性量化框架。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2609.11616v1",
+      "source": "arxiv",
+      "title": "LangStreet: Persistent Language Fields for Anchor-Decoded Street Gaussians",
+      "abstract": "Language Gaussian fields implicitly assume that the primitive carrying semantics remains identifiable across views. This assumption breaks in scalable anchor-decoded representations, where persistent anchors generate view-conditioned child Gaussians whose geometry and appearance vary with the camera. We introduce Ours, a persistent language field for such structured Gaussian scenes. Our key idea is semantic ownership: transient children route observations, while persistent decoder slots and their parent anchors own the language field. We use alpha-compositing responsibilities to accumulate additive directional evidence at slots; these statistics marginalize exactly to anchors. We then complete weakly supported slots with anchor-aligned evidence while preserving the anchor direction, and represent slot detail through low-rank residuals in anchor-relative semantic coordinates. Our primary model, Ours (base), stores anchor features together with compact slot residuals. Ours (light) retains only anchor features, whereas Ours (max) stores the full-dimensional completed slot features explicitly. Without scene-specific semantic optimization, Ours (base) nearly matches Ours (max) across KITTI, Virtual KITTI, and Waymo. On KITTI, it achieves 34.19 2D mIoU with a 2.72 GiB effective feature footprint, compared with 34.20 mIoU and 12.90 GiB for Ours (max). The same accuracy-storage trend holds on Virtual KITTI and Waymo. These results show that language fields on view-conditioned splats require persistent semantic ownership, conserved evidence, and a hierarchy that balances stability, detail, and representation cost. Our code, checkpoints, and benchmark suite will be publicly available.",
+      "authors": [
+        "Runyi Yang",
+        "Deheng Zhang",
+        "Xiaoye Wang",
+        "Mengjiao Ma",
+        "Lei Sun",
+        "Kanzhi Wu",
+        "Ajad Chhatkuli",
+        "Luc Van Gool",
+        "Danda Pani Paudel"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-09-10T14:31:02+00:00",
+      "link": "https://arxiv.org/pdf/2609.11616v1",
+      "tags": [
+        "keyword:dgs-recon",
+        "query:dgs-recon"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "persistent language field for anchor-decoded Gaussian scenes",
+      "llm_evidence_cn": "面向锚点解码高斯场景的持久语言场",
+      "llm_evidence": "面向锚点解码高斯场景的持久语言场",
+      "canonical_evidence": "面向锚点解码高斯场景的持久语言场",
+      "llm_tldr_en": "LangStreet introduces a persistent language field for anchor-decoded street Gaussians, using semantic ownership to keep semantics stable across view-conditioned child splats.",
+      "llm_tldr_cn": "语言高斯场通常假设承载语义的基元跨视角可识别，但在锚点解码的可扩展表示中，视图相关子高斯的几何与外观随相机变化，该假设失效。论文提出面向街道高斯的持久语言场，以语义归属让瞬态子高斯仅路由观测，由持久解码槽与父锚点拥有语言场，并用alpha合成责任累积方向证据、补全弱支持槽。该方法提升了结构化高斯场景的语义一致性。该工作拓展了高斯泼溅场景的语言场建模。",
+      "llm_tldr": "语言高斯场通常假设承载语义的基元跨视角可识别，但在锚点解码的可扩展表示中，视图相关子高斯的几何与外观随相机变化，该假设失效。论文提出面向街道高斯的持久语言场，以语义归属让瞬态子高斯仅路由观测，由持久解码槽与父锚点拥有语言场，并用alpha合成责任累积方向证据、补全弱支持槽。该方法提升了结构化高斯场景的语义一致性。该工作拓展了高斯泼溅场景的语言场建模。",
+      "llm_tags": [
+        "query:dgs-recon"
+      ],
+      "matched_query_tag": "query:dgs-recon",
+      "matched_query_text": "3D Gaussian splatting reconstruction",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
